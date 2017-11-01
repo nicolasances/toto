@@ -9,7 +9,7 @@ md-sidenav md-content {background: white !important;}
 .toto-right-area {}
 
 @media only screen and (min-width: 600px) {
-	.toto-central-area {margin: 0 24px;}
+	.toto-central-area {margin: 0 24px; width: 55%; min-width: 55%; max-width: 55%;}
 	.toto-right-area {width: 45%;}
 }
 
