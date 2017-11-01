@@ -1,0 +1,67 @@
+<md-dialog aria-label="Add a card" ng-cloak id="subscriptions" class="theme-cyan">
+	<md-toolbar md-scroll-shrink="true"  >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Go Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+			</md-button>
+			<span class="title" flex>New subscription</span>
+		</div>
+	</md-toolbar>
+	<md-dialog-content class="md-dialog-content toto-form">
+		<div class="step-tracker" layout="row">
+			<div flex></div>
+			<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
+			<div flex></div>
+		</div>
+		<div ng-if="currentStep == 1">
+			<div class="toto-input-container" layout="column">
+				<label>Name</label>
+				<input type="text" ng-model="subscription.name"/>
+			</div>
+			<div class="toto-input-container" layout="column">
+				<label>Provider</label>
+				<input type="text" ng-model="subscription.provider"/>
+			</div>
+			<button ng-click="nextStep()">Next</button>
+		</div>
+		<div ng-if="currentStep == 2">
+			<div class="toto-input-container" layout="column">
+				<label>Cost</label>
+				<input type="text" ng-model="subscription.cost"/>
+			</div>
+			<div class="payment-type-container" layout="row">
+				<div flex></div>
+				<div class="payment-type{{subscription.payment == 'creditCard' ? ' selected' : ''}}" ng-click="setPaymentType('creditCard')" md-whiteframe="2">Credit Card</div>
+				<div class="payment-type{{subscription.payment == 'directDebit' ? ' selected' : ''}}" ng-click="setPaymentType('directDebit')" md-whiteframe="2">Direct Debit</div>
+				<div class="payment-type{{subscription.payment == 'manual' ? ' selected' : ''}}" ng-click="setPaymentType('manual')" md-whiteframe="2">Manual</div>
+				<div flex></div>
+			</div>
+			<div class="periods-container" layout="row">
+				<div flex></div>
+				<div class="period{{subscription.billing == 'monthly' ? ' selected' : ''}}" ng-click="setBilling('monthly')">Monthly</div>
+				<div class="period{{subscription.billing == 'bimonthly' ? ' selected' : ''}}" ng-click="setBilling('bimonthly')">Bimonthly</div>
+				<div class="period{{subscription.billing == 'annual' ? ' selected' : ''}}" ng-click="setBilling('annual')">Annual</div>
+				<div flex></div>
+			</div>
+			<button ng-click="nextStep()">Next</button>
+		</div>
+		<div ng-if="currentStep == 3">
+			<div class="types-container" layout="row">
+				<div flex></div>
+				<div class="type-container{{subscription.type == 'phone' ? ' selected' : ''}}" ng-click="setType('phone')"><md-icon md-svg-src="images/subscriptions/avatars/phone.svg"></md-icon></div>
+				<div class="type-container{{subscription.type == 'internet' ? ' selected' : ''}}" ng-click="setType('internet')"><md-icon md-svg-src="images/subscriptions/avatars/internet.svg"></md-icon></div>
+				<div class="type-container{{subscription.type == 'gym' ? ' selected' : ''}}" ng-click="setType('gym')"><md-icon md-svg-src="images/subscriptions/avatars/gym.svg"></md-icon></div>
+				<div flex></div>
+			</div>
+			<div class="types-container" layout="row">
+				<div flex></div>
+				<div class="type-container{{subscription.type == 'loan' ? ' selected' : ''}}" ng-click="setType('loan')"><md-icon md-svg-src="images/subscriptions/avatars/loan.svg"></md-icon></div>
+				<div class="type-container{{subscription.type == 'music' ? ' selected' : ''}}" ng-click="setType('music')"><md-icon md-svg-src="images/subscriptions/avatars/music.svg"></md-icon></div>
+				<div flex></div>
+			</div>
+			<button ng-click="answer(subscription)">Done</button>
+		</div>
+
+	</md-dialog-content>
+	
+</md-dialog>

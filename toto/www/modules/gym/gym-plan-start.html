@@ -1,0 +1,100 @@
+
+<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Workout</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 12px 12px 60px 12px;" id="plan">
+			
+			<div id="info" layout="row">
+				<div layout="column" flex>
+					<div class="name">{{plan.name}}</div>
+					<div class="duration">{{plan.weeks}} weeks</div>
+				</div>
+				<div layout="column">
+					<div flex></div>
+					<div layout="row">
+						<div layout="column">
+							<div class="day">{{plan.start | date : 'd'}}</div>
+							<div class="month">{{plan.start | date : 'MMM'}}</div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div class="day">{{plan.end | date : 'd'}}</div>
+							<div class="month">{{plan.end | date : 'MMM'}}</div>
+						</div>
+					</div>
+					<div flex></div>
+				</div>
+			</div>
+			
+			<div id="score-container" layout="row">
+				<div flex></div>
+				<div class="score" layout="column">
+					<div flex>
+						<md-icon md-svg-src="images/svg/man-muscle.svg"></md-icon>
+					</div>
+					<div class="number">{{plan.score | number : 1}}</div>
+					<div class="pt" flex>pt</div>
+				</div>
+				<div flex></div>
+			</div>
+			
+			<div id="days-container" layout="column">
+				<div class="day-container" ng-repeat="workout in workouts">
+					<div layout="row">
+						<div class="avatar" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/gym.svg"></md-icon>
+							<div flex></div>
+						</div>
+						<div layout="column" flex>
+							<div flex></div>
+							<div class="name">{{workout.name}}</div>
+							<div class="amount">{{workout.exerciseCount}} exercises</div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div layout="column" class="action" ng-click="startSession(workout)">
+								<div flex></div>
+								<md-icon md-svg-src="images/svg/play.svg"></md-icon>
+								<div flex></div>
+							</div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add" ng-click="addWorkout($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

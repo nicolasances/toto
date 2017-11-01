@@ -1,0 +1,59 @@
+
+<div class="theme-cyan" id="diet" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('diet-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Nutrition</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="diet-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in dietMenus" ng-click="goAndSelect(menu, dietMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content style="padding: 12px;" id="dashboard" layout="column" flex>
+		
+			<div class="water-info-container" layout="row">
+				<div flex></div>
+				<div layout="column">
+					<div flex></div>
+					<toto-info-circle size="sm" fill="#0097A7" volume="waterConsumptionGoalInL" action="changeWaterConsumptionGoal" action-svg="images/svg/pen.svg"></toto-info-circle>
+					<div flex></div>
+				</div>
+				<div flex layout="column">
+					<div flex></div>
+					<div class="connection-line"></div>
+					<div flex></div>
+				</div>
+				<div layout="column">
+					<div flex></div>
+					<toto-progress class="large" color="#00BCD4" id="water-consumption" stroke-width="6" label="waterConsumptionInL" progress="waterConsumptionProgress" unit="&#8467;" svg="images/svg/water-drop.svg"></toto-progress>
+					<div flex></div>
+				</div>
+				<div flex></div>
+				<div layout="column">
+					<div flex></div>
+					<md-button class="md-fab" aria-label="Add a water consumption" ng-click="addWaterConsumption()">
+						<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+					</md-button>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+		
+		</md-content>
+
+	</section>
+</div>
+

@@ -1,0 +1,22 @@
+<md-dialog aria-label="Add a project" ng-cloak id="project" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Create a new project block</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+		
+			<div class="toto-input-container">
+				<label>Block name</label>
+				<input type="text" ng-model="block.title"/>
+			</div>
+			<button ng-click="answer(block)">Done</button>
+			
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>

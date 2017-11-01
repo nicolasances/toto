@@ -1,0 +1,20 @@
+
+<md-sidenav class="md-sidenav-left" md-component-id="home-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex layout="column">
+	<md-toolbar class="md-theme-cyan">
+		<h1 class="md-toolbar-tools">Toto Apps</h1>
+	</md-toolbar>
+	<md-content>
+		<md-grid-list md-cols="4" md-row-height="8:7" md-gutter="4px">
+			<md-grid-tile ng-repeat="app in totoAppList" ng-if="app.authorized" ng-click="go(app)">
+				<div class="app-container">
+					<div class="icon" layout="column">
+						<div flex></div>
+						<md-icon md-svg-src="{{app.svg}}"></md-icon>
+					</div>
+					<div class="title" flex>{{app.title}}</div>
+				</div>
+			</md-grid-tile>
+		</md-grid-list>
+	
+	</md-content>
+</md-sidenav>

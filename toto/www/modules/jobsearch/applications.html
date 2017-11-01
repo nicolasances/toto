@@ -1,0 +1,73 @@
+
+<div class="theme-cyan" id="jobsearch" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Home">
+				<md-icon md-svg-src="images/svg/home.svg" ng-click="go('/')"></md-icon>
+			</md-button>
+			<span class="title" flex>Job Applications</span>
+			<md-button ng-show="!graphHidden && !screenIsDesktop" class="md-icon-button" aria-label="Show graph" ng-click="toggleGraph()">
+				<md-icon md-svg-src="images/svg/arrow-up.svg"></md-icon>
+			</md-button>
+			<md-button ng-show="graphHidden && !screenIsDesktop" class="md-icon-button" aria-label="Show graph" ng-click="toggleGraph()">
+				<md-icon md-svg-src="images/svg/arrow-down.svg" ></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<section>
+	
+		<md-content layout="column" layout-gt-md="row">
+		
+			<div ng-class="['graph-container', 'md-whiteframe-3dp']" ng-show="!graphHidden" layout="column" >
+				<div class="bars-container" layout="column">
+					<div class="headline" ng-if="screenIsDesktop">Statistics by country</div>
+					<div class="bar-container" id="country-{{country.countryCode}}" layout="row" ng-repeat="country in countries">
+						<div class="icon"><md-icon md-svg-src="images/jobsearch/countries/{{country.countryCode}}.svg"></md-icon></div>
+						<div class="bar" flex layout="row">
+							<div class="failed" ng-if="country.failed > 0" style="width: {{country.failedWidth}}%;" layout="column"><div flex></div>{{country.failed}}<div flex></div></div>
+							<div class="ongoing" ng-if="country.ongoing > 0" style="width: {{country.ongoingWidth}}%;" layout="column"><div flex></div>{{country.ongoing}}<div flex></div></div>
+							<div class="waiting" ng-if="country.waiting > 0" style="width: {{country.waitingWidth}}%;" layout="column"><div flex></div>{{country.waiting}}<div flex></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="applications-list-container" layout="column" flex>
+				<div ng-class="['application-container', application.status]" layout="row" ng-repeat="application in applications" ng-click="go('/jobsearch/' + application.id)" flex>
+					<div layout="column">
+						<div flex></div>
+						<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/jobsearch/status/{{application.status}}.svg"></md-icon><div flex></div></div>
+						<div flex></div>
+					</div>
+					<div layout="column" class="date-container">
+						<div flex></div>
+						<div class="day">{{application.date | date : 'dd'}}</div>
+						<div class="month">{{application.date | date : 'MMM'}}</div>
+						<div flex></div>
+					</div>
+					<div layout="column" flex class="company-container">
+						<div flex></div>
+						<div class="company">{{application.company}}</div>
+						<div class="city">{{application.city}}, {{application.countryCode}}</div>
+						<div flex></div>
+					</div>
+					<div layout="column">
+						<div flex></div>
+						<div class="job">{{application.jobPosition}}</div>
+						<div flex></div>
+					</div>
+				</div>
+			</div>
+		
+		</md-content>
+		
+	</section>
+
+	<md-button class="md-fab floating" aria-label="Add an application" ng-click="addApplication()">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

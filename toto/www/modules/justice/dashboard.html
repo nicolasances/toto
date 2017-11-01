@@ -1,0 +1,51 @@
+
+<div class="theme-cyan" id="justice" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('justice-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Justice</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="justice-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/justice')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item ng-click="go('/justice/fines')"><md-icon md-svg-src="images/svg/police-hat.svg"></md-icon><p>Fines</p></md-list-item>
+					<md-list-item ng-click="go('/justice/equitalia')"><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><p>Equitalia</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+
+		<md-content flex id="dashboard">
+			<md-grid-list md-cols-xs="2" md-cols-gt-sm="3" md-row-height-gt-sm="3:1" md-row-height="2:1" md-gutter="4px"> 
+				<md-grid-tile md-ink-ripple="true" ng-click="" layout="row" >
+					<md-icon md-svg-src="images/svg/police-hat.svg"></md-icon>
+					<div class="text" layout="column" >
+						<div class="headline">&euro; {{finesTotalAmount | number : 2}}</div>
+						<div class="subhead">Fines</div>
+						<p>Total amount still to be paied on fines.</p>
+					</div>
+				</md-grid-tile>
+				<md-grid-tile md-ink-ripple="true" ng-click="" layout="row" >
+					<md-icon md-svg-src="images/svg/bank-building.svg"></md-icon>
+					<div class="text" layout="column" >
+						<div class="headline">&euro; {{equitaliaTotalAmount | number : 2}}</div>
+						<div class="subhead">Equitalia</div>
+						<p>Total amount still to be paied to Equitalia.</p>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+	
+</div>
+

@@ -1,0 +1,45 @@
+<md-dialog aria-label="Add a hotel" ng-cloak id="trip-add-idea" class="theme-indigo">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add an idea</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="trip-step-edit-dlg-content">
+			<div class="idea-form" layout="column">
+				<md-input-container>
+					<label>Title</label>
+					<input ng-model="idea.title"/>
+				</md-input-container>
+				<md-input-container>
+					<label>Idea</label>
+					<input ng-model="idea.text"/>
+				</md-input-container>
+				<div class="types">
+					<label>What kind of idea is it?</label>
+					<div layout="row">
+						<md-button class="md-icon-button {{idea.type == 'idea' ? 'selected' : ''}}" aria-label="Just an idea">
+							<md-icon md-svg-src="images/svg/idea.svg" ng-click="setIdeaType('idea')"></md-icon>
+						</md-button>
+						<md-button class="md-icon-button {{idea.type == 'airplane' ? 'selected' : ''}}" aria-label="Transportation idea">
+							<md-icon md-svg-src="images/svg/airplane.svg" ng-click="setIdeaType('airplane')"></md-icon>
+						</md-button>
+						<md-button class="md-icon-button {{idea.type == 'bed' ? 'selected' : ''}}" aria-label="Hotel idea">
+							<md-icon md-svg-src="images/svg/bed.svg" ng-click="setIdeaType('bed')"></md-icon>
+						</md-button>
+						<md-button class="md-icon-button {{idea.type == 'beach' ? 'selected' : ''}}" aria-label="Beach idea">
+							<md-icon md-svg-src="images/svg/beach.svg" ng-click="setIdeaType('beach')"></md-icon>
+						</md-button>
+					</div>
+				</div>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(idea)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

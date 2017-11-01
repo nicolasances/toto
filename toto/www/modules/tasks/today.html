@@ -1,0 +1,92 @@
+
+<div class="theme-cyan" id="tasks" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('tasks-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Tasks</span>
+			<div class="inbox" ng-click="selectSchedule('inbox')">
+				<div class="icon" layout="column">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/incoming.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="counter" layout="column">
+					<div flex></div>
+					<div class="count">{{inbox.counter}}</div>
+					<div flex></div>
+				</div>
+			</div>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left tasks-sidenav" md-component-id="tasks-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex>
+			<div class="categories-container" layout="row">
+				<div flex></div>
+				<div class="category {{selectedSchedule == cat.name ? 'selected' : ''}}" ng-repeat="cat in categories" ng-click="selectSchedule(cat.name)">
+					<div class="icon">
+						<div flex></div>
+						<md-icon md-svg-src="images/tasks/{{cat.svg}}"></md-icon>
+						<div flex></div>
+					</div>
+					<div class="counter" layout="column" ng-if="cat.counter > 0">
+						<div flex></div>
+						<div class="count">{{cat.counter}}</div>
+						<div flex></div>
+					</div>
+				</div>
+				<div flex></div>
+			</div>
+			
+			<div class="tasks-container" layout="column">
+				<div class="title">{{selectedScheduleDescription}}</div>
+				<div class="task-container" ng-repeat="task in tasks" layout="column">
+					<div class="task {{task.completed ? 'completed' : ''}}"  layout="row">
+						<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+							<div flex></div>
+							<div class="checkbox" layout="column">
+								<div flex></div>
+								<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+								<div flex></div>
+							</div>
+							<div flex></div>
+						</div>
+						<div class="text-container" layout="column" flex ng-click="go('/tasks/' + selectedSchedule + '/' + task.id)">
+							<div flex></div>
+							<div class="name">{{task.title}}</div>
+							<div flex></div>
+						</div>
+						<div class="icon-container" layout="column" ng-click="postponeTask($event, task)">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/forward.svg"></md-icon>
+							<div flex></div>
+						</div>
+					</div>
+					<div layout="row" ng-if="task.contextInfo != null">
+						<div class="context-info {{task.completed ? 'completed' : ''}}">{{task.contextInfo}}</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</section>
+
+	<md-button class="md-fab floating" aria-label="Add a task" ng-click="addTask($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

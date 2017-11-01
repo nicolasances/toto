@@ -1,0 +1,38 @@
+
+/************************************************************************
+ * DASHBOARD
+ ***********************************************************************/
+#mogoals-dashboard {}
+
+#mogoals-dashboard #maingoal {border: 5px solid #00BCD4; border-radius: 50%; box-sizing: border-box; height: 148px; width: 148px; text-align: center; margin: 15px 12px; padding: 6px; color: rgba(0,0,0,0.8); position: relative; overflow: hidden;}
+#mogoals-dashboard #maingoal-level {content: ''; position: absolute; background: #80DEEA; width: 100%; bottom: 0; margin-left: -6px;}
+#mogoals-dashboard #maingoal md-icon {width: 20px; height: 20px; z-index: 2;}
+#mogoals-dashboard #maingoal .text {font-size: 0.7em; z-index: 2;}
+#mogoals-dashboard #maingoal .amount {font-size: 1.4em; z-index: 2;}
+#mogoals-dashboard #maingoal .amount span {font-size: 0.7em; z-index: 2;}
+#mogoals-dashboard #maingoal .month {text-transform: uppercase; font-size: 0.9em; z-index: 2;}
+
+#mogoals-dashboard .categories {margin-top: 24px;}
+#mogoals-dashboard .categories .catgoal {margin: 12px; padding: 6px; min-height: 100px; min-width: 80px; box-sizing: border-box; border-width: 3px; border-style: solid; border-radius: 5px;}
+#mogoals-dashboard .categories .catgoal md-icon {width: 18px; height: 18px; margin-top: 6px;}
+#mogoals-dashboard .categories .catgoal .text {font-size: 0.6em; text-align: center;}
+#mogoals-dashboard .categories .catgoal .amount {font-size: 0.9em; margin-top: 1px; text-align: center;}
+#mogoals-dashboard .categories .catgoal .amount span {font-size: 0.7em;}
+#mogoals-dashboard .categories .catgoal .level{}
+
+#mogoals .category-picker {margin: 0 -24px; }
+#mogoals .category-picker-title {height: 40px; box-sizing: border-box; text-align: center; font-size: 16px; padding-top: 16px; color: #6F6E6E; background-color: #FFCDD2; margin: 0 -24px;}
+#mogoals .category-picker md-grid-list {margin: 12px 32px 0 32px;}
+#mogoals .category-container {opacity: 0.4;}
+#mogoals .category-container.selected {opacity: 1;}
+#mogoals .category-container .title {font-size: 12px; text-align: center; margin-top: 4px; color: #656464; padding-top: 0;}
+#mogoals .category-container .image {text-align: center;}
+#mogoals .category-container .image img {width: 56px;}
+
+
+/************************************************************************
+ * RESPONSIVE
+ ***********************************************************************/
+@media only screen and (min-width: 960px) {
+}
+

@@ -1,0 +1,45 @@
+
+<!-- ------------------------------------------------------ -->
+<!-- ------------------ TOTO INFO CIRCLE ------------------ -->
+<!-- ------------------------------------------------------ -->
+<!-- NORMAL -->
+<div class="toto-info-circle" layout="column">
+	<div class="icon" flex>
+		<md-icon md-svg-src="images/svg/budget.svg"></md-icon>
+	</div>
+	<div class="composite-value" layout="row">
+		<div flex></div>
+		<div class="small">&euro;</div>
+		<div class="normal">1300.12</div>
+		<div flex></div>
+	</div>
+	<div flex></div>
+</div>
+
+<!-- WITH FLOATING BUTTON -->
+<div class="toto-info-circle" layout="column">
+	<div class="icon" flex>
+		<md-icon md-svg-src="images/svg/budget.svg"></md-icon>
+	</div>
+	<div class="composite-value" layout="row">
+		<div flex></div>
+		<div class="small">&euro;</div>
+		<div class="normal">{{expensesTotal | number : 1}}</div>
+		<div flex></div>
+	</div>
+	<div flex></div>
+	<div class="toto-floating-button-sm" layout="column" md-whiteframe="3">
+		<div flex></div>
+		<md-icon md-svg-src="images/svg/flash.svg"></md-icon>
+		<div flex></div>
+	</div>
+</div>
+
+<!-- ------------------------------------------------------ -->
+<!-- ------------------ TOTO CONNECTION LINE -------------- -->
+<!-- ------------------------------------------------------ -->
+<div flex layout="column">
+	<div flex></div>
+	<div class="toto-connection-line"></div>
+	<div flex></div>
+</div>

@@ -1,0 +1,43 @@
+
+<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Exercices Archive</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 4px;">
+			<md-grid-list md-cols="3" md-cols-gt-sm="6" md-gutter="4px" md-row-height="1:1">
+				<md-grid-tile ng-repeat="muscle in muscleGroups" ng-click="go('/gym/archive/' + muscle.id)">
+					<div class="group-container" layout="column">
+						<div class="image">
+							<img src="images/gym/muscles/{{muscle.image}}"/>
+						</div>
+						<div class="overlay" layout="row">
+							<div>{{muscle.name}}</div>
+							<div flex></div>
+							<div>{{muscle.count}}</div>
+						</div>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+</div>
+

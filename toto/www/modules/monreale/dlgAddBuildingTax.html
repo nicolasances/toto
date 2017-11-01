@@ -1,0 +1,32 @@
+<md-dialog aria-label="Add an income" ng-cloak id="monreale-add-income" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a building tax</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content" style="padding-bottom: 0;">
+			<div layout="column">
+				<md-input-container >
+					<label>Amount</label>
+					<input ng-model="tax.amount"/>
+				</md-input-container>
+				<md-input-container >
+					<label>Year</label>
+					<input ng-model="tax.year"/>
+				</md-input-container>
+				<md-input-container >
+					<label>Period</label>
+					<input ng-model="tax.period"/>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(tax)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

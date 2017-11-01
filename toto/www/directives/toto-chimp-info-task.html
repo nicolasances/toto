@@ -1,0 +1,26 @@
+
+<div id="tasks">
+	<div class="tasks-container" layout="column">
+		<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
+			<div class="checkbox-container" layout="column">
+				<div flex></div>
+				<div class="checkbox" layout="column">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+			<div class="text-container" layout="column" flex ng-click="go('/tasks/detail/' + task.id)">
+				<div flex></div>
+				<div class="name">{{task.title}}</div>
+				<div flex></div>
+			</div>
+	<!-- 		<div class="icon-container" layout="column" ng-click="postponeTask($event, task)"> -->
+	<!-- 			<div flex></div> -->
+	<!-- 			<md-icon md-svg-src="images/svg/forward.svg"></md-icon> -->
+	<!-- 			<div flex></div> -->
+	<!-- 		</div> -->
+		</div>
+	</div>
+</div>

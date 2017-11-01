@@ -1,0 +1,57 @@
+
+<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/gym/archive')"></md-icon>
+			</md-button>
+			<span class="title" flex>Exercices Archive</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 0" id="archive">
+			<div class="exercices-container" layout="column">
+				<div class="exercice-container" ng-repeat="exercice in exercices" layout="row">
+					<div class="avatar" layout="column">
+						<div flex></div>
+						<md-icon md-svg-src="images/gym/tools/{{exercice.tool}}.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div layout="row" class="text-container" flex style="{{$last ? 'border: none;' : ''}}">
+						<div layout="column" flex>
+							<div class="name" flex>{{exercice.name}}</div>
+							<div layout="row" ng-click="changeBenchmark(exercice, $event)">
+								<div class="value">{{exercice.sets}} x {{exercice.reps}}</div>
+								<div class="value">{{exercice.weight}} kg</div>
+							</div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="factor">{{exercice.difficultyFactor | number : 2}}</div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating " aria-label="Add exercice" ng-click="addExercice($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+</div>
+

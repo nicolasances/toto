@@ -1,0 +1,41 @@
+
+#cards .card {padding: 12px;background-color: #B2EBF2;border-radius: 3px;height: 100%;width: 100%;}
+#cards .card .logo {margin-right: 24px;}
+#cards .card .logo md-icon {width: 50px;height: 50px;fill: #0097A7;}
+#cards .card .name {font-size: 1.4em;}
+#cards .card .pan {font-size: 0.8em; margin-top: 4px;}
+#cards .card .expiry-text {font-size: 0.5em; margin-top: 3px; text-transform: uppercase;}
+#cards .card .expiry {font-size: 1.2em;}
+
+
+/******************************************************************************************************************
+ * CARD DETAIL
+ ******************************************************************************************************************/
+
+#cards #card-detail .card-icon {margin-left: 12px;}
+#cards #card-detail .card-icon md-icon {width: 56px; height: 56px;}
+#cards #card-detail .name {font-size: 1.2em; text-align: left; margin-left: 12px;}
+#cards #card-detail .pan {text-align: left; font-size: 0.7em; margin-top: 3px; margin-left: 12px;}
+#cards #card-detail .billing {text-align: center; margin-right: 12px;}
+#cards #card-detail .billing .day {font-size: 1.8em; font-weight: 400;}
+#cards #card-detail .billing .text {font-size: 0.6em; text-transform: uppercase;}
+
+#cards .navigator {}
+#cards .navigator .icon {}
+#cards .navigator .icon md-icon {}
+
+#cards #expenses-detail {margin-top: 24px;}
+#cards #expenses-detail .card-month {border: 5px solid #00BCD4;border-radius: 50%;height: 96px;width: 96px;box-sizing: border-box;z-index: 2;background-color: white;}
+#cards #expenses-detail .card-month .text {text-align: center; font-size: 1.1em; text-transform: uppercase;}
+#cards #expenses-detail .card-total {border: 5px solid #00BCD4;border-radius: 50%;height: 96px;width: 96px;box-sizing: border-box;z-index: 2;background-color: white;}
+#cards #expenses-detail .card-total .text {text-align: center; font-size: 1.1em; text-transform: uppercase;}
+#cards #expenses-detail .card-total .text span {font-size: 0.6em;}
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+
+@media only screen and (min-width: 960px) {
+	
+}
+

@@ -1,0 +1,69 @@
+<div id="gym">
+	<div id="gym-dialog">
+		<div id="change-benchmark">
+			<div layout="row">
+				<div class="field" layout="column" flex>
+					<div class="name">Weight</div>
+					<div class="control" layout="column">
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up.svg" ng-click="changeWeight(1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up-full.svg" ng-click="changeWeight(1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div class="text">{{settings.weight1}} kg</div>
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down.svg" ng-click="changeWeight(-1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down-full.svg" ng-click="changeWeight(-1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+				<div class="field" layout="column" flex>
+					<div class="name">Weight</div>
+					<div class="control" layout="column">
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up.svg" ng-click="changeWeight2(1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up-full.svg" ng-click="changeWeight2(1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div class="text">{{settings.weight2}} kg</div>
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down.svg" ng-click="changeWeight2(-1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down-full.svg" ng-click="changeWeight2(-1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+				<div class="field" layout="column" flex>
+					<div class="name">Weight</div>
+					<div class="control" layout="column">
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up.svg" ng-click="changeWeight3(1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-up-full.svg" ng-click="changeWeight3(1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div class="text">{{settings.weight3}} kg</div>
+						<div layout="row">
+							<div flex></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down.svg" ng-click="changeWeight3(-1, 0.25)"></md-icon></div>
+							<div class="icon"><md-icon md-svg-src="images/svg/arrow-down-full.svg" ng-click="changeWeight3(-1, 1)" style="width: 16px;"></md-icon></div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="button-container" layout="row">
+				<div flex></div>
+				<div class="button" ng-click="answer(settings)">
+					<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+				</div>
+				<div flex></div>
+			</div>
+		</div>
+	</div>
+</div>

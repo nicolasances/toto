@@ -1,0 +1,66 @@
+<md-dialog aria-label="Add a transport" ng-cloak id="trip-add-transport" class="theme-indigo">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add transportation</span>
+			</div>
+		</md-toolbar>
+		<div id="way" layout="column" style="margin-top: 57px;">
+			<div layout="row">
+				<md-input-container>
+					<label>Departure airport</label>
+					<input ng-model="transport.way.departure.airport"/>
+				</md-input-container>
+				<md-input-container>
+					<label>Landing airport</label>
+					<input ng-model="transport.way.landing.airport"/>
+				</md-input-container>
+			</div>
+			<div layout="row">
+				<md-input-container>
+					<label>Departure time</label>
+					<input ng-model="transport.way.departure.time"/>
+				</md-input-container>
+				<md-input-container>
+					<label>Landing time</label>
+					<input ng-model="transport.way.landing.time"/>
+				</md-input-container>
+			</div>
+		</div>
+		<div id="return" layout="column">
+			<div layout="row">
+				<md-input-container>
+					<label>Departure airport</label>
+					<input ng-model="transport.returnTrip.departure.airport"/>
+				</md-input-container>
+				<md-input-container>
+					<label>Landing airport</label>
+					<input ng-model="transport.returnTrip.landing.airport"/>
+				</md-input-container>
+			</div>
+			<div layout="row">
+				<md-input-container>
+					<label>Departure time</label>
+					<input ng-model="transport.returnTrip.departure.time"/>
+				</md-input-container>
+				<md-input-container>
+					<label>Landing time</label>
+					<input ng-model="transport.returnTrip.landing.time"/>
+				</md-input-container>
+			</div>
+		</div>
+		<div id="other" layout="column">
+			<md-input-container class="icon">
+				<label>Price</label>
+				<input class="euro" ng-model="transport.price"/>
+			</md-input-container>
+		</div>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(transport)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

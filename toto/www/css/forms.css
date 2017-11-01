@@ -1,0 +1,55 @@
+
+.toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.7;}
+
+.toto-form .toto-input-container {margin: 12px;}
+.toto-form .toto-input-container label {font-size: 1em; color: rgba(0, 0, 0, 0.5);}
+.toto-form .toto-input-container span.label {font-size: 1em; color: rgba(0, 0, 0, 0.5);}
+.toto-form .toto-input-container input {font-size: 1.2em; opacity: 0.8; padding: 6px; border-radius: 4px; border: 1px solid #D8D8D8; margin-top: 3px;}
+.toto-form .toto-input-container input.small {max-width: 60px;}
+.toto-form .toto-input-container input.long {width: 98%;}
+.toto-form .toto-input-container md-checkbox {margin: 24px 0;}
+
+/****************************
+ * SELECTORS
+ ***************************/
+.toto-form .toto-selector-container {}
+.toto-form .toto-selector-container md-grid-tile {outline: none;}
+.toto-form .toto-selector-container .title {}
+.toto-form .toto-selector-container .selections {}
+.toto-form .toto-selector-container .selections .selection {padding: 12px; border-radius: 50%; margin: 0 6px; outline: none;}
+.toto-form .toto-selector-container .selections .selection md-icon {width: 32px; height: 32px; outline: none; fill: #efefef;}
+.toto-form .toto-selector-container .selections .selection.selected md-icon {fill: #0097A7;}
+
+/****************************
+ * LISTS
+ ***************************/
+.toto-form .toto-list-container {}
+.toto-form .toto-list-container .list-item {margin: 6px 0;}
+.toto-form .toto-list-container .list-item .checkbox {border: 2px solid #00BCD4; width: 24px; height: 24px; border-radius: 50%;}
+.toto-form .toto-list-container .list-item .title {font-size: 1.1em; margin: 0 0 0 12px; padding: 0;}
+
+/****************************
+ * FLAG ICON
+ ***************************/
+.toto-form .toto-input-container .flag-icon {outline: none;}
+.toto-form .toto-input-container .flag-icon md-icon {fill: #efefef; width: 32px; height: 32px; outline: none;}
+.toto-form .toto-input-container .flag-icon.selected {}
+.toto-form .toto-input-container .flag-icon.selected md-icon {fill: #0097A7;}
+
+/****************************
+ * DATE PICKERS
+ ***************************/
+.toto-form .toto-input-container md-datepicker {}
+.toto-form .toto-input-container md-datepicker button {background-color: transparent;}
+.toto-form .toto-input-container .md-datepicker-input-container {border-bottom: none;}
+.toto-form .toto-input-container .md-datepicker-input-container .md-datepicker-triangle-button {display: none;}
+
+.toto-form .step-tracker {margin: 24px 0; background-image: url('../images/dot-grey.png'); background-repeat: repeat-x; background-size: 12px; background-position: 50%;}
+.toto-form .step-tracker .step {background-color: #C8E6C9; color: #AFAFAF; margin: 0 12px; width: 32px; height: 32px; border-radius: 50%; box-sizing: border-box; text-align: center; padding-top: 7px; font-size: 1em;}
+.toto-form .step-tracker .step.current{background-color: #388E3C; color: white;}
+
+.theme-cyan .toto-form .step-tracker .step {background-color: #B2EBF2;}
+.theme-cyan .toto-form .step-tracker .step.current {background-color: #00BCD4;}
+
+.toto-form button {margin: 24px 0; background-color: #43A047; border: none; padding: 12px; color: white; text-transform: uppercase; font-size: 1.2em; width: 100%; border-radius: 5px; font-weight: 500;}
+

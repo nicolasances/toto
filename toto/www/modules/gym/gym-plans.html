@@ -1,0 +1,59 @@
+
+<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Workout</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex id="plans" style="padding: 12px;">
+			
+			<div class="plans-container">
+				<div class="plan-container" layout="row" ng-repeat="plan in plans">
+					<div class="dates-container" layout="row" ng-click="go('/gym/plans/' + plan.id)">
+						<div class="date-container" layout="column">
+							<div class="day">{{plan.start | date : 'd'}}</div>
+							<div class="month">{{plan.start | date : 'MMM'}}</div>
+						</div>
+						<div class="icon" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
+							<div flex></div>
+						</div>
+						<div class="date-container" layout="column">
+							<div class="day">{{plan.end | date : 'd'}}</div>
+							<div class="month">{{plan.end | date : 'MMM'}}</div>
+						</div>
+					</div>
+					<div layout="column" flex ng-click="go('/gym/plans/' + plan.id)">
+						<div class="name">{{plan.name}}</div>
+						<div class="weeks">{{plan.weeks}} weeks</div>
+					</div>
+				</div>
+			</div>
+			
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a plan" ng-click="addPlan($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

@@ -1,0 +1,52 @@
+
+<div class="theme-cyan" id="justice-fines" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('justice-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Justice - Police Fines</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="justice-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/justice')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/justice/fines')"><md-icon md-svg-src="images/svg/police-hat.svg"></md-icon><p>Fines</p></md-list-item>
+					<md-list-item ng-click="go('/justice/equitalia')"><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><p>Equitalia</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+
+		<md-content id="content" flex>
+			<md-grid-list md-cols-xs="3" md-cols-gt-sm="7" md-row-height-gt-sm="1:1" md-row-height="1:1" md-gutter="4px">
+				<md-grid-tile layout="column" ng-repeat="fine in fines" class="{{fine.linkedPaymentId == null ? 'unpaied' : ''}}" ng-click="showDetails(fine, $event)">
+					<div class="background">
+						<md-icon ng-if="fine.linkedPaymentId == null" md-svg-src="images/svg/police-hat.svg"></md-icon>
+					</div>
+					<div class="text" layout="column" >
+						<div class="headline">&euro; {{fine.amount | number : 2}}</div>
+						<div class="subhead">{{fine.reference}}</div>
+						<div class="info">{{fine.date | date : 'dd.MM.yy'}}</div>
+						<div class="detail">{{fine.description}}</div>
+						<div class="detail gt-sm" ng-if="fine.linkedPaymentId != null">Paied on {{fine.paymentDate | date : 'dd/MM/yyyy'}}</div>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a fine" ng-click="addFine($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+	
+</div>
+

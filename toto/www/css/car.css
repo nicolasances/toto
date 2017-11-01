@@ -1,0 +1,13 @@
+
+#car-bollo #content {padding: 6px;}
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+#monreale md-card md-card-title {padding: 13px 16px;}
+#monreale md-card md-card-title .md-headline {font-size: 20px;}
+
+@media only screen and (min-width: 960px) {
+	
+}
+

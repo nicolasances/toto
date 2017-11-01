@@ -1,0 +1,31 @@
+
+<div id="expenses" ng-if="expense != null">
+	<div id="expenses-container" layout="column" flex>
+		<div class="timeline"></div>
+		<md-list> <md-list-item class="md-2-line">
+		<div layout="row" style="width: 100%;">
+			<div class="avatar" style="border-color: {{expense.category.color}}" layout="column">
+				<div flex></div>
+				<md-icon md-svg-src="images/expenses/avatars-nofill/{{expense.category.filename}}"></md-icon>
+				<div flex></div>
+			</div>
+			<div class="date" layout="column"">
+				<div flex></div>
+				<div class="day">{{expense.date | date : 'd'}}</div>
+				<div class="month">{{expense.date | date : 'MMM'}}</div>
+				<div flex></div>
+			</div>
+			<div class="description" flex layout="column">
+				<div flex></div>
+				<div>{{expense.description}}</div>
+				<div flex></div>
+			</div>
+			<div class="amount" layout="column">
+				<div flex></div>
+				<div>&euro; {{expense.amount | number : 2}}</div>
+				<div flex></div>
+			</div>
+		</div>
+		</md-list-item> </md-list>
+	</div>
+</div>

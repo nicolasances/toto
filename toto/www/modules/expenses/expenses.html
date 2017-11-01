@@ -1,0 +1,107 @@
+
+<div class="theme-cyan" id="expenses" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Payments</span>
+			<div flex></div>
+			<div class="total">&euro; {{total | number : 2}}</div>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/expenses')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/expenses/payments')"><md-icon md-svg-src="images/svg/list.svg"></md-icon><p>Payments</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex>
+			<div class="navigator" layout="row">
+				<div class="calendar" layout="column">
+					<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
+				</div>
+			</div>
+			<div class="month-nav" layout="column">
+				<div flex></div>
+				<div layout="row">
+					<div flex></div>
+					<div class="arrow" layout="column" md-whiteframe="3">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
+						<div flex></div>
+					</div>
+					<div layout="column">
+						<div flex></div>
+						<div class="text">{{selectedPeriod.month}}</div>
+						<div flex></div>
+					</div>
+					<div class="arrow" layout="column" md-whiteframe="3">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
+						<div flex></div>
+					</div>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+
+			<div id="expenses-container" layout="column" flex>
+				<div class="timeline"></div>
+				<md-list>
+					<md-list-item class="md-2-line" ng-repeat="expense in expenses" ng-if="!expense.hide" >
+						<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+							<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)"></div>
+							<div class="date" layout="column" ng-click="expense.showMenu = true">
+								<div flex></div>
+								<div class="day">{{expense.date | date : 'd'}}</div>
+								<div class="month">{{expense.date | date : 'MMM'}}</div>
+								<div flex></div>
+							</div>
+							<div class="description" flex layout="column" ng-click="expense.showMenu = true">
+								<div flex></div>
+								<div>{{expense.description}}</div>
+								<div flex></div>
+							</div>
+							<div class="weekend-icon" layout="column" ng-if="expense.weekendId != null">
+								<div flex></div>
+								<div><md-icon md-svg-src="images/svg/palm-tree.svg"></md-icon></div>
+								<div flex></div>
+							</div>
+							<div class="amount" layout="column" ng-if="!expense.showMenu" ng-click="expense.showMenu = true">
+								<div flex></div>
+								<div>&euro; {{expense.amount | number : 2}}</div>
+								<div flex></div>
+							</div>
+							<div layout="column">
+								<div flex></div>
+								<div class="menu" ng-if="expense.showMenu" layout="row">
+									<div class="icon" style="background-image: url('images/svg/checked-white.svg');" ng-click="consolidateExpense(expense)" ng-if="!expense.consolidated"></div>
+									<div class="icon" style="background-image: url('images/svg/trash-white.svg');" ng-click="deleteExpense(expense)"></div>
+									<div class="icon" style="background-image: url('images/svg/close-white.svg');" ng-click="expense.showMenu = false"></div>
+								</div>
+								<div flex></div>
+							</div>
+						</div>
+		   			</md-list-item>
+				</md-list>
+			</div>
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add an expense" ng-click="addExpense($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+</div>
+

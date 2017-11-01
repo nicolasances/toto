@@ -1,0 +1,193 @@
+	
+<div id="dashboard" layout="column" flex class="theme-cyan" >
+
+	<md-toolbar>
+		<div class="md-toolbar-tools teal">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('home-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Toto</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="home-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item class="selected" ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex>
+			
+			<div class="dashboard-container" layout="column">
+				
+				<div class="app-bar" layout="column">
+					<div flex></div>
+					<div layout="row">
+						<div class="app-logo {{app}}" ng-click="go('/' + app)" ng-repeat="app in apps"></div>
+					</div>
+					<div flex></div>
+				</div>
+				 
+			</div>
+			
+			<div class="notifications-container">
+			</div>
+			
+			<div class="top-apps-container" layout="row">
+				<div class="timeline"></div>
+				<div flex></div>
+				<div ng-class="['top-app', selectedTopApp.id == topApp.id ? 'selected' : '']" ng-repeat="topApp in topApps" layout="column" ng-click="selectTopApp(topApp)">
+					<div flex></div>
+					<md-icon md-svg-src="{{topApp.imageUrl}}"></md-icon>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+			
+			<div class="top-app-content">
+				
+				<div id="top-app-expenses" ng-if="selectedTopApp.id == 'expenses'" layout="column">
+					<div class="amount-container" layout="row" ng-click="go('/expenses')">
+						<div flex></div>
+						<div class="euro" layout="column"><div flex></div>&euro;<div flex></div></div>
+						<div class="amount">{{expensesTotal | number : 2}}</div>
+						<div flex></div>
+					</div>
+					<div class="graph-container" layout="row" ng-click="go('/expenses')">
+						<div class="timeline"></div>
+						<div flex></div>
+						<div class="graph-container" layout="row">
+							<div layout="row">
+								<div class="item" layout="column" flex ng-repeat="total in totals">
+									<div class="bar-container" flex layout="column">
+										<div flex></div>
+										<div class="bar {{total.current ? 'current' : ''}}" style="height: {{total.height}}px">&nbsp;</div>
+									</div>
+									<div class="label">{{total.month | date : 'MMM'}}</div>
+								</div>
+							</div>
+							<div flex></div>
+						</div>
+						<div flex></div>
+					</div>
+					<div class="relevant-expenses-container">
+						<md-grid-list md-cols="2" md-cols-gt-sm="5" md-row-height="3:1" md-gutter="4px">
+							<md-grid-tile ng-repeat="expense in relevantExpenses">
+								<div class="relevant-expense-container" layout="row">
+									<div class="icon" layout="column">
+										<div flex></div>
+										<md-icon md-svg-src="{{expense.imageUrl}}"></md-icon>
+										<div flex></div>
+									</div>
+									<div layout="column">
+										<div flex></div>
+										<div class="amount-container" layout="row">
+											<div class="euro" layout="column"><div flex></div>&euro;<div flex></div></div>
+											<div class="amount" layout="column"><div flex></div>{{expense.amount | number : 2}}<div flex></div></div>
+										</div>
+										<div class="extra-info" ng-if="expense.info != null">
+											{{expense.info}}
+										</div>
+										<div flex></div>
+									</div>
+								</div>
+							</md-grid-tile>
+						</md-grid-list>
+					</div>
+				</div>
+				
+				<div id="top-app-body" ng-show="selectedTopApp.id == 'body'">
+					<div id="gym">
+						<div id="dashboard">
+							<div id="current-body-weight-container" layout="column">
+								<div class="label">Current Weight</div>
+								<div class="value" layout="row">
+									<div flex></div>
+									<div class="weight">{{currentBodyWeight.weight | number : 1}}</div>
+									<div layout="column"><div flex></div><div class="kilo">Kg</div><div flex></div></div>	
+									<div flex></div>
+								</div>
+							</div>
+							<div id="muscle-graph-container" layout="row">
+								<div class="muscle-selector-container" layout="column">
+									<div flex></div>
+									<div class="muscle" layout="column" ng-click="toggleMuscleSelection()">
+										<div flex></div>
+										<md-icon md-svg-src="images/gym/muscle-avatars/{{selectedMuscle.id}}.svg"></md-icon>
+										<div flex></div>
+									</div>
+								</div>
+								<div class="graph-container" flex  ng-click="go('/gym')">
+									<div class="timeline"></div>
+									<div class="plots-container" layout="row">
+										<div ng-class="['plot']" id="plot-{{plot.year}}-{{plot.weekOfYear}}" ng-repeat="plot in muscleScoreWeeks">
+										</div>
+									</div>
+									<canvas id="efficacy-plot-canvas">
+									</canvas>
+								</div>
+								<div class="stats-container">
+									<div ng-class="['stat']" layout="row" ng-repeat="delta in scoreDeltas" flex>
+										<div layout="row" flex>
+											<div><md-icon md-svg-src="images/svg/long-arrow-{{delta >= 0 ? 'up' : 'down'}}.svg"></md-icon></div>
+											<div flex style="text-align: right;">{{delta | number : 1}} <span>pts</span></div>
+										</div>
+									</div>
+								</div>
+								<div class="graph-title-container">{{selectedMuscle.name}}</div>
+							</div>
+							<div id="weight-graph-container" layout="row">
+								<div class="graph-container" flex>
+									<div class="plots-container" layout="row">
+										<div ng-class="['plot']" id="weight-{{weight.year}}-{{weight.weekOfYear}}" ng-repeat="weight in weights"></div>
+									</div>
+								</div>
+								<div class="muscle-selections-container" layout="row" ng-show="showMuscles">
+									<div flex></div>
+									<div class="muscle" ng-repeat="muscle in muscles" layout="column" ng-if="selectedMuscle.id != muscle.id" ng-click="muscleSelection(muscle)">
+										<div flex></div>
+										<md-icon md-svg-src="images/gym/muscle-avatars/{{muscle.id}}.svg"></md-icon>
+										<div flex></div>
+									</div>
+									<div flex></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="top-app-weekends" ng-if="selectedTopApp.id == 'weekends'" ng-click="go('/weekend')">
+				
+					<div class="next-destination">
+						<div class="next">{{nextWeekend.destination}}<div class="in">{{nextWeekendDistance}}</div></div>
+					</div>
+				
+					<div class="calendar" flex>
+						<md-grid-list md-cols="4" md-cols-gt-sm="12" md-row-height="1:1" md-gutter="6px">
+							<md-grid-tile class="we {{we.type != null ? 'booked' : ''}}" ng-repeat="we in weekends">
+								<div layout="column" style="width: 100%;">
+									<div class="date" layout="row">
+										<div class="day" flex>{{we.weekend | date : 'd'}}</div>
+									</div>
+								</div>
+								<div class="icon" flex layout="column">
+									<md-icon ng-if="we.type != null" md-svg-src="images/weekend/location/{{we.type}}.svg"></md-icon>
+									<div flex></div>
+								</div>
+							</md-grid-tile>
+						</md-grid-list>
+					</div>
+				
+				</div>
+				
+			</div>
+		</md-content>
+		
+	</section>
+</div>

@@ -1,0 +1,62 @@
+<md-dialog aria-label="Add a hotel" ng-cloak id="hotel-add" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Booking info</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			<div class="step-tracker" layout="row">
+				<div flex></div>
+				<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
+				<div flex></div>
+			</div>
+			<div ng-if="currentStep == 1">
+				<div class="toto-input-container">
+					<label>Name</label>
+					<input class="long" type="text" ng-model="hotel.name"/>
+				</div>
+				<div class="toto-input-container">
+					<label>Address</label>
+					<input class="long" type="text" ng-model="hotel.address"/>
+				</div>
+				<button ng-click="nextStep()">Next</button>
+			</div>
+			<div ng-if="currentStep == 2">
+				<div layout="column" layout-gt-sm="row">
+					<div class="toto-input-container">
+						<label>From</label>
+						<md-datepicker ng-model="hotel.from" ></md-datepicker>
+					</div>
+					<div class="toto-input-container">
+						<label>To</label>
+						<md-datepicker ng-model="hotel.to" ></md-datepicker>
+					</div>
+				</div>
+				<button ng-click="nextStep()">Next</button>
+			</div>
+			<div ng-if="currentStep == 3">
+				<div class="toto-input-container">
+					<label>Price</label>
+					<span style="margin-right: 12px;">&euro;</span><input type="text" class="small" ng-model="hotel.price"/>
+				</div>
+				<button ng-click="nextStep()">Next</button>
+			</div>
+			<div ng-if="currentStep == 4">
+				<div class="title">Method of payment</div>
+				<div class="mop-container" layout="row">
+					<div flex></div>
+					<div class="mop"><md-icon class="{{hotel.mop == 'immediate' ? 'selected' : ''}}" ng-click="hotel.mop = 'immediate'" md-svg-src="images/svg/pay-cash.svg"></md-icon></div>
+					<div class="mop"><md-icon class="{{hotel.mop == 'creditCard' ? 'selected' : ''}}" ng-click="hotel.mop = 'creditCard'" md-svg-src="images/svg/pay-credit-card.svg"></md-icon></div>
+					<div class="mop"><md-icon class="{{hotel.mop == 'pagaDopo' ? 'selected' : ''}}" ng-click="hotel.mop = 'pagaDopo'" md-svg-src="images/svg/pay-paga-dopo.svg"></md-icon></div>
+					<div flex></div>
+				</div>
+				<button ng-click="answer(hotel)">Done</button>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>

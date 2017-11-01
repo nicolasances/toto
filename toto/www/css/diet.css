@@ -1,0 +1,13 @@
+
+#diet .water-info-container {margin: 12px 0;}
+#diet .water-info-container toto-progress#water-consumption {width: 110px; height: 110px;}
+
+#diet .connection-line {border: 1px solid #00BCD4;}
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+@media only screen and (min-width: 960px) {
+	
+}
+

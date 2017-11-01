@@ -1,0 +1,50 @@
+
+<div class="theme-cyan" id="health" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('health-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Health</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="health-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex>
+			<div class="expenses-header" layout="row" >
+				<div class="month" flex>Medical expenses of {{selectedPeriod.year}}</div>
+				<div class="money">&euro; {{total | number : 2}}</div>
+			</div>
+			<md-list class="">
+				<md-list-item class="md-2-line" ng-repeat="expense in expenses" >
+	          		<img ng-src="images/expenses/avatars/health.svg" class="md-avatar" />
+	        		<div class="md-list-item-text" layout="column"">
+	    	       		<h3>&euro; {{expense.amount | number : 2}}</h3>
+	        	   		<p>{{expense.date}}</p>
+	        	   		<p class="description" style="font-size: 12px;">{{expense.description}}</p>
+	         		</div>
+	            	<md-divider/>
+	   			</md-list-item>
+			</md-list>
+		</md-content>
+	</section>
+	
+	
+	<md-button class="md-fab floating" aria-label="Add a medical expense" ng-click="addExpense($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+</div>
+

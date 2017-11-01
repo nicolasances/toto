@@ -1,0 +1,15 @@
+
+md-toolbar {color: white !important;}
+
+div.md-dialog-content {margin-top: 57px !important;}
+div.md-dialog-content .label {color: rgba(0,0,0,0.5); margin-bottom: 6px; font-size: 0.8em; margin-left: 4px;}
+div.md-dialog-content .input-container {box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+div.md-dialog-content .input-container input {width: 100%; outline: none; font-size: 16px; line-height: 24px; color: #212121; font-family: Roboto,Arial,sans-serif; font-weight: 300; text-overflow: ellipsis; padding: 11px 50px 11px 11px !important; border: none;}
+div.md-dialog-content .input-container button {position: absolute; right: 24px;}
+
+div.md-dialog-content .autocomplete-results {box-shadow: 0 1px 2px rgba(0,0,0,0.2); padding: 12px;}
+div.md-dialog-content .autocomplete-results .searching {text-align: center; padding: 24px;}
+div.md-dialog-content .autocomplete-results .searching span {margin-top: 12px; font-size: 0.9em; color: rgba(0,0,0,0.7) !important;}
+div.md-dialog-content .autocomplete-results ul {margin: 0; list-style: none; padding: 0;}
+div.md-dialog-content .autocomplete-results ul li {padding: 12px 0; border-bottom: 1px solid #E8E8E8;}
+div.md-dialog-content .autocomplete-results ul li.last {border-bottom: none;}

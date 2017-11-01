@@ -1,0 +1,26 @@
+
+<div id="tasks">
+	<div class="tasks-container" layout="column">
+		<div class="task" layout="row" ng-repeat="item in list.results">
+			<div class="checkbox-container" layout="column">
+				<div flex></div>
+				<div class="checkbox" layout="column">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+			<div class="text-container" layout="column" flex ng-if="list.type != 'task'">
+				<div flex></div>
+				<div class="name">{{item}}</div>
+				<div flex></div>
+			</div>
+			<div class="text-container" layout="column" flex ng-if="list.type == 'task'">
+				<div flex></div>
+				<div class="name">{{item.title}}</div>
+				<div flex></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+
+<div layout="column" style="position: relative;" flex>
+	<div flex></div>
+	
+	<div class="gym-graph-container">
+		<div class="gym-bar {{day.efficacyGoalReached ? 'accent-color' : 'dark-primary-color'}}" id="gym-day-{{day.date}}" ng-repeat="day in gymDays" layout="column">
+			<div flex></div>
+			<md-icon md-svg-src="images/gym/muscle-avatars/{{day.muscle.id}}.svg"></md-icon>
+		</div>
+		<div class="gym-bar previous light-primary-color" id="gym-day-prev-{{day.date}}" ng-repeat="day in gymDays"></div>
+	</div>
+	
+	<div class="water-graph-container">
+		<div class="water-bar default-primary-color" id="water-day-{{day.date}}" ng-repeat="day in waterDays"></div>
+		<div class="water-goal-bar" id="water-goal-{{day.date}}" ng-repeat="day in waterDays"></div>
+	</div>
+	
+	<div class="days-axis-container">
+		<div class="day-label" id="label-day-{{day.date}}" ng-repeat="day in gymDays"></div>
+	</div>
+	
+	<div class="line"></div>
+</div>

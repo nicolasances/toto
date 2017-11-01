@@ -1,0 +1,54 @@
+
+<div class="theme-cyan" id="car-bollo" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('car-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Car - Bollo auto</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="car-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/car')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/car/taxes')"><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><p>Bollo auto</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+
+		<md-content id="content" flex>
+			<md-grid-list md-cols-xs="3" md-cols-gt-sm="7" md-row-height-gt-sm="1:1" md-row-height="1:1" md-gutter="4px">
+				<md-grid-tile layout="column" ng-repeat="tax in taxes" class="toto-payment-tile {{tax.linkedPaymentId == null ? 'unpaied' : ''}}" ng-click="showDetails(tax, $event)">
+					<div class="background">
+						<md-icon ng-if="tax.linkedPaymentId == null" md-svg-src="images/svg/bank-building.svg"></md-icon>
+					</div>
+					<div class="text" layout="column" >
+						<div class="headline">{{tax.year}}</div>
+						<div class="subhead" ng-if="tax.ingiunzione == null">{{tax.dueDate | date : 'dd.MM.yy'}}</div>
+						<div class="subhead" ng-if="tax.ingiunzione != null">{{tax.ingiunzione.dueDate | date : 'dd.MM.yy'}}</div>
+						<div class="info" ng-if="tax.ingiunzione == null">&euro; {{tax.amount | number : 2}}</div>
+						<div class="info" ng-if="tax.ingiunzione != null">&euro; {{tax.ingiunzione.amount | number : 2}}</div>
+						<div class="detail" ng-if="tax.ingiunzione != null"><b>INGIUNZIONE</b></div>
+						<div class="detail gt-sm" ng-if="tax.ingiunzione != null">{{tax.ingiunzione.reference}}</div>
+						<div class="detail gt-sm" ng-if="tax.linkedPaymentId != null">Paied on {{tax.paymentDate}}</div>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a tax" ng-click="addTax($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+	
+</div>
+

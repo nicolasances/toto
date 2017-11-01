@@ -1,0 +1,106 @@
+
+<div class="theme-cyan" id="tasks" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/tasks/' + sourceSchedule)"></md-icon>
+			</md-button>
+			<span class="title" flex>Task detail</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-content flex>
+			<div class="tasks-container" layoucolumn">
+				<div class="task-container">
+					<div class="task layout-column {{task.completed ? 'completed' : ''}}" layout="column">
+						<div layout="row">
+							<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+								<div flex></div>
+								<div class="checkbox" layout="column">
+									<div flex></div>
+									<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+									<div flex></div>
+								</div>
+								<div flex></div>
+							</div>
+							<div class="text-container" layout="column" flex >
+								<div flex></div>
+								<div class="name">{{task.title}}</div>
+								<div class="project">{{task.project}}</div>
+								<div flex></div>
+							</div>
+						</div>
+						<div class="task-details" layout="row">
+							<div class="schedule" ng-if="task.scheduledOn != null">Scheduled for {{task.scheduledOn | date : 'dd.MM.yyyy'}}</div>
+							<div class="schedule" ng-if="task.scheduledOn == null">Currently unscheduled</div>
+							<div class="project"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="actions-container" ng-if="!task.completed" layout="row">
+					<div flex></div>
+					<div class="action" layout="column" md-whiteframe="1" ng-click="deleteTask()">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div class="action{{showInsertNote ? ' save' : ''}}" layout="column" md-whiteframe="1" ng-click="insertNote()">
+						<div flex></div>
+						<md-icon ng-if="!showInsertNote" md-svg-src="images/svg/pen.svg"></md-icon>
+						<md-icon ng-if="showInsertNote" md-svg-src="images/svg/checked.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div class="action" layout="column" md-whiteframe="1">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/link.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div class="action" layout="column" md-whiteframe="1" ng-click="postponeTask($event, task)">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/forward.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div flex></div>
+				</div>
+				
+				<div class="notes-container{{task.completed ? ' completed' : ''}}" layout="column">
+					<div class="timeline">
+						<div class="header" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/pen.svg"></md-icon>
+							<div flex></div>
+						</div>
+					</div>
+					<div class="note-container" ng-if="showInsertNote" layout="row">
+						<div class="pin" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/circle.svg"></md-icon>
+							<div flex></div>
+						</div>
+						<div class="note">
+							<textarea id="newNote" rows="2"></textarea>
+						</div>
+					</div>
+					<div class="note-container" ng-repeat="note in notes" layout="column">
+						<div class="date">{{note.date | date : 'dd MMM'}}</div>
+						<div layout="row">
+							<div class="pin" layout="column">
+								<div flex></div>
+								<md-icon md-svg-src="images/svg/circle.svg"></md-icon>
+								<div flex></div>
+							</div>
+							<div class="note">
+								{{note.text}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</section>
+
+</div>
+

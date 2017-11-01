@@ -1,0 +1,35 @@
+<md-dialog aria-label="Add a charge" ng-cloak id="monreale-add-charge" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a charge on the safe</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content" style="padding-bottom: 0;">
+			<div layout="column">
+				<md-input-container >
+					<label>Amount</label>
+					<input ng-model="charge.amount"/>
+				</md-input-container>
+				<div>
+					<label>Date</label>
+					<md-datepicker ng-model="charge.date" ></md-datepicker>
+				</div>
+				<md-input-container >
+					<label>Description</label>
+					<input ng-model="charge.description"/>
+				</md-input-container>
+				<md-switch class="md-primary expense-form" md-no-ink aria-label="Switch charge type" ng-model="charge.loan">
+			    	Loan
+			  	</md-switch>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(charge)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

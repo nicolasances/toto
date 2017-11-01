@@ -1,0 +1,75 @@
+
+<div class="theme-cyan" id="mogoals-dashboard" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Money Goals</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/mogoals')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex layout="column" style="padding: 12px;" >
+			
+			<div layout="row">
+				<div flex></div>
+				<div id="maingoal" layout="column" ng-click="setMainGoal($event)">
+					<div flex layout="column">
+						<div layout="row"><div flex></div><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><div flex></div></div>
+						<div flex></div>
+					</div>
+					<div layout="column">
+						<div class="text">max</div>
+						<div class="amount"><span>&euro;</span> {{mainGoal.amount | number : 2}}</div>
+					</div>
+					<div layout="column" flex>
+						<div flex></div>
+						<div class="month">{{mainGoal.month | date : 'MMM'}}</div>
+					</div>
+					<div id="maingoal-level" layout="column">
+					</div>
+				</div>
+				<div flex></div>
+			</div>
+			
+			<div layout="column" class="categories" flex>
+				<div layout="row" ng-repeat="row in goals.rows">
+					<div flex></div>
+					<div class="catgoal" ng-repeat="category in row.categories" layout="column" style="border-color: {{category.color}};">
+						<div flex layout="column">
+							<div layout="row"><div flex></div><md-icon md-svg-src="images/expenses/avatars/{{category.filename}}"></md-icon><div flex></div></div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div class="text">max</div>
+							<div class="amount"><span>&euro;</span> 350.00</div>
+						</div>
+						<div class="level" layout="column"></div>
+					</div>
+					<div flex></div>
+				</div>
+			</div>
+			
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a goal" ng-click="addCategoryGoal($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

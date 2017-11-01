@@ -1,0 +1,47 @@
+
+#dashboard {padding-top: 0;}
+
+#dashboard .area-container {position: relative;padding: 16px 0;margin-bottom: 12px;}
+#dashboard .area-container .area-title {font-size: 0.9em; text-align: center;position: relative;}
+#dashboard .area-container .area-title .title {padding: 4px 12px; border-radius: 12px; color: white;}
+#dashboard .area-container .area-title .connector { height: 16px; /*border: 1px solid #E0E0E0;*/ width: 0; margin-left: 50%;}
+#dashboard .area-container .left-wing {}
+#dashboard .area-container .right-wing {}
+
+#dashboard .area-container.odd {}
+
+#dashboard #money.area-container .area-title {}
+#dashboard #money.area-container .left-wing .graph-container {outline: none;}
+#dashboard #money.area-container .left-wing .graph-container .item {min-width: 16px;}
+#dashboard #money.area-container .left-wing .graph-container .item .amount {font-size: 0.7em;}
+#dashboard #money.area-container .left-wing .graph-container .item .bar-container {min-height: 67px;padding: 0 2px;margin: 6px 0;}
+#dashboard #money.area-container .left-wing .graph-container .item .bar.current {opacity: 0.5;}
+#dashboard #money.area-container .left-wing .graph-container .item .label {font-size: 0.6em;text-align: center;}
+
+#dashboard #body.area-container {}
+#dashboard #body.area-container #body-overall-progress {width: 100px; height: 100px;}
+#dashboard #body.area-container #body-water-progress, #dashboard #body.area-container #body-gym-progress, #dashboard #body.area-container #body-meals-progress {width: 42px; height: 42px;}
+#dashboard #body.area-container toto-measurement-widget {margin: 0 12px;}
+#dashboard #body.area-container toto-measurement-widget.disabled {opacity: 0.2;}
+#dashboard #body.area-container toto-progress.disabled {opacity: 0.2;}
+#dashboard #body.area-container toto-gym-muscle-graph {margin: 32px 12px;}
+
+#dashboard .unauthorized-user-container {}
+#dashboard .unauthorized-user-container .avatar-container {margin-top: 48px;}
+#dashboard .unauthorized-user-container .avatar-container .avatar {border-radius: 50%; overflow: hidden;}
+#dashboard .unauthorized-user-container .apps-container {margin-top: 48px;}
+#dashboard .unauthorized-user-container .apps-container .app-container {}
+#dashboard .unauthorized-user-container .apps-container .app-container .icon {padding: 24px; border-radius: 50%;}
+#dashboard .unauthorized-user-container .apps-container .app-container .icon md-icon {width: 32px; height: 32px;}
+#dashboard .unauthorized-user-container .avatar-name-container {text-align: center; margin-top: 12px;}
+#dashboard .unauthorized-user-container .avatar-name-container div {text-align: center; width: 100%; font-size: 1.2em;}
+
+#diet #water-consumption-dialog .change-consumption {padding: 24px 0;}
+#diet #water-consumption-dialog .change-consumption .consumption {margin: 12px 16px;}
+#diet #water-consumption-dialog .change-consumption .consumption md-icon {width: 32px; height: 32px;}
+
+@media only screen and (min-width: 960px) {
+	#dashboard #body.area-container #body-water-progress, #dashboard #body.area-container #body-gym-progress, #dashboard #body.area-container #body-meals-progress {width: 80px; height: 80px;}
+	#dashboard #body.area-container toto-measurement-widget {margin: 0 24px;}
+	#dashboard #money.area-container .left-wing .graph-container {margin: 0 72px;}
+}

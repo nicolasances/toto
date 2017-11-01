@@ -1,0 +1,103 @@
+
+<div class="theme-cyan" id="subscriptions" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/subscriptions')"></md-icon>
+			</md-button>
+			<span class="title" flex>Detail</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-content id="content" flex>
+			<div class="subscriptions-container" layout="column">
+				<div class="subscription-container" layout="row">
+					<div class="avatar" layout="column">
+						<md-icon md-svg-src="images/subscriptions/avatars/{{subscription.type}}.svg"></md-icon>
+						<div flex></div>
+					</div>
+					<div class="info-container" layout="row" style="border: none;" flex>
+						<div class="info" layout="column" flex>
+							<div class="name">{{subscription.name}}</div>
+							<div class="payment">{{subscription.paymentDesc}}</div>
+							<div class="billing">{{subscription.billing}}</div>
+						</div>
+						<div class="cost" layout="column">
+							<div class="box" ng-if="subscription.actualCost != null">
+								<div class="expected">&euro; {{subscription.cost | number : 2}}</div>
+								<div class="actual">&euro; {{subscription.actualCost | number : 2}}</div>
+							</div>
+							<div layout="column" ng-if="subscription.actualCost == null" flex>
+								<div flex></div>
+								<div class="amount">&euro; {{subscription.cost | number : 2}}</div>
+								<div flex></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="actions-container" layout="row">
+				<div flex></div>
+				<div class="action" layout="column" md-whiteframe="1" ng-click="terminateSubscription()">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/close.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="action" layout="column" md-whiteframe="1" ng-click="linkExpense($event)">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/loss.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="action" layout="column" md-whiteframe="1" ng-click="deleteSubscription()">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+			
+			<div id="expenses">
+				<div id="expenses-container" layout="column" flex>
+					<md-list>
+						<div class="timeline"></div>
+						<md-list-item class="md-2-line" ng-repeat="expense in expenses">
+							<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+								<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};"></div>
+								<div class="date" layout="column" ng-click="expense.showMenu = true">
+									<div flex></div>
+									<div class="day">{{expense.date | date : 'd'}}</div>
+									<div class="month">{{expense.date | date : 'MMM'}}</div>
+									<div flex></div>
+								</div>
+								<div class="description" flex layout="column" ng-click="expense.showMenu = true">
+									<div flex></div>
+									<div>{{expense.description}}</div>
+									<div flex></div>
+								</div>
+								<div class="amount" layout="column" ng-if="!expense.showMenu" ng-click="expense.showMenu = true">
+									<div flex></div>
+									<div>&euro; {{expense.amount | number : 2}}</div>
+									<div flex></div>
+								</div>
+								<div layout="column">
+									<div flex></div>
+									<div class="menu" ng-if="expense.showMenu" layout="row">
+										<div class="icon" style="background-image: url('images/svg/trash-white.svg');" ng-click="unlinkExpense(expense)"></div>
+										<div class="icon" style="background-image: url('images/svg/close-white.svg');" ng-click="expense.showMenu = false"></div>
+									</div>
+									<div flex></div>
+								</div>
+							</div>
+			   			</md-list-item>
+					</md-list>
+				</div>
+			</div>
+						
+		</md-content>
+	</section>
+	
+</div>
+

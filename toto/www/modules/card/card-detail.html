@@ -1,0 +1,106 @@
+
+<div class="theme-cyan" id="cards" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>{{card.name}}</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/card')"><md-icon md-svg-src="images/svg/credit-card.svg"></md-icon><p>Credit Cards</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 12px;">
+		
+			<div layout="row" id="card-detail">
+				<div class="card-icon"><md-icon md-svg-src="images/svg/mastercard.svg"></md-icon></div>
+				<div layout="column" flex>
+					<div flex></div>
+					<div class="name">{{card.name}} Card</div>
+					<div class="pan">XXXX XXXX XXXX {{card.digits}}</div>
+					<div flex></div>
+				</div>
+				<div layout="column" class="billing">
+					<div flex></div>
+					<div class="day">{{card.billingDay}}</div>
+					<div class="text">Bills on</div>
+					<div flex></div>
+				</div>
+			</div>
+			
+			<div layout="row" id="expenses-detail">
+				<div layout="column" class="card-total">
+					<div flex></div>
+					<div class="text"><span>&euro;</span> {{monthTotal | number : 2}}</div>
+					<div flex></div>
+				</div>
+				<div flex></div>
+				<div class="navigator" layout="column">
+					<div flex></div>
+					<div class="icon" ng-click="previousMonth()"><md-icon md-svg-src="images/svg/arrow-left.svg"></md-icon></div>
+					<div flex></div>
+				</div>
+				<div class="card-month" layout="column">
+					<div flex></div>
+					<div class="text">{{currentMonth | date : 'MMM'}}</div>
+					<div flex></div>
+				</div>
+				<div class="navigator" layout="column">
+					<div flex></div>
+					<div class="icon" ng-click="nextMonth()"><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon></div>
+					<div flex></div>
+				</div>
+			</div>
+		
+			<div id="expenses" style="margin-left: 8px;">
+				<div id="expenses-container" layout="column" flex>
+					<div class="timeline"></div>
+					<md-list>
+						<md-list-item class="md-2-line" ng-repeat="expense in expenses">
+							<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+								<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};"></div>
+								<div class="date" layout="column">
+									<div flex></div>
+									<div class="day">{{expense.date | date : 'd'}}</div>
+									<div class="month">{{expense.date | date : 'MMM'}}</div>
+									<div flex></div>
+								</div>
+								<div class="description" flex layout="column">
+									<div flex></div>
+									<div>{{expense.description}}</div>
+									<div flex></div>
+								</div>
+								<div class="amount" layout="column">
+									<div flex></div>
+									<div>&euro; {{expense.amount | number : 2}}</div>
+									<div flex></div>
+								</div>
+							</div>
+			   			</md-list-item>
+					</md-list>
+				</div>
+			</div>
+			
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add an expense" ng-click="addPayment($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+	
+		
+</div>
+

@@ -1,0 +1,41 @@
+
+#hotel md-content#hotel-content {padding: 6px;}
+#hotel .hotel {background-color: #B2EBF2;color: rgba(0, 0, 0, 0.8);}
+#hotel .hotel .container {height: 100%; padding: 12px;}
+#hotel .hotel .dates {padding: 0 12px 0 0; border-right: 1px solid #B39DDB; text-align: center; min-width: 80px; outline: none;}
+#hotel .hotel .dates.blur {opacity: 0.5;}
+#hotel .hotel .dates .date {font-size: 1.2em; min-height: 28px;}
+#hotel .hotel .dates .date span {text-transform: uppercase; font-size: 0.5em;}
+#hotel .hotel .dates .timeline {}
+#hotel .hotel .info {padding-left: 12px; outline: none;}
+#hotel .hotel .info.blur {opacity: 0.5;}
+#hotel .hotel .info .name {font-size: 1em; margin-bottom: 6px;}
+#hotel .hotel .info .address {font-size: 0.6em; overflow: hidden;}
+#hotel .hotel .info .price {margin-top: 12px; font-size: 1em;}
+#hotel .hotel .info .price span.prospect {opacity: 0.5;}
+#hotel .hotel .info .price md-icon {width: 14px; height: 14px; margin-right: 6px; margin-bottom: 2px;}
+#hotel .hotel .icon {margin-left: 12px; margin-right: 12px;}
+#hotel .hotel .icon md-icon {width: 32px; height: 32px; outline: none;}
+#hotel .hotel .actions {position: absolute; height: 100%; right: 12px; margin-top: -12px;}
+#hotel .hotel .actions .action {background-color: #8BC34A;border-radius: 50%;padding: 9px 11px 11px 11px;margin-left: 12px;outline: none;}
+#hotel .hotel .actions .action md-icon {width: 16px; height: 16px; fill: white;}
+
+#hotel-add .mop-container {margin: 24px 0;}
+#hotel-add .mop-container .mop {margin: 0 32px;}
+#hotel-add .mop-container .mop md-icon {width: 48px; height: 48px; outline: none; fill: #c2c2c2;}
+#hotel-add .mop-container .mop md-icon.selected {fill: #673AB7;}
+
+#hotel-link-dialog-content {padding: 6px;}
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+@media only screen and (min-width: 960px) {
+	
+	#hotel .hotel .info .name {font-size: 1.4em;}
+	#hotel .hotel .info .address {font-size: 0.8em;}
+	#hotel .hotel .info .price {font-size: 1.2em;}
+	#hotel .hotel .info .price md-icon {width: 20px; height: 20px;}
+	#hotel .hotel .icon md-icon {width: 42px; height: 42px;}
+}
+

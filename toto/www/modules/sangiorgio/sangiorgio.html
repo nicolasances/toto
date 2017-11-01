@@ -1,0 +1,60 @@
+
+<div class="theme-cyan" id="sangiorgio" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('sangiorgio-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Sangiorgio</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="sangiorgio-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/justice')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item ng-click="go('/sangiorgio/taxes')"><md-icon md-svg-src="images/svg/buildings.svg"></md-icon><p>Building Taxes</p></md-list-item>
+					<md-list-item ng-click="go('/sangiorgio/electricity')"><md-icon md-svg-src="images/svg/power-cord.svg"></md-icon><p>Electricity Bills</p></md-list-item>
+					<md-list-item ng-click="go('/sangiorgio/gas')"><md-icon md-svg-src="images/svg/gas.svg"></md-icon><p>Gas Bills</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+
+		<md-content flex class="toto-inapp-dashboard">
+			<md-grid-list md-cols-xs="2" md-cols-gt-sm="3" md-row-height-gt-sm="3:1" md-row-height="2:1" md-gutter="4px"> 
+				<md-grid-tile md-ink-ripple="true" ng-click="" layout="row" md-rowspan="1" >
+					<md-icon md-svg-src="images/svg/buildings.svg" ></md-icon>
+					<div class="text" layout="column">
+						<div class="headline">&euro; {{taxesUnpaiedAmount | number : 2}}</div>
+						<div class="subhead">Building taxes</div>
+						<p>There are still <b>{{taxesUnpaied}}</b> building bills that need to be paied.</p>
+					</div>
+				</md-grid-tile>
+				<md-grid-tile md-ink-ripple="true" ng-click="" layout="row" >
+					<md-icon md-svg-src="images/svg/power-cord.svg"></md-icon>
+					<div class="text" layout="column">
+						<div class="headline">&euro; {{ebillsUnpaiedAmount | number : 2}} ({{ebillsUnpaied}})</div>
+						<div class="subhead">Electric bills</div>
+						<p>{{ebillsUnpaied}} bills still need to be paied.</p>
+					</div>
+				</md-grid-tile>
+				<md-grid-tile md-ink-ripple="true" ng-click="" layout="row" >
+					<md-icon md-svg-src="images/svg/gas.svg"></md-icon>
+					<div class="text" layout="column">
+						<div class="headline">&euro; {{gbillsUnpaiedAmount | number : 2}} ({{gbillsUnpaied}})</div>
+						<div class="subhead">Gas  bills</div>
+						<p>{{gbillsUnpaied}} bills still need to be paied.</p>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+	
+</div>
+

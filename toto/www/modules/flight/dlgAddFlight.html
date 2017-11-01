@@ -1,0 +1,53 @@
+<md-dialog aria-label="Add a weekend" ng-cloak id="weekend-add" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Setup the Flight</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			<div>
+				<div layout="column" layout-gt-sm="row">
+					<div class="toto-input-container">
+						<label>Airport</label>
+						<input type="text" ng-model="flight.takeoff.airport"/>
+					</div>
+					<div class="toto-input-container">
+						<label>Terminal</label>
+						<input class="small" type="text" ng-model="flight.takeoff.terminal"/>
+					</div>
+					<div class="toto-input-container">
+						<label>Takeoff date</label>
+						<md-datepicker ng-model="flight.takeoff.date" ></md-datepicker>
+					</div>
+					<div class="toto-input-container">
+						<label>Takeoff Time</label>
+						<input class="small" type="text" ng-model="flight.takeoff.time"/>
+					</div>
+				</div>
+				<div layout="column" layout-gt-sm="row">
+					<div class="toto-input-container">
+						<label>Airport</label>
+						<input type="text" ng-model="flight.landing.airport"/>
+					</div>
+					<div class="toto-input-container">
+						<label>Terminal</label>
+						<input class="small" type="text" ng-model="flight.landing.terminal"/>
+					</div>
+					<div class="toto-input-container">
+						<label>Landing date</label>
+						<md-datepicker ng-model="flight.landing.date" ></md-datepicker>
+					</div>
+					<div class="toto-input-container">
+						<label>Landing Time</label>
+						<input class="small" type="text" ng-model="flight.landing.time"/>
+					</div>
+				</div>
+				<button ng-click="answer(flight)">Done</button>
+			</div>
+		</md-dialog-content>
+	</form>
+</md-dialog>

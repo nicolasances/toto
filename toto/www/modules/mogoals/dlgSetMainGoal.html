@@ -1,0 +1,21 @@
+<md-dialog aria-label="Set the main goal" ng-cloak id="mogoals" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Set the main goal</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			<div>
+				<div class="toto-input-container">
+					<label>Main goal</label>
+					<input type="text" ng-model="mainGoal"/>
+				</div>
+				<button ng-click="answer(mainGoal)">Done</button>
+			</div>
+		</md-dialog-content>
+	</form>
+</md-dialog>

@@ -1,0 +1,69 @@
+<md-dialog aria-label="Add a fine" ng-cloak id="monreale-add-fine" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a fine</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content" style="padding-bottom: 0;">
+			<div layout="column">
+				<div layout="row">
+					<md-input-container>
+						<label>Amount</label>
+						<input ng-model="fine.amount"/>
+					</md-input-container>
+					<md-input-container >
+						<label>Reference</label>
+						<input ng-model="fine.reference"/>
+					</md-input-container>
+				</div>
+				<md-input-container >
+					<label>Description</label>
+					<input ng-model="fine.description"/>
+				</md-input-container>
+				<md-input-container >
+					<label>Details</label>
+					<input ng-model="fine.details"/>
+				</md-input-container>
+				<div layout="row">
+					<div style="margin-right: 24px;">
+						<label>Date of the fine</label>
+						<md-datepicker ng-model="fine.date" ></md-datepicker>
+					</div>
+					<div>
+						<label>Date of the notification</label>
+						<md-datepicker ng-model="fine.notificationDate" ></md-datepicker>
+					</div>
+				</div>
+				
+				<md-divider style="margin-top: 24px; margin-bottom: 12px;"></md-divider>
+				
+				<h3 style="margin-bottom: 24px;">Postal Info</h3>
+				<div layout="row" style="margin-bottom: 24px;">
+					<md-input-container>
+						<label>Account</label>
+						<input ng-model="fine.postalPaymentData.account"/>
+					</md-input-container>
+					<md-input-container>
+						<label>Reference</label>
+						<input ng-model="fine.postalPaymentData.reference"/>
+					</md-input-container>
+					<md-input-container>
+						<label>Last digits</label>
+						<md-select ng-model="fine.postalPaymentData.lastDigits">
+							<md-option>896</md-option>
+							<md-option>674</md-option>
+						</md-select>
+					</md-input-container>
+				</div>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(fine)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

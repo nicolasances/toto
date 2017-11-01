@@ -1,0 +1,6 @@
+#health .expenses-header {margin-top: 0;background-color: #B2EBF2;}
+
+@media only screen and (min-width: 960px) {
+	#health-add-expense md-dialog-content {margin-top: 64px !important; padding: 0;}
+}
+

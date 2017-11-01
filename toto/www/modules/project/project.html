@@ -1,0 +1,157 @@
+
+<div class="theme-cyan" id="project" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/dashboard.svg" ng-click="go('/project')"></md-icon>
+			</md-button>
+			<span class="title" flex>{{project.title}}</span>
+			<md-button class="md-icon-button" aria-label="Blocks">
+				<md-icon md-svg-src="images/svg/project-blocks.svg" ng-click="go('/project/' + project.id + '/blocks')"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<section>
+
+		<md-content id="project-detail" style="padding: 12px;" layout="column">
+		
+			<div layout="row" flex >
+			
+				<!-- ------------------------------- -->
+				<!-- PROJECTS LIST					 -->
+				<!-- ------------------------------- -->
+				<div class="projects-container" ng-if="screenIsDesktop" layout="column" md-whiteframe="3">
+					<div ng-class="['project-container', projectItem.id == project.id ? 'light-primary-color' : '']" ng-repeat="projectItem in projects" layout="row" ng-click="go('/project/' + projectItem.id)">
+						<div class="icon-container" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/project.svg"></md-icon>
+							<div flex></div>
+						</div>
+						<div class="name-container" layout="column" flex>
+							<div flex></div>
+							<div class="name">{{projectItem.title}}</div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+			
+				<!-- ------------------------------- -->
+				<!-- EVENTS							 -->
+				<!-- ------------------------------- -->
+				<div class="events-container" layout="column" flex>
+					
+					<div class="header" layout="row">
+					
+						<div layout="column">
+							<div flex></div>
+							<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/svg/clockwise-rotation.svg"></md-icon><div flex></div></div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="link"></div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="toto-button-sm accent-color" layout="column" md-whiteframe="3" ng-click="addEvent()"><div flex></div><md-icon md-svg-src="images/svg/add.svg"></md-icon><div flex></div></div>
+							<div flex></div>
+						</div>
+						<div flex></div>
+						<div layout="column">
+							<div flex></div>
+							<div class="icon sm" layout="column" ng-click="selectBlockFilter()" ng-if="filterBlock == null"><div flex></div><md-icon md-svg-src="images/svg/project-blocks.svg"></md-icon><div flex></div></div>
+							<div class="filter-container accent-color" layout="row" ng-if="filterBlock != null" ng-click="removeBlockFilter()">
+								<div class="filter" layout="column"><div flex></div>{{filterBlock.title}}<div flex></div></div>
+								<div class="cancel" layout="column"><div flex></div><md-icon md-svg-src="images/svg/close.svg"></md-icon><div flex></div></div>
+							</div>
+							<div flex></div>
+						</div>
+						
+					</div>
+					
+					<div class="timeline"></div>
+					
+					<div class="events" layout="column">
+					
+						<div class="event-container" ng-repeat="event in events" layout="column" ng-click="go('/project/' + project.id + '/events/' + event.id)">
+							<div layout="row">
+								<div layout="column">
+									<div flex></div>
+									<div ng-class="['icon-container', event.relevant ? 'relevant' : '']" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/type/{{event.type}}.svg"></md-icon><div flex></div></div>
+									<div flex></div>
+								</div>
+								<div layout="column" ng-class="['info-container', event.relevant ? 'relevant' : '']" flex>
+									<div layout="row" class="header">
+										<div class="date" flex>{{event.date}}</div>
+									</div>
+									<div flex></div>
+									<div class="title">{{event.title}}</div>
+									<div flex></div>
+									<div layout="row" class="footer">
+										<div class="block">{{event.blockTitle}}</div>
+										<div class="info-icons" layout="row" ng-if="event.hasTasks || event.hasDocs || event.hasMails || event.hasNotes">
+											<div class="icon" ng-if="event.hasTasks" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/tasks.svg"></md-icon><div flex></div></div>
+											<div class="icon" ng-if="event.hasDocs" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/document.svg"></md-icon><div flex></div></div>
+											<div class="icon" ng-if="event.hasMails" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/mail.svg"></md-icon><div flex></div></div>
+											<div class="icon" ng-if="event.hasNotes" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/notes.svg"></md-icon><div flex></div></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+				<div class="left-area" layout="column" ng-if="screenIsDesktop" >
+					
+					<!-- ------------------------------- -->
+					<!-- TASKS							 -->
+					<!-- ------------------------------- -->
+					<div id="tasks" class="panel" md-whiteframe="3">
+						<div class="title">Your tasks</div>
+						<div class="tasks-container" layout="column">
+							<div class="task-container" ng-repeat="task in tasks" layout="column">
+								<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
+									<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+										<div flex></div>
+										<div class="checkbox" layout="column">
+											<div flex></div>
+											<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+											<div flex></div>
+										</div>
+										<div flex></div>
+									</div>
+									<div class="text-container" layout="column" flex ng-click="go('/project/' + project.id + '/events/' + task.projectEventId);">
+										<div flex></div>
+										<div class="name">{{task.title}}</div>
+										<div flex></div>
+									</div>
+								</div>
+								<div layout="row" ng-if="task.contextInfo != null">
+									<div class="context-info {{task.completed ? 'completed' : ''}}">{{task.contextInfo}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- ------------------------------- -->
+					<!-- BLOCKS							 -->
+					<!-- ------------------------------- -->
+					
+					<div flex></div>
+				</div>
+				
+				
+			</div>
+			
+		</md-content>
+		
+	</section>
+	
+</div>
+

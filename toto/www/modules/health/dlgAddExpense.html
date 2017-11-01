@@ -1,0 +1,35 @@
+<md-dialog aria-label="Add a medical expense" ng-cloak id="health-add-expense" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a medical expense</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content" style="padding-bottom: 0;">
+			<div class="expense-picker-header" layout="row">
+				<md-button ng-click="loadPreviousMonth()" aria-label="previous month">
+					<md-icon md-svg-src="images/svg/previous.svg"></md-icon>
+				</md-button>
+				<div class="year" flex>{{selectedPeriod.month}} {{selectedPeriod.year}}</div>
+				<md-button ng-click="loadNextMonth()" aria-label="next month">
+					<md-icon md-svg-src="images/svg/next.svg"></md-icon>
+				</md-button>
+			</div>
+			<md-list>
+				<md-list-item class="md-2-line" ng-repeat="expense in expenses" ng-click="selectExpense(expense)">
+	          		<img ng-src="images/expenses/avatars/{{expense.category}}.svg" class="md-avatar" />
+	        		<div class="md-list-item-text" layout="column">
+	    	       		<h3>&euro; {{expense.amount | number : 2}}</h3>
+	        	   		<p>{{expense.date}}</p>
+	        	   		<p class="description" style="font-size: 12px;">{{expense.description}}</p>
+	         		</div>
+	            	<md-divider/>
+	   			</md-list-item>
+			</md-list>
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>

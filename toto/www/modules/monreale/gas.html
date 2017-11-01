@@ -1,0 +1,56 @@
+
+<div class="theme-cyan" id="monreale-gas" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('monreale-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Monreale - Gas Bills</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="monreale-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/monreale')"><md-icon md-svg-src="images/svg/rented-house.svg"></md-icon><p>Dashboard</p></md-list-item>
+					<md-list-item ng-click="go('/monreale/incomes')"><md-icon md-svg-src="images/svg/bubble-money.svg"></md-icon><p>Incomes</p></md-list-item>
+					<md-list-item ng-click="go('/monreale/taxes')"><md-icon md-svg-src="images/svg/buildings.svg"></md-icon><p>Building Taxes</p></md-list-item>
+					<md-list-item ng-click="go('/monreale/electricity')"><md-icon md-svg-src="images/svg/power-cord.svg"></md-icon><p>Electricity Bills</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/monreale/gas')"><md-icon md-svg-src="images/svg/gas.svg"></md-icon><p>Gas Bills</p></md-list-item>
+					<md-list-item ng-click="go('/monreale/charges')"><md-icon md-svg-src="images/svg/safe-lock.svg"></md-icon><p>Charges</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+
+		<md-content id="content" flex>
+			<md-grid-list md-cols-xs="3" md-cols-gt-sm="7" md-row-height-gt-sm="1:1" md-row-height="1:1" md-gutter="4px">
+				<md-grid-tile ng-click="" layout="column" ng-repeat="bill in bills" class="{{bill.paied == false ? 'unpaied' : ''}}" >
+					<div class="background">
+						<md-icon ng-if="bill.paied == false" md-svg-src="images/svg/gas.svg"></md-icon>
+					</div>
+					<div class="text" layout="column" >
+						<div class="headline">&euro; {{bill.amount | number : 2}}</div>
+						<div class="subhead">{{bill.reference}}</div>
+						<div class="info">{{bill.periodFrom.month}}.{{bill.periodFrom.year}} - {{bill.periodTo.month}}.{{bill.periodTo.year}}</div>
+						<p ng-if="bill.paied">Paied on {{bill.paiedOn | date : 'dd.MM.yy'}} </p>
+					</div>
+					<md-icon ng-if="bill.paied == false" class="right" md-svg-src="images/svg/checked.svg" style="fill: #C62828;" ng-click="payBill(bill)"></md-icon>
+					<md-icon ng-if="bill.paied && bill.linkedChargeId == null" class="right" md-svg-src="images/svg/dollar.svg" style="fill: #C62828;" ng-click="charge(bill)"></md-icon>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a bill" ng-click="addBill($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+	
+</div>
+

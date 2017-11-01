@@ -1,0 +1,28 @@
+<md-dialog aria-label="Add" ng-cloak id="gym" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a workout</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			<div class="step-tracker" layout="row">
+				<div flex></div>
+				<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
+				<div flex></div>
+			</div>
+			<div ng-if="currentStep == 1">
+				<div class="toto-input-container">
+					<label>Name</label>
+					<input type="text" ng-model="workout.name"/>
+				</div>
+				<button ng-click="answer(workout)">Done</button>
+			</div>
+
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>

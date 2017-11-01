@@ -1,0 +1,55 @@
+
+#justice #dashboard {padding: 6px;}
+
+#justice #dashboard md-grid-tile {background-color: #B2EBF2; }
+#justice #dashboard md-grid-tile md-icon {fill: white; width: 30%; padding: 12px; border-right: 1px solid rgba(0, 188, 212, 0.23);}
+#justice #dashboard md-grid-tile .text {padding: 0 12px; width: 100%;}
+#justice #dashboard md-grid-tile .text .headline {font-size: 1em; font-weight: 400; text-transform: uppercase;}
+#justice #dashboard md-grid-tile .text .subhead {font-size: 0.7em; text-transform: uppercase; margin-top: 6px;}
+#justice #dashboard md-grid-tile .text p {display: none;}
+
+#justice-fines #content, #justice-boh #content, #justice-boh2 #content {padding: 6px;}
+#justice-fines md-grid-tile, #justice-boh md-grid-tile, #justice-boh2 md-grid-tile {background-color: #C5E1A5; background-image: url("../images/svg/checked-white.svg"); background-repeat: no-repeat; background-size: 80%; background-position: 50%;}
+#justice-fines md-grid-tile.unpaied, #justice-boh md-grid-tile.unpaied, #justice-boh2 md-grid-tile.unpaied {background-color: #EF9A9A; background-image: none;}
+#justice-fines md-grid-tile.unpaied .text, #justice-boh md-grid-tile.unpaied .text, #justice-boh2 md-grid-tile.unpaied .text {opacity: 0.8;}
+#justice-fines md-grid-tile .text, #justice-boh md-grid-tile .text, #justice-boh2 md-grid-tile .text {opacity: 0.5; height: 100%; padding: 24px 12px; width: 100%; text-align: center;}
+#justice-fines md-grid-tile .text .headline, #justice-boh md-grid-tile .text .headline, #justice-boh2 md-grid-tile .text .headline {font-size: 1.2em; font-weight: 400;}
+#justice-fines md-grid-tile .text .subhead, #justice-boh md-grid-tile .text .subhead, #justice-boh2 md-grid-tile .text .subhead {font-size: 0.6em; text-transform: uppercase; margin-top: 6px;}
+#justice-fines md-grid-tile .text .info, #justice-boh md-grid-tile .text .info, #justice-boh2 md-grid-tile .text .info {display: none; margin-top: 12px; font-size: 1.1em; margin-bottom: 3px;}
+#justice-fines md-grid-tile .text .detail {margin-top: 3px; font-size: 0.7em;}
+#justice-fines md-grid-tile .text .detail.gt-sm {display: none;}
+#justice-fines md-grid-tile .text p, #justice-boh md-grid-tile .text p, #justice-boh2 md-grid-tile .text p {display: none;}
+#justice-fines md-grid-tile md-icon, #justice-boh md-grid-tile md-icon, #justice-boh2 md-grid-tile md-icon {fill: white; padding: 12px; position: absolute; bottom: 0; right: 0;}
+
+#justice-fines md-grid-tile div.background, #justice-boh2 md-grid-tile div.background {position: absolute; width: 100%; height: 100%;}
+#justice-fines md-grid-tile div.background md-icon, #justice-boh2 md-grid-tile div.background md-icon {position: relative; width: 60%; height: 60%; padding: 20%; margin: auto; opacity: 0.4;}
+
+
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+#monreale md-card md-card-title {padding: 13px 16px;}
+#monreale md-card md-card-title .md-headline {font-size: 20px;}
+
+@media only screen and (min-width: 960px) {
+	#justice #dashboard {padding: 12px;}
+
+	#justice #dashboard md-grid-tile md-icon {width: 30%; padding: 24px; height: 50%;}
+	#justice #dashboard md-grid-tile .text {width: 100%;}
+	#justice #dashboard md-grid-tile .text .headline {font-size: 1.6em;}
+	#justice #dashboard md-grid-tile .text .subhead {font-size: 1em; margin-top: 3px;}
+	#justice #dashboard md-grid-tile .text p {display: block; font-size: 0.9em;}
+	
+	#justice-fines #content, #justice-boh #content, #justice-boh2 #content {padding: 12px;}
+	#justice-fines #content md-grid-tile .text, #justice-boh #content md-grid-tile .text, #justice-boh2 #content md-grid-tile .text {width: 100%;}
+	#justice-fines #content md-grid-tile .text .headline, #justice-boh #content md-grid-tile .text .headline, #justice-boh2 #content md-grid-tile .text .headline {font-size: 1.5em;}
+	#justice-fines #content md-grid-tile .text .subhead, #justice-boh #content md-grid-tile .text .subhead, #justice-boh2 #content md-grid-tile .text .subhead {font-size: 0.8em; margin-top: 3px;}
+	#justice-fines #content md-grid-tile .text p, #justice-boh #content md-grid-tile .text p, #justice-boh2 #content md-grid-tile .text p {display: block; font-size: 0.8em;}
+	#justice-fines md-grid-tile .text .info, #justice-boh md-grid-tile .text .info, #justice-boh2 md-grid-tile .text .info {display: block;}
+	#justice-fines md-grid-tile .text .detail {margin-top: 3px; font-size: 0.8em;}
+	#justice-fines md-grid-tile .text .detail.gt-sm {display: block;}
+	
+	
+}
+

@@ -1,0 +1,109 @@
+#recipe-detail md-toolbar img {opacity: 0.7;}
+#recipe-detail .content {margin-top: 128px;}
+#recipe-detail .md-toolbar-tools md-input-container.title {
+	position: absolute;
+	bottom: 0;
+	left: 24px;
+}
+
+#recipe-detail .md-toolbar-tools md-input-container.title label {
+	color: white;
+}
+
+#recipe-detail .md-toolbar-tools md-input-container.title input {
+	color: white;
+	border-color: rgba(255, 255, 255, 0.42);
+}
+
+#recipe-detail h3 {
+	margin: 0;
+}
+
+.ingredients-container {
+	padding-left: 12px;
+	margin-top: 12px;
+}
+
+.ingredients-container .ingredient {
+	height: 38px;
+}
+
+.ingredients-container .ingredient span {
+	display: inline-block;
+	font-size: 15px;
+	line-height: 38px;
+	margin-left: 12px;
+}
+
+.ingredients-container .ingredient span.delete {
+	-webkit-transition: width 0.3s;
+	transition: width 0.3s;
+	
+	margin: 0;
+	background-color: #F44336;
+	color: white;
+	width: 0;
+}
+
+.ingredients-container .ingredient span.delete.show {
+	-webkit-transition: width 0.3s;
+	transition: width 0.3s;
+	
+	margin-right: 12px;
+	padding: 0 12px;
+	width: 50px;
+}
+
+.ingredients-container .ingredient img {
+	width: 24px;
+	line-height: 38px;
+	vertical-align: middle;
+	opacity: 0.87;
+}
+
+.section-header h3 {
+	opacity: 0.87;
+}
+
+.section-header button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin-top: 6px !important;
+}
+
+.procedure-container {
+	padding-left: 5px;
+	margin-top: 12px;
+}
+.procedure-container .step {
+    margin-top: 24px;
+}
+.procedure-container .step .icon {
+    width: 35px;
+    background-image: url("../images/svg/recipe-procedure.svg");
+    background-size: 60%;
+    background-color: #EFEFEF;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    height: 35px;
+    border-radius: 50%;
+    box-shadow: 1px 2px 3px #D2D2D2;
+    margin-right: 24px;
+}
+.procedure-container .step .text {
+    font-size: 15px;
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+/************************************************************************
+ * RESPONSIVE
+ ***********************************************************************/
+@media only screen and (min-width: 960px) {
+	#recipe-detail .section-header button {display: none;}
+	#recipe-detail .ingredients-container {margin-right: 150px;}
+	.procedure-container .step .text {padding-top: 9px;}
+}
+

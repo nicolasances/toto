@@ -1,0 +1,100 @@
+
+<div class="theme-cyan" id="gym" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Gym</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content style="padding: 12px;" id="dashboard" layout="column" flex>
+
+			<div id="week" layout="row">
+				<div class="timeline"></div>
+				<div flex></div>
+				<div class="week-container" layout="row">
+					<div ng-class="['day-container', day.today ? 'today' : '', day.completed ? 'completed' : '']" layout="column" flex ng-repeat="day in currentWeek">
+						<div class="day">{{day.date | date : 'EEE'}}</div>
+						<div class="icon" flex ng-click="startOrResumeSession(day)" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="{{day.imageUrl}}"></md-icon>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+				<div flex></div>
+			</div>
+
+			<div layout="row">
+				<div flex></div>
+				<toto-gym-muscle-graph muscle="{{selectedMuscle.id}}" height="90" style="min-height: 90px;"></toto-gym-muscle-graph>			
+				<div flex></div>
+			</div>
+
+			<div layout="column">
+				<div layout="row" style="margin-bottom: 12px;">
+					<div flex></div>
+					<div layout="column" ng-repeat="goal in goals | limitTo : 3" >
+						<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)">
+							<toto-progress color="#00BCD4" progress="goal.percentageOfGoalReached" id="gym-{{goal.muscle}}-progress" stroke-width="8" svg="images/gym/muscle-avatars/{{goal.muscle}}.svg"></toto-progress> 
+						</div>
+						<div class="goal-label" layout="row">
+							<div flex></div>
+							<div layout="column">
+								<div flex></div>
+								<div layout="row">
+									<div ng-if="goal.actual == null" class="goal-value">{{goal.goal | number : 1}}</div>
+									<div ng-if="goal.actual != null" class="goal-value">{{goal.actual | number : 1}}</div>
+									<div class="pts">pts</div>
+								</div>
+								<div flex></div>
+							</div>
+							<div flex></div>
+						</div>
+					</div>
+					<div flex></div>
+				</div>
+				<div layout="row">
+					<div flex></div>
+					<div layout="column" ng-repeat="goal in goals | limitTo: (3 - goals.length)" >
+						<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)">
+							<toto-progress color="#00BCD4" progress="goal.percentageOfGoalReached" id="gym-{{goal.muscle}}-progress" stroke-width="8" svg="images/gym/muscle-avatars/{{goal.muscle}}.svg"></toto-progress> 
+						</div>
+						<div class="goal-label" layout="row">
+							<div flex></div>
+							<div layout="column">
+								<div flex></div>
+								<div layout="row">
+									<div ng-if="goal.actual == null" class="goal-value">{{goal.goal | number : 1}}</div>
+									<div ng-if="goal.actual != null" class="goal-value">{{goal.actual | number : 1}}</div>
+									<div class="pts">pts</div>
+								</div>
+								<div flex></div>
+							</div>
+							<div flex></div>
+						</div>
+					</div>
+					<div flex></div>
+				</div>
+			</div>
+			
+		</md-content>
+	</section>
+	
+</div>
+

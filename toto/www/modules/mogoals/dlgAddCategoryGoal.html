@@ -1,0 +1,39 @@
+<md-dialog aria-label="Set the main goal" ng-cloak id="mogoals" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Set the main goal</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			<div class="step-tracker" layout="row">
+				<div flex></div>
+				<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
+				<div flex></div>
+			</div>
+			<div ng-if="currentStep == 1">
+				<div class="title">What category is that goal for?</div>
+				<div class="category-picker">
+					<md-grid-list md-cols="3" md-cols-gt-sm="8" md-row-height="1:1" md-gutter="3px">
+						<md-grid-tile ng-repeat="category in categories" md-colspan="1" ng-click="selectCategory(category)">
+							<div class="category-container {{category.selected ? 'selected' : ''}}" layout="column">
+								<div class="image"><img src="images/expenses/avatars/{{category.filename}}" /></div>
+								<div class="title">{{category.description}}</div>
+							</div>
+						</md-grid-tile>
+					</md-grid-list>
+				</div>
+			</div>
+			<div>
+				<div class="toto-input-container">
+					<label>Main goal</label>
+					<input type="text" ng-model="mainGoal"/>
+				</div>
+				<button ng-click="answer(mainGoal)">Done</button>
+			</div>
+		</md-dialog-content>
+	</form>
+</md-dialog>

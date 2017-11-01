@@ -1,0 +1,121 @@
+
+.trip {}
+
+.trip md-toolbar .thumbnail {height: 48px; width: 48px; position: relative; background-color: black; border-radius: 50%;}
+.trip md-toolbar .thumbnail img {height: 100%; width: 100%; border-radius: 50%;}
+.trip md-toolbar .thumbnail input {position: absolute; top: 0; width: 100%; height: 100%; opacity: 0;}
+
+.trip .content {padding-top: 57px;}
+.trip md-grid-tile {overflow: hidden;}
+.trip md-grid-tile img {position: absolute; left: 0;}
+.trip md-grid-tile .info {z-index: 2; background-color: rgba(63, 81, 181, 0.5); position: absolute; left: 0; color: white; height: 100%; padding: 12px; z-index: 2; width: 35%;}
+.trip md-grid-tile .info .title {font-size: 1.2em;}
+.trip md-grid-tile .info .detail {font-size: 0.8em; opacity: 0.87; margin-bottom: 2px;}
+.trip md-grid-tile .info .detail.highlight {opacity: 1;}
+
+.trip .content .map {height: 200px; overflow: inherit;}
+.trip .content .map-container {height: 200px;}
+.trip .content .map-container a {display: none !important;}
+.trip .content .map-container .gm-style-cc {display: none;}
+
+.trip .content .info {}
+.trip .content .info md-divider {border-top-width: 1px;}
+.trip .content .section {min-height: 48px;}
+.trip .content .section.unselected {}
+.trip .content .section.last {border-bottom: none;}
+.trip .content .section.selected {border-bottom: none;}
+.trip .content .section .title {background-color: #E8EAF6; padding: 0 12px; display: flex; min-height: 48px; max-height: 48px; font-size: 0.9em; padding-top: 12px;}
+.trip .content .section .title img.icon {width: 24px; height: 24px; opacity: 0.7;}
+.trip .content .section .title span {padding-left: 16px; padding-top: 5px;}
+.trip .content .section .title button {}
+.trip .content .section .title .total {margin-right: 12px; font-size: 16px;}
+.trip .content .section.unselected .title {opacity: 0.5;}
+.trip .content .section.selected .title {opacity: 0.87; box-shadow: 0 1px 5px rgba(0,0,0,0.2);}
+.trip .content .section.selected md-divider {border-top-width: 0;}
+.trip .content .section .section-content {display: none; overflow: scroll;}
+.trip .content .section.selected .section-content {width: 100%; display: block; overflow: scroll; padding: 12px 12px; box-shadow: inset 0 -4px 7px -5px rgba(0,0,0,0.2);}
+.trip .content #itinerary-section.section.selected .section-content {background-image: url('../images/dot-grey.png'); background-size: 12px; background-repeat: repeat-y; background-position: 20px;}
+.trip .content .section.selected .section-content .intinerary-step {margin-bottom: 12px; position: relative;}
+.trip .content .section.selected .section-content .intinerary-step .step-id {min-width: 38px; max-width: 38px;}
+.trip .content .section.selected .section-content .intinerary-step .step-id span {background-color: #C5C5C5; border-radius: 50%; color: #8E8E8E; padding: 6px 4px 5px 4px; width: 20px; height: 16px; display: block; text-align: center; font-size: 0.8em;}
+.trip .content .section.selected .section-content .intinerary-step .step-info {padding-top: 4px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial {position: absolute; right: 12px; margin-top: -8px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial md-fab-trigger button {background-color: transparent !important; box-shadow: none; width: auto; height: auto; line-height: 12px; margin: 0; padding: 0; min-height: 0; margin-left: 12px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial md-fab-trigger button md-icon	 {fill: rgba(0,0,0,0.5); width: 12px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial md-fab-actions {}
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial md-fab-actions button {width: 22px; height: 22px; min-height: 22px; padding: 0; background-color: transparent; box-shadow: none; margin-left: 6px; margin-right: 0; line-height: 0; }
+.trip .content .section.selected .section-content .intinerary-step .step-info md-fab-speed-dial md-fab-actions button md-icon {width: 16px; height: 16px; fill: black;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .name {font-size: 1em;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .dates {font-size: 0.8em; opacity: 0.87; padding-top: 3px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .description {font-size: 0.8em; opacity: 0.87; padding-top: 6px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points {padding-top: 8px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points .point {padding-top: 4px;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points .point md-icon {width: 16px; height: 16px; margin: 0 12px 0 0;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points .point md-icon.action {padding-left: 12px; opacity: 0; -webkit-transition: opacity 0.3s; transition: opacity 0.3s;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points .point.selected md-icon.action {opacity: 1; -webkit-transition: opacity 0.3s; transition: opacity 0.3s; padding: 0;}
+.trip .content .section.selected .section-content .intinerary-step .step-info .interest-points .point span {font-size: 0.8em;}
+.trip .content .section.selected .section-content .idea {min-height: 48px; display: flex; align-items: center; padding: 12px 0;}
+.trip .content .section.selected .section-content .idea .image-container {margin-right: 12px;}
+.trip .content .section.selected .section-content .idea .image-container md-icon {fill: rgba(0,0,0,0.5); height: 20px;}
+.trip .content .section.selected .section-content .idea .idea-content {min-height: 38px; display: flex; align-items: center;}
+.trip .content .section.selected .section-content .idea .idea-content span {font-size: 0.8em; }
+.trip .content .section.selected .section-content .idea .idea-content .title {background: none; border: none; padding: 0 0 6px 0; font-size: 0.9em; min-height: 0; box-shadow: none;}
+.trip .content .section.selected .section-content .transport {padding: 12px; border-bottom: 1px solid #e1e1e1;}
+.trip .content .section.selected .section-content .transport.last {border: none;}
+.trip .content .section.selected .section-content .transport .price {display: flex; align-items: center;}
+.trip .content .section.selected .section-content .transport .details {margin-left: 24px;}
+.trip .content .section.selected .section-content .transport .details .detail {margin-top: 3px;}
+.trip .content .section.selected .section-content .transport .details .detail md-icon {width: 16px; height: 16px;}
+.trip .content .section.selected .section-content .transport .details .detail span {font-size: 0.8em; margin-left: 6px;}
+.trip .content .section.selected .section-content .budget-item {padding: 12px;}
+.trip .content .section.selected .section-content .budget-item .details {margin-left: 24px;}
+.trip .content .section.selected .section-content .budget-item .details span {font-size: 0.8em; margin-left: 6px; margin-top: 3px;}
+.trip .content .section.selected .section-content .budget-item .price {display: flex; align-items: center;}
+
+.trip-step-edit-dlg-content {}
+.trip-step-edit-dlg-content .md-dialog-content {}
+.trip-step-edit-dlg-content .md-dialog-content md-datepicker {margin-bottom: 12px;}
+.trip-step-edit-dlg-content .md-dialog-content label {color: rgba(0,0,0,0.5); margin-bottom: 6px; font-size: 0.8em; margin-left: 4px;}
+.trip-step-edit-dlg-content .md-dialog-content textarea {min-height: 150px; border: 1px solid #E1E1E1; resize: none; padding: 12px; font-size: 0.9em;}
+
+#trip-add-hotel #selected-step {border-bottom: 1px solid #e1e1e1; margin-bottom: 12px; padding-bottom: 12px;}
+#trip-add-hotel .stars span {width: 32px; height: 32px; background-image: url('../images/star-black.png'); background-repeat: no-repeat; background-size: 90%; display: inline-block; opacity: 0.2;}
+#trip-add-hotel .stars span.selected {opacity: 1;}
+
+#trip-add-idea md-dialog-content {margin-top: 64px;}
+#trip-add-idea .idea-form {padding: 24px;}
+#trip-add-idea .idea-form .types {margin-top: 12px;}
+#trip-add-idea .idea-form .types label {opacity: 0.5; font-size: 0.9em;}
+#trip-add-idea .idea-form .types div {margin-top: 12px;}
+#trip-add-idea .idea-form .types button.selected md-icon {color: black !important;}
+
+#trip-add-transport #way, #dialogContent_trip-add-transport #way {padding: 24px 24px 0 68px; background-image: url("../images/svg/airplane-takeoff.svg"); background-repeat: no-repeat; background-size: 32px; background-position: 12px 50%;}
+#trip-add-transport #return, #dialogContent_trip-add-transport #return {padding: 24px 24px 0 68px; background-image: url("../images/svg/airplane-land.svg"); background-repeat: no-repeat; background-size: 32px; background-position: 12px 50%; background-color: #E8EAF6;}
+#trip-add-transport #other, #dialogContent_trip-add-transport #other {padding: 24px;}
+
+/************************************************************************
+ * RESPONSIVE
+ ***********************************************************************/
+@media only screen and (min-width: 960px) {
+	
+	.trip .content {padding-top: 64px;}
+	.trip md-grid-tile .info .title {font-size: 1.4em}
+	.trip md-grid-tile .info .detail {font-size: 1em;}
+	
+	.trip .content .map {max-width: 50%; height: auto;}
+	.trip .map-container {width: 100%;}
+	
+	.trip .content .section {border-bottom: none;}
+	.trip .content .section.last {border-right: none;}
+	.trip .content .section .title {display: flex; cursor: pointer; padding-top: 0; align-items: center;}
+	.trip .content .section .title button {display: none;}
+	.trip .content .section .title span {padding-top: 0;}
+	.trip .content .section.selected .title {background-color: #C5CAE9; box-shadow: none; }
+	.trip .content .section.selected .section-content {position: absolute; left: 0; overflow: auto; box-shadow: none;}
+	.trip .content .section.selected .section-content .idea {padding: 6px 0;}
+	.trip .content .section.selected md-divider {border-top-width: 1px;}
+	
+	#trip-add-idea md-dialog-content {padding: 12px;}
+	
+}
+

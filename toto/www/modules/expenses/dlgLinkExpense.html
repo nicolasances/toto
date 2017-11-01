@@ -1,0 +1,53 @@
+<md-dialog aria-label="Add a medical expense" ng-cloak id="expenses" class="theme-cyan">
+	<md-toolbar md-scroll-shrink="true"  >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Go Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+			</md-button>
+			<span class="title" flex>Link to an expense</span>
+		</div>
+	</md-toolbar>
+	<md-dialog-content class="md-dialog-content" style="padding-bottom: 0;">
+		<div class="expense-picker-header" layout="row">
+			<md-button ng-click="loadPreviousMonth()" aria-label="previous month">
+				<md-icon md-svg-src="images/svg/previous.svg"></md-icon>
+			</md-button>
+			<div class="year" flex>{{selectedPeriod.month}} {{selectedPeriod.year}}</div>
+			<md-button ng-click="loadNextMonth()" aria-label="next month">
+				<md-icon md-svg-src="images/svg/next.svg"></md-icon>
+			</md-button>
+		</div>
+		<div id="expenses-container" layout="column" flex>
+			<div class="timeline"></div>
+			<md-list>
+				<md-list-item class="md-2-line" ng-repeat="expense in expenses" ng-click="selectExpense(expense)">
+					<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+						<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}');border-color: {{expense.category.color}}"></div>
+						<div class="date" layout="column">
+							<div flex></div>
+							<div class="day">{{expense.date | date : 'd'}}</div>
+							<div class="month">{{expense.date | date : 'MMM'}}</div>
+							<div flex></div>
+						</div>
+						<div class="description" flex layout="column">
+							<div flex></div>
+							<div>{{expense.description}}</div>
+							<div flex></div>
+						</div>
+						<div class="weekend-icon" layout="column" ng-if="expense.weekendId != null">
+							<div flex></div>
+							<div><md-icon md-svg-src="images/svg/palm-tree.svg"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div class="amount" layout="column">
+							<div flex></div>
+							<div>&euro; {{expense.amount | number : 2}}</div>
+							<div flex></div>
+						</div>
+					</div>
+	   			</md-list-item>
+			</md-list>
+		</div>
+	</md-dialog-content>
+	
+</md-dialog>

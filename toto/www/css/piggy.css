@@ -1,0 +1,32 @@
+
+#piggy .toto-inapp-dashboard .icon-container {height: 100%;}
+#piggy .toto-inapp-dashboard .icon-container md-icon {fill: #009688;}
+
+.piggy-deposit {background-color: #80CBC4;}
+.piggy-deposit.completed {opacity: 0.5;}
+.piggy-deposit.deposit {background-color: #EF9A9A;}
+.piggy-deposit div.icon-container {text-align: center; height: 50%; padding-top: 12.5%; box-sizing: border-box; -webkit-transition: padding-top 1s; transition: padding-top 1s;}
+.piggy-deposit div.icon-container.transition {padding-top: 9%; -webkit-transition: padding-top 1s; transition: padding-top 1s;}
+.piggy-deposit div.icon-container md-icon {height: 70%; width: auto; -webkit-transition: width 1s, height 1s; transition: width 1s, height 1s;  }
+.piggy-deposit div.icon-container md-icon.transition {-webkit-transition: width 1s, height 1s; transition: width 1s, height 1s; height: 92%;}
+.piggy-deposit div.info {text-align: center;}
+.piggy-deposit div.warn {font-size: 1em; text-transform: uppercase; font-weight: 500; padding: 12px;}
+.piggy-deposit div.info .headline {font-size: 1.5em; font-weight: 500;}
+.piggy-deposit div.info .detail {font-size: 0.8em;}
+.piggy-deposit div.info .subhead {font-size: 0.8em; text-transform: uppercase; padding: 12px; width: 100%; position: absolute; bottom: 0;}
+.piggy-deposit div.info .subhead.warn {margin-top: 9%; font-weight: normal !important;}
+
+#piggy-deposit-details .toto-info-box md-grid-list md-grid-tile.non-deposited {background-color: #EF9A9A;}
+
+/******************************************************************************************************************
+ * RESPONSIVE
+ ******************************************************************************************************************/
+
+@media only screen and (min-width: 960px) {
+	.piggy-deposit div.icon-container md-icon {height: 80%;}
+	.piggy-deposit div.info .headline {font-size: 1.8em;}
+	.piggy-deposit div.info .detail {font-size: 0.8em;}
+	.piggy-deposit div.info .subhead {font-size: 1em;}
+	.piggy-deposit div.warn {font-size: 1.2em;}	
+}
+

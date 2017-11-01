@@ -1,0 +1,39 @@
+<md-dialog aria-label="Add an application" ng-cloak id="jobsearch" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>New job application</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content toto-form">
+			
+			<div class="toto-input-container">
+				<label>Company name</label>
+				<input type="text" ng-model="app.company"/>
+			</div>
+			<div class="toto-input-container">
+				<label>Job position</label>
+				<input type="text" ng-model="app.jobPosition"/>
+			</div>
+			<div class="toto-input-container">
+				<label>City</label>
+				<input type="text" ng-model="app.city"/>
+			</div>
+			<div class="toto-input-container">
+				<label>Country code</label>
+				<input type="text" ng-model="app.countryCode"/>
+			</div>
+			<div class="toto-input-container">
+				<label>Application date</label>
+				<md-datepicker ng-model="app.sentOn" ></md-datepicker>
+			</div>
+			
+			<button ng-click="answer(app)">Done</button>
+			
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>

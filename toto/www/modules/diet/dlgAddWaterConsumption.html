@@ -1,0 +1,13 @@
+<div id="diet">
+	<div id="water-consumption-dialog">
+		<div class="change-consumption" layout="row">
+			<div flex></div>
+			<div class="consumption" layout="column" ng-repeat="type in types" ng-click="answer(type.amount)">
+				<div flex></div>
+				<md-icon md-svg-src="{{type.svg}}"></md-icon>
+				<div flex></div>
+			</div>
+			<div flex></div>
+		</div>
+	</div>
+</div>

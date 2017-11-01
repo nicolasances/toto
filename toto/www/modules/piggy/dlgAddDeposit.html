@@ -1,0 +1,47 @@
+<md-dialog aria-label="Add a deposit" ng-cloak id="piggy-add-deposit" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a deposit</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content class="md-dialog-content">
+			<div layout="column">
+				<div layout="row">
+					<md-input-container>
+						<label>Name</label>
+						<input ng-model="deposit.name"/>
+					</md-input-container>
+					<md-input-container>
+						<label>Goal amount</label>
+						<input ng-model="deposit.goalAmount"/>
+					</md-input-container>
+				</div>
+				<div layout="row">
+					<div>
+						<label>Start date</label>
+						<md-datepicker ng-model="deposit.startDate" ></md-datepicker>
+					</div>
+					<div style="margin-left: 12px;">
+						<label>End date</label>
+						<md-datepicker ng-model="deposit.endDate" ></md-datepicker>
+					</div>
+				</div>
+				<md-input-container style="margin-top: 24px !important;">
+					<label>Periodicity</label>
+					<md-select ng-model="deposit.periodicity">
+						<md-option>Monthly</md-option>
+						<md-option>Weekly</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+		</md-dialog-content>
+	</form>
+	
+	<md-button class="md-fab floating" aria-label="Ok" ng-click="answer(deposit)">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+</md-dialog>

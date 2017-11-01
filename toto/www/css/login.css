@@ -1,0 +1,8 @@
+.login-page {background-color: #004D40; width: 100%;}
+
+.login-page .message {margin: 62px 24px 48px 24px; font-size: 1.2em; color: white; text-align: center;}
+
+.login-page .login-container #google-login {background-color: #4285f4; border-radius: 3px; border: none; color: white;}
+.login-page .login-container #google-login .text-container {padding: 0 24px; font-weight: bold; font-size: 1.1em;}
+.login-page .login-container #google-login .logo md-icon {width: 48px; height: 48px;}
+

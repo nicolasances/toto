@@ -1,0 +1,28 @@
+
+<div class="theme-cyan" id="travel">
+
+	<md-toolbar class="md-whiteframe-3dp" md-scroll-shrink="true" >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" >
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/travel')"></md-icon>
+			</md-button>
+			<span>New gallery</span>
+		</div>
+	</md-toolbar>
+	
+	<div style="margin: 8px; margin-top: 57px;"></div>
+	
+	<md-content class="thumbnails-container" style="padding: 20px;">
+		<md-input-container>
+        	<label>Category Title</label>
+        	<input ng-model="category.title">
+    	</md-input-container>
+    	<md-switch ng-model="category.private" aria-label="Private">{{category.private ? 'Private' : 'Public'}}</md-switch>
+	</md-content>
+	
+	<md-button class="md-fab md-fab-bottom-right" aria-label="Save" ng-click="postCategory()">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+	
+</div>
+

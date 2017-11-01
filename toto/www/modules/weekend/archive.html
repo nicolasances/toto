@@ -1,0 +1,58 @@
+
+<div class="theme-cyan" id="weekend" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('we-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Your Weekends Archive</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left we-sidenav" md-component-id="we-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item ng-click="go('/weekend')"><md-icon md-svg-src="images/svg/palm-tree.svg"></md-icon><p>Upcoming weekends</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/weekend/archive')"><md-icon md-svg-src="images/svg/archived.svg"></md-icon><p>Past weekends</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 6px;">
+			<md-grid-list md-cols="1" md-cols-gt-sm="10" md-row-height-gt-sm="1:1" md-row-height="5:1" md-gutter="4px">
+				<md-grid-tile class="archived-weekend" ng-repeat="we in weekends" ng-click="go('/weekend/' + we.id)">
+					<div class="tile-skin" layout="row">
+						<div class="date" layout="column">
+							<div flex></div>
+							<div class="day">{{we.weekend | date : 'd'}}</div>
+							<div class="month">{{we.weekend | date : 'MMM'}}</div>
+							<div flex></div>
+						</div>
+						<div class="info" layout="column">
+							<div flex></div>
+							<md-icon md-svg-src="images/weekend/location/{{we.type}}.svg"></md-icon>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="location">{{we.destination}}</div>
+							<div flex></div>
+						</div>
+						<div layout="column" flex>
+							<div flex></div>
+							<div class="cost {{we.cost.consolidated ? '' : 'temporary'}}"><span>&euro; </span>{{we.cost.amount | number : 2}}</div>
+							<div flex></div>
+						</div>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</section>
+</div>
+

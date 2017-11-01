@@ -1,0 +1,23 @@
+			<div layout="row">
+				<div class="nav" layout="column" ng-click="backOneMonth()">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/arrow-left.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="toto-calendar-month" flex>{{focusedMonth.month}} {{focusedMonth.year}}</div>
+				<div class="nav" layout="column" ng-click="forwardOneMonth()">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
+					<div flex></div>
+				</div>
+			</div>
+			<div class="toto-calendar">
+				<div class="cur">
+					<md-grid-list md-cols="7" md-row-height="4:1" md-gutter="0px" style="margin-bottom: 8px;">
+						<md-grid-tile class="day-label" ng-repeat="dayLabel in daysOfWeekLabels">{{dayLabel}}</md-grid-tile>
+					</md-grid-list>
+					<md-grid-list md-cols="7" md-row-height="1:1" md-gutter="4px">
+						<md-grid-tile ng-repeat="day in focusedMonth.days" class="{{day.pinned ? 'pinned' : ''}} {{day.today ? 'today' : ''}} {{day.pinning ? 'pinning' : ''}}" ng-click="pinDate(day)"><span ng-if="day.current">{{day.day}}</span></md-grid-tile>
+					</md-grid-list>
+				</div>
+			</div>

@@ -1,0 +1,69 @@
+
+<div class="toto-chimp" md-whiteframe="3" ng-click="openDialog()">
+	<md-icon md-svg-src="images/svg/toto.svg"></md-icon>
+</div>
+<div id="toto-chimp-bubble" layout="column">
+	<div class="bubble">Hey!</div>
+	<div layout="row">
+		<div flex></div>
+		<md-icon md-svg-src="images/svg/arrow-down-full.svg"></md-icon>
+	</div>
+</div>
+
+<div id="overlay" ng-click="hideDialog()"></div>
+
+<div id="toto-chimp-dialog" layout="column" flex>
+
+	<div class="toto-chimp-ai-container" layout="column">
+		<div class="avatar">
+			<md-icon md-svg-src="images/svg/toto.svg"></md-icon>
+		</div>
+		<div class="speech-container" layout="column">
+			<div flex></div>
+			<div class="speech">{{totoSpeech.text}}</div>
+			<div flex></div>
+		</div>
+	</div>
+	
+	<div class="info-container" layout="column">
+	
+		<toto-chimp-info-link link="totoSpeech.data.link" ng-if="totoSpeech.data.link != null"></toto-chimp-info-link>
+		<toto-chimp-info-task task="totoSpeech.data.task" ng-if="totoSpeech.data.task != null"></toto-chimp-info-task>		
+		<toto-chimp-info-expense expense="totoSpeech.data.expense" ng-if="totoSpeech.data.expense != null"></toto-chimp-info-expense>
+		<toto-chimp-info-list list="totoSpeech.data.list" ng-if="totoSpeech.data.list != null"></toto-chimp-info-expense>
+	
+	</div>
+	
+	<div class="user-action-container" layout="column">
+		<div class="user-text"></div>
+		<div layout="row">
+			<div layout="column">
+				<div flex></div>
+				<div class="keyboard-icon-container" ng-click="toggleKeyboard()">
+					<md-icon ng-show="!keyboardOn" md-svg-src="images/svg/keyboard.svg"></md-icon>
+					<md-icon ng-show="keyboardOn" md-svg-src="images/svg/microphone.svg"></md-icon>
+				</div>
+			</div>
+			<div class="keyboard-container" ng-show="keyboardOn" layout="column" flex>
+				<div flex></div>
+				<div class="input-container" layout="row">
+					<input id="user-input-keyboard" type="text" flex/>
+				</div>
+			</div>
+			<div class="microphone-container" ng-show="!keyboardOn" layout="column" flex  ng-click="toggleVoiceRecognition()">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/microphone.svg"></md-icon>
+				<div flex></div>
+			</div>
+			<div layout="row">
+				<div flex></div>
+				<div layout="column">
+					<div flex></div>
+					<div class="close-icon-container" ng-click="hideDialog()">
+						<md-icon md-svg-src="images/svg/close.svg"></md-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

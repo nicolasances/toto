@@ -1,0 +1,44 @@
+
+<div class="theme-cyan" id="travel-detail">
+
+	<md-toolbar class="md-tall md-whiteframe-3dp" md-scroll-shrink="true" >
+		<div class="md-toolbar-tools" layout="row">
+			<md-button class="md-icon-button" >
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/travel')"></md-icon>
+			</md-button>
+			<span flex></span>
+			<md-button class="md-icon-button" >
+				<md-icon md-svg-src="images/svg/edit.svg" ng-click=""></md-icon>
+				<input type="file" file-model="categoryThumbnail" accept="image/*" onchange="angular.element(this).scope().postCategoryThumbnail(this)"/>
+			</md-button>
+			<md-button class="md-icon-button" ng-click="deleteCategory()">
+				<md-icon md-svg-src="images/svg/trash.svg" ng-click=""></md-icon>
+			</md-button>
+			<h1 id="categoryTitle" class="title" ng-click="showUpdateCategoryTitle = !showUpdateCategoryTitle" ng-show="!showUpdateCategoryTitle">{{category.title}} Gallery</h1>
+			<md-input-container id="categoryTitleUpdate" class="title" ng-show="showUpdateCategoryTitle">
+	        	<label>Category Title</label>
+	        	<input ng-model="category.title" onchange="angular.element(this).scope().updateCategoryTitle()">
+	    	</md-input-container>
+	    	<md-button class="md-icon-button bottom-right {{category.private ? '' : 'semi-transparent'}}" ng-click="toggleLock()">
+	    		<md-icon md-svg-src="{{category.private ? 'images/svg/lock.svg' : 'images/svg/unlocked.svg'}}"></md-icon>
+	    	</md-button>
+		</div>
+		<img class="background" id="categoryThumbnailBackground" ng-src="images/travel/covers/{{category.thumbnail}}"/>
+	</md-toolbar>
+	
+	<div style="margin: 8px; margin-top: 128px;"></div>
+	
+	<md-content style="padding: 4px;">
+			<md-grid-list md-cols="4" md-row-height="1:1" md-gutter="4px">
+				<md-grid-tile class="photo-tile" ng-repeat="photo in photos" md-colspan="{{photo.colspan}}" md-rowspan="{{photo.rowspan}}" ng-click="go('/travel/cat/' + category.id + '/photos/' + photo.id)" >
+					<img id="{{photo.id}}" ng-src="images/travel/photos/thumbnails-VERY_LOW/{{photo.id}}" class="{{photo.colspan == 2 ? 'h' : (photo.rowspan == 2 ? 'v' : (photo.width > photo.height ? 'v' : 'h'))}}" onload="angular.element(this).scope().optimizeAndPositionImage(this)" />
+					<md-icon class="bottom-right" md-svg-src="images/svg/location-pointer.svg" ng-click="askForCoordinates($event, photo)" ng-show="photo.gpsCoordinatesN == null"></md-icon>
+					<md-icon class="bottom-left" md-svg-src="images/svg/timer.svg" ng-click="" ng-show="photo.timestamp == null"></md-icon>
+				</md-grid-tile>
+			</md-grid-list>
+	</md-content>
+	
+	<div style="margin: 8px; margin-top: 128px;"></div>
+	
+</div>
+

@@ -1,0 +1,60 @@
+
+<div class="theme-cyan" id="cards" layout="column" flex>
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>Cards</span>
+		</div>
+	</md-toolbar>
+	
+	<section layout="row" flex>
+		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
+			<md-toolbar class="md-theme-cyan">
+				<h1 class="md-toolbar-tools">Menu</h1>
+			</md-toolbar>
+			<md-content>
+				<md-list>
+					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
+					<md-list-item class="selected" ng-click="go('/card')"><md-icon md-svg-src="images/svg/credit-card.svg"></md-icon><p>Credit Cards</p></md-list-item>
+				</md-list>
+			</md-content>
+		</md-sidenav>
+		
+		<md-content flex style="padding: 12px;">
+			
+			<md-grid-list md-cols="1" md-cols-gt-sm="4" md-row-height="4:1" md-row-height-gt-sm="3:1" md-gutter="6px">
+				<md-grid-tile ng-repeat="card in cards" >
+					<div id="card-{{card.id}}" class="card" layout="row" ng-click="go('/card/' + card.id)">
+						<div layout="column">
+							<div flex></div>
+							<div class="logo"><md-icon md-svg-src="images/svg/mastercard.svg"></md-icon></div>
+							<div flex></div>
+						</div>
+						<div layout="column" flex>
+							<div flex></div>
+							<div class="name">{{card.name}} Card</div>
+							<div class="pan">XXXX XXXX XXXX {{card.digits}}</div>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="expiry">{{card.expiry | date : 'MM/yy'}}</div>
+							<div class="expiry-text">Expiry date</div>
+							<div flex></div>
+						</div>
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		
+		</md-content>
+	</section>
+	
+	<md-button class="md-fab floating" aria-label="Add a card" ng-click="addCard($event)">
+		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+	</md-button>
+		
+</div>
+

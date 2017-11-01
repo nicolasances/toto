@@ -1,0 +1,46 @@
+
+<div class="theme-cyan" id="travel-new-photo">
+
+	<md-toolbar class="md-whiteframe-3dp" md-scroll-shrink="true" >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" >
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/travel')"></md-icon>
+			</md-button>
+			<span>Upload your photo</span>
+		</div>
+	</md-toolbar>
+	
+	<div style="margin: 8px; margin-top: 57px;"></div>
+	
+	<md-content id="image-upload">
+		<div style="margin: auto; width: 75%;">
+			<img id="uploaded-image" ng-src="images/thumb/default-thumbnail.JPG" />
+			<md-button class="md-icon-button floating-bottom-right" >
+				<md-icon md-svg-src="images/svg/camera.svg"></md-icon>
+			</md-button>
+			<md-progress-linear ng-show="uploading" md-mode="indeterminate"></md-progress-linear>
+		</div>	
+		<input type="file" file-model="myFile" accept="image/*" onchange="angular.element(this).scope().fileChanged(this)"/>
+	</md-content>
+
+	<md-divider style="margin-top: 20px;"></md-divider>
+	
+	<md-content id="categories-picker" style="padding: 20px;">
+		<label>Pick categories</label>
+		<md-grid-list md-cols="4" md-row-height="1:1" md-gutter="10px">
+			<md-grid-tile class="category {{category.selected ? 'selected' : ''}}" style="overflow: hidden;" ng-repeat="category in categories" ng-click="category.selected = !category.selected">
+				<img id="img-{{category.id}}" ng-src="images/travel/covers/{{category.thumbnail}}" style="width: 100%" onload="angular.element(this).scope().positionTitle(this)"/>
+				<div id="title-{{category.id}}" class="title">{{category.title}}</div>
+			</md-grid-tile> 
+		</md-grid-list>
+	</md-content>
+	
+	<div style="margin: 8px; margin-top: 100px;"></div>
+	
+	<md-button class="md-fab md-fab-bottom-right" aria-label="Save" ng-click="postPhoto()">
+		<md-icon md-svg-src="images/svg/checked.svg" ></md-icon>
+	</md-button>
+	
+	<img id="imm"/>
+</div>
+

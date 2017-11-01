@@ -1,0 +1,34 @@
+<!-- ----------------------------------------------------------------------------------------------------------------
+
+NOTES LIST
+
+Requires the following in $scope. 
+
+ - notes : an array of note objects
+ - showNotes : a boolean controlling the visibility of the notes
+ - showDeleteButton : a boolean controlling the visibility of the delete button. Should be true for widescreens.
+ 
+ - addNote() : function that will add a note to the notes array
+ - deleteNote(note) : function that will delete the provided note
+ 
+The note object has the following structure: 
+{id: 'the id of the note', note: 'the content of the note', date: 'the DD/MM/YYYY formatted date'}
+ 
+----------------------------------------------------------------------------------------------------------------- -->
+
+<md-list class="toto-list" flex>
+	<md-button class="md-fab" ng-click="addNote()" aria-label="Add a note">
+		<md-icon md-svg-src="images/svg/pen.svg"></md-icon>
+	</md-button>
+	<md-subheader ng-click="showNotes = !showNotes" layout="row">Notes</md-subheader>
+	<md-list-item class="md-2-line" ng-repeat="note in notes" ng-show="showNotes" md-swipe-left="showDeleteButton = true" md-swipe-right="showDeleteButton = false">
+ 		<div class="md-list-item-text note" layout="column" flex>
+	   		<h3>{{note.date}}</h3>
+	   		<p class="{{showDeleteButton ? 'short' : ''}}">{{note.note}}</p>
+	      	<md-divider ng-show="!$last"/>
+  		</div>
+   		<md-button class="trash" ng-click="deleteNote(note)" ng-show="showDeleteButton">
+   			<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
+   		</md-button>
+	</md-list-item>
+</md-list>

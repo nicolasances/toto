@@ -1,0 +1,16 @@
+
+.toto-calendar {}
+.toto-calendar md-grid-tile.day-label {font-size: 0.8em; opacity: 0.54;}
+.toto-calendar md-grid-tile.pinned {background-color: #00BCD4;border-radius: 50%;color: white;}
+.toto-calendar md-grid-tile.pinning {background-color: #673AB7;border-radius: 50%; color: white;}
+.toto-calendar md-grid-tile.today {font-weight: bold; font-size: 1.3em !important;}
+
+.toto-calendar-month {text-align: center; margin: 24px 0 24px 0; font-size: 1.2em;}
+
+/************************************************************************
+ * RESPONSIVE
+ ***********************************************************************/
+@media only screen and (min-width: 960px) {
+	
+	.toto-calendar {margin: 12px 30%;}
+}

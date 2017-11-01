@@ -1,0 +1,167 @@
+
+<div class="theme-indigo trip" flex layout="column">
+
+	<md-toolbar md-scroll-shrink="true"  >
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Go Back">
+				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/trip')"></md-icon>
+			</md-button>
+			<span class="title" flex>{{trip.name}}</span>
+			<div class="thumbnail">
+				<img ng-src="http://{{imagesServerHost}}:{{imagesServerPort}}/{{trip.thumbnail}}"/>
+				<input type="file" file-model="recipeThumbnail" accept="image/*" onchange="angular.element(this).scope().postTripThumbnail(this)"/>
+			</div>
+		</div>
+	</md-toolbar>
+	
+	<div class="content" layout="column" layout-gt-sm="row" flex>
+		<md-content class="map" flex-gt-sm>
+			<div id="mapdiv" class="map-container" flex-gt-sm></div>
+		</md-content>
+		
+		<md-content class="info" layout="column" layout-gt-sm="row" flex>
+			<div class="section selected" id="itinerary-section" flex-gt-sm layout="column" onclick="angular.element(this).scope().toggleTabSelection(this)">
+				<div class="title" layout="row" >
+					<img class="icon" ng-src="images/svg/directions.svg"/>
+					<span>Itinerary</span>
+				</div>
+				<div class="section-content" layout="column" flex>
+					<div class="intinerary-step" ng-repeat="step in intinerary" layout="row" id="step-{{step.id}}">
+						<div class="step-id"><span>{{step.seq}}</span></div>
+						<div class="step-info" layout="column">
+							<div layout="row">
+								<div class="name">
+									<span>{{step.name}}</span>
+								</div>
+								<md-fab-speed-dial class="md-scale" md-direction="left" md-open="false" >
+									<md-fab-trigger>
+										<md-button class="md-fab" aria-label="Menu" ng-click="">
+											<md-icon md-svg-src="images/svg/bars.svg"></md-icon>
+										</md-button>
+									</md-fab-trigger>
+									<md-fab-actions>	
+										<md-button class="md-fab md-raised md-mini" aria-label="Add an interest point" ng-click="addInterestPoint(step)">
+											<md-icon md-svg-src="images/svg/location-pointer.svg"></md-icon>
+										</md-button>
+										<md-button class="md-fab md-raised md-mini" aria-label="Delete this step" ng-click="deleteWaypoint(step)">
+											<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
+										</md-button>
+									</md-fab-actions>
+								</md-fab-speed-dial>
+							</div>
+							<div class="dates" ng-click="openEditStepDlg($event, step)">{{step.dateFrom | date : 'dd/MM/yyyy'}} to {{step.dateTo | date : 'dd/MM/yyyy'}}</div>
+							<div class="description" ng-click="openEditStepDlg($event, step)" ng-show="step.notes != null">{{step.notes}}</div>
+							<div class="interest-points" layout="column" ng-show="step.interestPoints != null">
+								<div class="point" ng-repeat="point in step.interestPoints" layout="row" onclick="if (this.classList.contains('selected')) this.classList.remove('selected'); else this.classList.add('selected');">
+									<md-icon md-svg-src="images/svg/location-pointer.svg"></md-icon>
+									<span>{{point.name}}</span>
+									<md-icon class="action" md-svg-src="images/svg/trash.svg" ng-click="deleteInterestPoint(step, point);"></md-icon>
+								</div>
+							</div>
+							<div class="interest-points" layout="column" ng-show="step.hotel != null">
+								<div class="point" layout="row" ng-click="showHotelOnMap(step.hotel)" onclick="if (this.classList.contains('selected')) this.classList.remove('selected'); else this.classList.add('selected');">
+									<md-icon md-svg-src="images/svg/bed.svg"></md-icon>
+									<span>{{step.hotel.name}}<br/>{{step.hotel.address}}</span>
+									<md-icon class="action" md-svg-src="images/svg/trash.svg" ng-click="deleteHotel(step);"></md-icon>
+									<md-icon class="action" md-svg-src="images/svg/location-pointer.svg" ng-click="showOnGoogleMaps(step.hotel);"></md-icon>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<md-divider></md-divider>
+			</div>
+			<div class="section unselected" flex-gt-sm onclick="angular.element(this).scope().toggleTabSelection(this)">
+				<div class="title" layout="row" >
+					<img class="icon" ng-src="images/svg/airplane.svg"/>
+					<span>Transportation</span>
+				</div>
+				<div class="section-content" layout="column" flex>
+					<div class="transport {{$last ? 'last' : ''}}" ng-repeat="transport in transports" layout="row" flex>
+						<md-icon md-svg-src="images/svg/airplane.svg" fill="rgba(0,0,0,0.5)"></md-icon>
+						<div class="details" layout="column" flex>
+							<div class="detail">
+								<md-icon md-svg-src="images/svg/airplane-takeoff.svg" fill="rgba(0,0,0,0.5)"></md-icon>
+								<span>{{transport.way.departure.airport}} ({{transport.way.departure.time}}) - {{transport.way.landing.airport}} ({{transport.way.landing.time}})</span>
+							</div>
+							<div class="detail">
+								<md-icon md-svg-src="images/svg/airplane-land.svg" fill="rgba(0,0,0,0.5)"></md-icon>
+								<span>{{transport.returnTrip.departure.airport}} ({{transport.returnTrip.departure.time}}) - {{transport.returnTrip.landing.airport}} ({{transport.returnTrip.landing.time}})</span>
+							</div>
+						</div>
+						<div class="price" flex-gt-sm>&euro; {{transport.price | number: 2}}</div>
+					</div>
+				</div>
+				<md-divider></md-divider>
+			</div>
+			<div class="section unselected" flex-gt-sm onclick="angular.element(this).scope().toggleTabSelection(this)">
+				<div class="title" layout="row" >
+					<img class="icon" ng-src="images/svg/budget.svg"/>
+					<span flex>Budget</span>
+					<span class="total">&euro; {{calculateTotalBudget() | number : 2}}</span>
+				</div>
+				<div class="section-content" layout="column" flex>
+					<div class="budget-item" ng-repeat="hotel in hotels" layout="row">
+						<md-icon md-svg-src="images/svg/bed.svg" fill="rgba(0,0,0,0.5)"></md-icon>
+						<div class="details" layout="column" flex>
+							<span>{{hotel.name}}</span>
+							<span>{{hotel.address}}</span>
+						</div>
+						<div class="price">&euro; {{hotel.price}}</div>
+					</div>
+					<div class="budget-item" ng-repeat="transport in transports" layout="row">
+						<md-icon md-svg-src="images/svg/airplane.svg" fill="rgba(0,0,0,0.5)"></md-icon>
+						<div class="details" layout="column" flex>
+							<span>{{transport.way.departure.airport}} ({{transport.way.departure.time}}) - {{transport.way.landing.airport}} ({{transport.way.landing.time}})</span>
+							<span>{{transport.returnTrip.departure.airport}} ({{transport.returnTrip.departure.time}}) - {{transport.returnTrip.landing.airport}} ({{transport.returnTrip.landing.time}})</span>
+						</div>
+						<div class="price">&euro; {{transport.price}}</div>
+					</div>
+				</div>
+				<md-divider></md-divider>
+			</div>
+<!-- 			<div class="section last unselected" flex-gt-sm layout="column" onclick="angular.element(this).scope().toggleTabSelection(this)"> -->
+<!-- 				<div class="title" layout="row" > -->
+<!-- 					<img class="icon" ng-src="images/svg/luggage.svg"/> -->
+<!-- 					<span>Ideas Bucket</span> -->
+<!-- 				</div> -->
+<!-- 				<div class="section-content" style="width: 100%;" layout="column"> -->
+<!-- 					<div layout="column" ng-repeat="idea in ideas"> -->
+<!-- 						<div class="idea" layout="row"> -->
+<!-- 							<div class="image-container"><md-icon md-svg-src="images/svg/{{idea.type}}.svg" /></div> -->
+<!-- 							<div class="idea-content" flex> -->
+<!-- 								<div layout="column"> -->
+<!-- 									<div class="title" ng-show="idea.title != null">{{idea.title}}</div> -->
+<!-- 									<span>{{idea.text}}</span> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			</div>
+		</md-content>
+	</div>
+	
+	<md-fab-speed-dial class="floating md-scale" md-direction="up" md-open="false" >
+		<md-fab-trigger>
+			<md-button class="md-fab" aria-label="Menu" ng-click="">
+				<md-icon md-svg-src="images/svg/bars.svg"></md-icon>
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>	
+			<md-button class="md-fab md-raised md-mini" aria-label="Add a waypoint" ng-click="addWaypoint()">
+				<md-icon md-svg-src="images/svg/directions.svg"></md-icon>
+			</md-button>
+			<md-button class="md-fab md-raised md-mini" aria-label="Add a hotel" ng-click="addHotel()">
+				<md-icon md-svg-src="images/svg/bed.svg" ></md-icon>
+			</md-button>
+			<md-button class="md-fab md-raised md-mini" aria-label="Add a plane" ng-click="addTransport()">
+				<md-icon md-svg-src="images/svg/airplane.svg" ></md-icon>
+			</md-button>
+			<md-button class="md-fab md-raised md-mini" aria-label="Add an idea" ng-click="addIdea()">
+				<md-icon md-svg-src="images/svg/idea.svg" ></md-icon>
+			</md-button>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+</div>
+

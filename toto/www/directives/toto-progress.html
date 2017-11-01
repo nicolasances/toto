@@ -1,0 +1,13 @@
+<div ng-if="type == 'fill'" ng-class="['toto-progress-fill', 'dark-primary-color', disabled ? 'disabled' : '']" layout="column">
+	<div flex></div>
+	<md-icon ng-show="svg != null" md-svg-src="{{svg}}"></md-icon>
+	<div flex></div>
+	<div ng-class="['level', 'light-primary-color']"></div>
+</div>
+<div ng-if="type == 'circle' || type == null" class="toto-progress-overlay" layout="column" ng-click="click()">
+	<div flex></div>
+	<md-icon ng-class="percentage >= 100 ? 'completed' : ''" ng-show="svg != null" md-svg-src="{{svg}}"></md-icon>
+	<div class="percentage" ng-show="showPercentage">{{percentage | number : 1}}%</div>
+	<div flex></div>
+</div>
+<div class="label" ng-show="label != null">{{label | number : 2}} {{unit}}</div>
