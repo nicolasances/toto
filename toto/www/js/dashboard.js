@@ -2,9 +2,11 @@
 var dashboardModule = angular.module("dashboardModule", ['GymServiceModule', 'BodyWeightServiceModule', 'DietServiceModule']);
 var dashboardModuleInitialized = false;
 
-dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout', '$interval', 'calendarService', 'expensesService', 'GymService', 'BodyWeightService', 'ChimpService', 'DietService', function($scope, $http, $timeout, $interval, calendarService, expensesService, GymService, BodyWeightService, ChimpService, DietService) {
+dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$http', '$timeout', '$interval', 'calendarService', 'expensesService', 'GymService', 'BodyWeightService', 'ChimpService', 'DietService', function($rootScope, $scope, $http, $timeout, $interval, calendarService, expensesService, GymService, BodyWeightService, ChimpService, DietService) {
 	
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Toto Dashboard'
 		
 		$scope.checkAppAuthorizations();
 		

@@ -3,7 +3,6 @@
 <head>
 <link rel="stylesheet" href="css/themes.css" />
 <link rel="stylesheet" href="css/forms.css" />
-<link rel="stylesheet" href="css/tiles.css" />
 <link rel="stylesheet" href="css/dashboard.css" />
 <link rel="stylesheet" href="css/colors.css" />
 <link rel="stylesheet" href="css/housekeeping.css" />
@@ -113,7 +112,31 @@
 </head>
 <body class="app-theme-cyan" ng-app="toto" ng-controller="totoController" layout="column">
 
-	<div id="ng-view" ng-view layout="column" flex></div>
+	<md-toolbar md-whiteframe="3" ng-class="['dark-primary-color']">
+		<div class="md-toolbar-tools teal">
+			<md-button class="md-icon-button" aria-label="Back">
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleShowApps()"></md-icon>
+			</md-button>
+			<span class="title" flex>{{currentMenu}}</span>
+			<md-button class="md-icon-button" aria-label="Home">
+				<md-icon md-svg-src="images/svg/home.svg" ng-click="go('/')"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<section layout="row" flex>
+		<md-content layout="row" flex>
+			
+			<div class="toto-left-area" ng-show="gtMd">
+				<div class="title">Available apps</div>
+				<toto-apps-sidemenu layout="column"></toto-apps-sidemenu>
+			</div>
+			
+			<div id="ng-view" ng-view layout-gt-sm="row" flex></div>
+			
+		</md-content>
+	</section>
+	
 
 </body>
 </html>

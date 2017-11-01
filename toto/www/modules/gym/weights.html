@@ -1,49 +1,29 @@
 
-<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
-			</md-button>
-			<span class="title" flex>Weight list</span>
-		</div>
-	</md-toolbar>
-	
-	<section layout="row" flex>
-		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
-			<md-toolbar class="md-theme-cyan">
-				<h1 class="md-toolbar-tools">Menu</h1>
-			</md-toolbar>
-			<md-content>
-				<md-list>
-					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
-		
-		<md-content flex id="weights" style="padding: 12px;">
-			
-			<div class="weights-container">
-				<div class="weight-container" layout="row" ng-repeat="weight in weights">
-					<div class="date-container" layout="column">
-						<div class="week">{{weight.weekOfYear}}</div>
-						<div class="year">{{weight.year}}</div>
-					</div>
-					<div layout="column" flex>
-						<div flex></div>
-						<div class="weight">{{weight.weight}} Kg</div>
-						<div flex></div>
-					</div>
-				</div>
+<div id="gym" class="toto-central-area weights" flex>
+	<div class="toto-card weights-container">
+		<div class="weight-container" layout="row" ng-repeat="weight in weights">
+			<div class="date-container" layout="column">
+				<div class="week">{{weight.weekOfYear}}</div>
+				<div class="year">{{weight.year}}</div>
 			</div>
-			
-		</md-content>
-	</section>
+			<div layout="column" flex>
+				<div flex></div>
+				<div class="weight">{{weight.weight}} Kg</div>
+				<div flex></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="toto-right-area">
 	
-	<md-button class="md-fab floating" aria-label="Add a weight measurement" ng-click="addWeight($event)">
-		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
-	</md-button>
+	<div class="toto-card light-primary-color">
+		<toto-app-navigator menus="gymMenus"></toto-app-navigator>
+	</div>
 	
 </div>
 
+<md-button class="md-fab floating" aria-label="Add a weight measurement" ng-click="addWeight($event)">
+	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+</md-button>

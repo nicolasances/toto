@@ -1,164 +1,144 @@
-
-<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
-
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
-			</md-button>
-			<span class="title" flex>Workout</span>
+<div id="gym" class="plan toto-central-area" flex>
+	<div class="toto-card dark-primary-color">
+		<div id="info" layout="row">
+			<div layout="column" flex>
+				<div class="name">{{plan.name}}</div>
+				<div class="duration">{{plan.weeks}} weeks</div>
+			</div>
+			<div layout="column">
+				<div flex></div>
+				<div layout="row">
+					<div layout="column">
+						<div class="day">{{plan.start | date : 'd'}}</div>
+						<div class="month">{{plan.start | date : 'MMM'}}</div>
+					</div>
+					<div layout="column">
+						<div flex></div>
+						<div class="icon"><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon></div>
+						<div flex></div>
+					</div>
+					<div layout="column">
+						<div class="day">{{plan.end | date : 'd'}}</div>
+						<div class="month">{{plan.end | date : 'MMM'}}</div>
+					</div>
+				</div>
+				<div flex></div>
+			</div>
 		</div>
-	</md-toolbar>
-	
-	<section layout="row" flex>
-		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
-			<md-toolbar class="md-theme-cyan">
-				<h1 class="md-toolbar-tools">Menu</h1>
-			</md-toolbar>
-			<md-content>
-				<md-list>
-					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
 		
-		<md-content flex style="padding: 12px 12px 60px 12px;" id="plan">
-			
-			<div id="info" layout="row">
+		<div id="score-container" layout="row">
+			<div flex></div>
+			<div class="score" layout="column">
+				<div flex>
+					<md-icon md-svg-src="images/svg/man-muscle.svg"></md-icon>
+				</div>
+				<div class="number">{{plan.score | number : 1}}</div>
+				<div class="pt" flex>pt</div>
+			</div>
+			<div flex></div>
+		</div>
+	</div>
+	
+	<div class="toto-card" id="days-container" layout="column">
+		<div class="day-container" ng-repeat="workout in workouts">
+			<div layout="row">
+				<div class="avatar" layout="column">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/gym.svg" ng-if="!workout.selected" ng-click="workout.selected = true"></md-icon>
+					<md-icon md-svg-src="images/svg/collapse.svg" ng-if="workout.selected" ng-click="workout.selected = false"></md-icon>
+					<div flex></div>
+				</div>
 				<div layout="column" flex>
-					<div class="name">{{plan.name}}</div>
-					<div class="duration">{{plan.weeks}} weeks</div>
+					<div flex></div>
+					<div class="name">{{workout.name}}</div>
+					<div class="amount">{{workout.exerciseCount}} exercises</div>
+					<div flex></div>
 				</div>
 				<div layout="column">
 					<div flex></div>
-					<div layout="row">
-						<div layout="column">
-							<div class="day">{{plan.start | date : 'd'}}</div>
-							<div class="month">{{plan.start | date : 'MMM'}}</div>
-						</div>
-						<div layout="column">
-							<div flex></div>
-							<div class="icon"><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon></div>
-							<div flex></div>
-						</div>
-						<div layout="column">
-							<div class="day">{{plan.end | date : 'd'}}</div>
-							<div class="month">{{plan.end | date : 'MMM'}}</div>
-						</div>
-					</div>
+					<div class="score">{{workout.score | number : 1}} pt</div>
 					<div flex></div>
 				</div>
 			</div>
-			
-			<div id="score-container" layout="row">
-				<div flex></div>
-				<div class="score" layout="column">
-					<div flex>
-						<md-icon md-svg-src="images/svg/man-muscle.svg"></md-icon>
+			<div class="exercices-container" layout="column" ng-if="workout.selected">
+				<div class="timeline"></div>
+				<div class="exercice-container" layout="row" ng-repeat="ex in workout.exercises">
+					<div class="icon" layout="column">
+						<div flex></div>
+						<md-icon md-svg-src="images/gym/type/{{ex.type}}.svg"></md-icon>
+						<div flex></div>
 					</div>
-					<div class="number">{{plan.score | number : 1}}</div>
-					<div class="pt" flex>pt</div>
-				</div>
-				<div flex></div>
-			</div>
-			
-			<div id="days-container" layout="column">
-				<div class="day-container" ng-repeat="workout in workouts">
-					<div layout="row">
-						<div class="avatar" layout="column">
-							<div flex></div>
-							<md-icon md-svg-src="images/svg/gym.svg" ng-if="!workout.selected" ng-click="workout.selected = true"></md-icon>
-							<md-icon md-svg-src="images/svg/collapse.svg" ng-if="workout.selected" ng-click="workout.selected = false"></md-icon>
-							<div flex></div>
-						</div>
-						<div layout="column" flex>
-							<div flex></div>
-							<div class="name">{{workout.name}}</div>
-							<div class="amount">{{workout.exerciseCount}} exercises</div>
-							<div flex></div>
-						</div>
-						<div layout="column">
-							<div flex></div>
-							<div class="score">{{workout.score | number : 1}} pt</div>
-							<div flex></div>
-						</div>
-					</div>
-					<div class="exercices-container" layout="column" ng-if="workout.selected">
-						<div class="timeline"></div>
-						<div class="exercice-container" layout="row" ng-repeat="ex in workout.exercises">
-							<div class="icon" layout="column">
-								<div flex></div>
-								<md-icon md-svg-src="images/gym/type/{{ex.type}}.svg"></md-icon>
-								<div flex></div>
-							</div>
-							<div layout="column" flex>
-								<div class="exercise" flex>
-									<div layout="row" class="text-container" flex ng-repeat="exo in ex.exercises track by $index" ng-click="ex.showMenu = true">
-										<div layout="column" flex>
-											<div class="ex-name" flex>{{exo.name}}</div>
-											<div layout="row" ng-if="ex.type == 'single' || ex.type == 'superset'">
-												<div class="value">{{exo.sets}} x {{exo.reps1}}</div>
-												<div class="value">{{exo.weight1}} kg</div>
-											</div>
-											<div layout="column" ng-if="ex.type == 'dropset'">
-												<div class="value">{{exo.sets}} x ({{exo.reps1}} + {{exo.reps2}})</div>
-												<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg</div>
-											</div>
-											<div layout="column" ng-if="ex.type == 'striping'">
-												<div class="value">{{exo.sets}} x ({{exo.reps1}} + {{exo.reps2}} + {{exo.reps3}})</div>
-												<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg, {{exo.weight3}} kg</div>
-											</div>
-											<div layout="column" ng-if="ex.type == 'hourglass'">
-												<div class="value">12, 10, 8</div>
-												<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg, {{exo.weight3}} kg</div>
-											</div>
-										</div>
-										<div layout="column" ng-if="$index == 0 && !ex.showMenu">
-											<div flex></div>
-											<div class="points">{{ex.score | number : 1}} pt</div>
-											<div flex></div>
-										</div>
-										<div class="menu-container" layout="row" ng-if="ex.showMenu">
-											<div class="action" layout="column" ng-click="changeSettings(workout, exo, ex)">
-												<div flex></div>
-												<md-icon md-svg-src="images/svg/settings.svg"></md-icon>
-												<div flex></div>
-											</div>
-										</div>
+					<div layout="column" flex>
+						<div class="exercise" flex>
+							<div layout="row" class="text-container" flex ng-repeat="exo in ex.exercises track by $index" ng-click="ex.showMenu = true">
+								<div layout="column" flex>
+									<div class="ex-name" flex>{{exo.name}}</div>
+									<div layout="row" ng-if="ex.type == 'single' || ex.type == 'superset'">
+										<div class="value">{{exo.sets}} x {{exo.reps1}}</div>
+										<div class="value">{{exo.weight1}} kg</div>
 									</div>
+									<div layout="column" ng-if="ex.type == 'dropset'">
+										<div class="value">{{exo.sets}} x ({{exo.reps1}} + {{exo.reps2}})</div>
+										<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg</div>
+									</div>
+									<div layout="column" ng-if="ex.type == 'striping'">
+										<div class="value">{{exo.sets}} x ({{exo.reps1}} + {{exo.reps2}} + {{exo.reps3}})</div>
+										<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg, {{exo.weight3}} kg</div>
+									</div>
+									<div layout="column" ng-if="ex.type == 'hourglass'">
+										<div class="value">12, 10, 8</div>
+										<div class="value">{{exo.weight1}} kg, {{exo.weight2}} kg, {{exo.weight3}} kg</div>
+									</div>
+								</div>
+								<div layout="column" ng-if="$index == 0 && !ex.showMenu">
+									<div flex></div>
+									<div class="points">{{ex.score | number : 1}} pt</div>
+									<div flex></div>
 								</div>
 								<div class="menu-container" layout="row" ng-if="ex.showMenu">
-									<div flex></div>
-									<div class="action" layout="column" ng-click="deleteExercise(ex, workout)">
+									<div class="action" layout="column" ng-click="changeSettings(workout, exo, ex)">
 										<div flex></div>
-										<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
-										<div flex></div>
-									</div>
-									<div class="action" layout="column" ng-click="ex.showMenu = false">
-										<div flex></div>
-										<md-icon md-svg-src="images/svg/close.svg"></md-icon>
+										<md-icon md-svg-src="images/svg/settings.svg"></md-icon>
 										<div flex></div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="exercice-container" layout="row">
-							<div class="icon add" layout="column" ng-click="addExercise(workout, $event)">
+						<div class="menu-container" layout="row" ng-if="ex.showMenu">
+							<div flex></div>
+							<div class="action" layout="column" ng-click="deleteExercise(ex, workout)">
 								<div flex></div>
-								<md-icon md-svg-src="images/svg/plus.svg"></md-icon>
+								<md-icon md-svg-src="images/svg/trash.svg"></md-icon>
+								<div flex></div>
+							</div>
+							<div class="action" layout="column" ng-click="ex.showMenu = false">
+								<div flex></div>
+								<md-icon md-svg-src="images/svg/close.svg"></md-icon>
 								<div flex></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="exercice-container" layout="row">
+					<div class="icon add" layout="column" ng-click="addExercise(workout, $event)">
+						<div flex></div>
+						<md-icon md-svg-src="images/svg/plus.svg"></md-icon>
+						<div flex></div>
+					</div>
+				</div>
 			</div>
-			
-		</md-content>
-	</section>
+		</div>
+	</div>
+</div>
+
+<div class="toto-right-area" >
 	
-	<md-button class="md-fab floating" aria-label="Add" ng-click="addWorkout($event)">
-		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
-	</md-button>
+	<div class="toto-card light-primary-color">
+		<toto-app-navigator menus="gymMenus"></toto-app-navigator>
+	</div>
 	
 </div>
 
+<md-button class="md-fab floating" aria-label="Add" ng-click="addWorkout($event)">
+	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
+</md-button>

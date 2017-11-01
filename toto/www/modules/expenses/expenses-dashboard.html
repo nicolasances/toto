@@ -24,9 +24,9 @@
 			</md-content>
 		</md-sidenav>
 		
-		<md-content flex layout="column" >
+		<md-content flex >
 		
-			<div layout="row" id="totals-row">
+			<div class="toto-card" layout="row" id="totals-row">
 				<div class="total" layout="column" ng-click="go('/expenses/payments')" md-ink-ripple="true">
 					<div flex layout="column">
 						<div layout="row"><div flex></div><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><div flex></div></div>
@@ -56,23 +56,25 @@
 				</div>
 			</div> 
 			
-			<div class="categories-widget" ng-click="toggleCategoriesWidgetDetail()">
+			<div class="toto-card categories-widget" ng-click="toggleCategoriesWidgetDetail()">
 				<div class="title">Top spending Categories</div>
-				<div class="bar" layout="row">
-					<div class="item" style="width: {{item.percentage}}%; background-color: {{item.color}};" layout="column" ng-repeat="item in averageByCategoryReport.rows">
-						<div flex></div>
-						<md-icon md-svg-src="images/expenses/avatars-nofill/{{item.categoryFilename}}"></md-icon>
-						<div flex></div>
-					</div>
-					<div layout="column" flex>
-						<div flex></div>
-						<div class="percentage">{{averageByCategoryReport.totalPercentage}}%</div>
-						<div flex></div>
+				<div class="content">
+					<div class="bar" layout="row">
+						<div class="item" style="width: {{item.percentage}}%; background-color: {{item.color}};" layout="column" ng-repeat="item in averageByCategoryReport.rows">
+							<div flex></div>
+							<md-icon md-svg-src="images/expenses/avatars-nofill/{{item.categoryFilename}}"></md-icon>
+							<div flex></div>
+						</div>
+						<div layout="column" flex>
+							<div flex></div>
+							<div class="percentage">{{averageByCategoryReport.totalPercentage}}%</div>
+							<div flex></div>
+						</div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="categories-report-detail" style="display: none;">
+			<div class="toto-card categories-report-detail" style="display: none;">
 				<div class="item" id="categories-report-detail-{{item.categoryCode}}" layout="row" ng-repeat="item in completeTopSpendingReport.rows" ng-click="toggleDetailReportItem(item)">
 					<div class="avatar" layout="column">
 						<div flex></div>
@@ -88,46 +90,46 @@
 						<div flex></div>
 					</div>
 				</div>
-			</div>
-			
-			<div id="expenses-of-category">
-				<div class="timeline"></div>
-				<div class="month" ng-repeat="month in monthes" layout="column">
-					<div layout="row" class="month-container">
-						<div class="icon" layout="column">
-							<div flex></div>
-							<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
-							<div flex></div>
-						</div>
-						<div class="description" layout="column">
-							<div flex></div>
-							<div>{{month.month | date : 'MMMM'}}</div>
-							<div flex></div>
-						</div>
-					</div>
-					<div class="expenses-container" layout="column">
-						<div class="expense" ng-repeat="expense in month.expenses" layout="row">
-							<div class="icon" layout="column" style="border: 3px solid {{expense.category.color}};" ng-click="changeCategory(expense, $event)">
+				
+				<div id="expenses-of-category">
+					<div class="timeline"></div>
+					<div class="month" ng-repeat="month in monthes" layout="column">
+						<div layout="row" class="month-container">
+							<div class="icon" layout="column">
 								<div flex></div>
-								<md-icon md-svg-src="images/expenses/avatars/{{expense.category.filename}}"></md-icon>
+								<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
 								<div flex></div>
 							</div>
-							<div layout="column" flex>
+							<div class="description" layout="column">
 								<div flex></div>
-								<div class="description">{{expense.description}}</div>
+								<div>{{month.month | date : 'MMMM'}}</div>
 								<div flex></div>
 							</div>
-							<div layout="column">
-								<div flex></div>
-								<div class="amount">&euro; {{expense.amount | number : 2}}</div>
-								<div flex></div>
+						</div>
+						<div class="expenses-container" layout="column">
+							<div class="expense" ng-repeat="expense in month.expenses" layout="row">
+								<div class="icon" layout="column" style="border: 3px solid {{expense.category.color}};" ng-click="changeCategory(expense, $event)">
+									<div flex></div>
+									<md-icon md-svg-src="images/expenses/avatars/{{expense.category.filename}}"></md-icon>
+									<div flex></div>
+								</div>
+								<div layout="column" flex>
+									<div flex></div>
+									<div class="description">{{expense.description}}</div>
+									<div flex></div>
+								</div>
+								<div layout="column">
+									<div flex></div>
+									<div class="amount">&euro; {{expense.amount | number : 2}}</div>
+									<div flex></div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		
-			<div id="expenses" class="{{categoriesWidgetDetailVisible ? 'hidden' : ''}}" flex>
+			<div class="toto-card" id="expenses" class="{{categoriesWidgetDetailVisible ? 'hidden' : ''}}" flex>
 				<div id="expenses-container" layout="column" flex>
 					<div class="timeline"></div>
 					<md-list>

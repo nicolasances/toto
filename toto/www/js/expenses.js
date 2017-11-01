@@ -41,8 +41,8 @@ expensesModule.controller("expensesDashboardController", [ '$scope', '$http', '$
 
 			$timeout(function () {
 				categoryWidget.style.position = 'absolute';
-				categoryWidget.style.left = originalLeft - 12 + 'px';
-				categoryWidget.style.width = originalWidth + 'px';
+				categoryWidget.style.left = originalLeft + 'px';
+				categoryWidget.style.width = originalWidth - 24 + 'px';
 				categoryWidget.style.top = originalTop - 15 + 'px';
 				
 				var timer = $interval(function() {

@@ -68,7 +68,7 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 		}
 	}
 }])
-.controller("totoController", function($scope, $route, $location, $mdMedia, $mdSidenav, $rootScope) {
+.controller("totoController", function($scope, $route, $location, $mdMedia, $mdSidenav, $rootScope, $mdDialog) {
 	
 	$rootScope.microservicesHost = microservicesHost;
 	$rootScope.microservicesPort = microservicesPort;
@@ -103,6 +103,15 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 	$scope.toggleNavbar = function(id) {
 		$mdSidenav(id).toggle();
 	}
+
+	/**
+	 * Opens a dialog to select an app to navigate to
+	 */
+	$scope.toggleShowApps = function() {
+		
+		$scope.appsCardVisible = !$scope.appsCardVisible;
+		
+	}
 	
 	$scope.$watch(function() {
 		return $mdMedia('lg');
@@ -110,7 +119,9 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 		$scope.bigScreen = big;
 	});
 	
-	$scope.screenIsSmall = $mdMedia('sm');
+//	$scope.screenIsSmall = $mdMedia('sm');
+	$rootScope.sm = $mdMedia('sm');
+	$rootScope.gtMd = $mdMedia('gt-md');
 	$rootScope.screenIsDesktop = $mdMedia('gt-sm');
 	
 })

@@ -5,7 +5,7 @@ var totoHealthFitnessDirectiveModule = angular.module('totoHealthFitnessDirectiv
  * 
  * Accepts the following parameters:
  */
-totoHealthFitnessDirectiveModule.directive('totoHealthFitness', [ '$timeout', 'GymService', 'DietService', '$interval', function($timeout, GymService, DietService, $interval) {
+totoHealthFitnessDirectiveModule.directive('totoHealthFitness', [ '$timeout', 'GymService', 'DietService', '$interval', '$mdMedia', function($timeout, GymService, DietService, $interval, $mdMedia) {
 
 	return {
 		progress : {},
@@ -144,6 +144,7 @@ totoHealthFitnessDirectiveModule.directive('totoHealthFitness', [ '$timeout', 'G
 				var containerWidth = document.querySelector('.water-graph-container').offsetWidth;
 				
 				var barGutter = 2;
+				var waterBarWidth = $mdMedia('gt-md') ? '24px' : '12px';
 				
 				var maxBarHeight = document.querySelector('toto-health-fitness').offsetHeight / 3.5;
 				var maxWC = scope.getMaxWaterConsumption(scope.waterDays);
@@ -157,9 +158,9 @@ totoHealthFitnessDirectiveModule.directive('totoHealthFitness', [ '$timeout', 'G
 					var elementWaterGoal = document.getElementById('water-goal-' + day.date);
 					
 					element.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
-					element.style.width = '12px';
+					element.style.width = waterBarWidth;
 					
-					elementWaterGoal.style.width = '12px';
+					elementWaterGoal.style.width = waterBarWidth;
 					elementWaterGoal.style.display = 'none';
 					elementWaterGoal.style.height = scope.waterConsumptionGoal * heightRatio + 'px';
 					elementWaterGoal.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';

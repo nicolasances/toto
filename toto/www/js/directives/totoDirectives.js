@@ -211,3 +211,18 @@ totoDirectivesModule.directive('totoMeasurementWidget', function() {
 	};
 });
 
+/**
+ * In app navigator that replaces menus in app
+ */
+totoDirectivesModule.directive('totoAppNavigator', function($rootScope) {
+
+	return {
+		scope : {
+			menus : '='
+		},
+		templateUrl : 'toto-templates/toto-app-navigator.html',
+		link : function(scope) {
+			scope.go = $rootScope.go;
+		}
+	};
+});

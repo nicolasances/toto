@@ -1,42 +1,23 @@
 
-<div class="theme-cyan" id="gym" layout-gt-sm="column" flex>
-
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
-			</md-button>
-			<span class="title" flex>{{menu.name}}</span>
-		</div>
-	</md-toolbar>
-	
-	<section layout="row" flex>
-		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
-			<md-toolbar class="md-theme-cyan">
-				<h1 class="md-toolbar-tools">Menu</h1>
-			</md-toolbar>
-			<md-content>
-				<md-list>
-					<md-list-item ng-class="[menu.selected ? 'selected' : '']" ng-repeat="menu in gymMenus" ng-click="goAndSelect(menu, gymMenus)"><md-icon md-svg-src="{{menu.imageUrl}}"></md-icon><p>{{menu.name}}</p></md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
-		
-		<md-content flex id="settings" style="padding: 12px;">
-			
-			<div id="score-algorithm" layout="column">
-				<div class="label">Score Algorithm</div>
-				<div class="picker" layout="row">
-					<div ng-click="changeScoreAlgorithm(algorithm)" ng-class="['algorithm', algorithm.id == settings.scoreAlgorithmId ? 'selected' : '', changingScoreAlgorithm ? 'changing' : '']" layout="column" ng-repeat="algorithm in algorithms">
-						<div class="name">{{algorithm.name}}</div>
-						<div class="description">{{algorithm.description}}</div>
-						<div class="equation">{{algorithm.equation}}</div>
-					</div>
-				</div>
+<div id="gym" class="settings toto-central-area" flex>
+	<div id="score-algorithm" class="toto-card" layout="column">
+		<div class="label">Score Algorithm</div>
+		<div class="picker" layout="row">
+			<div flex></div>
+			<div ng-click="changeScoreAlgorithm(algorithm)" ng-class="['algorithm', algorithm.id == settings.scoreAlgorithmId ? 'selected' : '', changingScoreAlgorithm ? 'changing' : '']" layout="column" ng-repeat="algorithm in algorithms">
+				<div class="name">{{algorithm.name}}</div>
+				<div class="description">{{algorithm.description}}</div>
+				<div class="equation">{{algorithm.equation}}</div>
 			</div>
-			
-		</md-content>
-	</section>
-	
+			<div flex></div>
+		</div>
+	</div>
 </div>
 
+<div class="toto-right-area">
+	
+	<div class="toto-card light-primary-color">
+		<toto-app-navigator menus="gymMenus"></toto-app-navigator>
+	</div>
+	
+</div>

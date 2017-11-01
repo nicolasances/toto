@@ -1,3 +1,40 @@
+body {background: #e9ebee !important;}
+section {background: #e9ebee !important;}
+md-content {background: #e9ebee !important;}
+md-sidenav md-content {background: white !important;}
+
+.toto-left-area {max-width: 25%;min-width: 21%; padding: 0 24px;}
+.toto-left-area .title {text-align: center; font-size: 1.1em; margin: 24px 0; color: rgba(0,0,0,0.5);}
+.toto-central-area {}
+.toto-right-area {}
+
+@media only screen and (min-width: 600px) {
+	.toto-central-area {margin: 0 24px;}
+	.toto-right-area {width: 45%;}
+}
+
+/************************************************************************
+ * CARDS 
+ ***********************************************************************/
+.toto-card {margin: 12px 0; padding: 12px; color: rgba(0,0,0,0.8); background: white; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
+.toto-card .title {font-size: 1.1em; color: rgba(0,0,0,0.5);}
+.toto-card .content {padding: 24px 0;}
+.toto-card .content.full {margin: 0 -12px -12px -12px; padding: 24px 0;}
+
+.toto-card.dark-primary-color .title {color: rgba(255, 255, 255, 0.9);}
+.toto-card.dark-primary-color {color: rgba(255, 255, 255, 0.9);}
+
+@media only screen and (min-width: 600px) {
+	.toto-card {margin: 12px;}
+}
+
+/************************************************************************
+ * TOTO APP NAVIGATOR
+ ***********************************************************************/
+.toto-app-navigator {}
+.toto-app-navigator .icon {margin: 0 6px; border-radius: 50%; border: 3px solid #00BCD4; width: 48px; height: 48px; outline: none;}
+.toto-app-navigator .icon md-icon {outline: none;}
+ 
 /************************************************************************
  * TOTO (THE CHIMP) 
  ***********************************************************************/
@@ -45,20 +82,25 @@ toto-chimp #overlay.visible {opacity: 1; z-index: 4; transition: opacity 0.3s; -
 /************************************************************************
  * TOTO HEALTH & FITNESS 
  ***********************************************************************/
-toto-health-fitness {min-height: 140px; max-height: 140px; height: 140px; margin: 0 12px;}
+toto-health-fitness {min-height: 100px;max-height: 100px;height: 100px;margin: 0 12px 12px 12px;}
 toto-health-fitness .line {border-bottom: 1px solid #B2EBF2;}
 
 toto-health-fitness .gym-graph-container {}
-toto-health-fitness .gym-graph-container .gym-bar {width: 32px; height: 0; position: absolute; left: 0; bottom: 0; z-index: 3;} 
+toto-health-fitness .gym-graph-container .gym-bar {width: 32px; height: 0; position: absolute; left: 0; bottom: 1px; z-index: 3;} 
 toto-health-fitness .gym-graph-container .gym-bar.previous {z-index: 2; opacity: 0.7;}
 toto-health-fitness .gym-graph-container .gym-bar md-icon {width: 14px; height:14px; margin-bottom: 6px; fill: white;} 
 
 toto-health-fitness .water-graph-container {}
-toto-health-fitness .water-graph-container .water-bar {width: 0; height: 0; position: absolute; left: 0; bottom: 0; z-index: 1; opacity: 0.7;}
-toto-health-fitness .water-graph-container .water-goal-bar {width: 0; height: 0; position: absolute; left: 0; bottom: 0; z-index: 1; border-top: 3px solid #00BCD4;}
+toto-health-fitness .water-graph-container .water-bar {width: 0; height: 0; position: absolute; left: 0; bottom: 1px; z-index: 1; opacity: 1;}
+toto-health-fitness .water-graph-container .water-goal-bar {width: 0; height: 0; position: absolute; left: 0; bottom: 1px; z-index: 1; border-top: 3px solid #00BCD4;}
 
 toto-health-fitness .days-axis-container {} 
-toto-health-fitness .days-axis-container .day-label {text-align: center; position: absolute; bottom: -24px; left: 0; font-size: 0.8em;}
+toto-health-fitness .days-axis-container .day-label {text-align: center; position: absolute; bottom: -24px; left: 0; font-size: 0.8em; color: white;}
+
+@media only screen and (min-width : 1280px) {
+	toto-health-fitness .gym-graph-container .gym-bar {width: 42px;}
+}
+
 
 /************************************************************************
  * TOTO CHIMP INFO LINK
@@ -72,11 +114,12 @@ toto-chimp .link-container .icon md-icon {width: 48px; height: 48px; fill: white
  * TOTO APPS SIDEMENU
  ***********************************************************************/
 toto-apps-sidemenu {}
+toto-apps-sidemenu .title {font-size: 1.2em; color: rgba(0,0,0,0.6); text-align: center; margin-bottom: 12px;}
 toto-apps-sidemenu md-content {padding: 12px;}
 toto-apps-sidemenu md-grid-tile {outline: none;}
 toto-apps-sidemenu .app-container {text-align: center; outline: none;}
 toto-apps-sidemenu .app-container .icon {outline: none;box-sizing: border-box;border.ra: 1;border-radius: 50%;}
-toto-apps-sidemenu .app-container .icon md-icon {outline: none;width: 32px;height: 32px;fill: #0097A7;}
+toto-apps-sidemenu .app-container .icon md-icon {outline: none;width: 32px;height: 32px;fill: #929292;}
 toto-apps-sidemenu .app-container .title {font-size: 0.7em;color: rgba(0,0,0,0.6);outline: none;margin-top: 9px;}
 
 /************************************************************************
@@ -125,11 +168,11 @@ toto-progress {position: relative;}
 toto-progress .label {position: absolute; width: 100%; bottom: -18px; font-size: 0.7em; font-weight: 500; text-align: center; color: rgba(0,0,0,0.7);}
 toto-progress.large .label {font-size: 1em; bottom: -28px;}
 
-@media only screen and (min-width: 960px) {
-	toto-progress {margin: 0 24px;}
+/* @media only screen and (min-width: 960px) { */
+/* 	toto-progress {margin: 0 24px;} */
 	
-	.toto-progress-overlay md-icon {fill: #0097A7 !important; width: 24px; height: 24px; outline: none;}
-}
+/* 	.toto-progress-overlay md-icon {fill: #0097A7 !important; width: 24px; height: 24px; outline: none;} */
+/* } */
 
 /************************************************************************
  * LEVEL METER
@@ -170,6 +213,7 @@ toto-measurement-widget .unit {font-size: 0.7em; text-align: center; }
 /************************************************************************
  * COLORS PER THEME
  ***********************************************************************/
+.darker-primary-color  { background: #006064;}
 .dark-primary-color    { background: #0097A7;}
 .default-primary-color { background: #00BCD4;}
 .light-primary-color   { background: #B2EBF2;}
@@ -185,7 +229,5 @@ toto-measurement-widget .unit {font-size: 0.7em; text-align: center; }
 md-toolbar {background: #0097A7 !important; }
 
 .md-button.md-default-theme.md-raised:not([disabled]) md-icon, .md-button.md-raised:not([disabled]) md-icon {color: white;}
+.md-button.md-default-theme.md-fab, .md-button.md-fab {background: #8BC34A;}
 
-@media only screen and (min-width: 960px) {
-	md-sidenav {width: 400px !important; z-index: 3 !important;}
-}

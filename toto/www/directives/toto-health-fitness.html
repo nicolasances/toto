@@ -3,7 +3,7 @@
 	<div flex></div>
 	
 	<div class="gym-graph-container">
-		<div class="gym-bar {{day.efficacyGoalReached ? 'accent-color' : 'dark-primary-color'}}" id="gym-day-{{day.date}}" ng-repeat="day in gymDays" layout="column">
+		<div class="gym-bar {{day.efficacyGoalReached ? 'accent-color' : 'default-primary-color'}}" id="gym-day-{{day.date}}" ng-repeat="day in gymDays" layout="column">
 			<div flex></div>
 			<md-icon md-svg-src="images/gym/muscle-avatars/{{day.muscle.id}}.svg"></md-icon>
 		</div>

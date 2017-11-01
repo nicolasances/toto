@@ -27,36 +27,38 @@
 		</md-sidenav>
 		
 		<md-content flex>
-			<div class="navigator" layout="row">
-				<div class="calendar" layout="column">
-					<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
+			<div class="toto-card" layout="row">
+				<div class="navigator" layout="row">
+					<div class="calendar" layout="column">
+						<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
+					</div>
 				</div>
-			</div>
-			<div class="month-nav" layout="column">
-				<div flex></div>
-				<div layout="row">
+				<div class="month-nav" layout="column">
 					<div flex></div>
-					<div class="arrow" layout="column" md-whiteframe="3">
+					<div layout="row">
 						<div flex></div>
-						<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
-						<div flex></div>
-					</div>
-					<div layout="column">
-						<div flex></div>
-						<div class="text">{{selectedPeriod.month}}</div>
-						<div flex></div>
-					</div>
-					<div class="arrow" layout="column" md-whiteframe="3">
-						<div flex></div>
-						<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
+						<div class="arrow" layout="column" md-whiteframe="3">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
+							<div flex></div>
+						</div>
+						<div layout="column">
+							<div flex></div>
+							<div class="text">{{selectedPeriod.month}}</div>
+							<div flex></div>
+						</div>
+						<div class="arrow" layout="column" md-whiteframe="3">
+							<div flex></div>
+							<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
+							<div flex></div>
+						</div>
 						<div flex></div>
 					</div>
 					<div flex></div>
 				</div>
-				<div flex></div>
 			</div>
 
-			<div id="expenses-container" layout="column" flex>
+			<div class="toto-card" id="expenses-container" layout="column" flex>
 				<div class="timeline"></div>
 				<md-list>
 					<md-list-item class="md-2-line" ng-repeat="expense in expenses" ng-if="!expense.hide" >

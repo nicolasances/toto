@@ -10,21 +10,21 @@
 
 #dashboard .area-container.odd {}
 
-#dashboard #money.area-container .area-title {}
-#dashboard #money.area-container .left-wing .graph-container {outline: none;}
-#dashboard #money.area-container .left-wing .graph-container .item {min-width: 16px;}
-#dashboard #money.area-container .left-wing .graph-container .item .amount {font-size: 0.7em;}
-#dashboard #money.area-container .left-wing .graph-container .item .bar-container {min-height: 67px;padding: 0 2px;margin: 6px 0;}
-#dashboard #money.area-container .left-wing .graph-container .item .bar.current {opacity: 0.5;}
-#dashboard #money.area-container .left-wing .graph-container .item .label {font-size: 0.6em;text-align: center;}
+#dashboard #money .area-title {}
+#dashboard #money .left-wing .graph-container {outline: none; margin: 0 24px;}
+#dashboard #money .left-wing .graph-container .item {min-width: 16px;}
+#dashboard #money .left-wing .graph-container .item .amount {font-size: 0.7em;}
+#dashboard #money .left-wing .graph-container .item .bar-container {min-height: 67px;padding: 0 2px;margin: 6px 0;}
+#dashboard #money .left-wing .graph-container .item .bar.current {opacity: 0.5;}
+#dashboard #money .left-wing .graph-container .item .label {font-size: 0.6em;text-align: center;}
 
-#dashboard #body.area-container {}
-#dashboard #body.area-container #body-overall-progress {width: 100px; height: 100px;}
-#dashboard #body.area-container #body-water-progress, #dashboard #body.area-container #body-gym-progress, #dashboard #body.area-container #body-meals-progress {width: 42px; height: 42px;}
-#dashboard #body.area-container toto-measurement-widget {margin: 0 12px;}
-#dashboard #body.area-container toto-measurement-widget.disabled {opacity: 0.2;}
-#dashboard #body.area-container toto-progress.disabled {opacity: 0.2;}
-#dashboard #body.area-container toto-gym-muscle-graph {margin: 32px 12px;}
+#dashboard #body {}
+#dashboard #body #body-overall-progress {width: 100px; height: 100px;}
+#dashboard #body #body-water-progress, #dashboard #body #body-gym-progress, #dashboard #body #body-meals-progress {width: 42px; height: 42px;}
+#dashboard #body toto-measurement-widget {margin: 0 12px;}
+#dashboard #body toto-measurement-widget.disabled {opacity: 0.2;}
+#dashboard #body toto-progress.disabled {opacity: 0.2;}
+#dashboard #body toto-gym-muscle-graph {margin: 32px 12px;}
 
 #dashboard .unauthorized-user-container {}
 #dashboard .unauthorized-user-container .avatar-container {margin-top: 48px;}
@@ -41,7 +41,6 @@
 #diet #water-consumption-dialog .change-consumption .consumption md-icon {width: 32px; height: 32px;}
 
 @media only screen and (min-width: 960px) {
-	#dashboard #body.area-container #body-water-progress, #dashboard #body.area-container #body-gym-progress, #dashboard #body.area-container #body-meals-progress {width: 80px; height: 80px;}
-	#dashboard #body.area-container toto-measurement-widget {margin: 0 24px;}
-	#dashboard #money.area-container .left-wing .graph-container {margin: 0 72px;}
+	#dashboard #body toto-measurement-widget {margin: 0 24px;}
+	#dashboard #money .left-wing .graph-container {margin: 0 72px;}
 }

@@ -1,6 +1,5 @@
 var gymModule = angular.module("gymModule", ['calendarServiceModule', 'GymServiceModule', 'BodyWeightServiceModule']);
 var gymMenus = [
-	{path: '/', imageUrl: 'images/svg/home.svg', name: "Home"},
 	{path: '/gym', imageUrl: 'images/svg/dashboard.svg', name: 'Dashboard', selected: true},
 	{path: '/gym/plans', imageUrl: 'images/svg/clipboard.svg', name: 'Workout plans'},
 	{path: '/gym/archive', imageUrl: 'images/svg/archived.svg', name: 'Archive'},
@@ -43,10 +42,11 @@ var gymScoringAlgorithms = [
 /*******************************************************************************
  * DASHBOARD
  ******************************************************************************/
-gymModule.controller("gymController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'GymService', 'BodyWeightService', function($scope, $http, $timeout, calendarService, $mdDialog, GymService, BodyWeightService) {
+gymModule.controller("gymController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'GymService', 'BodyWeightService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, GymService, BodyWeightService) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym dashboard';
 		$scope.gymMenus = gymMenus;
 		$scope.showMuscles = false;
 		$scope.painLevels = painLevels;
@@ -235,10 +235,11 @@ gymModule.controller("gymController", [ '$scope', '$http', '$timeout', 'calendar
 /*******************************************************************************
  * ARCHIVE
  ******************************************************************************/
-gymModule.controller("gymArchiveController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', function($scope, $http, $timeout, calendarService, $mdDialog) {
+gymModule.controller("gymArchiveController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym exercises archive';
 		$scope.getMuscleGroups();
 		$scope.gymMenus = gymMenus;
 		
@@ -261,10 +262,11 @@ gymModule.controller("gymArchiveController", [ '$scope', '$http', '$timeout', 'c
 /*******************************************************************************
  * ARCHIVE OF EXERCISES OF A SINGLE MUSCLE GROUP
  ******************************************************************************/
-gymModule.controller("gymArchiveMuscleGroupController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', function($scope, $http, $timeout, calendarService, $mdDialog, $routeParams) {
+gymModule.controller("gymArchiveMuscleGroupController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, $routeParams) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym muscle exercises archive';
 		$scope.getExcercicesOfMuscleGroup($routeParams.id);
 		$scope.gymMenus = gymMenus;
 	}
@@ -386,10 +388,11 @@ gymModule.controller("gymArchiveMuscleGroupController", [ '$scope', '$http', '$t
 /*******************************************************************************
  * WORKOUT PLANS
  ******************************************************************************/
-gymModule.controller("gymPlansController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', function($scope, $http, $timeout, calendarService, $mdDialog) {
+gymModule.controller("gymPlansController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym workout plans';
 		$scope.loadWorkoutPlans();
 		$scope.gymMenus = gymMenus;
 		
@@ -453,10 +456,11 @@ gymModule.controller("gymPlansController", [ '$scope', '$http', '$timeout', 'cal
 /*******************************************************************************
  * WORKOUT PLAN DETAIL
  ******************************************************************************/
-gymModule.controller("gymPlanController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
+gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym workout plan';
 		$scope.loadPlan($routeParams.id);
 		$scope.gymMenus = gymMenus;
 		
@@ -720,10 +724,11 @@ gymModule.controller("gymPlanController", [ '$scope', '$http', '$timeout', 'cale
 /*******************************************************************************
  * SESSIONS
  ******************************************************************************/
-gymModule.controller("gymSessionsController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
+gymModule.controller("gymSessionsController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
 	
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym sessions calendar';
 		$scope.gymMenus = gymMenus;
 		$scope.painLevels = painLevels;
 		
@@ -810,10 +815,11 @@ gymModule.controller("gymSessionsController", [ '$scope', '$http', '$timeout', '
 /*******************************************************************************
  * SESSION
  ******************************************************************************/
-gymModule.controller("gymSessionController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
+gymModule.controller("gymSessionController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', '$routeParams', 'GymService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, $routeParams, GymService) {
 
 	$scope.initContext = function() {
 
+		$rootScope.currentMenu = 'Gym session';
 		$scope.gymMenus = gymMenus;
 		$scope.painLevels = painLevels;
 		$scope.fatigueLevels = fatigueLevels;
@@ -1033,10 +1039,11 @@ gymModule.controller("gymSessionController", [ '$scope', '$http', '$timeout', 'c
 /*******************************************************************************
  * SETTINGS
  ******************************************************************************/
-gymModule.controller("gymSettingsController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'GymService', function($scope, $http, $timeout, calendarService, $mdDialog, GymService) {
+gymModule.controller("gymSettingsController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'GymService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, GymService) {
 
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Gym settings';
 		$scope.algorithms = gymScoringAlgorithms;
 
 		$scope.gymMenus = gymMenus;
@@ -1075,10 +1082,11 @@ gymModule.controller("gymSettingsController", [ '$scope', '$http', '$timeout', '
 /*******************************************************************************
  * WEIGHTS
  ******************************************************************************/
-gymModule.controller("weightController", [ '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'BodyWeightService', function($scope, $http, $timeout, calendarService, $mdDialog, BodyWeightService) {
+gymModule.controller("weightController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', '$mdDialog', 'BodyWeightService', function($rootScope, $scope, $http, $timeout, calendarService, $mdDialog, BodyWeightService) {
 	
 	$scope.init = function() {
 
+		$rootScope.currentMenu = 'Weight';
 		$scope.gymMenus = gymMenus;
 		$scope.getWeights();
 	}
