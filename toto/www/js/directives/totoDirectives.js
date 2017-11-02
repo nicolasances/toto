@@ -149,6 +149,7 @@ totoDirectivesModule.directive('totoAppsSidemenu', [ '$timeout', '$rootScope', f
 			 */
 			scope.go = function(app) {
 				$rootScope.go('/' + app.id);
+				document.querySelector('toto-apps-sidemenu').classList.remove('visible');
 			}
 		}
 	};
@@ -221,6 +222,22 @@ totoDirectivesModule.directive('totoAppNavigator', function($rootScope) {
 			menus : '='
 		},
 		templateUrl : 'toto-templates/toto-app-navigator.html',
+		link : function(scope) {
+			scope.go = $rootScope.go;
+		}
+	};
+});
+
+/**
+ * App menu
+ */
+totoDirectivesModule.directive('totoAppMenu', function($rootScope) {
+
+	return {
+		scope : {
+			menus : '='
+		},
+		templateUrl : 'toto-templates/toto-app-menu.html',
 		link : function(scope) {
 			scope.go = $rootScope.go;
 		}

@@ -108,9 +108,13 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 	 * Opens a dialog to select an app to navigate to
 	 */
 	$scope.toggleShowApps = function() {
-		
-		$scope.appsCardVisible = !$scope.appsCardVisible;
-		
+	
+		if (document.querySelector('toto-apps-sidemenu').classList.contains('visible')) {
+			document.querySelector('toto-apps-sidemenu').classList.remove('visible');
+		}
+		else {
+			document.querySelector('toto-apps-sidemenu').classList.add('visible');
+		}
 	}
 	
 	$scope.$watch(function() {

@@ -22,8 +22,6 @@ md-toolbar img.background {position: absolute; top: 0; width: 100%;}
 md-toolbar h1.title {position: absolute;bottom: 24px;left: 24px;}
 md-toolbar span.title {margin-left: 16px;}
 
-md-content {margin-top: 56px;}
-
 md-card {font-size: 0.9em; color: rgba(0, 0, 0, 0.7) !important;}
 md-card-footer {margin-top: 0 !important;padding-top: 0 !important;margin-bottom: 0 !important;padding-bottom: 0 !important;}
 md-card-header.expandable #icon {background-size: 15px; width: 18px;height: 15px;display: inline-block;float: right;background-position: 50%;}
@@ -169,7 +167,7 @@ md-dialog-content {margin-top: 54px;}
 	md-toolbar img.background {width: 78px;right: 96px;top: 24px;border-radius: 50%;height: 78px; opacity: 1 !important;}
 	.md-toolbar-tools {font-size: 18px !important; line-height: 18px !important;}
 	
-	md-content {margin-top: 64px;}
+	md-content {padding-top: 64px !important;}
 	
 	md-list.toto-gt-sm-list-reduced {margin: 0 23%; background-color: #F9F9F9;box-shadow: 0px 0px 7px #B1ABAB;}
 	

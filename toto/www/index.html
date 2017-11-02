@@ -112,24 +112,29 @@
 </head>
 <body class="app-theme-cyan" ng-app="toto" ng-controller="totoController" layout="column">
 
-	<md-toolbar md-whiteframe="3" ng-class="['dark-primary-color']">
+	<md-toolbar ng-class="['dark-primary-color', gtMd ? 'md-whiteframe-3dp' : '']">
 		<div class="md-toolbar-tools teal">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleShowApps()"></md-icon>
+			<md-button class="md-icon-button" aria-label="Show menu" >
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('app-sidenav')"></md-icon>
 			</md-button>
 			<span class="title" flex>{{currentMenu}}</span>
+			<md-button class="md-icon-button" aria-label="Show apps" >
+				<md-icon md-svg-src="images/svg/apps.svg" ng-click="toggleShowApps()"></md-icon>
+			</md-button>
 			<md-button class="md-icon-button" aria-label="Home">
 				<md-icon md-svg-src="images/svg/home.svg" ng-click="go('/')"></md-icon>
 			</md-button>
 		</div>
 	</md-toolbar>
 
+	<toto-apps-sidemenu layout="column" md-whiteframe="10"></toto-apps-sidemenu>	
+
 	<section layout="row" flex>
 		<md-content layout="row" flex>
 			
 			<div class="toto-left-area" ng-show="gtMd">
-				<div class="title">Available apps</div>
-				<toto-apps-sidemenu layout="column"></toto-apps-sidemenu>
+<!-- 				<div class="title">Available apps</div> -->
+<!-- 				<toto-apps-sidemenu layout="column"></toto-apps-sidemenu> -->
 			</div>
 			
 			<div id="ng-view" ng-view layout-gt-sm="row" flex></div>
