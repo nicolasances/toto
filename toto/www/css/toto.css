@@ -3,7 +3,7 @@ section {background: white!important;}
 md-content {background: white !important; padding-top: 56px;}
 md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 
-.toto-left-area {width: 25%; padding: 0 24px;}
+.toto-left-area {width: 30%; padding: 0 24px;}
 .toto-left-area .title {text-align: center; font-size: 1.1em; margin: 24px 0; color: rgba(0,0,0,0.5);}
 .toto-central-area {position: relative;}
 .toto-right-area {}
@@ -13,8 +13,8 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 	section {background: #e9ebee !important;}
 	md-content {background: #e9ebee !important;}
 	
-	.toto-central-area {margin: 0 24px; width: 60%; }
-	.toto-right-area {width: 40%;}
+	.toto-central-area {margin: 0 24px; width: 50%; }
+	.toto-right-area {width: 30%;}
 	
 }
 
