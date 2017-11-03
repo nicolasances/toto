@@ -1,36 +1,27 @@
 
-<div class="theme-cyan" id="project" layout="column" flex>
+<toto-app-menu menus="projectMenus"></toto-app-menu>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/home.svg" ng-click="go('/')"></md-icon>
-			</md-button>
-			<span class="title" flex>Projects</span>
-		</div>
-	</md-toolbar>
+<div class="toto-left-area" ng-show="gtMd"></div>
+
+<div class="toto-central-area" id="project" flex>
 	
-	<section layout="row" flex>
-
-		<md-content flex style="padding: 12px;">
-			
-			<div class="projects-container">
-				<div class="project-container" ng-repeat="project in projects" layout="row" ng-click="go('/project/' + project.id)">
-					<div class="icon-container" layout="column">
-						<div flex></div>
-						<md-icon md-svg-src="images/svg/project.svg"></md-icon>
-						<div flex></div>
-					</div>
-					<div class="name-container" layout="column" flex>
-						<div flex></div>
-						<div class="name">{{project.title}}</div>
-						<div flex></div>
-					</div>
+	<div class="toto-card">
+		<div class="title">Project list</div>
+		<div class="content projects-container">
+			<div class="project-container" ng-repeat="project in projects" layout="row" ng-click="go('/project/' + project.id)">
+				<div class="icon-container" layout="column">
+					<div flex></div>
+					<md-icon md-svg-src="images/svg/project.svg"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="name-container" layout="column" flex>
+					<div flex></div>
+					<div class="name">{{project.title}}</div>
+					<div flex></div>
 				</div>
 			</div>
-			
-		</md-content>
-	</section>
+		</div>
+	</div>
 	
 	<md-button class="md-fab floating" aria-label="Add a project" ng-click="addProject()">
 		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
@@ -38,3 +29,4 @@
 		
 </div>
 
+<div class="toto-right-area" ng-show="gtMd"></div>

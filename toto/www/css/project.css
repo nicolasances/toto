@@ -7,7 +7,7 @@
 #project .projects-container .project-container .icon-container md-icon {width: 32px; height: 32px;}
 
 #project .events-container {position: relative;}
-#project .events-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 100%; width: 32px; margin-left: 23px; background-size: 5px; background-repeat: repeat-y; background-position: 50%;}
+#project .events-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 90%; width: 32px; margin-left: 23px; background-size: 5px; background-repeat: repeat-y; background-position: 50%;}
 #project .events-container .header {}
 #project .events-container .header .icon {margin: 0 12px; padding: 12px 0; z-index: 2; background-color: white; outline: none;}
 #project .events-container .header .icon md-icon {width: 52px; height: 52px; outline: none;}
@@ -27,7 +27,7 @@
 #project .events-container .events .event-container .info-container {margin-left: 12px;}
 #project .events-container .events .event-container .info-container .header {font-size: 0.7em;}
 #project .events-container .events .event-container .info-container .header .date {opacity: 0.6;}
-#project .events-container .events .event-container .info-container .title {margin: 2px 0; color: rgba(0,0,0,0.8)}
+#project .events-container .events .event-container .info-container .title {margin: 2px 0; }
 #project .events-container .events .event-container .info-container .footer {margin-top: 3px;}
 #project .events-container .events .event-container .info-container .footer .block {font-size: 0.8em; opacity: 0.7;}
 #project .events-container .events .event-container .info-icons {margin-left: 12px;}
@@ -36,8 +36,8 @@
 #project .events-container .events .event-container .info-container.relevant .title {font-weight: 500;}
 #project .events-container.event-detail .events .event-container .icon-container {margin-left: 0;}
 
-#project .docs-container {margin: 6px 0;}
-#project .docs-container .title {opacity: 0.5; font-size: 0.8em; margin: 12px 0 6px 0;}
+#project .docs-container {}
+#project .docs-container .title {}
 #project .docs-container .doc-container {margin: 6px 0;}
 #project .docs-container .doc-container .icon {margin: 0 12px 0 12px;}
 #project .docs-container .doc-container .icon md-icon {}

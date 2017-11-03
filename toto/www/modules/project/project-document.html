@@ -1,49 +1,43 @@
 
-<div class="theme-cyan" id="project" layout="column" flex>
+<toto-app-menu menus="projectMenus"></toto-app-menu>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/project.svg" ng-click="go('/project/' + project.id)"></md-icon>
-			</md-button>
-			<span class="title" flex>{{doc.title}}</span>
-		</div>
-	</md-toolbar>
-	
-	<section>
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-		<md-content id="project-doc" flex style="padding: 12px;" layout="column">
-		
-			<div class="events-container event-detail" layout="row">
-				<div class="events" layout="column">
-					<div class="event-container" layout="row">
-						<div layout="column">
-							<div flex></div>
-							<div ng-class="['icon-container']" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/type/document.svg"></md-icon><div flex></div></div>
-							<div flex></div>
-						</div>
-						<div layout="column" ng-class="['info-container', event.relevant ? 'relevant' : '']">
-							<div flex></div>
-							<div class="title">{{doc.title}}</div>
-							<div flex></div>
-							<div layout="column" class="footer">
-								<div class="block">{{doc.versions.length}} versions</div>
-							</div>
+<div class="toto-central-area" id="project" flex>
+
+	<div class="toto-card dark-primary-color" id="project-doc">
+		<div class="events-container event-detail" layout="row">
+			<div class="events" layout="column">
+				<div class="event-container" layout="row">
+					<div layout="column">
+						<div flex></div>
+						<div ng-class="['icon-container']" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/type/document.svg"></md-icon><div flex></div></div>
+						<div flex></div>
+					</div>
+					<div layout="column" ng-class="['info-container', event.relevant ? 'relevant' : '']">
+						<div flex></div>
+						<div class="title">{{doc.title}}</div>
+						<div flex></div>
+						<div layout="column" class="footer">
+							<div class="block">{{doc.versions.length}} versions</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			<div class="note-container" layout="column" ng-show="note != null">
-			</div>
-				
-		</md-content>
-		
-	</section>
+		</div>
+	</div>
 	
+	<div class="toto-card" ng-show="note != null">
+		<div class="note-container" layout="column" >
+		</div>
+	</div>
+
+				
+		
 	<md-button class="md-fab floating" aria-label="Write a note" ng-click="writeNote()">
 		<md-icon md-svg-src="images/svg/pen.svg" ></md-icon>
 	</md-button>
 	
 </div>
 
+<div class="toto-right-area" ng-show="gtMd"></div>

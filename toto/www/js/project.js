@@ -1,6 +1,5 @@
 var projectMenus = [
-	{path: '/', imageUrl: 'images/svg/home.svg', name: "Home"},
-	{path: '/gym', imageUrl: 'images/svg/dashboard.svg', name: 'Dashboard', selected: true}
+	{path: '/project', imageUrl: 'images/svg/home.svg', name: "Projects list"}
 ];
 
 var projectModule = angular.module("projectModule", [ "ProjectServiceModule" ]);
@@ -8,9 +7,11 @@ var projectModule = angular.module("projectModule", [ "ProjectServiceModule" ]);
 /*******************************************************************************
  * PROJECTS
  ******************************************************************************/
-projectModule.controller("projectsController", [ '$scope', '$http', '$timeout', 'ProjectService', function($scope, $http, $timeout, ProjectService) {
+projectModule.controller("projectsController", [ '$rootScope', '$scope', '$http', '$timeout', 'ProjectService', function($rootScope, $scope, $http, $timeout, ProjectService) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Projects';
 		
 		$scope.projectMenus = projectMenus;
 		$scope.projects = [];
@@ -46,9 +47,12 @@ projectModule.controller("projectsController", [ '$scope', '$http', '$timeout', 
 /*******************************************************************************
  * PROJECT
  ******************************************************************************/
-projectModule.controller("projectController", [ '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'taskService', function($scope, $http, $timeout, $routeParams, ProjectService, taskService) {
+projectModule.controller("projectController", [ '$rootScope', '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'taskService', function($rootScope, $scope, $http, $timeout, $routeParams, ProjectService, taskService) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Project dashboard';
+		$scope.projectMenus = projectMenus;
 		
 		$scope.events = [];
 		
@@ -153,9 +157,12 @@ projectModule.controller("projectController", [ '$scope', '$http', '$timeout', '
 /*******************************************************************************
  * PROJECT BLOCKS
  ******************************************************************************/
-projectModule.controller("projectBlocksController", [ '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', function($scope, $http, $timeout, $routeParams, ProjectService) {
+projectModule.controller("projectBlocksController", [ '$rootScope', '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', function($rootScope, $scope, $http, $timeout, $routeParams, ProjectService) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Project blocks';
+		$scope.projectMenus = projectMenus;
 		
 		$scope.blocks = [];
 		
@@ -194,9 +201,12 @@ projectModule.controller("projectBlocksController", [ '$scope', '$http', '$timeo
  * PROJECT EVENT
  * /project/:id/events/:eventId
  ******************************************************************************/
-projectModule.controller("projectEventController", [ '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'NoteService', 'taskService', function($scope, $http, $timeout, $routeParams, ProjectService, NoteService, taskService) {
+projectModule.controller("projectEventController", [ '$rootScope', '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'NoteService', 'taskService', function($rootScope, $scope, $http, $timeout, $routeParams, ProjectService, NoteService, taskService) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Project event';
+		$scope.projectMenus = projectMenus;
 		
 		ProjectService.getProject($routeParams.id).success(function(data) {
 			
@@ -391,9 +401,12 @@ projectModule.controller("projectEventController", [ '$scope', '$http', '$timeou
  * PROJECT DOCUMENT
  * /project/:id/documents/:docId
  ******************************************************************************/
-projectModule.controller("projectDocumentController", [ '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'NoteService', 'taskService', function($scope, $http, $timeout, $routeParams, ProjectService, NoteService, taskService) {
+projectModule.controller("projectDocumentController", [ '$rootScope', '$scope', '$http', '$timeout', '$routeParams', 'ProjectService', 'NoteService', 'taskService', function($rootScope, $scope, $http, $timeout, $routeParams, ProjectService, NoteService, taskService) {
 	
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Project document';
+		$scope.projectMenus = projectMenus;
 		
 		ProjectService.getProject($routeParams.id).success(function(data) {
 			

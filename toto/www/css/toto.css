@@ -3,15 +3,15 @@ section {background: white!important;}
 md-content {background: white !important; padding-top: 56px;}
 md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 
-.toto-left-area {width: 30%; padding: 0 24px;}
-.toto-left-area .title {text-align: center; font-size: 1.1em; margin: 24px 0; color: rgba(0,0,0,0.5);}
 .toto-central-area {position: relative;}
-.toto-right-area {width: 30%;}
 
 @media only screen and (min-width: 600px) {
 	body {background: #e9ebee !important;}
 	section {background: #e9ebee !important;}
 	md-content {background: #e9ebee !important;}
+	
+	.toto-left-area {width: 30%;}
+	.toto-right-area {width: 30%;}
 }
 
 /************************************************************************
@@ -26,7 +26,9 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 .toto-card.dark-primary-color {color: rgba(255, 255, 255, 0.9);}
 
 @media only screen and (min-width: 600px) {
+	
 	.toto-card {margin: 12px; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
+	.toto-card.transparent {background: none; box-shadow: none;}
 }
 
 /************************************************************************

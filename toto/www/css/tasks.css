@@ -17,7 +17,7 @@
 #tasks .tasks-container {}
 #tasks .tasks-container .title {margin: 12px 12px; font-size: 1.2em; color: #00695C;}
 #tasks .tasks-container .task-container .task {z-index: 2;}
-#tasks .tasks-container .task-container .task .checkbox-container {background-color: white;outline: none;}
+#tasks .tasks-container .task-container .task .checkbox-container {outline: none;}
 toto-chimp #tasks .tasks-container .task .checkbox-container {background-color: transparent;}
 #tasks .tasks-container .task-container .task .checkbox-container .checkbox {width: 28px;height: 28px;box-sizing: border-box;border: 2px solid #00BCD4;border-radius: 50%;margin: 0 12px;}
 #tasks .tasks-container .task-container .task .checkbox-container .checkbox md-icon {opacity: 0; height: 18px; width: 18px;}

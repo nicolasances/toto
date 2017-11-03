@@ -1,115 +1,39 @@
 
-<div class="theme-cyan" id="project" layout="column" flex>
+<toto-app-menu menus="projectMenus"></toto-app-menu>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/project/' + project.id)"></md-icon>
-			</md-button>
-			<span class="title" flex>{{project.title}}</span>
+<div class="toto-left-area" ng-show="gtMd"></div>
+
+<div class="toto-central-area" id="project" flex>
+
+	<div class="toto-card dark-primary-color">
+		<div class="events-container event-detail" layout="row">
+			<div class="events" layout="column">
+				<div class="event-container" layout="row">
+					<div layout="column">
+						<div flex></div>
+						<div ng-class="['icon-container', event.relevant ? 'relevant' : '']" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/type/{{event.type}}.svg"></md-icon><div flex></div></div>
+						<div flex></div>
+					</div>
+					<div layout="column" ng-class="['info-container', event.relevant ? 'relevant' : '']">
+						<div layout="column" class="header">
+							<div class="date">{{event.date}}</div>
+						</div>
+						<div flex></div>
+						<div class="title">{{event.title}}</div>
+						<div flex></div>
+						<div layout="column" class="footer">
+							<div class="block">{{event.blockTitle}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</md-toolbar>
+	</div>
 	
-	<section>
-
-		<md-content id="project-event" flex style="padding: 12px;" layout="column">
-		
-			<div class="events-container event-detail" layout="row">
-				<div class="events" layout="column">
-					<div class="event-container" layout="row">
-						<div layout="column">
-							<div flex></div>
-							<div ng-class="['icon-container', event.relevant ? 'relevant' : '']" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/type/{{event.type}}.svg"></md-icon><div flex></div></div>
-							<div flex></div>
-						</div>
-						<div layout="column" ng-class="['info-container', event.relevant ? 'relevant' : '']">
-							<div layout="column" class="header">
-								<div class="date">{{event.date}}</div>
-							</div>
-							<div flex></div>
-							<div class="title">{{event.title}}</div>
-							<div flex></div>
-							<div layout="column" class="footer">
-								<div class="block">{{event.blockTitle}}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div layout="column" layout-gt-sm="row">
-			
-				<div class="note-container" layout="column" ng-show="note != null">
-				</div>
-				
-				<div layout="column" flex ng-if="tasks.length > 0 || documents.length > 0 || mails.length > 0">
-					<div layout="column" ng-class="['docsTasksMail-container', screenIsDesktop && note != null ? 'md-whiteframe-4dp':'']">
-						<div class="docs-container" id="tasks" layout="column" ng-if="tasks.length > 0">
-							<div class="title">Tasks</div>
-							<div class="tasks-container" layout="column">
-								<div class="task-container" layout="column" ng-repeat="task in tasks" >
-									<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
-										<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
-											<div flex></div>
-											<div class="checkbox" layout="column">
-												<div flex></div>
-												<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
-												<div flex></div>
-											</div>
-											<div flex></div>
-										</div>
-										<div class="text-container" layout="column" flex ng-click="go('/tasks/detail/' + task.id)">
-											<div flex></div>
-											<div class="name">{{task.title}}</div>
-											<div flex></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="docs-container" layout="column" ng-if="documents.length > 0">
-							<div class="title">Documents</div>
-							<div class="doc-container" layout="column" ng-repeat="doc in documents">
-								<div layout="row" ng-click="go('/project/' + project.id + '/documents/' + doc.id)">
-									<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/document.svg"></md-icon><div flex></div></div>
-									<div class="title" layout="column"><div flex></div>{{doc.title}}<div flex></div></div>
-								</div>
-								<div class="additional-info" layout="column">
-									<div class="versions-container" layout="row" ng-click="doc.showVersions = !doc.showVersions;">
-										<div class="versions">{{doc.versions.length}}</div>
-										<div class="text" layout="column"><div flex></div>version{{doc.versions.length > 1 ? 's' : ''}}<div flex></div></div>
-									</div>
-									<div class="versions-list" layout="column" ng-show="doc.showVersions">
-										<div class="list-item" ng-repeat="version in doc.versions" layout="row">
-											<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon><div flex></div></div>
-											<div layout="column">
-												<div class="time">{{version.date}}</div>
-												<div class="filename">{{version.filename}}</div>
-											</div>
-										</div>
-										<div class="toto-button-sm accent-color" md-whiteframe="3" layout="column" ng-click="addDocumentVersion(doc)"><div flex></div><md-icon md-svg-src="images/svg/add.svg"></md-icon><div flex></div></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="docs-container" layout="column" ng-if="mails.length > 0">
-							<div class="title">Mail</div>
-							<div class="doc-container" layout="row" ng-repeat="mail in mails">
-								<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/mail.svg"></md-icon><div flex></div></div>
-								<div class="title" layout="column"><div flex></div>{{mail.title}}<div flex></div></div>
-							</div>				
-						</div>
-					</div>
-					<div flex></div>
-				</div>
-			</div>
-			
-			
-		</md-content>
-		
-	</section>
+	<div class="toto-card" ng-show="note != null">
+		<div class="note-container" layout="column" >
+		</div>
+	</div>
 	
 	<md-fab-speed-dial class="floating md-scale" md-direction="up" md-open="false" >
 		<md-fab-trigger>
@@ -133,6 +57,68 @@
 		</md-fab-actions>
 	</md-fab-speed-dial>
 	
-	
 </div>
 
+<div class="toto-right-area docsTasksMail-container" id="project">
+	<div class="toto-card" ng-if="tasks.length > 0">
+		<div class="docs-container" id="tasks" layout="column" >
+			<div class="title">Tasks</div>
+			<div class="content tasks-container" layout="column">
+				<div class="task-container" layout="column" ng-repeat="task in tasks" >
+					<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
+						<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+							<div flex></div>
+							<div class="checkbox" layout="column">
+								<div flex></div>
+								<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
+								<div flex></div>
+							</div>
+							<div flex></div>
+						</div>
+						<div class="text-container" layout="column" flex ng-click="go('/tasks/detail/' + task.id)">
+							<div flex></div>
+							<div class="name">{{task.title}}</div>
+							<div flex></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="toto-card" ng-if="documents.length > 0">
+		<div class="docs-container" layout="column">
+			<div class="title">Documents</div>
+			<div class="content doc-container" layout="column" ng-repeat="doc in documents">
+				<div layout="row" ng-click="go('/project/' + project.id + '/documents/' + doc.id)">
+					<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/document.svg"></md-icon><div flex></div></div>
+					<div class="title" layout="column"><div flex></div>{{doc.title}}<div flex></div></div>
+				</div>
+				<div class="additional-info" layout="column">
+					<div class="versions-container" layout="row" ng-click="doc.showVersions = !doc.showVersions;">
+						<div class="versions">{{doc.versions.length}}</div>
+						<div class="text" layout="column"><div flex></div>version{{doc.versions.length > 1 ? 's' : ''}}<div flex></div></div>
+					</div>
+					<div class="versions-list" layout="column" ng-show="doc.showVersions">
+						<div class="list-item" ng-repeat="version in doc.versions" layout="row">
+							<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon><div flex></div></div>
+							<div layout="column">
+								<div class="time">{{version.date}}</div>
+								<div class="filename">{{version.filename}}</div>
+							</div>
+						</div>
+						<div class="toto-button-sm accent-color" md-whiteframe="3" layout="column" ng-click="addDocumentVersion(doc)"><div flex></div><md-icon md-svg-src="images/svg/add.svg"></md-icon><div flex></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="toto-card" ng-if="mails.length > 0">
+		<div class="docs-container" layout="column" ng-if="mails.length > 0">
+			<div class="title">Mail</div>
+			<div class="content doc-container" layout="row" ng-repeat="mail in mails">
+				<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/project/event/refs/mail.svg"></md-icon><div flex></div></div>
+				<div class="title" layout="column"><div flex></div>{{mail.title}}<div flex></div></div>
+			</div>				
+		</div>
+	</div>
+</div>
