@@ -1,8 +1,10 @@
 var cardModule = angular.module("cardModule", ["expensesServiceModule"]);
 	
-cardModule.controller("cardController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', function($scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval) {
+cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Credit Cards';
 		
 		$scope.getCards();
 	}
@@ -62,9 +64,11 @@ cardModule.controller("cardController", [ '$scope', '$http', '$timeout', '$mdDia
 /***********************************************************************************************************************
  * CARD DETAIL
  **********************************************************************************************************************/
-cardModule.controller("cardDetailController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', '$routeParams', function($scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval, $routeParams) {
+cardModule.controller("cardDetailController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval, $routeParams) {
 
 	$scope.init = function() {
+		
+		$rootScope.currentMenu = 'Credit Card details';
 		
 		$scope.currentMonth = new Date(moment().date(1));
 

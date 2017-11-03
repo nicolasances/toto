@@ -1,30 +1,10 @@
 
-<div class="theme-cyan" id="cards" layout="column" flex>
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('exp-sidenav')"></md-icon>
-			</md-button>
-			<span class="title" flex>{{card.name}}</span>
-		</div>
-	</md-toolbar>
-	
-	<section layout="row" flex>
-		<md-sidenav class="md-sidenav-left" md-component-id="exp-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
-			<md-toolbar class="md-theme-cyan">
-				<h1 class="md-toolbar-tools">Menu</h1>
-			</md-toolbar>
-			<md-content>
-				<md-list>
-					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
-					<md-list-item ng-click="go('/card')"><md-icon md-svg-src="images/svg/credit-card.svg"></md-icon><p>Credit Cards</p></md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
-		
-		<md-content flex style="padding: 12px;">
-		
+<div class="toto-central-area" id="cards" flex>
+
+	<div class="toto-card">
+		<div class="content">
 			<div layout="row" id="card-detail">
 				<div class="card-icon"><md-icon md-svg-src="images/svg/mastercard.svg"></md-icon></div>
 				<div layout="column" flex>
@@ -93,14 +73,13 @@
 					</md-list>
 				</div>
 			</div>
+		</div>
+	</div>
 			
-		</md-content>
-	</section>
-	
 	<md-button class="md-fab floating" aria-label="Add an expense" ng-click="addPayment($event)">
 		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
 	</md-button>
-	
 		
 </div>
 
+<div class="toto-right-area" ng-show="gtMd"></div>

@@ -1,6 +1,6 @@
 var expensesModule = angular.module("expensesModule", []);
 
-expensesModule.controller("expensesDashboardController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', '$mdMedia', '$interval', 'expensesService', function($scope, $http, $timeout, $mdDialog, $mdSidenav, $mdMedia, $interval, expensesService) {
+expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', '$mdMedia', '$interval', 'expensesService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, $mdMedia, $interval, expensesService) {
 	
 	var categoryWidgetOriginalTop;
 	var categoryReportItemOriginalTop;
@@ -8,6 +8,7 @@ expensesModule.controller("expensesDashboardController", [ '$scope', '$http', '$
 	$scope.initContext = function() {
 		
 		$scope.gtsm = $mdMedia('gt-sm');
+		$rootScope.currentMenu = 'Payments dashboard';
 		
 		$scope.selectedPeriod = new Object();
 		$scope.selectedPeriod.yearMonth = $scope.getCurrentPeriod();
@@ -478,12 +479,14 @@ expensesModule.controller("expensesDashboardController", [ '$scope', '$http', '$
 /***********************************************************************************************************************
  * EXPENSES LIST
  **********************************************************************************************************************/
-expensesModule.controller("expensesController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', function($scope, $http, $timeout, $mdDialog, $mdSidenav) {
+expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav) {
 
 	/**
 	 * Prepares the context object
 	 */
 	$scope.initContext = function() {
+		
+		$rootScope.currentMenu = 'Month payments';
 
 		$scope.microservicesHost = microservicesHost;
 		$scope.microservicesPort = microservicesPort;

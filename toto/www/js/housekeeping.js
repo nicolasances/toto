@@ -1,6 +1,6 @@
 var housekeepingModule = angular.module("housekeepingModule", []);
 
-housekeepingModule.controller("housekeepingController", [ '$scope', '$http', '$timeout', 'calendarService', function($scope, $http, $timeout, calendarService) {
+housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope', '$http', '$timeout', 'calendarService', function($rootScope, $scope, $http, $timeout, calendarService) {
 
 	/**
 	 * Refreshes the view
@@ -18,6 +18,8 @@ housekeepingModule.controller("housekeepingController", [ '$scope', '$http', '$t
 	 * Prepares the context object
 	 */
 	$scope.initContext = function() {
+		
+		$rootScope.currentMenu = 'Housekeeping schedule';
 
 		$scope.focusedMonth = calendarService.generateCalendar();
 		$scope.daysOfWeekLabels = calendarService.generateWeekDays();

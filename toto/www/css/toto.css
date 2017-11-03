@@ -6,16 +6,12 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 .toto-left-area {width: 30%; padding: 0 24px;}
 .toto-left-area .title {text-align: center; font-size: 1.1em; margin: 24px 0; color: rgba(0,0,0,0.5);}
 .toto-central-area {position: relative;}
-.toto-right-area {}
+.toto-right-area {width: 30%;}
 
 @media only screen and (min-width: 600px) {
 	body {background: #e9ebee !important;}
 	section {background: #e9ebee !important;}
 	md-content {background: #e9ebee !important;}
-	
-	.toto-central-area {margin: 0 24px; width: 50%; }
-	.toto-right-area {width: 30%;}
-	
 }
 
 /************************************************************************

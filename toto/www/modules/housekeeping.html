@@ -1,18 +1,9 @@
 
-<div class="theme-cyan" id="housekeeping">
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-	<md-toolbar class="md-whiteframe-3dp" md-scroll-shrink="true" >
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" >
-				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/')"></md-icon>
-			</md-button>
-			<span class="title" flex>Housekeeping</span>
-		</div>
-	</md-toolbar>
-	
-	<div style="margin: 8px; margin-top: 57px;"></div>
-	
-	<md-content class="container" layout="row" flex>
+<div class="toto-central-area" id="housekeeping" flex>
+
+	<div class="toto-card container dark-primary-color" layout="row">
 		<div class="housekeeper"></div>
 		<div id="owed-amount" flex>
 			<div class="title">Owed amount</div>
@@ -21,41 +12,39 @@
 		<md-button id="pay" class="md-fab" aria-label="Pay" ng-click="pinPayday()">
 			<md-icon md-svg-src="images/svg/replay.svg" style="fill: white;" ></md-icon>
 		</md-button>
-	</md-content>
-	<md-divider></md-divider>
-	
-	<md-content id="days" flex>
+	</div>
+
+	<div class="toto-card" id="days">
 		<div class="title">Calendar of Cleaning lady days</div>
-			<div layout="row">
-				<div class="nav" layout="column" ng-click="backOneMonth()">
-					<div flex></div>
-					<md-icon md-svg-src="images/svg/arrow-left.svg"></md-icon>
-					<div flex></div>
-				</div>
-				<div class="toto-calendar-month" flex>{{focusedMonth.month}} {{focusedMonth.year}}</div>
-				<div class="nav" layout="column" ng-click="forwardOneMonth()">
-					<div flex></div>
-					<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
-					<div flex></div>
-				</div>
+		<div layout="row">
+			<div class="nav" layout="column" ng-click="backOneMonth()">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/arrow-left.svg"></md-icon>
+				<div flex></div>
 			</div>
-			<div class="toto-calendar">
-				<div class="cur">
-					<md-grid-list md-cols="7" md-row-height="4:1" md-gutter="0px" style="margin-bottom: 8px;">
-						<md-grid-tile class="day-label" ng-repeat="dayLabel in daysOfWeekLabels">{{dayLabel}}</md-grid-tile>
-					</md-grid-list>
-					<md-grid-list md-cols="7" md-row-height="1:1" md-gutter="4px">
-						<md-grid-tile ng-repeat="day in focusedMonth.days" class="{{day.pinned ? 'pinned' : ''}} {{day.today ? 'today' : ''}} {{day.pinning ? 'pinning' : ''}}" ng-click="pinDate(day)"><span ng-if="day.current">{{day.day}}</span></md-grid-tile>
-					</md-grid-list>
-				</div>
+			<div class="toto-calendar-month" flex>{{focusedMonth.month}} {{focusedMonth.year}}</div>
+			<div class="nav" layout="column" ng-click="forwardOneMonth()">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
+				<div flex></div>
 			</div>
-	
-	</md-content>
-	<md-divider></md-divider>
-	
-	<md-button class="md-fab md-fab-bottom-right" aria-label="Pin today" ng-click="pinToday()">
-		<md-icon md-svg-src="images/svg/location-pointer.svg" ></md-icon>
-	</md-button>
+		</div>
+		<div class="toto-calendar">
+			<div class="cur">
+				<md-grid-list md-cols="7" md-row-height="4:1" md-gutter="0px" style="margin-bottom: 8px;">
+					<md-grid-tile class="day-label" ng-repeat="dayLabel in daysOfWeekLabels">{{dayLabel}}</md-grid-tile>
+				</md-grid-list>
+				<md-grid-list md-cols="7" md-row-height="1:1" md-gutter="4px">
+					<md-grid-tile ng-repeat="day in focusedMonth.days" class="{{day.pinned ? 'pinned' : ''}} {{day.today ? 'today' : ''}} {{day.pinning ? 'pinning' : ''}}" ng-click="pinDate(day)"><span ng-if="day.current">{{day.day}}</span></md-grid-tile>
+				</md-grid-list>
+			</div>
+		</div>
+		
+		<md-button class="md-fab md-fab-bottom-right" aria-label="Pin today" ng-click="pinToday()">
+			<md-icon md-svg-src="images/svg/location-pointer.svg" ></md-icon>
+		</md-button>
+	</div>
 	
 </div>
 
+<div class="toto-right-area" ng-show="gtMd"></div>

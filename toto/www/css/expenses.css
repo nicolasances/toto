@@ -6,6 +6,7 @@
 .expenses-header .month {text-transform: uppercase;}
 .expenses-header .money {}
 
+#expenses .header {margin: 12px 0;}
 #expenses .navigator {}
 #expenses .navigator .calendar {margin-left: 23px; z-index: 2;}
 #expenses .navigator .calendar md-icon {width: 32px; height: 32px; fill: #c5c5c5;}
@@ -70,7 +71,7 @@ toto-chimp #expenses #expenses-container md-list md-list-item .avatar md-icon {f
 
 #expenses-dashboard md-content {position: relative;}
 #expenses-dashboard md-sidenav md-content {padding: 0};
- 
+
 #expenses-dashboard #expenses {opacity: 1; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
 #expenses-dashboard #expenses.hidden {opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
 
