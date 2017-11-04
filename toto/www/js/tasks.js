@@ -1,3 +1,8 @@
+var tasksMenu = [
+	{path: '/tasks', imageUrl: 'images/svg/tasks-check.svg', name: 'Task list'}
+];
+
+
 var tasksModule = angular.module("tasksModule", ["taskServiceModule"]);
 
 tasksModule.controller("tasksTodayController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'taskService', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, taskService, $routeParams) {
@@ -8,6 +13,7 @@ tasksModule.controller("tasksTodayController", [ '$rootScope', '$scope', '$http'
 	$scope.initContext = function() {
 		
 		$rootScope.currentMenu = 'Tasks';
+		$scope.tasksMenus = tasksMenu;
 		$scope.getScheduleCategories();
 		
 		if ($routeParams.schedule != null) $scope.selectSchedule($routeParams.schedule);
@@ -151,6 +157,7 @@ tasksModule.controller("taskDetailController", [ '$rootScope', '$scope', '$http'
 	$scope.initContext = function() {
 		
 		$rootScope.currentMenu = 'Task detail';
+		$scope.tasksMenus = tasksMenu;
 		$scope.notes = [];
 		$scope.showInsertNote = false;
 		
