@@ -237,6 +237,113 @@ tasksModule.controller("taskDetailController", [ '$rootScope', '$scope', '$http'
 	
 	$scope.initContext();
 
-
-
 }]);
+
+/* ********************************************************************************************************************************************************
+ * TASK DETAIL
+ * ********************************************************************************************************************************************************/
+/**
+ * Directive to display a TOTO CARD for the TASK LIST given a 
+ * specific schedule. 
+ * 
+ * Requires:
+ * 
+ * 	-	title		:	the title of the card if any
+ * 
+ * 	-	schedule	:	the schedule for the task list
+ */
+tasksModule.directive('tasks', function($http, $mdDialog, taskService, $rootScope) {
+	return {
+		scope : {
+			title: '@',
+			schedule: '@'
+		},
+		templateUrl : 'modules/tasks/directives/tasks.html',
+		link : function(scope) {
+
+			/**
+			 * Prepares the context object
+			 */
+			scope.initContext = function() {
+				
+				scope.go = $rootScope.go;
+				scope.loadTasks(scope.schedule);
+				
+			}
+			
+			/**
+			 * Loads the tasks of a specified schedule
+			 */
+			scope.loadTasks = function(schedule) {
+				
+				taskService.getTasks(schedule).success(function (data) {
+					scope.tasks = data.tasks;
+					
+					scope.countIncompleteTasks();
+				});
+			}
+
+			/**
+			 * Updates the count of tasks to be completed
+			 */
+			scope.countIncompleteTasks = function() {
+
+				scope.uncompletedTasks = 0;
+				
+				for (var i = 0; i < scope.tasks.length; i++) {
+					if (!scope.tasks[i].completed) scope.uncompletedTasks++;
+				}
+			}
+			
+			/**
+			 * Opens the task postpone dialog
+			 */
+			scope.postponeTask = function(ev, task) {
+
+				taskService.postponeTask(ev, task, function(newScheduleCategory) {
+					
+					for (i = 0; i < scope.tasks.length; i++) {
+						if (scope.tasks[i].id == task.id) {
+							scope.tasks.splice(i, 1);
+							break;
+						}
+					}
+					
+					scope.countIncompleteTasks();
+					
+				});
+			}
+			
+			/**
+			 * Adds a task to INBOX
+			 */
+			scope.addTask = function(ev) {
+				
+				taskService.addTask(ev, function() {
+					
+					// If I'm on inbox, refresh
+					if (scope.schedule == 'inbox') {
+						scope.loadTasks(scope.schedule);
+					}
+					
+					scope.countIncompleteTasks();
+					
+				});
+			}
+			
+			/**
+			 * Completes a task and updates the current category counter
+			 */
+			scope.toggleCompleteTask = function(task) {
+				
+				taskService.toggleCompleteTask(task, function() {
+					task.completed = !task.completed;
+					
+					scope.countIncompleteTasks();
+				});
+			}
+			
+			scope.initContext();
+		}
+	}
+});

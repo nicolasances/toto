@@ -3,8 +3,7 @@
 		<md-icon md-svg-src="{{svg}}"></md-icon>
 	</div>
 	<div ng-class="['composite-value', nofill ? '' : 'text-primary-color']" ng-if="amount != null" layout="row">
-		<div flex></div>
-		<div class="small">&euro;</div>
+		<div class="small" style="text-align: right;" flex>&euro;</div>
 		<div class="normal">{{amount | number : 1}}</div>
 		<div flex></div>
 	</div>

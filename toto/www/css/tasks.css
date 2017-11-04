@@ -18,13 +18,13 @@
 #tasks .tasks-container .task-container .task {z-index: 2;}
 #tasks .tasks-container .task-container .task .checkbox-container {outline: none;}
 toto-chimp #tasks .tasks-container .task .checkbox-container {background-color: transparent;}
-#tasks .tasks-container .task-container .task .checkbox-container .checkbox {width: 28px;height: 28px;box-sizing: border-box;border: 2px solid #00BCD4;border-radius: 50%;margin: 0 12px;}
+#tasks .tasks-container .task-container .task .checkbox-container .checkbox {width: 28px;height: 28px;box-sizing: border-box;border: 2px solid #00BCD4;border-radius: 50%;margin-right: 12px;}
 #tasks .tasks-container .task-container .task .checkbox-container .checkbox md-icon {opacity: 0; height: 18px; width: 18px;}
 #tasks .tasks-container .task-container .task .text-container {font-size: 0.9em;color: rgba(0,0,0,0.8);margin-right: 12px;outline: none;padding-top: 6px;}
 toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 255, 0.87); font-size: 1em;}
 #tasks .tasks-container .task-container .task .text-container .name {}
 #tasks .tasks-container .task-container .task .text-container .project {}
-#tasks .tasks-container .task-container .task .icon-container {margin: 0 12px 0 0;}
+#tasks .tasks-container .task-container .task .icon-container {}
 #tasks .tasks-container .task-container .task .icon-container md-icon {}
 #tasks .tasks-container .task-container {margin: 6px 0;}
 #tasks .tasks-container .task-container .task .task-details {margin-left: 52px; margin-top: 6px;}

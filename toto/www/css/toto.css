@@ -28,6 +28,9 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 .toto-card .title {font-size: 1em; color: rgba(0,0,0,0.5);}
 .toto-card .title.center {text-align: center;}
 
+.toto-card .header-icon {outline: none;}
+.toto-card .header-icon md-icon {fill: #b5b5b5; outline: none; width: 28px; height: 28px;}
+
 .toto-card.dark-primary-color .title {color: rgba(255, 255, 255, 0.9);}
 .toto-card.dark-primary-color {color: rgba(255, 255, 255, 0.9);}
 
