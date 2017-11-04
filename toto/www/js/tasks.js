@@ -1,15 +1,17 @@
 var tasksModule = angular.module("tasksModule", ["taskServiceModule"]);
 
-tasksModule.controller("tasksTodayController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'taskService', '$routeParams', function($scope, $http, $timeout, $mdDialog, $mdSidenav, taskService, $routeParams) {
+tasksModule.controller("tasksTodayController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'taskService', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, taskService, $routeParams) {
 
 	/**
 	 * Prepares the context object
 	 */
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Tasks';
 		$scope.getScheduleCategories();
 		
 		if ($routeParams.schedule != null) $scope.selectSchedule($routeParams.schedule);
+		else $scope.selectSchedule('inbox');
 		
 	}
 	
@@ -141,13 +143,14 @@ tasksModule.controller("tasksTodayController", [ '$scope', '$http', '$timeout', 
 /* ********************************************************************************************************************************************************
  * TASK DETAIL
  * ********************************************************************************************************************************************************/
-tasksModule.controller("taskDetailController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'taskService', '$routeParams', function($scope, $http, $timeout, $mdDialog, $mdSidenav, taskService, $routeParams) {
+tasksModule.controller("taskDetailController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'taskService', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, taskService, $routeParams) {
 
 	/**
 	 * Prepares the context object
 	 */
 	$scope.initContext = function() {
 		
+		$rootScope.currentMenu = 'Task detail';
 		$scope.notes = [];
 		$scope.showInsertNote = false;
 		

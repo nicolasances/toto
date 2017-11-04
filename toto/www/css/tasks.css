@@ -1,8 +1,8 @@
 
 #tasks .md-fab {}
 
-#tasks .categories-container {padding: 24px 0;}
-#tasks .categories-container .category {margin: 0 24px;position: relative;outline: none;}
+#tasks .categories-container {padding-bottom: 12px;}
+#tasks .categories-container .category {margin: 0 18px;position: relative;outline: none;margin-top: 3px;}
 #tasks .categories-container .category .icon {}
 #tasks .categories-container .category .icon md-icon {fill: #B2DFDB;}
 #tasks .categories-container .category .counter {position: absolute; background-color: #B2DFDB; bottom: -12px; right: -12px; padding: 6px; border-radius: 50%; box-sizing: border-box; width: 24px; height: 24px;}
@@ -10,18 +10,17 @@
 #tasks .categories-container .category.selected  .icon md-icon {fill: currentColor;}
 #tasks .categories-container .category.selected .counter {background-color: #0097A7;color: white;}
 
-#tasks .md-toolbar-tools .inbox {position: relative;}
-#tasks .md-toolbar-tools .inbox .counter {position: absolute;bottom: -12px;right: -12px;background-color: #00BCD4;padding: 6px;border-radius: 50%;box-sizing: border-box;width: 24px;height: 24px;}
-#tasks .md-toolbar-tools .inbox .counter .count {font-size: 0.6em; text-align: center; color: white; font-weight: 500;}
+#tasks .categories-container .inbox {position: relative; margin-right: 16px;}
+#tasks .categories-container .inbox .counter {position: absolute;bottom: -12px;right: -12px;background-color: #00BCD4;padding: 6px;border-radius: 50%;box-sizing: border-box;width: 24px;height: 24px;}
+#tasks .categories-container .inbox .counter .count {font-size: 0.6em; text-align: center; color: white; font-weight: 500;}
 
 #tasks .tasks-container {}
-#tasks .tasks-container .title {margin: 12px 12px; font-size: 1.2em; color: #00695C;}
 #tasks .tasks-container .task-container .task {z-index: 2;}
 #tasks .tasks-container .task-container .task .checkbox-container {outline: none;}
 toto-chimp #tasks .tasks-container .task .checkbox-container {background-color: transparent;}
 #tasks .tasks-container .task-container .task .checkbox-container .checkbox {width: 28px;height: 28px;box-sizing: border-box;border: 2px solid #00BCD4;border-radius: 50%;margin: 0 12px;}
 #tasks .tasks-container .task-container .task .checkbox-container .checkbox md-icon {opacity: 0; height: 18px; width: 18px;}
-#tasks .tasks-container .task-container .task .text-container {font-size: 0.9em; color: rgba(0,0,0,0.8); margin-right: 12px; outline: none;}
+#tasks .tasks-container .task-container .task .text-container {font-size: 0.9em;color: rgba(0,0,0,0.8);margin-right: 12px;outline: none;padding-top: 6px;}
 toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 255, 0.87); font-size: 1em;}
 #tasks .tasks-container .task-container .task .text-container .name {}
 #tasks .tasks-container .task-container .task .text-container .project {}
@@ -31,7 +30,7 @@ toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 
 #tasks .tasks-container .task-container .task .task-details {margin-left: 52px; margin-top: 6px;}
 #tasks .tasks-container .task-container .task .task-details .schedule {font-size: 0.8em; color: rgba(0,0,0,0.5);}
 #tasks .tasks-container .task-container .task .task-details .project {font-.task-container .task  0.8em; color: rgba(0,0,0,0.5);}
-#tasks .tasks-container .task-container .context-info {font-size: 0.7em; color: rgba(0,0,0,0.6); margin-left: 53px; margin-top: -2px;}
+#tasks .tasks-container .task-container .context-info {font-size: 0.8em;color: rgba(0,0,0,0.6);margin-top: 2px;}
 
 #tasks .tasks-container .task.completed .checkbox-container .checkbox {opacity: 0.5;background-color: #B2EBF2;border-color: #B2EBF2;outline: none;}
 #tasks .tasks-container .task.completed .checkbox-container .checkbox md-icon {opacity: 1;}
@@ -43,12 +42,12 @@ toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 
 
 #tasks .tasks-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 100%; width: 32px; margin-top: 12px; margin-left: 10px; background-size: 5px; background-repeat: repeat-y; background-position: 50%;}
 
-#tasks .actions-container {margin: 24px 0;}
+#tasks .actions-container {margin: 6px 0;}
 #tasks .actions-container .action {margin: 0 12px;background-color: #8BC34A;padding: 12px;border-radius: 50%;outline: none;}
 #tasks .actions-container .action md-icon {fill: white;}
 #tasks .actions-container .action.save {background-color: #0097A7;}
 
-#tasks .notes-container {margin-top: 42px;}
+#tasks .notes-container {margin-top: 42px; position: relative;}
 #tasks .notes-container .timeline .header {padding: 6px; border: 2px solid #80CBC4; border-radius: 50%; width: 32px; height: 32px; box-sizing: border-box; background-color: white; margin-top: -35px; margin-left: 1px;}
 #tasks .notes-container .timeline .header md-icon {width: 16px; height: 16px;}
 #tasks .notes-container .note-container {margin-left: 15px; z-index: 2; margin-bottom: 12px;}
