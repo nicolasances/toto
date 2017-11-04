@@ -1,6 +1,6 @@
 
 #project .projects-container {min-width: 20%;}
-#project .projects-container .project-container {padding: 12px 9px; margin: 6px 0; outline: none;}
+#project .projects-container .project-container {padding: 12px 9px; outline: none;}
 #project .projects-container .project-container .name-container {}
 #project .projects-container .project-container .name-container .name {font-size: 1.2em;color: rgba(0,0,0,0.8);}
 #project .projects-container .project-container .icon-container {margin-right: 12px;}

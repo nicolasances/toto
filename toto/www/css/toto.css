@@ -10,6 +10,9 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 	section {background: #e9ebee !important;}
 	md-content {background: #e9ebee !important;}
 	
+	.toto-right-area {width: 40%;}
+}
+@media only screen and (min-width: 1280px) {
 	.toto-left-area {width: 30%;}
 	.toto-right-area {width: 30%;}
 }
@@ -19,7 +22,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
  ***********************************************************************/
 .toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white;}
 .toto-card .title {font-size: 1em; color: rgba(0,0,0,0.5);}
-.toto-card .content {padding: 24px 0;}
+.toto-card .content {padding: 12px 0;}
 .toto-card .content.full {margin: 0 -12px -12px -12px; padding: 24px 0;}
 
 .toto-card.dark-primary-color .title {color: rgba(255, 255, 255, 0.9);}
@@ -27,6 +30,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 
 @media only screen and (min-width: 600px) {
 	
+	.toto-card .content {padding: 24px 0;}
 	.toto-card {margin: 12px; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
 	.toto-card.transparent {background: none; box-shadow: none;}
 }

@@ -6,8 +6,8 @@
 <div class="toto-central-area" id="project" flex>
 	
 	<div class="toto-card">
-		<div class="title">Project list</div>
-		<div class="content projects-container">
+		<div class="title" ng-if="gtMd">Project list</div>
+		<div ng-class="['projects-container', gtMd ? 'content' : '']">
 			<div class="project-container" ng-repeat="project in projects" layout="row" ng-click="go('/project/' + project.id)">
 				<div class="icon-container" layout="column">
 					<div flex></div>

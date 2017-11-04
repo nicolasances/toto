@@ -60,26 +60,24 @@
 </div>
 
 <div class="toto-right-area docsTasksMail-container" id="project">
-	<div class="toto-card" ng-if="tasks.length > 0">
-		<div class="docs-container" id="tasks" layout="column" >
-			<div class="title">Tasks</div>
-			<div class="content tasks-container" layout="column">
-				<div class="task-container" layout="column" ng-repeat="task in tasks" >
-					<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
-						<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+	<div class="toto-card docs-container" id="tasks" ng-if="tasks.length > 0">
+		<div class="title">Tasks</div>
+		<div class="content tasks-container" layout="column">
+			<div class="task-container" layout="column" ng-repeat="task in tasks" >
+				<div class="task {{task.completed ? 'completed' : ''}}" layout="row">
+					<div class="checkbox-container" layout="column" ng-click="toggleCompleteTask(task)">
+						<div flex></div>
+						<div class="checkbox" layout="column">
 							<div flex></div>
-							<div class="checkbox" layout="column">
-								<div flex></div>
-								<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
-								<div flex></div>
-							</div>
+							<md-icon md-svg-src="images/svg/checked.svg"></md-icon>
 							<div flex></div>
 						</div>
-						<div class="text-container" layout="column" flex ng-click="go('/tasks/detail/' + task.id)">
-							<div flex></div>
-							<div class="name">{{task.title}}</div>
-							<div flex></div>
-						</div>
+						<div flex></div>
+					</div>
+					<div class="text-container" layout="column" flex ng-click="go('/tasks/detail/' + task.id)">
+						<div flex></div>
+						<div class="name">{{task.title}}</div>
+						<div flex></div>
 					</div>
 				</div>
 			</div>
