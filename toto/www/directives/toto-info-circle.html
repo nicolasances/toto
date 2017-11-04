@@ -1,14 +1,14 @@
-<div ng-class="['toto-info-circle', size, 'dark-primary-color']" layout="column">
+<div ng-class="['toto-info-circle', size, nofill ? 'nofill' : 'dark-primary-color']" layout="column">
 	<div class="icon" flex>
 		<md-icon md-svg-src="{{svg}}"></md-icon>
 	</div>
-	<div ng-class="['composite-value', 'text-primary-color']" ng-if="amount != null" layout="row">
+	<div ng-class="['composite-value', nofill ? '' : 'text-primary-color']" ng-if="amount != null" layout="row">
 		<div flex></div>
 		<div class="small">&euro;</div>
 		<div class="normal">{{amount | number : 1}}</div>
 		<div flex></div>
 	</div>
-	<div ng-class="['composite-value', 'text-primary-color']" ng-if="volume != null" layout="row">
+	<div ng-class="['composite-value', nofill ? '' : 'text-primary-color']" ng-if="volume != null" layout="row">
 		<div flex></div>
 		<div class="normal">{{volume | number : 1}}</div>
 		<div class="small">&#8467;</div>

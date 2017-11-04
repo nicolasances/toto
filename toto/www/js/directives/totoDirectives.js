@@ -19,7 +19,8 @@ totoDirectivesModule.directive('totoInfoCircle', function() {
 			volume : '=',
 			svg : '@',
 			actionSvg : '@',
-			action : '='
+			action : '=', 
+			nofill : '@'
 		},
 		templateUrl : 'directives/toto-info-circle.html'
 	};

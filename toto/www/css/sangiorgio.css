@@ -1,2 +1,24 @@
 
-#sangiorgio-taxes #content, #sangiorgio-elec #content, #sangiorgio-gas #content {padding: 6px;}
+.sangiorgio-bills-container {position: relative;}
+.sangiorgio-bills-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: calc(100% - 48px); width: 32px; margin-top: -16px; margin-left: 24px; background-size: 5px; background-repeat: repeat-y; background-position: 50%; }
+
+.sangiorgio-bills-container .sangiorgio-bill-container {outline: none; margin: 6px 0; color: rgba(0,0,0,0.8);}
+.sangiorgio-bills-container .sangiorgio-bill-container .amount-container {background: white; z-index: 2;border: 3px solid #00BCD4; border-radius: 50%; width: 80px; height: 80px; margin-right: 12px;}
+.sangiorgio-bills-container .sangiorgio-bill-container .amount-container .divisa {font-size: 0.7em; margin-right: 3px;}
+.sangiorgio-bills-container .sangiorgio-bill-container .amount-container .amount {font-size: 0.9em;}
+.sangiorgio-bills-container .sangiorgio-bill-container .date-container {margin-right: 12px; text-align: center;}
+.sangiorgio-bills-container .sangiorgio-bill-container .date-container .day {font-size: 1.3em;}
+.sangiorgio-bills-container .sangiorgio-bill-container .date-container .month {font-size: 0.8em; text-transform: uppercase;}
+.sangiorgio-bills-container .sangiorgio-bill-container .date-container .year {font-size: 0.6em;}
+.sangiorgio-bills-container .sangiorgio-bill-container .text-container {}
+.sangiorgio-bills-container .sangiorgio-bill-container .text-container .description {}
+.sangiorgio-bills-container .sangiorgio-bill-container .text-container .sub{font-size: 0.8em;}
+
+.sangiorgio-bills-container .sangiorgio-bill-container.paid {color: rgba(0,0,0,0.3);}
+.sangiorgio-bills-container .sangiorgio-bill-container.paid .amount-container {border-color: #efefef; background-color: #efefef; }
+
+.sangiorgio-bills-container .toto-button-sm {margin-left: 21px; z-index: 2; margin-top: 12px;}
+
+.sangiorgio-bills-container .empty {font-size: 0.9em; color: rgba(0,0,0,0.3); z-index: 2; margin-left: 21px;}
+.sangiorgio-bills-container .empty .icon {width: 42px; height: 42px; border-radius: 50%; background: #efefef; margin-right: 12px;}
+.sangiorgio-bills-container .empty .icon md-icon {fill: #ababab; width: 20px; height: 20px;}

@@ -1,7 +1,11 @@
 
 <toto-chimp></toto-chimp>
 
-<div class="toto-left-area" ng-show="gtMd"></div>	
+<div class="toto-left-area" ng-show="gtMd">
+
+	<sangiorgio-unpaid-bills title="Home bills"></sangiorgio-unpaid-bills>
+	
+</div>	
 	
 <div id="dashboard" class="toto-central-area" flex>
 
@@ -40,7 +44,7 @@
 	<!-- ------------------------------------------------------- -->
 	<div id="body" class="toto-card" layout="column" ng-if="gymAuthorized || healthAuthorized || dietAuthorized">
 		<div class="title">Health & Fitness</div>
-		<div class="content" layout="row" style="margin-bottom: 12px;">
+		<div class="content" layout="row" style="margin-bottom: 24px;">
 			<div ng-class="['left-wing']" flex layout="column">
 				<div flex></div>
 				<div layout="column">

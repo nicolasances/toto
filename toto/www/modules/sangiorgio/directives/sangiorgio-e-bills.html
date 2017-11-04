@@ -1,0 +1,39 @@
+<div class="toto-card">
+	<div class="title">{{title}}</div>
+	<div class="content sangiorgio-bills-container" layout="column">
+		<div class="timeline"></div>
+		<div ng-class="['sangiorgio-bill-container', bill.linkedPaymentId != null ? 'paid' : '']" layout="row" ng-repeat="bill in bills" ng-click="showDetails(bill, $event)">
+			<div class="amount-container" layout="column">
+				<div flex></div>
+				<div layout="row">
+					<div flex></div>
+					<div class="divisa" layout="column"><div flex></div>&euro;<div flex></div></div>
+					<div class="amount">{{bill.amount | number : 2}}</div>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
+			<div class="date-container" layout="column" ng-if="bill.paymentDate != null">
+				<div flex></div>
+				<div class="day">{{bill.paymentDate | date : 'dd'}}</div>
+				<div class="month">{{bill.paymentDate | date : 'MMM'}}</div>
+				<div flex></div>
+			</div>
+			<div class="text-container" layout="column">
+				<div flex></div>
+				<div class="description">{{bill.reference}}</div>
+				<div class="sub">{{bill.periodFrom.month}}.{{bill.periodFrom.year}} - {{bill.periodTo.month}}.{{bill.periodTo.year}}</div>
+				<div flex></div>
+			</div>
+		</div>
+		<div class="empty" ng-if="bills == null || bills.length == 0" layout="row">
+			<div class="icon" layout="column"><div flex></div><md-icon md-svg-src="images/svg/checked.svg"></md-icon><div flex></div></div>
+			<div class="text" layout="column"><div flex></div>Everything has been paid<div flex></div></div>
+		</div>
+		<div ng-class="['toto-button-sm', 'accent-color']" layout="column" md-whiteframe="3" ng-click="addBill($event)" ng-if="interactive == 'true'">
+			<div flex></div>
+			<md-icon md-svg-src="images/svg/add.svg"></md-icon>
+			<div flex></div>
+		</div>
+	</div>
+</div>

@@ -20,17 +20,19 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 /************************************************************************
  * CARDS 
  ***********************************************************************/
-.toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white;}
-.toto-card .title {font-size: 1em; color: rgba(0,0,0,0.5);}
-.toto-card .content {padding: 12px 0;}
+.toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white; border-radius: 3px;}
+.toto-card .subtitle {font-size: 0.8em; color: rgba(0,0,0,0.5);}
+.toto-card .content {padding: 24px 0;}
 .toto-card .content.full {margin: 0 -12px -12px -12px; padding: 24px 0;}
+
+.toto-card .title {font-size: 1em; color: rgba(0,0,0,0.5);}
+.toto-card .title.center {text-align: center;}
 
 .toto-card.dark-primary-color .title {color: rgba(255, 255, 255, 0.9);}
 .toto-card.dark-primary-color {color: rgba(255, 255, 255, 0.9);}
 
 @media only screen and (min-width: 600px) {
 	
-	.toto-card .content {padding: 24px 0;}
 	.toto-card {margin: 12px; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
 	.toto-card.transparent {background: none; box-shadow: none;}
 }
@@ -140,6 +142,8 @@ toto-apps-sidemenu .app-container .title {font-size: 0.7em;color: rgba(255,255,2
 .toto-info-circle .composite-value .normal {font-size: 1em;}
 .toto-info-circle .toto-floating-button-sm {position: absolute;bottom: -6px;left: 6px;}
 .toto-info-circle md-icon {width: 18px; height: 18px;}
+
+.toto-info-circle.nofill {border: 5px solid #00BCD4; color: rgba(0,0,0,0.8);}
 
 .toto-info-circle.sm {width: 66px;height: 66px;padding: 3px;}
 .toto-info-circle.sm md-icon {width: 12px;height: 12px;}

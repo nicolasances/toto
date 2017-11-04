@@ -1,52 +1,11 @@
+<toto-app-menu menus="sangiorgioMenus"></toto-app-menu>
 
-<div class="theme-cyan" id="sangiorgio-elec" layout="column" flex>
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" aria-label="Back">
-				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('sangiorgio-sidenav')"></md-icon>
-			</md-button>
-			<span class="title" flex>Sangiorgio - Electricity Bills</span>
-		</div>
-	</md-toolbar>
-	
-	<section layout="row" flex>
-		<md-sidenav class="md-sidenav-left" md-component-id="sangiorgio-sidenav" md-whiteframe="4" md-is-locked-open="$mdMedia('gt-sm')" flex>
-			<md-toolbar class="md-theme-cyan">
-				<h1 class="md-toolbar-tools">Menu</h1>
-			</md-toolbar>
-			<md-content>
-				<md-list>
-					<md-list-item ng-click="go('/')"><md-icon md-svg-src="images/svg/home.svg"></md-icon><p>Home</p></md-list-item>
-					<md-list-item ng-click="go('/sangiorgio')"><md-icon md-svg-src="images/svg/dashboard.svg"></md-icon><p>Dashboard</p></md-list-item>
-					<md-list-item ng-click="go('/sangiorgio/taxes')"><md-icon md-svg-src="images/svg/buildings.svg"></md-icon><p>Building Taxes</p></md-list-item>
-					<md-list-item class="selected" ng-click="go('/sangiorgio/electricity')"><md-icon md-svg-src="images/svg/power-cord.svg"></md-icon><p>Electricity Bills</p></md-list-item>
-					<md-list-item ng-click="go('/sangiorgio/gas')"><md-icon md-svg-src="images/svg/gas.svg"></md-icon><p>Gas Bills</p></md-list-item>
-				</md-list>
-			</md-content>
-		</md-sidenav>
+<div class="toto-central-area" flex>
 
-		<md-content id="content" flex>
-			<md-grid-list md-cols-xs="3" md-cols-gt-sm="7" md-row-height-gt-sm="1:1" md-row-height="1:1" md-gutter="4px">
-				<md-grid-tile layout="column" ng-repeat="bill in bills" class="toto-payment-tile {{bill.linkedPaymentId == null ? 'unpaied' : ''}}" ng-click="showDetails(bill, $event)">
-					<div class="background">
-						<md-icon ng-if="bill.linkedPaymentId == null" md-svg-src="images/svg/power-cord.svg"></md-icon>
-					</div>
-					<div class="text" layout="column" >
-						<div class="headline">&euro; {{bill.amount | number : 2}}</div>
-						<div class="subhead">{{bill.reference}}</div>
-						<div class="info">{{bill.periodFrom.month}}.{{bill.periodFrom.year}} - {{bill.periodTo.month}}.{{bill.periodTo.year}}</div>
-						<p ng-if="bill.linkedPaymentId != null">Paied on {{bill.paymentDate | date : 'dd/MM/yyyy'}}</p>
-					</div>
-				</md-grid-tile>
-			</md-grid-list>
-		</md-content>
-	</section>
-	
-	<md-button class="md-fab floating" aria-label="Add a bill" ng-click="addBill($event)">
-		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
-	</md-button>
-		
+	<sangiorgio-e-bills title="Electricity bills" interactive="true"></sangiorgio-e-bills>
 	
 </div>
 
+<div class="toto-right-area" ng-show="gtXs"></div>
