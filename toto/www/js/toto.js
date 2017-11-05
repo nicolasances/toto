@@ -19,12 +19,13 @@ var totoAppList = [
 	{id: 'diet', title: 'Nutrition', svg: 'images/svg/fast-food.svg', authorized: false},
 	{id: 'supermarket', title: 'Supermarket', svg: 'images/svg/supermarket.svg', authorized: false},
 	{id: 'project', title: 'Project', svg: 'images/svg/project.svg', authorized: false},
-	{id: 'jobsearch', title: 'Job Search', svg: 'images/svg/briefcase.svg', authorized: false}
+	{id: 'jobsearch', title: 'Job Search', svg: 'images/svg/briefcase.svg', authorized: false},
+	{id: 'partner', title: 'Couple', svg: 'images/svg/couple.svg', authorized: false}
 ];
 
 //navigator.geolocation.getCurrentPosition(function(position) {console.log(position);});
 
-var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "TotoAuthServiceModule", "weekendModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule", "totoDirectivesModule", "gymDirectivesModule", "ChimpServiceModule", "ApiAiServiceModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "DietServiceModule", "dietModule", "totoHealthFitnessDirectiveModule", "supermarketModule", "SupermarketServiceModule", "projectModule", "ProjectServiceModule", "NoteServiceModule", "jobSearchModule", "JobSearchServiceModule" ])
+var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "TotoAuthServiceModule", "weekendModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule", "totoDirectivesModule", "gymDirectivesModule", "ChimpServiceModule", "ApiAiServiceModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "DietServiceModule", "dietModule", "totoHealthFitnessDirectiveModule", "supermarketModule", "SupermarketServiceModule", "projectModule", "ProjectServiceModule", "NoteServiceModule", "jobSearchModule", "JobSearchServiceModule", "partnerModule", "PartnerServiceModule" ])
 .factory('totoAuthManager', [ '$rootScope', '$location', function($rootScope, $location) {
 	return {
 		request : function(config) {
@@ -199,6 +200,8 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 					.when('/project/:id/documents/:docId', {templateUrl : 'modules/project/project-document.html', controller : 'projectDocumentController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/jobsearch', {templateUrl : 'modules/jobsearch/applications.html', controller : 'jobsearchApplicationsController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/jobsearch/:id', {templateUrl : 'modules/jobsearch/application.html', controller : 'jobsearchApplicationController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
+					.when('/partner', {templateUrl : 'modules/partner/partner.html', controller : 'partnerController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
+					.when('/partner/masterDeeds', {templateUrl : 'modules/partner/masterDeeds.html', controller : 'partnerMasterDeedsController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					;
 
 });

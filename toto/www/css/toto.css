@@ -163,8 +163,14 @@ toto-apps-sidemenu .app-container .title {font-size: 0.7em;color: rgba(255,255,2
 /************************************************************************
  * TOTO BUTTONS 
  ***********************************************************************/
-.toto-button-sm {width: 38px;height: 38px;border-radius: 50%; text-align: center;}
-.toto-button-sm md-icon {width: 14px; height: 14px; fill: white;}
+.toto-button-sm {width: 38px;height: 38px;border-radius: 50%; text-align: center; outline: none;}
+.toto-button-sm md-icon {width: 14px; height: 14px; fill: white; outline: none;}
+
+.toto-button {width: 56px; height: 56px; border-radius: 50%; text-align: center; outline: none;}
+.toto-button md-icon {width: 24px; height: 24px; fill: white; outline: none;}
+
+.toto-button.greyed {background: #efefef;}
+.toto-button.greyed md-icon {fill: #ababab;}
  
 /************************************************************************
  * TOTO PROGRESS 

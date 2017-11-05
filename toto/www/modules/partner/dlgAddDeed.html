@@ -1,0 +1,18 @@
+<md-dialog aria-label="Add a master deed" ng-cloak id="partner" class="theme-cyan">
+	<form>
+		<md-toolbar md-scroll-shrink="true"  >
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="Go Back">
+					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+				</md-button>
+				<span class="title" flex>Add a deed!</span>
+			</div>
+		</md-toolbar>
+		<md-dialog-content>
+			
+			<partner-master-deeds on-select="answer" title="Pick a deed!"></partner-master-deeds>
+			
+		</md-dialog-content>
+	</form>
+	
+</md-dialog>
