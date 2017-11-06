@@ -20,7 +20,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 /************************************************************************
  * CARDS 
  ***********************************************************************/
-.toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white; border-radius: 3px;}
+.toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white; }
 .toto-card .subtitle {font-size: 0.8em; color: rgba(0,0,0,0.5);}
 .toto-card .content {padding: 24px 0;}
 .toto-card .content.full {margin: 0 -12px -12px -12px; padding: 24px 0;}
@@ -36,7 +36,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 
 @media only screen and (min-width: 600px) {
 	
-	.toto-card {margin: 12px; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
+	.toto-card {border-radius: 3px; margin: 12px; box-shadow: 0 1px 8px 0 rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12);}
 	.toto-card.transparent {background: none; box-shadow: none;}
 }
 
@@ -223,8 +223,18 @@ toto-measurement-widget .unit {font-size: 0.7em; text-align: center; }
  ***********************************************************************/
 .ql-toolbar.ql-snow {border: none; background: #B2EBF2; border-radius: 30px; margin: 12px;}
 .ql-toolbar.ql-snow + .ql-container.ql-snow {border: none;}
-.ql-container {font-size: 15px !important;} 
+.ql-container {font-size: 15px !important;}
  
+/************************************************************************
+ * BAR GRAPH
+ ***********************************************************************/
+toto-bar-graph {}
+toto-bar-graph .toto-bar-graph-container {border-bottom: 1px solid #B2EBF2;}
+toto-bar-graph .toto-bar-graph-container .bar-container {position: relative;}
+toto-bar-graph .toto-bar-graph-container .bar-container .value {color: rgba(0,0,0,0.7); font-size: 0.7em; text-align: center; position: absolute; left: 0;}
+toto-bar-graph .toto-bar-graph-container .bar-container .bar {width: 28px; height: 0; position: absolute; left: 0; bottom: 1px; z-index: 3;}
+toto-bar-graph .toto-bar-graph-container .bar-container .label {text-align: center; position: absolute; bottom: -24px; left: 0; font-size: 0.8em;color: rgba(0,0,0,0.6);}
+
 /************************************************************************
  * COLORS PER THEME
  ***********************************************************************/

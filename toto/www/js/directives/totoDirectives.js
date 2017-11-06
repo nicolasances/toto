@@ -244,3 +244,126 @@ totoDirectivesModule.directive('totoAppMenu', function($rootScope) {
 		}
 	};
 });
+
+/**
+ * Bar Graph. 
+ * Displays a bar graph with the provided values. 
+ * Values are provided as an array of bars  
+ * 
+ * Requires: 
+ * 
+ *  -	widgetId	:	mandatory
+ *  					a unique identifier for this widget
+ * 
+ * 	-	bars		:	mandatory
+ * 						an [] of bars
+ * 						each bar is an object {value : any number, label : any string}
+ */
+totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $interval) {
+	
+	return {
+		scope : {
+			bars : '=',
+			widgetId : '@',
+			showValues : '@'
+		},
+		templateUrl : 'directives/toto-bar-graph.html',
+		link : function(scope) {
+			
+			/**
+			 * Creates the bars related to the gym info that has been loaded
+			 */
+			scope.buildGraph = function() {
+				
+				var containerWidth = document.querySelector('#' + scope.widgetId).offsetWidth;
+				var containerHeight = 100;
+				
+				document.querySelector('#' + scope.widgetId).style.height = containerHeight + "px";
+				document.querySelector('#' + scope.widgetId).parentNode.style.height = containerHeight + "px";
+				
+				var maxBarHeight = 90;
+				var maxScore = scope.getMaxScore();
+				var heightRatio = maxBarHeight / maxScore;
+				var barGutter = 2;
+				var delay = 6;
+
+				for (var i = 0; i < scope.bars.length; i++) {
+					
+					var bar = scope.bars[i];
+					var element = document.getElementById(i + '-' + scope.widgetId + '-bar');
+					var elementLabel = document.getElementById(i + '-' + scope.widgetId + '-label');
+					var elementValue = document.getElementById(i + '-' + scope.widgetId + '-value');
+					
+					var barWidth = element.offsetWidth;
+					
+					element.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
+					
+					scope.animateBar(element, bar.value * heightRatio);
+					
+					elementValue.style.bottom = bar.value * heightRatio + 3 + 'px';
+					elementValue.style.width = barWidth + 'px';
+					elementValue.style.left = element.style.left;
+					
+					elementLabel.style.width = barWidth + 'px';
+					elementLabel.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
+					elementLabel.innerHTML = bar.label;
+				}
+			}
+			
+			/**
+			 * Retrieves the max score in the provided days
+			 */
+			scope.getMaxScore = function() {
+				
+				var maxScore = 1;
+				for (var i = 0; i < scope.bars.length; i++) {
+					
+					if (scope.bars[i].value > maxScore) {
+						
+						maxScore = scope.bars[i].value;
+					}
+				}
+				
+				return maxScore;
+			}
+			
+			/**
+			 * Creates the animation that makes the bar go from height 0 to the target height.
+			 */
+			scope.animateBar = function(element, targetHeight) {
+				
+				if (targetHeight == 0) return;
+				
+				if (scope.intervals == null) scope.intervals = {};
+				
+				scope.intervals[element.id] = $interval(function() {
+					
+					var currentHeight = element.offsetHeight;
+					
+					currentHeight += 2; 
+					
+					element.style.height= currentHeight + 'px';
+					
+					if (currentHeight >= targetHeight) {
+						currentHeight = targetHeight;
+						$interval.cancel(scope.intervals[element.id]);
+					}
+					
+				}, 10);
+				
+			}
+			
+			/**
+			 * Delays the appearance of the given element. The element must be in display: none and will be turned
+			 * after the specified delay into display: block
+			 */
+			scope.delayAppear = function(element, delayInMs) {
+				
+				$timeout(function() {element.style.display = 'block';}, delayInMs);
+				
+			}
+			
+			$timeout(scope.buildGraph, 100);
+		}
+	};
+});

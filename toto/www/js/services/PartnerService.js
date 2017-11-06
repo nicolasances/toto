@@ -113,6 +113,19 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		},
 		
 		/**
+		 * Retrieves the daily scores based on the specified parameters: 
+		 * 
+		 *  - week		: 	an object {week: integer, year: integer}
+		 *  				passing a week, the function will return the scores of each day in the specified week
+		 */
+		getDailyScores : function(week) {
+			
+			user = googleUser.getBasicProfile().getEmail();
+			
+			return $http.get("https://" + microservicesUrl2 + "/partner/dailyScores?week=" + week.week + "&year=" + week.year + "&userEmail=" + user);
+		},
+		
+		/**
 		 * Get my deeds for today
 		 */
 		getDeeds : function() {
@@ -170,6 +183,15 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		getMasterDeeds : function() {
 			
 			return $http.get("https://" + microservicesUrl2 + "/partner/masterDeeds");
+		}, 
+		
+		/**
+		 * Retrieves the current week. 
+		 * It returns a {week: integer, year: integer} object
+		 */
+		getCurrentWeek : function() {
+			
+			return $http.get("https://" + microservicesUrl2 + "/partner/week?date=" + moment().format('YYYYMMDD'));
 		}
 
 	}

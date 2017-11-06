@@ -208,3 +208,42 @@ partnerModule.directive('partnerDeeds', function($http, $mdDialog, taskService, 
 		}
 	}
 });
+
+/**
+ * Shows a graph of the weekly scores
+ */
+partnerModule.directive('partnerWeekScores', function($http, $mdDialog, taskService, $rootScope, PartnerService) {
+	return {
+		scope : {
+			title: '@'
+		},
+		templateUrl : 'modules/partner/directives/partner-week-scores.html',
+		link : function(scope) {
+			
+			scope.init = function() {
+				
+				scope.id = 'partner-week-scores-graph';
+				
+				PartnerService.getCurrentWeek().success(function(week) {
+					
+					PartnerService.getDailyScores(week).success(function(data) {
+						
+						var bars = [];
+						
+						for (var i = 0; i < data.scores.length; i++) {
+							
+							bars.push({
+								value : data.scores[i].score,
+								label : moment(data.scores[i].date, 'YYYYMMDD').format('dd')
+							});
+						}
+						
+						scope.bars = bars;
+					});
+				});
+			}
+			
+			scope.init();
+		}
+	}
+});
