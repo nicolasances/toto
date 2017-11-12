@@ -6,6 +6,7 @@ var totoDirectivesModule = angular.module('totoDirectivesModule', [ ]);
  * Accepts the following parameters: 
  * - size 		: 		read-only and optional, it specifies the size of the circle. Supported values: 'sm' 
  * - amount 	: 		optional, it's the amount to display
+ * - points 	: 		optional, it's the number of points (score) to display
  * - volume		:		optional, it's the volume (unit liters) to display
  * - svg 		: 		the SVG file of the image to use as thumbnail 
  * - actionSvg 	:	 	the SVG of the action button, if any
@@ -17,6 +18,7 @@ totoDirectivesModule.directive('totoInfoCircle', function() {
 			size : '@',
 			amount : '=',
 			volume : '=',
+			points : '=',
 			svg : '@',
 			actionSvg : '@',
 			action : '=', 
@@ -275,6 +277,8 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 			 */
 			scope.buildGraph = function() {
 				
+				if (scope.bars == null) return;
+				
 				var containerWidth = document.querySelector('#' + scope.widgetId).offsetWidth;
 				var containerHeight = 100;
 				
@@ -286,7 +290,8 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 				var heightRatio = maxBarHeight / maxScore;
 				var barGutter = 2;
 				var delay = 6;
-
+				var barWidth;
+				
 				for (var i = 0; i < scope.bars.length; i++) {
 					
 					var bar = scope.bars[i];
@@ -294,7 +299,9 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 					var elementLabel = document.getElementById(i + '-' + scope.widgetId + '-label');
 					var elementValue = document.getElementById(i + '-' + scope.widgetId + '-value');
 					
-					var barWidth = element.offsetWidth;
+					if (element == null) continue;
+					
+					barWidth = element.offsetWidth;
 					
 					element.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
 					
@@ -307,7 +314,10 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 					elementLabel.style.width = barWidth + 'px';
 					elementLabel.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
 					elementLabel.innerHTML = bar.label;
+					
 				}
+				
+				document.querySelector('#' + scope.widgetId).style.width = scope.bars.length * barWidth + barGutter + scope.bars.length * 2 * barGutter + 'px';
 			}
 			
 			/**
@@ -363,7 +373,7 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 				
 			}
 			
-			$timeout(scope.buildGraph, 100);
+			$timeout(scope.buildGraph, 300);
 		}
 	};
 });

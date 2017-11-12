@@ -1,0 +1,21 @@
+
+<div class="toto-card default-primary-color partner-weeks-winner-container" layout="column">
+
+	<div class="" layout="row">
+	
+		<div class="week-container" ng-repeat="week in weeks" flex layout="row">
+			<div class="date-container" layout="column">
+				<div class="day">{{week.date | date : 'dd'}}</div>
+				<div class="month">{{week.date | date : 'MMM'}}</div>
+			</div>
+			<div class="image-container" layout="column" flex>
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/medal.svg" ng-if="week.won"></md-icon>
+				<md-icon md-svg-src="images/svg/heart.svg" ng-if="!week.won" style="width: 36px; height: 36px; opacity: 0.6;"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+	
+	</div>
+
+</div>

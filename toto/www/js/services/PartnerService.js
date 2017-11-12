@@ -113,6 +113,16 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		},
 		
 		/**
+		 * Get my score for the specified week
+		 */
+		getWeekScore : function(week, year) {
+			
+			user = googleUser.getBasicProfile().getEmail();
+			
+			return $http.get("https://" + microservicesUrl2 + "/partner/weeklyScores?week=" + week + "&year=" + year + "&userEmail=" + user);
+		},
+		
+		/**
 		 * Retrieves the daily scores based on the specified parameters: 
 		 * 
 		 *  - week		: 	an object {week: integer, year: integer}
@@ -136,31 +146,13 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		},
 		
 		/**
-		 * Get the deeds that I have to approve
-		 */
-		getDeedsToApprove : function() {
-			
-			user = googleUser.getBasicProfile().getEmail();
-			
-			return $http.get("https://" + microservicesUrl2 + "/partner/deeds?partnerPendingDeeds=true&userEmail=" + user);
-		},
-		
-		/**
 		 * Post a new deed
 		 */
 		postDeed : function(deed) {
 			
 			return $http.post("https://" + microservicesUrl2 + "/partner/deeds", deed);
 		},
-		
-		/**
-		 * Approved the specified deed
-		 */
-		approveDeed : function(deedId) {
-			
-			return $http.put("https://" + microservicesUrl2 + "/partner/deeds/" + deedId, {approvedByPartner: true});
-		},
-		
+
 		/**
 		 * Deletes the specified deed
 		 */
@@ -192,6 +184,14 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		getCurrentWeek : function() {
 			
 			return $http.get("https://" + microservicesUrl2 + "/partner/week?date=" + moment().format('YYYYMMDD'));
+		},
+		
+		/**
+		 * Retrieves the winner of a number of weeks
+		 */
+		getWeeksWinner : function(startingWeek, maxResults) {
+			
+			return $http.get("https://" + microservicesUrl2 + "/partner/winner/weeks?startingYear=" + startingWeek.year + "&startingWeek=" + startingWeek.week + "&maxResults=" + maxResults);
 		}
 
 	}

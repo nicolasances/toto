@@ -7,15 +7,7 @@
 
 	<div class="toto-card dark-primary-color">
 		<div layout="row">
-			<div flex layout="row">
-				<div flex></div>
-				<div layout="column">
-					<div flex></div>
-					<div class="toto-button-sm accent-color" ng-show="deedsToApprove.length > 0" md-whiteframe="3" layout="colum" ng-click="approveDeed()"><div flex></div><md-icon md-svg-src="images/svg/alarm-clock.svg"></md-icon><div flex></div></div>
-					<div flex></div>
-				</div>
-				<div flex></div>
-			</div>
+			<div flex></div>
 			<div class="partner-today-score-container" layout="column">
 				<div flex></div>
 				<div class="score-container" layout="column">
@@ -36,9 +28,17 @@
 	</div>
 	
 	<partner-deeds title="Your deeds of today" register="registerDeedModelListener"></partner-deeds>
-	
-	<partner-week-scores title="Your week"></partner-week-scores>
+
+	<partner-weeks-winner title="Winner stats" ng-show="!gtMd"></partner-weeks-winner>
+
+	<partner-week-scores title="Your week" ng-show="!gtMd"></partner-week-scores>
 	
 </div>
 
-<div class="toto-right-area" ng-show="gtXs"></div>
+<div class="toto-right-area" ng-show="gtMd">
+	
+	<partner-weeks-winner title="Winner stats"></partner-weeks-winner>
+
+	<partner-week-scores title="Your week"></partner-week-scores>
+	
+</div>

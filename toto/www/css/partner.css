@@ -23,6 +23,14 @@
 .partner-approve-deed-container .deed {font-size: 1.2em; margin-bottom: 24px;}
 .partner-approve-deed-container .actions-container {margin-bottom: 12px;}
 
+.partner-weeks-winner-container {padding: 0;}
+.partner-weeks-winner-container .week-container {position: relative;}
+.partner-weeks-winner-container .week-container .date-container {position: absolute; top: 0; left: 0; color: white; text-align: center; padding: 6px;}
+.partner-weeks-winner-container .week-container .date-container .day {font-size: 0.9em;}
+.partner-weeks-winner-container .week-container .date-container .month{font-size: 0.5em; text-transform: uppercase;}
+.partner-weeks-winner-container .week-container .image-container {padding: 12px;}
+.partner-weeks-winner-container .week-container .image-container md-icon {width: 44px; height: 44px;}
+
 /******************************************************************************************************************
  * RESPONSIVE
  ******************************************************************************************************************/

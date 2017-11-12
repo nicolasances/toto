@@ -17,21 +17,6 @@ partnerModule.controller("partnerController", [ '$rootScope', '$scope', '$http',
 		$scope.partnerMenus = partnerMenus;
 		
 		$scope.loadTodayScore();
-		$scope.loadDeedsToApprove();
-	}
-	
-	/**
-	 * Approve the next deed
-	 */
-	$scope.approveDeed = function() {
-		
-		PartnerService.showApproveDeedsDialog($scope.deedsToApprove[0], function(approved) {
-
-			if (approved) PartnerService.approveDeed($scope.deedsToApprove[0].id);
-			else PartnerService.deleteDeed($scope.deedsToApprove[0].id);
-			
-			$scope.deedsToApprove.splice(0, 1);
-		});
 	}
 	
 	/**
@@ -44,17 +29,6 @@ partnerModule.controller("partnerController", [ '$rootScope', '$scope', '$http',
 		PartnerService.getTodayScore().success(function(data) {
 
 			if (data.scores.length > 0) $scope.today = data.scores[0];
-		});
-	}
-	
-	/**
-	 * Loads the deeds to approve
-	 */
-	$scope.loadDeedsToApprove = function() {
-		
-		PartnerService.getDeedsToApprove().success(function(data) {
-			
-			$scope.deedsToApprove = data.deeds;
 		});
 	}
 	
@@ -226,6 +200,7 @@ partnerModule.directive('partnerWeekScores', function($http, $mdDialog, taskServ
 				
 				PartnerService.getCurrentWeek().success(function(week) {
 					
+					// 1. Retrieve the daily scores of the week to build the graph
 					PartnerService.getDailyScores(week).success(function(data) {
 						
 						var bars = [];
@@ -240,7 +215,54 @@ partnerModule.directive('partnerWeekScores', function($http, $mdDialog, taskServ
 						
 						scope.bars = bars;
 					});
+					
+					// 2. Retrieve the week score to build the bubble
+					PartnerService.getWeekScore(week.week, week.year).success(function(data) {
+						
+						if (data.scores.length == 0) return;
+						
+						scope.weekScore = data.scores[0].score;
+					});
 				});
+			}
+			
+			scope.init();
+		}
+	}
+});
+
+/**
+ * Shows the winner of evert week
+ */
+partnerModule.directive('partnerWeeksWinner', function($http, $mdDialog, $mdMedia, taskService, $rootScope, PartnerService) {
+	return {
+		scope : {
+			title: '@'
+		},
+		templateUrl : 'modules/partner/directives/partner-weeks-winner.html',
+		link : function(scope) {
+			
+			scope.init = function() {
+				
+				PartnerService.getCurrentWeek().success(function(currentWeek) {
+					
+					var maxResults = 4; 
+					if ($mdMedia('gt-md')) maxResults = 4;
+					else if ($mdMedia('gt-xs')) maxResults = 6;
+					
+					PartnerService.getWeeksWinner(currentWeek, maxResults).success(function(data) {
+
+						for (var i = 0; i < data.weeks.length; i++) {
+							
+							data.weeks[i].date = new Date(moment(data.weeks[i].startOfWeek, 'YYYYMMDD'));
+							data.weeks[i].won = data.weeks[i].winner == googleUser.getBasicProfile().getEmail();
+						}
+						
+						scope.weeks = data.weeks;
+					});
+					
+				});
+				
 			}
 			
 			scope.init();

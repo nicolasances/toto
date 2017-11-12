@@ -50,7 +50,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 /************************************************************************
  * TOTO (THE CHIMP) 
  ***********************************************************************/
-toto-chimp .toto-chimp {background-color: #8BC34A;padding: 16px;border-radius: 50%; position: absolute; right: 12px; bottom: 24px; z-index: 6; outline: none; opacity: 1; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
+toto-chimp .toto-chimp {background-color: #8BC34A;padding: 16px;border-radius: 50%; position: fixed; right: 12px; bottom: 24px; z-index: 6; outline: none; opacity: 1; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
 toto-chimp .toto-chimp.hidden {opacity: 0; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
 toto-chimp .toto-chimp md-icon {}
 toto-chimp #toto-chimp-bubble {position: absolute;z-index: 3;bottom: 74px;right: 49px;display: none;opacity: 0;transition: opacity 0.2s;-webkit-transition: opacity 0.2s;}
