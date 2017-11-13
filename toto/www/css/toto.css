@@ -94,7 +94,7 @@ toto-chimp #overlay.visible {opacity: 1; z-index: 4; transition: opacity 0.3s; -
 /************************************************************************
  * TOTO HEALTH & FITNESS 
  ***********************************************************************/
-toto-health-fitness {min-height: 100px;max-height: 100px;height: 100px;margin: 0 12px 12px 12px;}
+toto-health-fitness {min-height: 110px; max-height: 110px; height: 110px; margin: 0;}
 toto-health-fitness .line {border-bottom: 1px solid #B2EBF2;}
 
 toto-health-fitness .gym-graph-container {}

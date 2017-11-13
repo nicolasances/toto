@@ -40,10 +40,10 @@ totoHealthFitnessDirectiveModule.directive('totoHealthFitness', [ '$timeout', 'G
 				
 				var containerWidth = document.querySelector('.gym-graph-container').offsetWidth;
 				
-				var maxBarHeight = document.querySelector('toto-health-fitness').offsetHeight / 1.7;
+				var maxBarHeight = document.querySelector('toto-health-fitness').offsetHeight / 1;
 				var maxScore = scope.getMaxScore(scope.gymDays);
 				var heightRatio = maxBarHeight / maxScore;
-				var delay = 6;
+				var delay = 4;
 				
 				for (var i = 0; i < scope.gymDays.length; i++) {
 					

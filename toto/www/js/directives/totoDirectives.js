@@ -128,7 +128,7 @@ totoDirectivesModule.directive('totoProgress', [ '$timeout', function($timeout) 
 				scope.percentage = progressValue * 100;
 
 				var svgOffsetHeight = document.querySelector('#' + scope.id).parentNode.offsetHeight;
-				document.querySelector('#' + scope.id + ' .toto-progress-overlay').style.height = svgOffsetHeight + 'px';
+//				document.querySelector('#' + scope.id + ' .toto-progress-overlay').style.height = svgOffsetHeight + 'px';
 			});
 		}
 	};

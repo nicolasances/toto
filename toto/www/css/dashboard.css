@@ -1,5 +1,5 @@
 
-#dashboard {padding-top: 0;}
+#dashboard {padding-top: 0; overflow-x: hidden;}
 
 #dashboard .area-container {position: relative;padding: 16px 0;margin-bottom: 12px;}
 #dashboard .area-container .area-title {font-size: 0.9em; text-align: center;position: relative;}
@@ -20,7 +20,7 @@
 
 #dashboard #body {}
 #dashboard #body #body-overall-progress {width: 100px; height: 100px;}
-#dashboard #body #body-water-progress, #dashboard #body #body-gym-progress, #dashboard #body #body-meals-progress {width: 42px; height: 42px;}
+#dashboard #body #body-water-progress, #dashboard #body #body-gym-progress, #dashboard #body #body-meals-progress {width: 60px; height: 60px;}
 #dashboard #body toto-measurement-widget {margin: 0 12px;}
 #dashboard #body toto-measurement-widget.disabled {opacity: 0.2;}
 #dashboard #body toto-progress.disabled {opacity: 0.2;}

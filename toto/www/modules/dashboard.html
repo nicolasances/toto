@@ -1,5 +1,5 @@
 
-<toto-chimp></toto-chimp>
+<!-- <toto-chimp></toto-chimp> -->
 
 <div class="toto-left-area" ng-show="gtMd">
 
@@ -7,85 +7,51 @@
 	
 </div>	
 	
-<div id="dashboard" class="toto-central-area" flex>
+<div id="dashboard" class="toto-central-area" flex md-swipe-right="previousSlide()" md-swipe-left="nextSlide()" layout="row">
 
-	<!-- ------------------------------------------------------- -->
-	<!-- ------------------------ MONEY ------------------------ -->
-	<!-- ------------------------------------------------------- -->
-	<div id="money" class="toto-card" layout="column" ng-if="expensesAuthorized">
-		<div class="title">Economical situation</div>
-		<div class="content" layout="row">
-			<div class="left-wing" flex layout="row">
-				<div class="graph-container" layout="row" flex>
-					<div class="item" layout="column" flex ng-repeat="total in totals">
-						<div class="bar-container" flex layout="column">
-							<div flex></div>
-							<div ng-class="['bar', total.current ? 'current' : '', 'dark-primary-color']" style="height: {{total.height}}px">&nbsp;</div>
+	<div id="slide1" layout="column">
+		<!-- ------------------------------------------------------- -->
+		<!-- ------------------------ MONEY ------------------------ -->
+		<!-- ------------------------------------------------------- -->
+		<div id="money" class="toto-card" layout="column" ng-if="expensesAuthorized">
+			<div class="title">Economical situation</div>
+			<div class="content" layout="row">
+				<div class="left-wing" flex layout="row">
+					<div class="graph-container" layout="row" flex>
+						<div class="item" layout="column" flex ng-repeat="total in totals">
+							<div class="bar-container" flex layout="column">
+								<div flex></div>
+								<div ng-class="['bar', total.current ? 'current' : '', 'dark-primary-color']" style="height: {{total.height}}px">&nbsp;</div>
+							</div>
+							<div class="label">{{total.monthShort}}</div>
 						</div>
-						<div class="label">{{total.monthShort}}</div>
 					</div>
 				</div>
-			</div>
-			<toto-info-circle amount="expensesTotal" svg="images/svg/budget.svg" action-svg="images/svg/flash.svg" action="addQuickExpense"></toto-info-circle>
-			<div class="right-wing" flex layout="row">
-				<div flex></div>
-				<div layout="column">
+				<toto-info-circle amount="expensesTotal" svg="images/svg/budget.svg" action-svg="images/svg/flash.svg" action="addQuickExpense"></toto-info-circle>
+				<div class="right-wing" flex layout="row">
 					<div flex></div>
-					<toto-info-circle size="sm" amount="cardTotal" svg="images/svg/credit-card.svg"></toto-info-circle>
+					<div layout="column">
+						<div flex></div>
+						<toto-info-circle size="sm" amount="cardTotal" svg="images/svg/credit-card.svg"></toto-info-circle>
+						<div flex></div>
+					</div>
 					<div flex></div>
 				</div>
-				<div flex></div>
+			</div>
+		</div>
+
+		<dashboard-health-fitness></dashboard-health-fitness>		
+		
+		<div class="toto-card dark-primary-color" flex>
+			<div class="content">
+				<toto-health-fitness layout="column" flex></toto-health-fitness>
 			</div>
 		</div>
 	</div>
 	
-	<!-- ------------------------------------------------------- -->
-	<!-- ------------------------ BODY ------------------------- -->
-	<!-- ------------------------------------------------------- -->
-	<div id="body" class="toto-card" layout="column" ng-if="gymAuthorized || healthAuthorized || dietAuthorized">
-		<div class="title">Health & Fitness</div>
-		<div class="content" layout="row" style="margin-bottom: 24px;">
-			<div ng-class="['left-wing']" flex layout="column">
-				<div flex></div>
-				<div layout="column">
-					<div flex></div>
-					<div layout="row">
-						<div flex></div>
-						<toto-progress color="#00BCD4" progress="gymPercentageOfGoalReached" stroke-width="8" id="body-gym-progress" svg="images/gym/muscle-avatars/{{gymTodayMuscle.muscle}}.svg"></toto-progress>
-						<div flex></div>
-					</div>
-					<div flex></div>
-					<div layout="row">
-						<div flex></div>
-						<toto-progress color="#00BCD4" id="body-water-progress" stroke-width="8" label="waterConsumptionInL" progress="waterConsumptionProgress" unit="&#8467;" svg="images/svg/water-drop.svg" click="addWaterConsumption"></toto-progress>
-						<div flex></div>
-						<toto-progress class="disabled" color="#00BCD4" id="body-meals-progress" svg="images/svg/fast-food.svg"></toto-progress>
-						<div flex></div>
-					</div>
-					<div flex></div>
-				</div>
-				<div flex></div>
-			</div>
-			<div layout="column">
-				<toto-progress color="#00BCD4" progress="healthLevel" show-percentage="true" strokeWidth="6" id="body-overall-progress"></toto-progress>
-			</div>
-			<div ng-class="['right-wing']" flex layout="column">
-				<div flex></div>
-				<div layout="row">
-					<div flex></div>
-					<toto-measurement-widget svg-path="images/svg/scale.svg" fill="#00BCD4" value="{{currentBodyWeight.weight | number : 1}}" unit="Kg"></toto-measurement-widget>
-					<toto-measurement-widget class="disabled" svg-path="images/svg/heart-rate.svg" fill="#E91E63" value="72" unit="bpm"></toto-measurement-widget>
-					<div flex></div>
-				</div>
-				<div flex></div>
-			</div>
-		</div>
-		<div class="content full dark-primary-color" layout="row" flex>
-			<toto-health-fitness layout="column" flex></toto-health-fitness>
-		</div>
+	<div id="slide2">
+		<partner-week-scores title="Couple week" ></partner-week-scores>
 	</div>
-	
-	<partner-week-scores title="Couple week"></partner-week-scores>
 	
 </div>
 

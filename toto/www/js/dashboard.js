@@ -6,6 +6,9 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 	
 	$scope.init = function() {
 		
+		$scope.slide = 0;
+		$scope.slides = [1, 2];
+		
 		$rootScope.currentMenu = 'Toto Dashboard'
 		
 		$scope.checkAppAuthorizations();
@@ -15,12 +18,66 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 		$scope.imagesServerHost = microservicesHost;
 		$scope.imagesServerPort = imagesServerPort;
 		
-		if ($scope.gymAuthorized) $scope.initGym();
 		if ($scope.expensesAuthorized) $scope.initExpenses();
-		if ($scope.dietAuthorized) $scope.initDiet();
-		if ($scope.healthAuthorized) $scope.initHealth();
 		
 		$scope.initUserInfo();
+		
+		$timeout($scope.initDashboardGraphics, 300);
+		
+	}
+	
+	$scope.initDashboardGraphics = function() {
+		
+		// 1. Set the width of the dashboard
+		document.getElementById('dashboard').style.width = screen.width + 'px';
+		
+		for (var i = 0; i < $scope.slides.length; i++) {
+			
+			currentSlide = document.getElementById('slide' + $scope.slides[i]);
+			
+			currentSlide.style.position = 'absolute';
+			currentSlide.style.width = screen.width + 'px';
+			currentSlide.style.left = (i * screen.width) + 'px';
+			currentSlide.style.height = document.getElementById('dashboard').offsetHeight + 'px';
+		}
+	}
+	
+	/**
+	 * Moves to the next slide
+	 */
+	$scope.nextSlide = function() {
+		
+		for (var i = 0; i < $scope.slides.length; i++) {
+			
+			currentSlide = document.getElementById('slide' + $scope.slides[i]);
+
+			$scope.slideLeft(currentSlide, currentSlide.offsetLeft);
+		}
+		
+	}
+	
+	/**
+	 * Slides a single slide left
+	 */
+	$scope.slideLeft = function(el, initialLeft) {
+		
+		var currentLeft = el.offsetLeft;
+		var newLeft = currentLeft - 10;
+		
+		if (initialLeft - newLeft >= el.offsetWidth) {
+			
+			el.style.left = (initialLeft - el.offsetWidth) + 'px';
+			
+			if (el.offsetLeft <= -el.offsetWidth) {
+				el.style.left = ($scope.slides.length - 1) * screen.width + 'px';
+			}
+			
+			return;
+		}
+		
+		el.style.left = newLeft + 'px';
+		
+		$timeout(function() {$scope.slideLeft(el, initialLeft);}, 5);
 	}
 	
 	/**
@@ -63,78 +120,6 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 			if (app.id == 'health') $scope.healthAuthorized = app.authorized;
 		}
 		
-	}
-	
-	/*************************************************************************************************************************
-	 *************************************************************************************************************************
-	 *
-	 * HEALTH
-	 *
-	 *************************************************************************************************************************
-	 *************************************************************************************************************************/
-	$scope.initHealth = function() {
-		
-		$http.get("https://" + microservicesUrl + "/health/health/level?date=" + moment().format('YYYYMMDD')).success(function(data) {
-
-			$scope.healthLevel = data.healthLevel;
-		});
-	}
-	
-	/*************************************************************************************************************************
-	 *************************************************************************************************************************
-	 *
-	 * DIET
-	 *
-	 *************************************************************************************************************************
-	 *************************************************************************************************************************/
-	$scope.initDiet = function() {
-		
-		DietService.getWaterConsumption().success(function(data) {
-
-			$scope.waterConsumption = data.total;
-			$scope.waterConsumptionInL = $scope.waterConsumption / 1000;
-			
-			DietService.getWaterConsumptionGoal().success(function(data) {
-
-				$scope.waterConsumptionGoal = data.amount;
-				$scope.waterConsumptionGoalInL = data.amount / 1000;
-				
-				$scope.updateWaterConsumptionProgress();
-			});
-		});
-	}
-	
-	/**
-	 * Adds a water consumption by showing a dialog for the user to choose 
-	 * for an amount of consumed water and then calling the service to 
-	 * update the backend.
-	 */
-	$scope.addWaterConsumption = function() {
-		
-		DietService.showAddWaterConsumptionDialog(function(amount) {
-			
-			DietService.postWaterConsumption(amount);
-			
-			$scope.waterConsumption += amount;
-			$scope.waterConsumptionInL += amount / 1000;
-			
-			$scope.updateWaterConsumptionProgress();
-			$scope.initHealth();
-		}); 
-	}
-	
-	/**
-	 * Updates the water consumption progress
-	 */
-	$scope.updateWaterConsumptionProgress = function() {
-
-		if ($scope.waterConsumption == null) $scope.waterConsumption = 0;
-		if ($scope.waterConsumptionGoal == null) {
-			$scope.waterConsumptionGoal = 1000;
-			$scope.waterConsumptionGoalInL = 1;
-		}
-
-		$scope.waterConsumptionProgress = $scope.waterConsumption / $scope.waterConsumptionGoal;
 	}
 	
 	/*************************************************************************************************************************
@@ -242,57 +227,126 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 		
 	}
 	
-	/*************************************************************************************************************************
-	 *************************************************************************************************************************
-	 *
-	 * GYM
-	 *
-	 *************************************************************************************************************************
-	 *************************************************************************************************************************/
-	$scope.initGym = function(initialized) {
-		
-		BodyWeightService.getCurrentWeight(function(weight) {
-			
-			$scope.currentBodyWeight = weight;
-			
-		});
-		
-		GymService.getSessions(moment().format('YYYYMMDD')).success(function(data) {
-			
-			if (data != null && data.sessions != null && data.sessions[0] != null) {
-				
-				GymService.getSession(data.sessions[0].id).success(function(data) {
-
-					var firstImpactedMuscle = data.impactedMuscles[0];
-					
-					GymService.getMuscleWeekGoal(firstImpactedMuscle.muscle.id, 'goodPain').success(function (data) {
-						
-						$scope.gymTodayMuscle = data;
-						
-						var actual = data.actual == null ? 0 : data.actual;
-						var goal = data.goal;
-						
-						$scope.gymPercentageOfGoalReached = actual / goal;
-						
-					});
-				});
-			} 
-			else {
-				
-				GymService.getRestDay(moment().format('YYYYMMDD')).success(function(data) {
-					
-					if (data.days != null && data.days.length > 0) {
-						
-						$scope.gymRestDay = true;
-						$scope.gymPercentageOfGoalReached = 1;
-						$scope.gymTodayMuscle = {muscle: 'sleep'};
-					}
-				});
-			}
-		});
-		
-	}
-	
 	$scope.init();
 	
 }]);
+
+/**
+ * Directive showing the Health & Fitness data in the dashboard 
+ */
+dashboardModule.directive('dashboardHealthFitness', function($http, $mdDialog, $rootScope, GymService, BodyWeightService, DietService) {
+	return {
+		scope : {
+			title: '@'
+		},
+		templateUrl : 'modules/dashboard/directives/dashboard-health-fitness.html',
+		link : function(scope) {
+			
+			scope.init = function() {
+				
+				scope.initGym();
+				scope.initDiet();
+
+			}
+			
+			scope.initDiet = function() {
+				
+				DietService.getWaterConsumption().success(function(data) {
+
+					scope.waterConsumption = data.total;
+					scope.waterConsumptionInL = scope.waterConsumption / 1000;
+					
+					DietService.getWaterConsumptionGoal().success(function(data) {
+
+						scope.waterConsumptionGoal = data.amount;
+						scope.waterConsumptionGoalInL = data.amount / 1000;
+						
+						scope.updateWaterConsumptionProgress();
+					});
+				});
+			}
+			
+			/**
+			 * Adds a water consumption by showing a dialog for the user to choose 
+			 * for an amount of consumed water and then calling the service to 
+			 * update the backend.
+			 */
+			scope.addWaterConsumption = function() {
+				
+				DietService.showAddWaterConsumptionDialog(function(amount) {
+					
+					DietService.postWaterConsumption(amount);
+					
+					scope.waterConsumption += amount;
+					scope.waterConsumptionInL += amount / 1000;
+					
+					scope.updateWaterConsumptionProgress();
+					scope.initHealth();
+				}); 
+			}
+			
+			/**
+			 * Updates the water consumption progress
+			 */
+			scope.updateWaterConsumptionProgress = function() {
+
+				if (scope.waterConsumption == null) scope.waterConsumption = 0;
+				if (scope.waterConsumptionGoal == null) {
+					scope.waterConsumptionGoal = 1000;
+					scope.waterConsumptionGoalInL = 1;
+				}
+
+				scope.waterConsumptionProgress = scope.waterConsumption / scope.waterConsumptionGoal;
+			}
+			
+			/**
+			 * Initializes the gym information
+			 */
+			scope.initGym = function(initialized) {
+				
+				BodyWeightService.getCurrentWeight(function(weight) {
+					
+					scope.currentBodyWeight = weight;
+					
+				});
+				
+				GymService.getSessions(moment().format('YYYYMMDD')).success(function(data) {
+					
+					if (data != null && data.sessions != null && data.sessions[0] != null) {
+						
+						GymService.getSession(data.sessions[0].id).success(function(data) {
+
+							var firstImpactedMuscle = data.impactedMuscles[0];
+							
+							GymService.getMuscleWeekGoal(firstImpactedMuscle.muscle.id, 'goodPain').success(function (data) {
+								
+								scope.gymTodayMuscle = data;
+								
+								var actual = data.actual == null ? 0 : data.actual;
+								var goal = data.goal;
+								
+								scope.gymPercentageOfGoalReached = actual / goal;
+								
+							});
+						});
+					} 
+					else {
+						
+						GymService.getRestDay(moment().format('YYYYMMDD')).success(function(data) {
+							
+							if (data.days != null && data.days.length > 0) {
+								
+								scope.gymRestDay = true;
+								scope.gymPercentageOfGoalReached = 1;
+								scope.gymTodayMuscle = {muscle: 'sleep'};
+							}
+						});
+					}
+				});
+				
+			}
+			
+			scope.init();
+		}
+	}
+});
