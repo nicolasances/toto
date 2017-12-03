@@ -1,8 +1,8 @@
 
 <div id="{{widgetId}}" class="toto-bar-graph-container" layout="row" >
 	<div class="bar-container" ng-repeat="bar in bars" layout="column">
-		<div id="{{$index}}-{{widgetId}}-value" class="value" ng-if="showValues != null">{{bar.value}}</div>
+		<div id="{{$index}}-{{widgetId}}-value" class="value" ng-if="showValues != null || showExtremeValues != null">{{bar.value}}</div>
 		<div id="{{$index}}-{{widgetId}}-bar" class="bar default-primary-color"></div>
-		<div id="{{$index}}-{{widgetId}}-label" class="label">{{bar.label}}</div>
+		<div id="{{$index}}-{{widgetId}}-label" class="label" ng-if="showLabel == null || showLabel == 'true'">{{bar.label}}</div>
 	</div>
 </div>

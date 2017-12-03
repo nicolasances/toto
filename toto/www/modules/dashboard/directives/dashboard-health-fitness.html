@@ -1,11 +1,11 @@
 
 <div id="body" class="toto-card" layout="column" flex>
 	
-	<div class="title">Health & Fitness</div>
+	<div class="title" ng-if="gtXs">Health & Fitness</div>
 	
 	<div class="content" layout="column" flex>
 
-		<div layout="row" style="margin-bottom: 42px;">
+		<div layout="row" style="margin-bottom: 16px;">
 			<div flex></div>
 			<toto-progress color="#00BCD4" progress="gymPercentageOfGoalReached" stroke-width="8" id="body-gym-progress" svg="images/gym/muscle-avatars/{{gymTodayMuscle.muscle}}.svg"></toto-progress>
 			<div flex></div>
@@ -15,14 +15,5 @@
 			<div flex></div>
 		</div>
 		
-		<div flex></div>
-
-		<div layout="row">
-			<div flex></div>
-			<toto-measurement-widget svg-path="images/svg/scale.svg" fill="#00BCD4" value="{{currentBodyWeight.weight | number : 1}}" unit="Kg"></toto-measurement-widget>
-			<div flex></div>
-			<toto-measurement-widget class="disabled" svg-path="images/svg/heart-rate.svg" fill="#E91E63" value="72" unit="bpm"></toto-measurement-widget>
-			<div flex></div>
-		</div>
 	</div>
 </div>

@@ -49,3 +49,38 @@ gymDirectivesModule.directive('totoGymMuscleGraph', ['GymService', '$timeout', f
 	};
 }]);
 
+/**
+ * This directive draws a graphic with the weight
+ * 
+ * Parameters: 
+ * 
+ * 	-	muscle			:	The identifier of the muscle for which to load the scores (e.g. 'chest')
+ */
+gymDirectivesModule.directive('totoWeightGraph', ['BodyWeightService', '$timeout', function(BodyWeightService, $timeout) {
+	
+	return {
+		scope: {
+			muscle: '@',
+			height: '@',
+			maxResults : '@'
+		},
+		templateUrl: 'modules/gym/directives/toto-weight-graph.html',
+		link: function(scope) {
+			
+			BodyWeightService.getWeights().success(function(data) {
+				
+				var bars = [];
+				
+				for (var i = 0; i < data.weights.length; i++) {
+					
+					bars.push({
+						value : data.weights[i].weight,
+						label : data.weights[i].weekOfYear
+					});
+				}
+				
+				scope.bars = bars;
+			});
+		}
+	}
+}]);

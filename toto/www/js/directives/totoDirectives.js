@@ -260,6 +260,17 @@ totoDirectivesModule.directive('totoAppMenu', function($rootScope) {
  * 	-	bars		:	mandatory
  * 						an [] of bars
  * 						each bar is an object {value : any number, label : any string}
+ * 
+ *  -	showValues	:	(optional) true to show the values above the bars
+ *  -	showExtremeValues : (optional) true to show only the min and max values above the bars
+ *  -	showLabel	:	(optional) true to show the labels under the bars
+ *  
+ *  -	height		:	(optional) the max height of the bars
+ *  -	barWidth	:	(optional) the width of the bars
+ *  -	barGutter	:	(optional) the space (in px) between the bars
+ *  
+ *  -	normalize	:	(optional, default = false) true to define the bars' height based on the delta 
+ *  					between the max value and the min value
  */
 totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $interval) {
 	
@@ -267,7 +278,13 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 		scope : {
 			bars : '=',
 			widgetId : '@',
-			showValues : '@'
+			showValues : '@',
+			showExtremeValues : '@',
+			showLabel : '@',
+			height : '@',
+			barWidth: '@',
+			barGutter: '@',
+			normalize: '@'
 		},
 		templateUrl : 'directives/toto-bar-graph.html',
 		link : function(scope) {
@@ -280,17 +297,22 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 				if (scope.bars == null) return;
 				
 				var containerWidth = document.querySelector('#' + scope.widgetId).offsetWidth;
-				var containerHeight = 100;
+				var containerHeight = scope.height != null ? scope.height : 100;
 				
 				document.querySelector('#' + scope.widgetId).style.height = containerHeight + "px";
 				document.querySelector('#' + scope.widgetId).parentNode.style.height = containerHeight + "px";
 				
-				var maxBarHeight = 90;
-				var maxScore = scope.getMaxScore();
-				var heightRatio = maxBarHeight / maxScore;
-				var barGutter = 2;
-				var delay = 6;
+				var maxBarHeight = containerHeight - 10;
+				var maxValue = scope.getMaxValue();
+				var minValue = scope.getMinValue();
+				var barGutter = scope.barGutter == null ? 2 : parseInt(scope.barGutter);
 				var barWidth;
+				var showLabel = scope.showLabel == null ? true : scope.showLabel == 'true';
+				
+				var heightRatio = (scope.normalize == null || scope.normalize == 'false') ? maxBarHeight / maxValue : maxBarHeight / (maxValue - minValue);
+				
+				var maxValueLabelShown = false;	// used only in case of showExtremeValues
+				var minValueLabelShown = false; // used only in case of showExtremeValues
 				
 				for (var i = 0; i < scope.bars.length; i++) {
 					
@@ -301,19 +323,43 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 					
 					if (element == null) continue;
 					
-					barWidth = element.offsetWidth;
+					barWidth = scope.barWidth == null ? element.offsetWidth : parseInt(scope.barWidth);
 					
+					element.style.width = barWidth + 'px';
 					element.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
 					
-					scope.animateBar(element, bar.value * heightRatio);
+					var barHeight = (scope.normalize == null || scope.normalize == 'false') ? bar.value * heightRatio : (bar.value - minValue) * heightRatio;
+					if (barHeight == 0) barHeight = 1;
 					
-					elementValue.style.bottom = bar.value * heightRatio + 3 + 'px';
-					elementValue.style.width = barWidth + 'px';
-					elementValue.style.left = element.style.left;
+					scope.animateBar(element, barHeight);
 					
-					elementLabel.style.width = barWidth + 'px';
-					elementLabel.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
-					elementLabel.innerHTML = bar.label;
+					if (elementValue != null) {
+						
+						elementValue.style.bottom = barHeight + 3 + 'px';
+						elementValue.style.width = barWidth + 'px';
+						elementValue.style.left = element.style.left;
+						
+						if (scope.showExtremeValues == 'true') {
+
+							if (bar.value == minValue) { 
+								if (!minValueLabelShown) minValueLabelShown = true;
+								else elementValue.style.display = 'none';
+							}
+							else if (bar.value == maxValue) { 
+								if (!maxValueLabelShown) maxValueLabelShown = true;
+								else elementValue.style.display = 'none';
+							}
+							else elementValue.style.display = 'none';
+						}
+
+					}
+					
+					if (showLabel) {
+						
+						elementLabel.style.width = barWidth + 'px';
+						elementLabel.style.left = barGutter + (i * (barWidth + 2 * barGutter)) + 'px';
+						elementLabel.innerHTML = bar.label;
+					}
 					
 				}
 				
@@ -321,20 +367,37 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 			}
 			
 			/**
-			 * Retrieves the max score in the provided days
+			 * Retrieves the min value in the provided bars
 			 */
-			scope.getMaxScore = function() {
+			scope.getMinValue = function() {
 				
-				var maxScore = 1;
+				var minValue = 10000000;
 				for (var i = 0; i < scope.bars.length; i++) {
 					
-					if (scope.bars[i].value > maxScore) {
+					if (scope.bars[i].value < minValue) {
 						
-						maxScore = scope.bars[i].value;
+						minValue = scope.bars[i].value;
 					}
 				}
 				
-				return maxScore;
+				return minValue;
+			}
+			
+			/**
+			 * Retrieves the max score in the provided days
+			 */
+			scope.getMaxValue = function() {
+				
+				var maxValue = 1;
+				for (var i = 0; i < scope.bars.length; i++) {
+					
+					if (scope.bars[i].value > maxValue) {
+						
+						maxValue = scope.bars[i].value;
+					}
+				}
+				
+				return maxValue;
 			}
 			
 			/**

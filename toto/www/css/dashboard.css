@@ -20,7 +20,7 @@
 
 #dashboard #body {}
 #dashboard #body #body-overall-progress {width: 100px; height: 100px;}
-#dashboard #body #body-water-progress, #dashboard #body #body-gym-progress, #dashboard #body #body-meals-progress {width: 60px; height: 60px;}
+#dashboard #body #body-water-progress, #dashboard #body #body-gym-progress, #dashboard #body #body-meals-progress {width: 72px; height: 72px;}
 #dashboard #body toto-measurement-widget {margin: 0 12px;}
 #dashboard #body toto-measurement-widget.disabled {opacity: 0.2;}
 #dashboard #body toto-progress.disabled {opacity: 0.2;}

@@ -125,6 +125,7 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 	});
 	
 //	$scope.screenIsSmall = $mdMedia('sm');
+	$rootScope.xs = $mdMedia('xs');
 	$rootScope.sm = $mdMedia('sm');
 	$rootScope.gtMd = $mdMedia('gt-md');
 	$rootScope.gtXs = $mdMedia('gt-xs');

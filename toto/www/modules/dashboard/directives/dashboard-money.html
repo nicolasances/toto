@@ -1,0 +1,27 @@
+
+<div id="money" class="toto-card" layout="column">
+	<div class="title" ng-if="gtXs">Economical situation</div>
+	<div class="content" layout="row">
+		<div class="left-wing" flex layout="row">
+			<div class="graph-container" layout="row" flex>
+				<div class="item" layout="column" flex ng-repeat="total in totals">
+					<div class="bar-container" flex layout="column">
+						<div flex></div>
+						<div ng-class="['bar', total.current ? 'current' : '', 'dark-primary-color']" style="height: {{total.height}}px">&nbsp;</div>
+					</div>
+					<div class="label">{{total.monthShort}}</div>
+				</div>
+			</div>
+		</div>
+		<toto-info-circle amount="expensesTotal" svg="images/svg/budget.svg" action-svg="images/svg/flash.svg" action="addQuickExpense"></toto-info-circle>
+		<div class="right-wing" flex layout="row">
+			<div flex></div>
+			<div layout="column">
+				<div flex></div>
+				<toto-info-circle size="sm" amount="cardTotal" svg="images/svg/credit-card.svg"></toto-info-circle>
+				<div flex></div>
+			</div>
+			<div flex></div>
+		</div>
+	</div>
+</div>
