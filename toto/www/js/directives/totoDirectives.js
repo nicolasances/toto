@@ -294,7 +294,12 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 			 */
 			scope.buildGraph = function() {
 				
-				if (scope.bars == null) return;
+				if (scope.bars == null || scope.bars.length == 0) return;
+				
+				if (document.getElementById(0 + '-' + scope.widgetId + '-bar') == null) {
+					$timeout(scope.buildGraph, 100);
+					return;
+				}
 				
 				var containerWidth = document.querySelector('#' + scope.widgetId).offsetWidth;
 				var containerHeight = scope.height != null ? scope.height : 100;
@@ -317,6 +322,7 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 				for (var i = 0; i < scope.bars.length; i++) {
 					
 					var bar = scope.bars[i];
+					
 					var element = document.getElementById(i + '-' + scope.widgetId + '-bar');
 					var elementLabel = document.getElementById(i + '-' + scope.widgetId + '-label');
 					var elementValue = document.getElementById(i + '-' + scope.widgetId + '-value');
@@ -436,7 +442,9 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 				
 			}
 			
-			$timeout(scope.buildGraph, 300);
+			scope.$watch("bars", function(newValue, oldValue) {
+				scope.buildGraph();
+			});
 		}
 	};
 });
