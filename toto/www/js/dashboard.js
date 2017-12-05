@@ -246,7 +246,7 @@ dashboardModule.directive('dashboardHealthFitness', function($http, $mdDialog, $
 /**
  * Directive showing the Money data in the dashboard 
  */
-dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScope, GymService, BodyWeightService, DietService) {
+dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScope, GymService, BodyWeightService, DietService, expensesService) {
 	return {
 		scope : {
 			title: '@'
