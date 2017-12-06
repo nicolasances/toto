@@ -40,7 +40,7 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 	/**
 	 * Moves to the next slide
 	 */
-	$scope.nextSlide = function() {
+	$scope.nextSlide = function(ev) {
 		
 		for (var i = 0; i < $scope.slides.length; i++) {
 			

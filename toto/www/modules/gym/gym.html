@@ -39,7 +39,7 @@
 		<div class="content" layout="row">
 			<div flex></div>
 			<div layout="column" ng-repeat="goal in goals | limitTo : 3" >
-				<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)">
+				<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)" layout="column">
 					<toto-progress color="#00BCD4" progress="goal.percentageOfGoalReached" id="gym-{{goal.muscle}}-progress" stroke-width="8" svg="images/gym/muscle-avatars/{{goal.muscle}}.svg"></toto-progress> 
 				</div>
 				<div class="goal-label" layout="row">
@@ -61,7 +61,7 @@
 		<div layout="row">
 			<div flex></div>
 			<div layout="column" ng-repeat="goal in goals | limitTo: (3 - goals.length)" >
-				<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)">
+				<div class="toto-progress-container" ng-click="weekMuscleSelected(goal.muscle)" layout="column">
 					<toto-progress color="#00BCD4" progress="goal.percentageOfGoalReached" id="gym-{{goal.muscle}}-progress" stroke-width="8" svg="images/gym/muscle-avatars/{{goal.muscle}}.svg"></toto-progress> 
 				</div>
 				<div class="goal-label" layout="row">
