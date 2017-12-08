@@ -6,9 +6,6 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 	
 	$scope.init = function() {
 		
-		$scope.slide = 0;
-		$scope.slides = [1, 2];
-		
 		$rootScope.currentMenu = 'Toto Dashboard'
 		
 		$scope.checkAppAuthorizations();
@@ -17,62 +14,6 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 		
 		$scope.initUserInfo();
 		
-		if ($mdMedia('xs')) $timeout($scope.initDashboardGraphics, 300);
-		
-	}
-	
-	$scope.initDashboardGraphics = function() {
-		
-		// 1. Set the width of the dashboard
-		document.getElementById('dashboard').style.width = screen.width + 'px';
-		
-		for (var i = 0; i < $scope.slides.length; i++) {
-			
-			currentSlide = document.getElementById('slide' + $scope.slides[i]);
-			
-			currentSlide.style.position = 'absolute';
-			currentSlide.style.width = screen.width + 'px';
-			currentSlide.style.left = (i * screen.width) + 'px';
-			currentSlide.style.height = document.getElementById('dashboard').offsetHeight + 'px';
-		}
-	}
-	
-	/**
-	 * Moves to the next slide
-	 */
-	$scope.nextSlide = function(ev) {
-		
-		for (var i = 0; i < $scope.slides.length; i++) {
-			
-			currentSlide = document.getElementById('slide' + $scope.slides[i]);
-
-			$scope.slideLeft(currentSlide, currentSlide.offsetLeft);
-		}
-		
-	}
-	
-	/**
-	 * Slides a single slide left
-	 */
-	$scope.slideLeft = function(el, initialLeft) {
-		
-		var currentLeft = el.offsetLeft;
-		var newLeft = currentLeft - 10;
-		
-		if (initialLeft - newLeft >= el.offsetWidth) {
-			
-			el.style.left = (initialLeft - el.offsetWidth) + 'px';
-			
-			if (el.offsetLeft <= -el.offsetWidth) {
-				el.style.left = ($scope.slides.length - 1) * screen.width + 'px';
-			}
-			
-			return;
-		}
-		
-		el.style.left = newLeft + 'px';
-		
-		$timeout(function() {$scope.slideLeft(el, initialLeft);}, 5);
 	}
 	
 	/**
