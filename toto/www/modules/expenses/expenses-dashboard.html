@@ -2,20 +2,8 @@
 <div class="toto-left-area" ng-show="gtMd"></div>
 
 <div class="toto-central-area" id="expenses-dashboard" flex>
-	<div class="toto-card" layout="row" id="totals-row">
-		<div class="total" layout="column" ng-click="go('/expenses/payments')" md-ink-ripple="true">
-			<div flex layout="column">
-				<div layout="row"><div flex></div><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><div flex></div></div>
-				<div flex></div>
-			</div>
-			<div layout="row">
-				<div class="amount" flex><span>&euro;</span> {{currentMonthTotal | number : 2}}</div>
-			</div>
-			<div flex layout="column">
-				<div flex></div>
-				<div class="month">{{currentMonth}}</div>
-			</div>
-		</div>
+	<div class="toto-card" layout="row">
+		<expenses-month-total currency="EUR"></expenses-month-total>
 		<div flex></div>
 		<div layout="column">
 			<div flex></div>
@@ -30,6 +18,8 @@
 			</div>
 			<div flex></div>
 		</div>
+		<div flex></div>
+		<expenses-month-total currency="DKK" decimals="0"></expenses-month-total>
 	</div> 
 	
 	<div class="toto-card categories-widget" ng-click="toggleCategoriesWidgetDetail()">

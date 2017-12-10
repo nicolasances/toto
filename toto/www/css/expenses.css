@@ -77,12 +77,12 @@ toto-chimp #expenses #expenses-container md-list md-list-item .avatar md-icon {f
 
 #expenses-dashboard #totals-row {opacity: 1; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
 #expenses-dashboard #totals-row.hidden {opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
-#expenses-dashboard .total {border: 5px solid #00BCD4;border-radius: 50%;box-sizing: border-box;height: 120px;width: 120px;text-align: center;margin: 15px 12px;}
+#expenses-dashboard .total {border: 5px solid #00BCD4;border-radius: 50%;box-sizing: border-box;height: 120px;width: 120px;text-align: center;margin: 15px 0;}
 #expenses-dashboard .total .amount {font-size: 1.3em; color: rgba(0,0,0,0.8); text-align: center;}
 #expenses-dashboard .total .amount span {font-size: 0.7em;}
 #expenses-dashboard .total .month {font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase;}
 #expenses-dashboard .total md-icon {width: 18px; height: 18px; margin-top: 6px;}
-#expenses-dashboard .quickexpense {background-color: #8BC34A;height: 70px;width: 70px;border-radius: 50%;box-sizing: border-box;margin: 15px 24px;}
+#expenses-dashboard .quickexpense {background-color: #8BC34A;height: 62px;width: 62px;border-radius: 50%;box-sizing: border-box;margin: 15px 24px;}
 #expenses-dashboard .quickexpense md-icon {fill: white;}
 
 #expenses-dashboard .categories-widget {outline: none; z-index: 2;}

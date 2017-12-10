@@ -206,13 +206,13 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 				
 				var yearMonth = scope.getCurrentPeriod();
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total").success(function(data, status, header, config) {
+				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=EUR").success(function(data, status, header, config) {
 					
 					scope.expensesTotal = data.total;
 					
 				});
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/totals?maxResults=5&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
+				$http.get("https://" + microservicesUrl + "/expenses/expenses/totals?maxResults=5&currency=EUR&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
 					
 					scope.totals = data.totals;
 					

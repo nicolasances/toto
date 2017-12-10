@@ -20,6 +20,13 @@
 					<input type="text" ng-model="expense.amount"/>
 				</div>
 				<div class="toto-input-container">
+					<label>Currency</label>
+					<md-select ng-model="expense.currency">
+						<md-option>EUR</md-option>
+						<md-option>DKK</md-option>
+					</md-select>
+				</div>
+				<div class="toto-input-container">
 					<label>Payment description</label>
 					<input type="text" ng-model="expense.description"/>
 				</div>

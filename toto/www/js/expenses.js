@@ -791,4 +791,50 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 
 } ]);
 
+/******************************************************************************************
+ * DIRECTIVES
+ *****************************************************************************************/
+expensesModule.directive('expensesMonthTotal', ['expensesService', '$timeout', function(expensesService, $timeout) {
+	
+	return {
+		scope: {
+			currency: '@',
+			decimals : '@'
+		},
+		templateUrl: 'modules/expenses/directives/expenses-month-total.html',
+		link: function(scope) {
+			
+			scope.currentYearMonth = expensesService.getCurrentMonth();
+			scope.currentMonth = moment(scope.currentYearMonth + '01', 'YYYYMMDD').format('MMM');
+			
+			if (scope.decimals == null) scope.decimals = 2;
+			
+			/**
+			 * Loads the total expenses of the month
+			 */
+			scope.loadTotal = function() {
+				
+				expensesService.getMonthTotal(scope.currency, scope.currentYearMonth).success(function (data) {
+					
+					scope.currentMonthTotal = data.total;
+				});
+			}
+			
+			scope.loadTotal();
+		}
+	}
+}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
