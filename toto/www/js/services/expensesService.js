@@ -24,20 +24,24 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			
 		/**
 		 * Retrieves the expenses. 
-		 * It is possible to pass a serie of parameters in input as a JSON object: 
-		 * {	yearMonth: 'yyyyMM',
+		 * 
+		 * It is possible to pass a serie of parameters in input as a JSON object:
+		 *  
+		 * {	
+		 * 		yearMonth: 'yyyyMM',
 		 * 		currency: string (optional, default value : EUR)
 		 * 		subscriptionId: 'retrieves the list of expenses linked to that subscription'
+		 * 		maxResults: the max number of results to get
 		 * }
 		 */
 		getExpenses : function(filter) {
 			
-			if (filter == null) return $http.get("https://" + microservicesUrl + "/expenses/expenses?currency=EUR&yearMonth=" + this.getCurrentMonth());
+			if (filter == null) return $http.get("https://" + microservicesUrl + "/expenses/expenses?yearMonth=" + this.getCurrentMonth());
 			
 			var params = '';
 
 			if (filter.currency != null) {if (params != '') params += '&'; params += 'currency=' + filter.currency}
-			if (filter.currency == null) {if (params != '') params += '&'; params += 'currency=EUR'}
+			if (filter.maxResults != null) {if (params != '') params += '&'; params += 'maxResults=' + filter.maxResults}
 			if (filter.yearMonth != null) {if (params != '') params += '&'; params += 'yearMonth=' + filter.yearMonth}
 			if (filter.subscriptionId != null) {if (params != '') params += '&'; params += 'subscriptionId=' + filter.subscriptionId}
 			
@@ -69,6 +73,20 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		getCategories : function() {
 		
 			return $http.get("https://" + microservicesUrl + "/expenses/categories");
+		},
+		
+		/**
+		 * Retrieves the top spending categories
+		 * 
+		 * Requires: 
+		 * 
+		 * 	-	maxResults	: the max number of top spending categories to retrieve
+		 * 
+		 * 	-	currency	: the currency to use (EUR, DKK)
+		 */
+		getTopSpendingCategories : function(maxResults, currency) {
+			
+			return $http.get("https://" + microservicesUrl + "/expenses/reports/averageByCategory?currency=" + currency + "&maxResults=" + maxResults);
 		},
 		
 		/** 

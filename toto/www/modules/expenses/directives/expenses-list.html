@@ -1,0 +1,29 @@
+
+<div class="toto-card" id="expenses" flex>
+	<div id="expenses-container" layout="column" flex>
+		<div class="timeline"></div>
+		<md-list>
+			<md-list-item class="md-2-line" ng-repeat="expense in expenses">
+				<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+				<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};"></div>
+					<div class="date" layout="column">
+						<div flex></div>
+						<div class="day">{{expense.date | date : 'd'}}</div>
+						<div class="month">{{expense.date | date : 'MMM'}}</div>
+						<div flex></div>
+					</div>
+					<div class="description" flex layout="column">
+						<div flex></div>
+						<div>{{expense.description}}</div>
+						<div flex></div>
+					</div>
+					<div class="amount" layout="column">
+						<div flex></div>
+						<div>{{expense.currency == 'EUR' ? '&euro;' : 'kr.'}} {{expense.amount | number : 2}}</div>
+						<div flex></div>
+					</div>
+				</div>
+   			</md-list-item>
+		</md-list>
+	</div>
+</div>
