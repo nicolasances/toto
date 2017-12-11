@@ -89,6 +89,109 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			return $http.get("https://" + microservicesUrl + "/expenses/reports/averageByCategory?currency=" + currency + "&maxResults=" + maxResults);
 		},
 		
+		/**
+		 * Sets the category of the specified expense
+		 */
+		setExpenseCategory : function(expenseId, categoryCode) {
+			
+			return $http.put("https://" + microservicesUrl + "/expenses/expenses/" + expenseId, {category: categoryCode});
+		},
+		
+		/**
+		 * Sets the expense as consolidated
+		 */
+		setExpenseConsolidated : function(expenseId) {
+			
+			return $http.put("https://" + microservicesUrl + "/expenses/expenses/" + expenseId, {consolidated: true});
+		},
+		
+		/**
+		 * Deletes the specified expense
+		 */
+		deleteExpense : function(expenseId) {
+			
+			return $http.delete("https://" + microservicesUrl + "/expenses/expenses/" + expenseId);
+		},
+
+		/**
+		 * Adds a new Payment
+		 * 
+		 * Requires: 
+		 * 
+		 * 	-	creationCallback	:	function to be called when the expense is created (but not yet inserted in the backend)
+		 * 
+		 * 	-	insertionCallback	:	function to be called when the expense has been successfully inserted in the backend store
+		 */
+		addPayment : function(creationCallback, insertionCallback) {
+			
+			var yearMonth = this.getCurrentMonth();
+			
+			function DialogController($scope, $mdDialog, expensesService) {
+				
+				expensesService.getCategories().success(function(data) {
+					$scope.categories = data.categories;
+					$scope.clearCategoriesSelection();
+				})
+				
+				$scope.steps = [1, 2, 3];
+				$scope.currentStep = 1;
+				$scope.expense = new Object();
+				
+				$scope.hide = function() {$mdDialog.hide;};
+				$scope.cancel = function() {$mdDialog.cancel();};
+				$scope.answer = function(expense) {$mdDialog.hide(expense);};
+				$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}
+				$scope.setConsolidated = function(consolidated) {
+					$scope.expense.consolidated = consolidated;
+					$scope.nextStep();
+				} 
+				$scope.selectCategory = function(category) {
+					$scope.clearCategoriesSelection();
+					category.selected = true;
+					$scope.expense.category = category;
+					
+					$scope.answer($scope.expense);
+				}
+				$scope.nextStep = function () {$scope.currentStep++;}
+				
+			}
+			
+		    var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
+		    var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgAddExpense.html', parent: angular.element(document.body), clickOutsideToClose: true, fullscreen: useFullScreen};
+		    
+		    $mdDialog.show(dialog).then(function(answer) {
+
+		    	var data = {
+		    			amount : answer.amount,
+		    			date : moment(answer.date).format('YYYYMMDD'), 
+		    			category : answer.category.code,
+		    			description : answer.description,
+		    			yearMonth: yearMonth,
+		    			consolidated: answer.consolidated,
+		    			currency: answer.currency
+		    	};
+		    	
+		    	var expense = new Object();
+		    	expense.amount = answer.amount;
+		    	expense.date = answer.date;
+		    	expense.category = answer.category;
+		    	expense.description = answer.description;
+		    	expense.yearMonth = yearMonth;
+		    	expense.consolidated = answer.consolidated;
+		    	expense.currency = answer.currency;
+		    	
+		    	creationCallback(expense)
+		    	
+		    	$http.post("https://" + microservicesUrl + "/expenses/expenses", data).success(function(data, status, header, config) {
+		    		
+		    		insertionCallback(data.id);
+		    		
+				});
+		    	
+		    }, function() {});
+		
+		},
+		
 		/** 
 		 * Adds a quick expense. 
 		 * A quick expense is

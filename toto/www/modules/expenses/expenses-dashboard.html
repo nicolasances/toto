@@ -3,7 +3,7 @@
 
 <div class="toto-central-area" id="expenses-dashboard" flex>
 	<div class="toto-card" layout="row">
-		<expenses-month-total currency="EUR"></expenses-month-total>
+		<expenses-month-total currency="EUR" ng-click="go('/expenses/payments')"></expenses-month-total>
 		<div flex></div>
 		<div layout="column">
 			<div flex></div>
@@ -24,7 +24,7 @@
 
 	<expenses-top-spending-categories currency="EUR"></expenses-top-spending-categories>	
 
-	<expenses-list></expenses-list>	
+	<expenses-list max-results="3"></expenses-list>	
 </div>
 
 <div class="toto-right-area" ng-show="gtMd"></div>

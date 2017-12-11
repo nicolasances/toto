@@ -30,7 +30,7 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 /***********************************************************************************************************************
  * EXPENSES LIST
  **********************************************************************************************************************/
-expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav) {
+expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService) {
 
 	/**
 	 * Prepares the context object
@@ -39,182 +39,6 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 		
 		$rootScope.currentMenu = 'Month payments';
 
-		$scope.microservicesHost = microservicesHost;
-		$scope.microservicesPort = microservicesPort;
-		
-		$scope.selectedPeriod = new Object();
-		$scope.currentFilter = new Object();
-		
-		$scope.refresh();
-		
-	}
-
-	/**
-	 * Refreshes the view
-	 */
-	$scope.refresh = function() {
-		
-		$scope.getCategories();
-		
-		$scope.selectedPeriod.yearMonth = $scope.getCurrentPeriod();
-		$scope.selectedPeriod.year = moment($scope.getCurrentPeriod() + '01', 'YYYYMMDD').format('YYYY');
-		$scope.selectedPeriod.month = moment($scope.getCurrentPeriod() + '01', 'YYYYMMDD').format('MMMM');
-		
-		$scope.loadExpenses($scope.selectedPeriod.yearMonth);
-		
-		$scope.currentFilter.categoryCode = null;
-	}
-	
-	$scope.getCategories = function() {
-	
-		$http.get("https://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
-			$scope.categories = data.categories;
-		});
-	}
-	
-	$scope.getCategory = function(code) {
-		
-		if ($scope.categories == null) return {};
-		
-		var i;
-		for (i = 0; i < $scope.categories.length; i++) {
-			if ($scope.categories[i].code == code) return $scope.categories[i];
-		}
-		
-		return {};
-	}
-	
-	/**
-	 * Retrieves the current period in an yearMonth string
-	 */
-	$scope.getCurrentPeriod = function() {
-		
-		var dayOfMonth = parseInt(moment().format('DD'));
-		
-		if (dayOfMonth > 27) return moment().add(1, 'months').format('YYYYMM');
-		
-		return moment().format('YYYYMM');
-		
-	}
-	
-	/**
-	 * Loads previous month's expenses
-	 */
-	$scope.loadPreviousMonth = function() {
-		$scope.selectedPeriod.yearMonth = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').subtract(1, 'months').format('YYYYMM');
-		$scope.selectedPeriod.year = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('YYYY');
-		$scope.selectedPeriod.month = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('MMMM');
-		$scope.loadExpenses($scope.selectedPeriod.yearMonth);
-	}
-	
-	/**
-	 * Loads next month's expenses
-	 */
-	$scope.loadNextMonth = function() {
-		$scope.selectedPeriod.yearMonth = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').add(1, 'months').format('YYYYMM');
-		$scope.selectedPeriod.year = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('YYYY');
-		$scope.selectedPeriod.month = moment($scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('MMMM');
-		$scope.loadExpenses($scope.selectedPeriod.yearMonth);
-	}
-	
-	$scope.clearFilters = function() {
-		for (i=0; i<$scope.expenses.length; i++) {
-			$scope.expenses[i].hide = false;
-		}
-	}
-	
-	/**
-	 * Filter the expenses by category
-	 */
-	$scope.filterByCategory = function(categoryCode) {
-		
-		$scope.clearFilters();
-		
-		$scope.currentFilter.categoryCode = $scope.currentFilter.categoryCode == null ? categoryCode : null;
-		
-		if ($scope.currentFilter.categoryCode == null) {
-			$scope.calculateTotal();
-			return;
-		}
-		
-		for (i=0; i<$scope.expenses.length; i++) {
-			if ($scope.expenses[i].category != categoryCode) {
-				$scope.expenses[i].hide = true;
-			}
-		}
-		
-		$scope.calculateTotal();
-	}
-	
-	/**
-	 * Load the expenses of the specified month (in format YYYYMM)
-	 */
-	$scope.loadExpenses = function (yearMonth) {
-		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses?yearMonth=" + yearMonth).success(function(data, status, header, config) {
-			
-			$scope.expenses = new Array();
-			
-			if (data != null && data.expenses != null) {
-				
-				var i;
-				for (i = 0; i < data.expenses.length; i++) {
-					var exp = data.expenses[i];
-					exp.category = $scope.getCategory(exp.category);
-					
-					$scope.expenses.push(exp);
-				}
-			}
-
-			$scope.calculateTotal();
-		});
-	}
-	
-	/**
-	 * Calculates the total amount of the expenses, considering filters and excluding Credits
-	 */
-	$scope.calculateTotal = function() {
-		$scope.total = 0;
-		
-		if ($scope.expenses == null) return;
-		
-		for (i=0;i<$scope.expenses.length;i++) {
-			if ($scope.currentFilter.categoryCode == null || $scope.expenses[i].category == $scope.currentFilter.categoryCode) {
-				if (!$scope.expenses[i].creditMom && !$scope.expenses[i].creditOther) {
-					$scope.total += parseFloat($scope.expenses[i].amount);
-				}
-			}
-		}
-		
-	}
-	
-	$scope.changeCategory = function(expense, ev) {
-		
-		var categories = $scope.categories;
-		
-		function DialogController($scope, $mdDialog) {
-			
-			$scope.microservicesHost = microservicesHost;
-			$scope.microservicesPort = microservicesPort;
-			$scope.categories = categories;
-			
-			$scope.hide = function() {$mdDialog.hide;};
-			$scope.cancel = function() {$mdDialog.cancel();};
-			$scope.answer = function(expense) {$mdDialog.hide(expense);};
-			
-		}
-		
-	    var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-	    var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgChangeCategory.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
-	    
-	    $mdDialog.show(dialog).then(function(answer) {
-
-	    	$http.put("https://" + microservicesUrl + "/expenses/expenses/" + expense.id, {category: answer.code}).success(function(data, status, header, config) {});
-
-	    	var cat = $scope.getCategory(answer.code);
-	    	expense.category = answer;
-	    	
-	    }, function() {});
 	}
 
 	/**
@@ -222,120 +46,8 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 	 */
 	$scope.addExpense = function(ev) {
 		
-		var categories = $scope.categories;
-		var yearMonth = $scope.selectedPeriod.yearMonth;
+		expensesService.addPayment(function(expense) {}, function(expenseId) {});
 		
-		function DialogController($scope, $mdDialog) {
-
-			$scope.microservicesHost = microservicesHost;
-			$scope.microservicesPort = microservicesPort;
-			$scope.categories = categories;
-			$scope.steps = [1, 2, 3];
-			$scope.currentStep = 1;
-			$scope.expense = new Object();
-			
-			$scope.hide = function() {$mdDialog.hide;};
-			$scope.cancel = function() {$mdDialog.cancel();};
-			$scope.answer = function(expense) {$mdDialog.hide(expense);};
-			$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}
-			$scope.setConsolidated = function(consolidated) {
-				$scope.expense.consolidated = consolidated;
-				$scope.nextStep();
-			} 
-			$scope.selectCategory = function(category) {
-				$scope.clearCategoriesSelection();
-				category.selected = true;
-				$scope.expense.category = category;
-				
-				$scope.answer($scope.expense);
-			}
-			$scope.nextStep = function () {$scope.currentStep++;}
-			
-			$scope.clearCategoriesSelection();
-			
-		}
-		
-	    var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-	    var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgAddExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
-	    
-	    $mdDialog.show(dialog).then(function(answer) {
-
-	    	$scope.expense = new Object();
-	    	$scope.expense.amount = answer.amount;
-	    	$scope.expense.date = answer.date;
-	    	$scope.expense.category = answer.category;
-	    	$scope.expense.description = answer.description;
-	    	$scope.expense.creditMom = answer.creditMom;
-	    	$scope.expense.creditOther = answer.creditOther;
-	    	$scope.expense.yearMonth = yearMonth;
-	    	$scope.expense.consolidated = answer.consolidated;
-	    	
-	    	var data = {
-	    			amount : answer.amount,
-	    			date : moment(answer.date).format('YYYYMMDD'), 
-	    			category : answer.category.code,
-	    			description : answer.description,
-	    			creditMom : answer.creditMom,
-	    			creditOther : answer.creditOther,
-	    			yearMonth: yearMonth,
-	    			consolidated: answer.consolidated
-	    	};
-	    	
-	    	$http.post("https://" + microservicesUrl + "/expenses/expenses", data).success(function(data, status, header, config) {
-	    		$scope.expense.id = data.id;
-			});
-	    	
-	    	$scope.expenses.push($scope.expense);
-	    	$scope.calculateTotal();
-	    	
-	    }, function() {});
-	}
-	
-	$scope.consolidateExpense = function(expense) {
-		
-		$http.put("https://" + microservicesUrl + "/expenses/expenses/" + expense.id, {consolidated: true}).success(function(data, status, header, config) {});
-		
-		expense.consolidated = true;
-		expense.showMenu = false;
-	}
-	
-	/**
-	 * Deletes the specified expense
-	 */
-	$scope.deleteExpense = function(expense) {
-		
-    	$http.delete("https://" + microservicesUrl + "/expenses/expenses/" + expense.id).success(function(data, status, header, config) {
-		});
-
-		for (i=0; i<$scope.expenses.length; i++) {
-			if ($scope.expenses[i].id == expense.id) {
-				$scope.expenses.splice(i, 1);
-				return;
-			}
-		}
-	}
-	
-	/**
-	 * Clea all delete icons making them invisible
-	 */
-	$scope.clearAllDeleteIcons = function() {
-		
-		if ($scope.expenses == null) return;
-		
-		var i;
-		for (i=0; i < $scope.expenses.length; i++) {
-			$scope.expenses[i].deletable = false;
-		}
-	}
-	
-	/**
-	 * Show the delete icon for a specific Expense
-	 */
-	$scope.showDeleteIcon = function(expense) {
-		
-		$scope.clearAllDeleteIcons();
-		
-		expense.deletable = true;
 	}
 	
 	$scope.initContext();
@@ -405,14 +117,40 @@ expensesModule.directive('expensesTopSpendingCategories', ['expensesService', '$
 	}
 }]);
 
-expensesModule.directive('expensesList', ['expensesService', '$timeout', function(expensesService, $timeout) {
+/**
+ * EXPENSES LIST DIRECTIVE
+ * 
+ * Shows the list of expenses 
+ * 
+ * Parameters: 
+ * 
+ * 	-	currency		:	(optional)
+ * 							EUR, DKK, ...
+ * 
+ * 	-	maxResults		:	(optional)
+ * 							the maximum number of transactions
+ * 
+ * 	-	showNavigator	:	(optional, default = false)
+ * 							Shows the month navigator
+ * 
+ */
+expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDialog', function(expensesService, $timeout, $mdDialog) {
 	
 	return {
 		scope: {
-			currency: '@'
+			currency: '@',
+			maxResults: '@',
+			showNavigator: '@'
 		},
 		templateUrl: 'modules/expenses/directives/expenses-list.html',
 		link: function(scope) {
+			
+			if (scope.showNavigator == null) scope.showNavigator = false;
+			
+			scope.selectedPeriod = {};
+			scope.selectedPeriod.yearMonth = expensesService.getCurrentMonth();
+			scope.selectedPeriod.year = moment(expensesService.getCurrentMonth() + '01', 'YYYYMMDD').format('YYYY');
+			scope.selectedPeriod.month = moment(expensesService.getCurrentMonth() + '01', 'YYYYMMDD').format('MMMM');
 			
 			/**
 			 * Retrieve a single category
@@ -425,12 +163,114 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', functio
 					if (scope.categories[i].code == code) return scope.categories[i];
 				}
 			}
+
+			/**
+			 * Loads previous month's expenses
+			 */
+			scope.loadPreviousMonth = function() {
+				scope.selectedPeriod.yearMonth = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').subtract(1, 'months').format('YYYYMM');
+				scope.selectedPeriod.year = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('YYYY');
+				scope.selectedPeriod.month = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('MMMM');
+				scope.loadExpenses(scope.selectedPeriod.yearMonth);
+			}
+			
+			/**
+			 * Loads next month's expenses
+			 */
+			scope.loadNextMonth = function() {
+				scope.selectedPeriod.yearMonth = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').add(1, 'months').format('YYYYMM');
+				scope.selectedPeriod.year = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('YYYY');
+				scope.selectedPeriod.month = moment(scope.selectedPeriod.yearMonth + '01', 'YYYYMMDD').format('MMMM');
+				scope.loadExpenses(scope.selectedPeriod.yearMonth);
+			}
+			
+			/**
+			 * Changes the category of the transaction
+			 */
+			scope.changeCategory = function(expense, ev) {
 				
-			expensesService.getCategories().success(function(data) {
+				var categories = scope.categories;
 				
-				scope.categories = data.categories;
+				function DialogController(scope, $mdDialog) {
+					
+					scope.microservicesHost = microservicesHost;
+					scope.microservicesPort = microservicesPort;
+					scope.categories = categories;
+					
+					scope.hide = function() {$mdDialog.hide;};
+					scope.cancel = function() {$mdDialog.cancel();};
+					scope.answer = function(expense) {$mdDialog.hide(expense);};
+					
+				}
 				
-				expensesService.getExpenses({maxResults: 3}).success(function(data) {
+			    var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
+			    var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgChangeCategory.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
+			    
+			    $mdDialog.show(dialog).then(function(answer) {
+			    	
+			    	expensesService.setExpenseCategory(expense.id, answer.code);
+
+			    	var cat = scope.getCategory(answer.code);
+			    	expense.category = answer;
+			    	
+			    }, function() {});
+			}
+			
+			/**
+			 * Sets the expense as consolidated
+			 */
+			scope.consolidateExpense = function(expense) {
+				
+				expensesService.setExpenseConsolidated(expense.id);
+				
+				expense.consolidated = true;
+				expense.showMenu = false;
+			}
+			
+			/**
+			 * Deletes the specified expense
+			 */
+			scope.deleteExpense = function(expense) {
+				
+		    	expensesService.deleteExpense(expense.id);
+
+				for (i=0; i<scope.expenses.length; i++) {
+					if (scope.expenses[i].id == expense.id) {
+						scope.expenses.splice(i, 1);
+						return;
+					}
+				}
+			}
+			
+			/**
+			 * Clea all delete icons making them invisible
+			 */
+			scope.clearAllDeleteIcons = function() {
+				
+				if (scope.expenses == null) return;
+				
+				var i;
+				for (i=0; i < scope.expenses.length; i++) {
+					scope.expenses[i].deletable = false;
+				}
+			}
+			
+			/**
+			 * Show the delete icon for a specific Expense
+			 */
+			scope.showDeleteIcon = function(expense) {
+				
+				scope.clearAllDeleteIcons();
+				
+				expense.deletable = true;
+			}
+			
+			/**
+			 * Loads the expenses for the specified month
+			 */
+			scope.loadExpenses = function(yearMonth) {
+				
+				expensesService.getExpenses({maxResults: scope.maxResults, yearMonth: yearMonth, currency: scope.currency}).success(function(data) {
 					
 					scope.expenses = data.expenses;
 					
@@ -442,6 +282,14 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', functio
 						}
 					}
 				});
+			}
+				
+			expensesService.getCategories().success(function(data) {
+				
+				scope.categories = data.categories;
+				
+				scope.loadExpenses(expensesService.getCurrentMonth());
+				
 			});
 			
 
