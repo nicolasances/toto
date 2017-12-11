@@ -17,10 +17,7 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 	 */
 	$scope.addQuickExpense = function(ev) {
 		
-		var insertionCallback = function(expense) {};
-		var creationCallback = function(promise) {};
-		
-		expensesService.addQuickPayment(ev, insertionCallback, creationCallback, expensesService.getCurrentMonth()); 
+		expensesService.addQuickPayment(ev, function(expense) {}, function(promise) {}, expensesService.getCurrentMonth()); 
 	}
 	
 	$scope.initContext();
