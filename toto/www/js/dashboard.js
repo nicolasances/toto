@@ -195,6 +195,8 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 		templateUrl : 'modules/dashboard/directives/dashboard-money.html',
 		link : function(scope) {
 			
+			scope.go = $rootScope.go;
+			
 			scope.gtXs = $rootScope.gtXs;
 			
 			scope.init = function() {
@@ -204,7 +206,7 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 			
 			scope.initExpenses = function() {
 				
-				var yearMonth = scope.getCurrentPeriod();
+				var yearMonth = expensesService.getCurrentMonth();
 				
 				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=EUR").success(function(data, status, header, config) {
 					
@@ -214,57 +216,19 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 				
 				$http.get("https://" + microservicesUrl + "/expenses/expenses/totals?maxResults=5&currency=EUR&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
 					
-					scope.totals = data.totals;
+					scope.moneyBars = [];
 					
-					var maxHeight = 62;
+					for (var i = 0; i < data.totals.length; i++) {
+						
+						scope.moneyBars.push({value: data.totals[i].amount, label: moment(data.totals[i].month).format('MMM').substring(0, 1)});
+					}
 					
-					if (data.totals != null) {
-						
-						scope.maxTotal = 0;
-						
-						var i;
-						for (i=0; i<scope.totals.length; i++) {
-							if (scope.totals[i].amount > scope.maxTotal) scope.maxTotal = scope.totals[i].amount; 
-						}
-						
-						var i; 
-						for (i=0; i<scope.totals.length; i++) {
-							scope.totals[i].percentage = 100 * scope.totals[i].amount / scope.maxTotal;
-							scope.totals[i].height = maxHeight * scope.totals[i].amount / scope.maxTotal;
-							scope.totals[i].monthShort = moment(scope.totals[i].month).format('MMM').substring(0, 1);
-							if (moment(new Date(scope.totals[i].month)).format('YYYYMM') == yearMonth) scope.totals[i].current = true;
-						}
-						
-					} 
+					console.log(scope.moneyBars);
 					
 				});
 				
 				scope.relevantExpenses = [];
 				scope.initCard();
-			}
-			
-			scope.addQuickExpense = function(ev) {
-				
-				var insertionCallback = function(expense) {
-					scope.expensesTotal += parseFloat(expense.amount);
-				};
-				
-				var creationCallback = function(promise) {};
-				
-				expensesService.addQuickPayment(ev, insertionCallback, creationCallback, scope.getCurrentPeriod()); 
-			}
-			
-			/**
-			 * Retrieves the current period in an yearMonth string
-			 */
-			scope.getCurrentPeriod = function() {
-				
-				var dayOfMonth = parseInt(moment().format('DD'));
-				
-				if (dayOfMonth > 27) return moment().add(1, 'months').format('YYYYMM');
-				
-				return moment().format('YYYYMM');
-				
 			}
 			
 			scope.initCard = function() {

@@ -1,9 +1,10 @@
+<toto-app-menu menus="expensesMenus"></toto-app-menu>
 
 <div class="toto-left-area" ng-show="gtMd"></div>
 
 <div class="toto-central-area" id="expenses" flex>
 
-	<expenses-list currency="EUR" show-navigator="true"></expenses-list>
+	<expenses-list currency="{{currency}}" show-navigator="true"></expenses-list>
 
 	<md-button class="md-fab floating" aria-label="Add an expense" ng-click="addExpense($event)">
 		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>

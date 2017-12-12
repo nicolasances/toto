@@ -162,6 +162,7 @@ var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeeping
 					.when('/trip/:id', {templateUrl : 'modules/trip/trip.html', controller : 'tripController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/expenses', {templateUrl : 'modules/expenses/expenses-dashboard.html', controller : 'expensesDashboardController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/expenses/payments', {templateUrl : 'modules/expenses/expenses.html', controller : 'expensesController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
+					.when('/expenses/payments/:currency', {templateUrl : 'modules/expenses/expenses.html', controller : 'expensesController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks', {templateUrl : 'modules/tasks/today.html', controller : 'tasksTodayController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks/:schedule', {templateUrl : 'modules/tasks/today.html', controller : 'tasksTodayController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks/:schedule/:id', {templateUrl : 'modules/tasks/task-detail.html', controller : 'taskDetailController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})

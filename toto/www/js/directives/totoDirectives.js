@@ -264,10 +264,15 @@ totoDirectivesModule.directive('totoAppMenu', function($rootScope) {
  *  -	showValues	:	(optional) true to show the values above the bars
  *  -	showExtremeValues : (optional) true to show only the min and max values above the bars
  *  -	showLabel	:	(optional) true to show the labels under the bars
+ *  -	showXAxis	:	(optional) true to show the x axis bar
+ *  					default: true
  *  
  *  -	height		:	(optional) the max height of the bars
  *  -	barWidth	:	(optional) the width of the bars
  *  -	barGutter	:	(optional) the space (in px) between the bars
+ *  -	barColor	:	(optional) the color of the bar
+ *  					defaut: 'default'
+ *  					values:	'default', 'dark', 'light'
  *  
  *  -	normalize	:	(optional, default = false) true to define the bars' height based on the delta 
  *  					between the max value and the min value
@@ -281,13 +286,18 @@ totoDirectivesModule.directive('totoBarGraph', function($rootScope, $timeout, $i
 			showValues : '@',
 			showExtremeValues : '@',
 			showLabel : '@',
+			showXAxis : '@',
 			height : '@',
 			barWidth: '@',
 			barGutter: '@',
+			barColor: '@',
 			normalize: '@'
 		},
 		templateUrl : 'directives/toto-bar-graph.html',
 		link : function(scope) {
+			
+			if (scope.barColor == null) scope.barColor = 'default';
+			if (scope.showXAxis == null) scope.showXAxis = 'true';
 			
 			/**
 			 * Creates the bars related to the gym info that has been loaded

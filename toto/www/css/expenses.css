@@ -64,6 +64,16 @@ toto-chimp #expenses #expenses-container md-list md-list-item .avatar md-icon {f
 .stats-grid .stat-container .image img {width: 52px;}
 .stats-grid .stat-container .title {font-size: 12px; opacity: 0.5; margin-top: 4px;}
 
+expenses-month-total {outline: none;}
+expenses-month-total .total {border: 5px solid #00BCD4;border-radius: 50%;box-sizing: border-box;height: 120px;width: 120px;text-align: center;margin: 15px 0;}
+expenses-month-total .total .amount {font-size: 1.3em; color: rgba(0,0,0,0.8); text-align: center;}
+expenses-month-total .total .amount span {font-size: 0.7em;}
+expenses-month-total .total .month {font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase;}
+expenses-month-total .total md-icon {width: 18px; height: 18px; margin-top: 6px;}
+expenses-month-total .total.small {height: 100px;width: 100px;}
+expenses-month-total .total.small .amount {font-size: 1em;}
+expenses-month-total .total.small .month {font-size: 0.7em; margin-bottom: 6px; text-transform: uppercase;}
+expenses-month-total .total.small md-icon {width: 14px; height: 14px; margin-top: 6px;}
 
 /************************************************************************
  * DASHBOARD
@@ -77,11 +87,6 @@ toto-chimp #expenses #expenses-container md-list md-list-item .avatar md-icon {f
 
 #expenses-dashboard #totals-row {opacity: 1; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
 #expenses-dashboard #totals-row.hidden {opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
-#expenses-dashboard .total {border: 5px solid #00BCD4;border-radius: 50%;box-sizing: border-box;height: 120px;width: 120px;text-align: center;margin: 15px 0;}
-#expenses-dashboard .total .amount {font-size: 1.3em; color: rgba(0,0,0,0.8); text-align: center;}
-#expenses-dashboard .total .amount span {font-size: 0.7em;}
-#expenses-dashboard .total .month {font-size: 0.8em; margin-bottom: 6px; text-transform: uppercase;}
-#expenses-dashboard .total md-icon {width: 18px; height: 18px; margin-top: 6px;}
 #expenses-dashboard .quickexpense {background-color: #8BC34A;height: 62px;width: 62px;border-radius: 50%;box-sizing: border-box;margin: 15px 24px;}
 #expenses-dashboard .quickexpense md-icon {fill: white;}
 

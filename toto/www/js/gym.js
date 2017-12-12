@@ -47,7 +47,7 @@ gymModule.controller("gymController", [ '$rootScope', '$scope', '$http', '$timeo
 	$scope.initContext = function() {
 		
 		$rootScope.currentMenu = 'Gym dashboard';
-		$scope.gymMenus = gymMenus;
+		$scope.gymMenus = gymMenus;	
 		$scope.showMuscles = false;
 		$scope.painLevels = painLevels;
 		

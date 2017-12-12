@@ -1,9 +1,10 @@
+<toto-app-menu menus="expensesMenus"></toto-app-menu>
 
 <div class="toto-left-area" ng-show="gtMd"></div>
 
 <div class="toto-central-area" id="expenses-dashboard" flex>
 	<div class="toto-card" layout="row">
-		<expenses-month-total currency="EUR" ng-click="go('/expenses/payments')"></expenses-month-total>
+		<expenses-month-total currency="EUR" ng-click="go('/expenses/payments/EUR')"></expenses-month-total>
 		<div flex></div>
 		<div layout="column">
 			<div flex></div>
@@ -19,7 +20,7 @@
 			<div flex></div>
 		</div>
 		<div flex></div>
-		<expenses-month-total currency="DKK" decimals="0"></expenses-month-total>
+		<expenses-month-total currency="DKK" decimals="0" ng-click="go('/expenses/payments/DKK')"></expenses-month-total>
 	</div> 
 
 	<expenses-top-spending-categories currency="EUR"></expenses-top-spending-categories>	

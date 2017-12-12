@@ -1,3 +1,9 @@
+var expensesMenus = [
+	{path: '/expenses', imageUrl: 'images/svg/dashboard.svg', name: 'Dashboard', selected: true},
+	{path: '/expenses/payments/EUR', imageUrl: 'images/svg/list.svg', name: 'Payments in EUR'},
+	{path: '/expenses/payments/DKK', imageUrl: 'images/svg/list.svg', name: 'Payments in DKK'}
+];
+
 var expensesModule = angular.module("expensesModule", []);
 
 expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', '$mdMedia', '$interval', 'expensesService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, $mdMedia, $interval, expensesService) {
@@ -8,6 +14,7 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 	$scope.initContext = function() {
 		
 		$scope.gtsm = $mdMedia('gt-sm');
+		$scope.expensesMenus = expensesMenus;
 		$rootScope.currentMenu = 'Payments dashboard';
 		
 	}
@@ -27,7 +34,7 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 /***********************************************************************************************************************
  * EXPENSES LIST
  **********************************************************************************************************************/
-expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService) {
+expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $routeParams) {
 
 	/**
 	 * Prepares the context object
@@ -35,6 +42,8 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 	$scope.initContext = function() {
 		
 		$rootScope.currentMenu = 'Month payments';
+		$scope.expensesMenus = expensesMenus;
+		$scope.currency = $routeParams.currency != null ? $routeParams.currency : 'EUR';
 
 	}
 
@@ -54,12 +63,29 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 /******************************************************************************************
  * DIRECTIVES
  *****************************************************************************************/
-expensesModule.directive('expensesMonthTotal', ['expensesService', '$timeout', function(expensesService, $timeout) {
+/**
+ * Shows the month total (of expenses)
+ * 
+ * Requires:
+ * 
+ * 	-	currency	:	(mandatory)
+ * 						The currency (EUR, DKK)
+ * 
+ * 	-	decimals	:	(optional, default=2)
+ * 						The number of decimals to show in the amount
+ * 
+ * 	-	size		:	(optional, default=normal)
+ * 						Accepted values: 'small'
+ * 						Defines the size of the widget
+ * 
+ */
+expensesModule.directive('expensesMonthTotal', ['expensesService', '$timeout', '$rootScope', function(expensesService, $timeout, $rootScope) {
 	
 	return {
 		scope: {
 			currency: '@',
-			decimals : '@'
+			decimals : '@',
+			size: '@'
 		},
 		templateUrl: 'modules/expenses/directives/expenses-month-total.html',
 		link: function(scope) {

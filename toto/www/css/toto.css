@@ -232,6 +232,7 @@ toto-measurement-widget .unit {font-size: 0.7em; text-align: center; }
  ***********************************************************************/
 toto-bar-graph {}
 toto-bar-graph .toto-bar-graph-container {border-bottom: 1px solid #B2EBF2;}
+toto-bar-graph .toto-bar-graph-container.hide-x-axis {border-bottom: none;}
 toto-bar-graph .toto-bar-graph-container .bar-container {position: relative;}
 toto-bar-graph .toto-bar-graph-container .bar-container .value {color: rgba(0,0,0,0.7); font-size: 0.7em; text-align: center; position: absolute; left: 0;}
 toto-bar-graph .toto-bar-graph-container .bar-container .bar {width: 28px; height: 0; position: absolute; left: 0; bottom: 1px; z-index: 3;}

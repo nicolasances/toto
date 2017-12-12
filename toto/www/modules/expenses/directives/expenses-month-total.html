@@ -1,14 +1,18 @@
 
-<div class="total" layout="column">
-	<div flex layout="column">
-		<div layout="row"><div flex></div><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><div flex></div></div>
-		<div flex></div>
+<div layout="row">
+	<div flex></div>
+	<div ng-class="['total', size]" layout="column">
+		<div flex layout="column">
+			<div layout="row"><div flex></div><md-icon md-svg-src="images/svg/bank-building.svg"></md-icon><div flex></div></div>
+			<div flex></div>
+		</div>
+		<div layout="row">
+			<div class="amount" flex><span>{{currency == 'EUR' ? '&euro;' : 'kr.'}}</span> {{currentMonthTotal | number : decimals}}</div>
+		</div>
+		<div flex layout="column">
+			<div flex></div>
+			<div class="month">{{currentMonth}}</div>
+		</div>
 	</div>
-	<div layout="row">
-		<div class="amount" flex><span>{{currency == 'EUR' ? '&euro;' : 'kr.'}}</span> {{currentMonthTotal | number : decimals}}</div>
-	</div>
-	<div flex layout="column">
-		<div flex></div>
-		<div class="month">{{currentMonth}}</div>
-	</div>
+	<div flex></div>
 </div>
