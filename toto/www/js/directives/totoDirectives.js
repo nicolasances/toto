@@ -464,66 +464,118 @@ totoDirectivesModule.directive('totoDrawingPad', function($rootScope, $timeout, 
 	
 	return {
 		scope : {
+			height: '@'
 		},
 		templateUrl : 'directives/toto-drawing-pad.html',
 		link : function(scope) {
 			
-			context = document.getElementById('canvasInAPerfectWorld').getContext("2d");
+			var canvas = document.getElementById('canvasInAPerfectWorld');
+			var totoCard = canvas.parentNode;
 			
-			document.getElementById('canvasInAPerfectWorld').onmousedown = function(e){
-			  var mouseX = e.pageX - this.offsetLeft;
-			  var mouseY = e.pageY - this.offsetTop;
-					
-			  paint = true;
-			  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-			  redraw();
-			}
+			if (scope.height != null) canvas.height = scope.height;
 			
-			document.getElementById('canvasInAPerfectWorld').onmousemove = function(e){
-			  if(paint){
-			    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-			    redraw();
-			  }
-			}
+			var totoCardPaddingTop = canvas.offsetTop - totoCard.offsetTop;
+			var totoCardPaddingLeft = canvas.offsetLeft - totoCard.offsetLeft;
 			
-			document.getElementById('canvasInAPerfectWorld').onmouseup = function(e){
-				  paint = false;
-				}
+			// 1. Set the height of the toto card
+			totoCard.style.height = canvas.offsetHeight + totoCardPaddingTop * 2 + 'px';
 			
-			document.getElementById('canvasInAPerfectWorld').onmouseleave = function(e){
-				  paint = false;
-				}
+			// 2. Set the width of the canvas to 100%
+			canvas.width = totoCard.offsetWidth - totoCardPaddingLeft * 2;
+			
+			context = canvas.getContext("2d");
+
+			context.strokeStyle = "#006064";
+			context.lineJoin = "round";
 			
 			var clickX = new Array();
 			var clickY = new Array();
 			var clickDrag = new Array();
+			var pen = new Array();
 			var paint;
+			
+			scope.currentPen = 'pen';
+			
+			/**
+			 * Clears the pad
+			 */
+			scope.clearPad = function() {
+				context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+				
+				clickX = new Array();
+				clickY = new Array();
+				clickDrag = new Array();
+				pen = new Array();
+			}
+			
+			/**
+			 * Shows the change pen menu
+			 */
+			scope.showChangePen = function() {
+				scope.changePenToolbarVisible = true;
+			}
+			
+			/**
+			 * Changes the pen
+			 */
+			scope.changePen = function(type) {
+				
+				scope.currentPen = type;
+				
+				scope.changePenToolbarVisible = false;
+			}
+			
+			canvas.onmousedown = function(e){
+				
+				paint = true;
+				
+				addClick(e.offsetX, e.offsetY);
+				
+				redraw();
+			}
+			
+			canvas.onmousemove = function(e){
+				if(paint){
+					addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+					redraw();
+				}
+			}
+			
+			canvas.onmouseup = function(e){
+				paint = false;
+			}
+			
+			canvas.onmouseleave = function(e){
+				paint = false;
+			}
 
 			function addClick(x, y, dragging) {
-			  clickX.push(x);
-			  clickY.push(y);
-			  clickDrag.push(dragging);
+				clickX.push(x);
+				clickY.push(y);
+				clickDrag.push(dragging);
+				pen.push(scope.currentPen);
 			}
 			
 			function redraw(){
-				  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+				context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 				  
-				  context.strokeStyle = "#df4b26";
-				  context.lineJoin = "round";
-				  context.lineWidth = 5;
-							
-				  for(var i=0; i < clickX.length; i++) {		
-				    context.beginPath();
-				    if(clickDrag[i] && i){
-				      context.moveTo(clickX[i-1], clickY[i-1]);
-				     }else{
-				       context.moveTo(clickX[i]-1, clickY[i]);
-				     }
-				     context.lineTo(clickX[i], clickY[i]);
-				     context.closePath();
-				     context.stroke();
-				  }
+				for(var i=0; i < clickX.length; i++) {		
+					context.beginPath();
+					
+					if (pen[i] == 'crayon') context.lineWidth = 2;
+					if (pen[i] == 'pen') context.lineWidth = 4;
+					if (pen[i] == 'marker') context.lineWidth = 10;
+					
+				    if(clickDrag[i] && i) context.moveTo(clickX[i-1], clickY[i-1]);
+				    else context.moveTo(clickX[i]-1, clickY[i]);
+				    
+				    context.lineTo(clickX[i], clickY[i]);
+				    context.closePath();
+				    context.stroke();
 				}
+			}
+			
+			scope.changePen('pen');
 		}
 	}
 });

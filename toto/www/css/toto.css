@@ -43,6 +43,18 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 }
 
 /************************************************************************
+ * TOTO DRAWING PAD
+ ***********************************************************************/
+toto-drawing-pad {}
+toto-drawing-pad .toolbar {margin: -12px -12px 0 -12px; padding: 12px;}
+toto-drawing-pad .toolbar .icon {margin: 0 12px; outline: none;}
+toto-drawing-pad .toolbar .icon md-icon {fill: white;}
+toto-drawing-pad .toolbox-container {position: relative;}
+toto-drawing-pad .toolbox-container .toolbox {position: absolute; top: 12px; padding: 12px; border-radius: 12px; z-index: 2;}
+toto-drawing-pad .toolbox-container .toolbox .icon {margin: 0 12px;}
+toto-drawing-pad .toolbox-container .toolbox .icon md-icon {width: 20px; height: 20px;}
+
+/************************************************************************
  * TOTO APP NAVIGATOR
  ***********************************************************************/
 .toto-app-navigator {}

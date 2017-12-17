@@ -1,6 +1,25 @@
 
-<div class="toto-card" flex layout="column">
+<div class="toto-card" flex layout="column" >
 
-	<canvas id="canvasInAPerfectWorld"></canvas>
+	<div class="toolbar default-primary-color" layout="row">
+		<div class="icon" ng-click="clearPad()"><md-icon md-svg-src="images/svg/trash.svg"></md-icon></div>
+		<div class="icon" ng-click="showChangePen()"><md-icon md-svg-src="images/svg/pen.svg"></md-icon></div>
+		<div flex></div>
+		<div class="icon"><md-icon md-svg-src="images/svg/checked.svg"></md-icon></div>
+	</div>
+	
+	<div class="toolbox-container" layout="row">
+		<div flex></div>
+		<div class="toolbox light-primary-color" ng-show="changePenToolbarVisible" layout="row">
+			<div class="icon" ng-click="changePen('crayon')"><md-icon md-svg-src="images/svg/crayon.svg"></md-icon></div>
+			<div class="icon" ng-click="changePen('pen')"><md-icon md-svg-src="images/svg/ink-pen.svg"></md-icon></div>
+			<div class="icon" ng-click="changePen('marker')"><md-icon md-svg-src="images/svg/marker.svg"></md-icon></div>
+		</div>
+		<div flex></div>
+	</div>
+
+	<div class="drawing-area">
+		<canvas id="canvasInAPerfectWorld" style="position: absolute;"></canvas>
+	</div>
 
 </div>
