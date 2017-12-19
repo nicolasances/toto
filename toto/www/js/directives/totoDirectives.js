@@ -525,6 +525,9 @@ totoDirectivesModule.directive('totoDrawingPad', function($rootScope, $timeout, 
 				scope.changePenToolbarVisible = false;
 			}
 			
+			/************************
+			 * MOUSE EVENT LISTENERS
+			 ***********************/
 			canvas.onmousedown = function(e){
 				
 				paint = true;
@@ -549,6 +552,44 @@ totoDirectivesModule.directive('totoDrawingPad', function($rootScope, $timeout, 
 				paint = false;
 			}
 
+			/************************
+			 * TOUCH EVENT LISTENERS
+			 ***********************/
+			scope.ontouchstart = function(e) {
+				
+				var touch = e.touches[0]; // Get the information for finger #1
+                touchX=touch.pageX-touch.target.offsetLeft;
+                touchY=touch.pageY-touch.target.offsetTop;
+				
+				paint = true;
+				
+				addClick(touchX, touchY);
+				
+				redraw();
+			}
+			
+			scope.ontouchend = function(e) {
+				paint = false;
+			}
+			
+			scope.ontouchmove = function(e) {
+				
+				var touch = e.touches[0]; // Get the information for finger #1
+                touchX=touch.pageX-touch.target.offsetLeft;
+                touchY=touch.pageY-touch.target.offsetTop;
+
+				if(paint){
+					addClick(touchX, touchY, true);
+					redraw();
+				}
+				
+				e.preventDefault();
+				
+			}
+			
+			/**
+			 * Adds a click on the pad
+			 */
 			function addClick(x, y, dragging) {
 				clickX.push(x);
 				clickY.push(y);
@@ -556,6 +597,9 @@ totoDirectivesModule.directive('totoDrawingPad', function($rootScope, $timeout, 
 				pen.push(scope.currentPen);
 			}
 			
+			/**
+			 * Redraws the pad
+			 */
 			function redraw(){
 				context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 				  
@@ -574,6 +618,10 @@ totoDirectivesModule.directive('totoDrawingPad', function($rootScope, $timeout, 
 				    context.stroke();
 				}
 			}
+			
+			canvas.addEventListener('touchstart', scope.ontouchstart, false);
+			canvas.addEventListener('touchmove', scope.ontouchmove, false);
+			canvas.addEventListener('touchend', scope.ontouchend, false);
 			
 			scope.changePen('pen');
 		}
