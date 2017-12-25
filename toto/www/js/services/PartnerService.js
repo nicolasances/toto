@@ -109,7 +109,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 			
 			user = googleUser.getBasicProfile().getEmail();
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/dailyScores?date=" + moment().format('YYYYMMDD') + "&userEmail=" + user);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/dailyScores?date=" + moment().format('YYYYMMDD') + "&userEmail=" + user);
 		},
 		
 		/**
@@ -119,7 +119,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 			
 			user = googleUser.getBasicProfile().getEmail();
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/weeklyScores?week=" + week + "&year=" + year + "&userEmail=" + user);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/weeklyScores?week=" + week + "&year=" + year + "&userEmail=" + user);
 		},
 		
 		/**
@@ -132,7 +132,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 			
 			user = googleUser.getBasicProfile().getEmail();
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/dailyScores?week=" + week.week + "&year=" + week.year + "&userEmail=" + user);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/dailyScores?week=" + week.week + "&year=" + week.year + "&userEmail=" + user);
 		},
 		
 		/**
@@ -142,7 +142,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 			
 			user = googleUser.getBasicProfile().getEmail();
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/deeds?date=" + moment().format('YYYYMMDD') + "&userEmail=" + user);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/deeds?date=" + moment().format('YYYYMMDD') + "&userEmail=" + user);
 		},
 		
 		/**
@@ -150,7 +150,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		postDeed : function(deed) {
 			
-			return $http.post("https://" + microservicesUrl2 + "/partner/deeds", deed);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl2 + "/partner/deeds", deed);
 		},
 
 		/**
@@ -158,7 +158,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		deleteDeed : function(deedId) {
 			
-			return $http.delete("https://" + microservicesUrl2 + "/partner/deeds/" + deedId);
+			return $http.delete(microservicesProtocol + "://" + microservicesUrl2 + "/partner/deeds/" + deedId);
 		},
 		
 		/**
@@ -166,7 +166,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		postMasterDeed : function(masterDeed) {
 			
-			return $http.post("https://" + microservicesUrl2 + "/partner/masterDeeds", masterDeed);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl2 + "/partner/masterDeeds", masterDeed);
 		},
 		
 		/**
@@ -174,7 +174,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		getMasterDeeds : function() {
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/masterDeeds");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/masterDeeds");
 		}, 
 		
 		/**
@@ -183,7 +183,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		getCurrentWeek : function() {
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/week?date=" + moment().format('YYYYMMDD'));
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/week?date=" + moment().format('YYYYMMDD'));
 		},
 		
 		/**
@@ -191,7 +191,7 @@ partnerModule.factory('PartnerService', [ '$http', '$rootScope', '$location', '$
 		 */
 		getWeeksWinner : function(startingWeek, maxResults) {
 			
-			return $http.get("https://" + microservicesUrl2 + "/partner/winner/weeks?startingYear=" + startingWeek.year + "&startingWeek=" + startingWeek.week + "&maxResults=" + maxResults);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/partner/winner/weeks?startingYear=" + startingWeek.year + "&startingWeek=" + startingWeek.week + "&maxResults=" + maxResults);
 		}
 
 	}

@@ -101,7 +101,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 				$scope.cancel = function() {$mdDialog.cancel();};
 				$scope.answer = function(block) {$mdDialog.hide(block);};
 			
-				$http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/blocks").success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/blocks").success(function(data) {
 					$scope.blocks = data.blocks;
 				});
 			}
@@ -146,7 +146,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 				$scope.selectBlock = function(block) {$scope.event.blockId = block.id; $scope.event.blockTitle = block.title; $scope.answer($scope.event);}
 				$scope.toggleRelevance = function() {$scope.event.relevant = !$scope.event.relevant;}
 				
-				$http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/blocks").success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/blocks").success(function(data) {
 					$scope.blocks = data.blocks;
 				});
 				
@@ -286,7 +286,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProject : function(project) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects", {title: project.title});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects", {title: project.title});
 		}, 
 		
 		/**
@@ -294,7 +294,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjects : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects");
 		},
 		
 		/**
@@ -302,7 +302,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProject : function(projectId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId);
 		},
 		
 		/**
@@ -310,7 +310,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectBlocks : function(projectId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/blocks");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/blocks");
 		}, 
 		
 		/**
@@ -322,9 +322,9 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectEvents : function(projectId, blockId) {
 			
-			if (blockId != null && blockId != '') return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/events?blockId=" + blockId);
+			if (blockId != null && blockId != '') return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events?blockId=" + blockId);
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/events");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events");
 		}, 
 		
 		/**
@@ -332,7 +332,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectEvent : function(projectId, eventId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId);
 		}, 
 		
 		/**
@@ -340,7 +340,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectDocuments : function(projectId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/documents");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/documents");
 		}, 
 		
 		/**
@@ -348,7 +348,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectDocument : function(projectId, docId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId);
 		},
 		
 		/**
@@ -356,7 +356,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectMails : function(projectId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/mails");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/mails");
 		}, 
 		
 		/**
@@ -364,7 +364,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getProjectTasks : function(projectId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/tasks");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/tasks");
 		}, 
 		
 		/**
@@ -372,7 +372,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getEventDocuments : function(projectId, eventId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/documents");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/documents");
 		}, 
 		
 		/**
@@ -380,7 +380,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		getEventMails : function(projectId, eventId) {
 			
-			return $http.get("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/mails");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/mails");
 		},
 		
 		/**
@@ -394,7 +394,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProjectBlock : function(projectId, block) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/blocks", block);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/blocks", block);
 		},
 		
 		/**
@@ -408,7 +408,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProjectEvent : function(projectId, event) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/events", event);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events", event);
 		},
 		
 		/**
@@ -422,7 +422,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProjectDocument : function(projectId, doc) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/documents", doc);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/documents", doc);
 		},
 		
 		/**
@@ -438,7 +438,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProjectDocumentVersion : function(projectId, docId, version) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId + "/versions", version);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId + "/versions", version);
 		},
 		
 		/**
@@ -446,7 +446,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		postProjectMail : function(projectId, mail) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/mails", mail);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/mails", mail);
 		}, 
 		
 		/**
@@ -459,7 +459,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		linkDocToEvent : function(projectId, eventId, docId) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/documents", {documentId : docId});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/documents", {documentId : docId});
 		},
 		
 		/**
@@ -472,7 +472,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		linkMailToEvent : function(projectId, eventId, mailId) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/mails", {mailId : mailId});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/mails", {mailId : mailId});
 		},
 		
 		/**
@@ -480,7 +480,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		linkNoteToDocument : function(projectId, docId, noteId) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId + "/notes", {noteId : noteId});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/documents/" + docId + "/notes", {noteId : noteId});
 		},
 		
 		/**
@@ -488,7 +488,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		linkNoteToEvent : function(projectId, eventId, noteId) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/notes", {noteId : noteId});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/notes", {noteId : noteId});
 		},
 		
 		/**
@@ -496,7 +496,7 @@ projectServiceModule.factory('ProjectService', [ '$http', '$rootScope', '$locati
 		 */
 		linkTaskToEvent : function(projectId, eventId, taskId) {
 			
-			return $http.post("https://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/tasks", {taskId : taskId});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/project/projects/" + projectId + "/events/" + eventId + "/tasks", {taskId : taskId});
 		}
 		
 	}

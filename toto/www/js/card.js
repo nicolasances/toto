@@ -14,7 +14,7 @@ cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$tim
 	 */
 	$scope.getCards = function() {
 		
-		$http.get("https://" + microservicesUrl + "/card/cards").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/card/cards").success(function(data) {
 			$scope.cards = data.cards;
 		});
 		
@@ -46,7 +46,7 @@ cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$tim
 	    	answer.billingType = 'SOLAR_MONTH';
 	    	answer.type = 'CREDIT_CARD';
 	    	
-	    	$http.post("https://" + microservicesUrl + "/card/cards", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/card/cards", answer).success(function(data, status, header, config) {
 	    		$scope.card.id = data.id;
 			});
 	    	
@@ -96,7 +96,7 @@ cardModule.controller("cardDetailController", [ '$rootScope', '$scope', '$http',
 	}
 	
 	$scope.getCard = function(callback) {
-		$http.get("https://" + microservicesUrl + "/card/cards/" + $routeParams.id).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/card/cards/" + $routeParams.id).success(function(data, status, header, config) {
     		$scope.card = data;
     		callback();
 		});
@@ -119,7 +119,7 @@ cardModule.controller("cardDetailController", [ '$rootScope', '$scope', '$http',
 	
 	$scope.getPayments = function() {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses?cardId=" + $scope.card.id + "&cardMonth=" + moment($scope.currentMonth).format('MM')).success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?cardId=" + $scope.card.id + "&cardMonth=" + moment($scope.currentMonth).format('MM')).success(function(data) {
 			
 			$scope.expenses = new Array();
 			

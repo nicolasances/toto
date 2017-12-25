@@ -27,7 +27,7 @@ tripModule.controller("tripsController", [ '$scope', '$http', '$timeout', '$mdDi
 	
 	$scope.getTrips = function() {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips").success(function(data, status, header, config) {
 			$scope.trips = data.trips;
 			$scope.setGrid();
 		});
@@ -80,7 +80,7 @@ tripModule.controller("tripsController", [ '$scope', '$http', '$timeout', '$mdDi
 			
 			var data = {name: result};
 			
-			$http.post("https://" + microservicesUrl + "/trip/trips/", data).success(function(data, status, header, config) {
+			$http.post(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/", data).success(function(data, status, header, config) {
 				$scope.go('/trip/' + data.id);
 			});
 			
@@ -124,7 +124,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.getItinerary = function() {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps").success(function(data, status, header, config) {
     		
 			$scope.intinerary = data.steps;
 
@@ -143,7 +143,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.getHotelOfStep = function(step) {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/hotels").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/hotels").success(function(data, status, header, config) {
 
 			if (data.hotels.length > 0) {
 				var hotel = data.hotels[0];
@@ -164,7 +164,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.getInterestPoints = function(step) {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/interestPoints").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/interestPoints").success(function(data, status, header, config) {
 			
 			step.interestPoints = new Array();
 
@@ -191,7 +191,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.getTransports = function() {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/transports").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/transports").success(function(data, status, header, config) {
 			
 			$scope.transports = new Array();
 			
@@ -210,7 +210,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.getTrip = function() {
 		
-		$http.get("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id).success(function(data, status, header, config) {
 			$scope.trip = data;
 		});
 	}
@@ -220,7 +220,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.postTripThumbnail = function(inputEl) {
 		
-		var uploadUrl = "https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/thumbnail";
+		var uploadUrl = microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/thumbnail";
 
 		thumbnailService.sendThumbnail(inputEl.files[0], uploadUrl, null, function() {
 			$scope.getRecipe();
@@ -398,7 +398,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	    	
 	    	console.log(update);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id, update).success(function(data, status, header, config) {
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id, update).success(function(data, status, header, config) {
 			});
 	    	
 	    }, function() {});
@@ -456,7 +456,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	    					returnDepartureAirport: answer.returnTrip.departure.airport, returnDepartureTime: answer.returnTrip.departure.time, returnLandingAirport: answer.returnTrip.landing.airport, returnLandingTime: answer.returnTrip.landing.time, 
 	    					price: answer.price};
 	    	
-	    	$http.post("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/transports", postData).success(function (data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/transports", postData).success(function (data, status, header, config) {
 	    		answer.id = data.id;
 	    	});
 	    	
@@ -520,7 +520,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 						// Update backend
 						var postData = {name: hotel.name, address: hotel.address, lat: hotel.geo.lat, lng: hotel.geo.lng, price: hotel.price, stars: hotel.stars};
 						
-						$http.post("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + hotel.step.id + "/hotels", postData).success(function(data, status, header, config) {
+						$http.post(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + hotel.step.id + "/hotels", postData).success(function(data, status, header, config) {
 							hotel.id = data.id;
 							hotel.step.hotel.id = data.id;
 						});
@@ -539,7 +539,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	 */
 	$scope.deleteHotel = function(step) {
 
-		$http.delete("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/hotels/" + step.hotel.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/hotels/" + step.hotel.id);
 
 		step.hotel = null;
 	}
@@ -625,7 +625,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	    	// Aligns the backend
 	    	var postData = {name: answer.name, lat: answer.geo.lat, lng: answer.geo.lng};
 	    	
-	    	$http.post("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + itineraryStep.id + "/interestPoints", postData).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + itineraryStep.id + "/interestPoints", postData).success(function(data, status, header, config) {
 	    		interestPoint.id = data.id;
 	    	});
 	    	
@@ -646,7 +646,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 		
 		point.marker.setMap(null);
 
-		$http.delete("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/interestPoints/" + point.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id + "/interestPoints/" + point.id);
 	}
 	
 	/**
@@ -676,7 +676,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 		$scope.refreshItinerary();
 		
 		// Align backend
-		$http.delete("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps/" + step.id);
 		
 	}
 	
@@ -694,7 +694,7 @@ tripModule.controller("tripController", [ '$scope', '$http', '$timeout', '$mdDia
 	    	var step = {name: answer.name, dateFrom: new Date(), dateTo: new Date(), lat: answer.geo.lat, lng: answer.geo.lng};
 	    	var postData = {name: answer.name, dateFrom: new Date(), dateTo: new Date(), lat: answer.geo.lat, lng: answer.geo.lng};
 
-	    	$http.post("https://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps", postData).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/trip/trips/" + $routeParams.id + "/steps", postData).success(function(data, status, header, config) {
 	    		
 	    		step.id = data.id;
 	    		

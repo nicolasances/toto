@@ -4,11 +4,11 @@ justiceModule.controller("justiceController", [ '$scope', '$http', '$timeout', '
 
 	$scope.init = function() {
 		
-		$http.get("https://" + microservicesUrl + "/justice/fines/sum?unpaied=true").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/fines/sum?unpaied=true").success(function (data, status, header, config) {
 			$scope.finesTotalAmount = data.sum;
 		});
 		
-		$http.get("https://" + microservicesUrl + "/justice/equitalia/bills/sum?unpaied=true").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/equitalia/bills/sum?unpaied=true").success(function (data, status, header, config) {
 			$scope.equitaliaTotalAmount = data.sum;
 		});
 		
@@ -33,7 +33,7 @@ justiceModule.controller("justiceFinesController", [ '$scope', '$http', '$timeou
 	 */
 	$scope.getFines = function() {
 		
-		$http.get("https://" + microservicesUrl + "/justice/fines/").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/fines/").success(function (data, status, header, config) {
 
 			$scope.fines = data.fines;
 			
@@ -75,7 +75,7 @@ justiceModule.controller("justiceFinesController", [ '$scope', '$http', '$timeou
 	    	
 	    	$scope.fines.push($scope.fine);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/justice/fines", $scope.fine).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/justice/fines", $scope.fine).success(function(data, status, header, config) {
 	    		$scope.fine.id = data.id;
 			});
 	    	
@@ -119,7 +119,7 @@ justiceModule.controller("justiceFinesController", [ '$scope', '$http', '$timeou
 
 	    	$scope.fillPaymentInfo(fine);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/justice/fines/" + fine.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/justice/fines/" + fine.id, {linkedPaymentId: answer.id});
 	    	
 	    }, function() {});
 	}
@@ -129,7 +129,7 @@ justiceModule.controller("justiceFinesController", [ '$scope', '$http', '$timeou
 	 */
 	$scope.fillPaymentInfo = function(fine) {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + fine.linkedPaymentId).success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + fine.linkedPaymentId).success(function (data, status, header, config) {
 			
 			fine.paymentDate = data.date;
 			fine.paymentDescription = data.description;
@@ -157,7 +157,7 @@ justiceModule.controller("justiceEquitaliaController", [ '$scope', '$http', '$ti
 	 */
 	$scope.getBills = function() {
 		
-		$http.get("https://" + microservicesUrl + "/justice/equitalia/bills/").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/equitalia/bills/").success(function (data, status, header, config) {
 
 			$scope.bills = data.bills;
 			
@@ -198,7 +198,7 @@ justiceModule.controller("justiceEquitaliaController", [ '$scope', '$http', '$ti
 	    	
 	    	$scope.bills.push($scope.bill);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/justice/equitalia/bills", $scope.bill).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/justice/equitalia/bills", $scope.bill).success(function(data, status, header, config) {
 	    		$scope.bill.id = data.id;
 			});
 	    	
@@ -242,7 +242,7 @@ justiceModule.controller("justiceEquitaliaController", [ '$scope', '$http', '$ti
 
 	    	$scope.fillPaymentInfo(bill);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/justice/equitalia/bills/" + bill.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/justice/equitalia/bills/" + bill.id, {linkedPaymentId: answer.id});
 	    	
 	    }, function() {});
 	}
@@ -252,7 +252,7 @@ justiceModule.controller("justiceEquitaliaController", [ '$scope', '$http', '$ti
 	 */
 	$scope.fillPaymentInfo = function(bill) {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
 			
 			bill.paymentDate = data.date;
 			bill.paymentDescription = data.description;

@@ -4,23 +4,23 @@ monrealeModule.controller("monrealeController", [ '$scope', '$http', '$timeout',
 
 	$scope.init = function() {
 		
-		$http.get("https://" + microservicesUrl + "/monreale/incomes/sum").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/incomes/sum").success(function(data, status, header, config) {
 			$scope.sumOfIncomes = data.sum;
 			
-			$http.get("https://" + microservicesUrl + "/monreale/charges/sum").success(function(data, status, header, config) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/charges/sum").success(function(data, status, header, config) {
 				$scope.sumOfCharges = data.sum;
 				
 				$scope.safeAmount = $scope.sumOfIncomes - $scope.sumOfCharges;
 			});
 		});
 		
-		$http.get("https://" + microservicesUrl + "/monreale/incomes?maxResults=1").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/incomes?maxResults=1").success(function(data, status, header, config) {
 			
 			if (data.incomes != null && data.incomes.length > 0) $scope.lastIncome = data.incomes[0];
 			
 		});
 		
-		$http.get("https://" + microservicesUrl + "/monreale/taxes?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes?unpaied=true").success(function(data, status, header, config) {
 
 			$scope.taxesUnpaiedAmount = 0;
 			
@@ -34,7 +34,7 @@ monrealeModule.controller("monrealeController", [ '$scope', '$http', '$timeout',
 			
 		});
 		
-		$http.get("https://" + microservicesUrl + "/monreale/ebills?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills?unpaied=true").success(function(data, status, header, config) {
 			
 			$scope.ebillsUnpaiedAmount = 0;
 			if (data.bills != null) {
@@ -46,7 +46,7 @@ monrealeModule.controller("monrealeController", [ '$scope', '$http', '$timeout',
 			}
 		});
 		
-		$http.get("https://" + microservicesUrl + "/monreale/gbills?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills?unpaied=true").success(function(data, status, header, config) {
 			
 			$scope.gbillsUnpaiedAmount = 0;
 			if (data.bills != null) {
@@ -85,7 +85,7 @@ monrealeModule.controller("monrealeIncomesController", [ '$scope', '$http', '$ti
 		var curYear = moment().format('YYYY');
 		var lastYear = parseInt(moment().format('YYYY')) - 1;
 		
-    	$http.get("https://" + microservicesUrl + "/monreale/incomes?year=" + curYear + "," + lastYear).success(function(data, status, header, config) {
+    	$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/incomes?year=" + curYear + "," + lastYear).success(function(data, status, header, config) {
     		$scope.incomes = data.incomes;
     		
     		for (i=0; i<$scope.incomes.length; i++) {
@@ -169,7 +169,7 @@ monrealeModule.controller("monrealeIncomesController", [ '$scope', '$http', '$ti
 	    	$scope.incomes.push($scope.income);
 	    	$scope.markIncomeOnCalendar($scope.income);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/monreale/incomes", $scope.income).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/monreale/incomes", $scope.income).success(function(data, status, header, config) {
 	    		$scope.income.id = data.id;
 			});
 	    	
@@ -195,7 +195,7 @@ monrealeModule.controller("monrealeTaxesController", [ '$scope', '$http', '$time
 	 * Retrieves the taxes
 	 */
 	$scope.getTaxes = function() {
-		$http.get("https://" + microservicesUrl + "/monreale/taxes").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes").success(function(data, status, header, config) {
 			$scope.taxes = data.taxes;
 			
 			if ($scope.taxes != null && $scope.taxes.length > 0) {
@@ -234,7 +234,7 @@ monrealeModule.controller("monrealeTaxesController", [ '$scope', '$http', '$time
 	    	
 	    	$scope.taxes.push($scope.tax);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/monreale/taxes", $scope.tax).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes", $scope.tax).success(function(data, status, header, config) {
 	    		$scope.tax.id = data.id;
 	    		$scope.tax.paied = false;
 			});
@@ -253,7 +253,7 @@ monrealeModule.controller("monrealeTaxesController", [ '$scope', '$http', '$time
 			
 			tax.chargedAmount = result;
 			
-			$http.put("https://" + microservicesUrl + "/monreale/taxes/" + tax.id, {chargedAmount: result});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes/" + tax.id, {chargedAmount: result});
 
 		});
     	
@@ -264,7 +264,7 @@ monrealeModule.controller("monrealeTaxesController", [ '$scope', '$http', '$time
 	 */
 	$scope.payTax = function(tax) {
 		
-    	$http.put("https://" + microservicesUrl + "/monreale/taxes/" + tax.id, {paied: true});
+    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes/" + tax.id, {paied: true});
     	
     	tax.paied = true;
     	tax.paiedOn = new Date();
@@ -289,7 +289,7 @@ monrealeModule.controller("monrealeElectricityController", [ '$scope', '$http', 
 	 * Retrieves the bills
 	 */
 	$scope.getBills = function() {
-		$http.get("https://" + microservicesUrl + "/monreale/ebills").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills").success(function(data, status, header, config) {
 			$scope.bills = data.bills;
 			
 			if ($scope.bills != null && $scope.bills.length > 0) {
@@ -329,7 +329,7 @@ monrealeModule.controller("monrealeElectricityController", [ '$scope', '$http', 
 	    	
 	    	$scope.bills.push($scope.bill);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/monreale/ebills", $scope.bill).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills", $scope.bill).success(function(data, status, header, config) {
 	    		$scope.bill.id = data.id;
 	    		$scope.bill.paied = false;
 			});
@@ -348,7 +348,7 @@ monrealeModule.controller("monrealeElectricityController", [ '$scope', '$http', 
 			
 			bill.chargedAmount = result;
 			
-			$http.put("https://" + microservicesUrl + "/monreale/ebills/" + bill.id, {chargedAmount: result});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills/" + bill.id, {chargedAmount: result});
 
 		});
     	
@@ -359,7 +359,7 @@ monrealeModule.controller("monrealeElectricityController", [ '$scope', '$http', 
 	 */
 	$scope.payBill = function(bill) {
 		
-    	$http.put("https://" + microservicesUrl + "/monreale/ebills/" + bill.id, {paied: true});
+    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills/" + bill.id, {paied: true});
     	
     	bill.paied = true;
     	bill.paiedOn = new Date();
@@ -384,7 +384,7 @@ monrealeModule.controller("monrealeGasController", [ '$scope', '$http', '$timeou
 	 * Retrieves the bills
 	 */
 	$scope.getBills = function() {
-		$http.get("https://" + microservicesUrl + "/monreale/gbills").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills").success(function(data, status, header, config) {
 			$scope.bills = data.bills;
 			
 			if ($scope.bills != null && $scope.bills.length > 0) {
@@ -403,7 +403,7 @@ monrealeModule.controller("monrealeGasController", [ '$scope', '$http', '$timeou
 	 */
 	$scope.completeBillInfo = function(bill) {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
 			
 			bill.paymentDate = data.date;
 			bill.paymentDescription = data.description;
@@ -437,7 +437,7 @@ monrealeModule.controller("monrealeGasController", [ '$scope', '$http', '$timeou
 	    	
 	    	$scope.bills.push($scope.bill);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/monreale/gbills", $scope.bill).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills", $scope.bill).success(function(data, status, header, config) {
 	    		$scope.bill.id = data.id;
 	    		$scope.bill.paied = false;
 			});
@@ -456,7 +456,7 @@ monrealeModule.controller("monrealeGasController", [ '$scope', '$http', '$timeou
 			
 			bill.chargedAmount = result;
 			
-			$http.put("https://" + microservicesUrl + "/monreale/gbills/" + bill.id, {chargedAmount: result});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills/" + bill.id, {chargedAmount: result});
 
 		});
     	
@@ -467,7 +467,7 @@ monrealeModule.controller("monrealeGasController", [ '$scope', '$http', '$timeou
 	 */
 	$scope.payBill = function(bill) {
 		
-    	$http.put("https://" + microservicesUrl + "/monreale/gbills/" + bill.id, {paied: true});
+    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills/" + bill.id, {paied: true});
     	
     	bill.paied = true;
     	bill.paiedOn = new Date();
@@ -490,7 +490,7 @@ monrealeModule.controller("monrealeChargesController", [ '$scope', '$http', '$ti
 	
 	$scope.getCharges = function() {
 		
-		$http.get("https://" + microservicesUrl + "/monreale/charges").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/charges").success(function (data, status, header, config) {
 			$scope.charges = data.charges;
 		});
 		
@@ -523,7 +523,7 @@ monrealeModule.controller("monrealeChargesController", [ '$scope', '$http', '$ti
 	    	if ($scope.charges == null) $scope.charges = new Array();
 	    	$scope.charges.push($scope.charge);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/monreale/charges", $scope.charge).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/monreale/charges", $scope.charge).success(function(data, status, header, config) {
 	    		$scope.charge.id = data.id;
 			});
 	    	

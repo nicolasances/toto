@@ -13,7 +13,7 @@ hotelModule.controller("hotelController", [ '$scope', '$http', '$timeout', '$mdD
 	
 	$scope.getHotels = function() {
 	
-		$http.get("https://" + microservicesUrl + "/hotel/hotels?retrievePayment=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/hotel/hotels?retrievePayment=true").success(function(data, status, header, config) {
 			$scope.hotels = data.hotels;
 		});
 	}
@@ -26,7 +26,7 @@ hotelModule.controller("hotelController", [ '$scope', '$http', '$timeout', '$mdD
 	
 	$scope.deleteHotel = function(hotel, ev) {
 		
-		$http.delete("https://" + microservicesUrl + "/hotel/hotels/" + hotel.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/hotel/hotels/" + hotel.id);
 
 		var i;
 		for (i = 0; i < $scope.hotels.length; i++) {
@@ -68,7 +68,7 @@ hotelModule.controller("hotelController", [ '$scope', '$http', '$timeout', '$mdD
 				$scope.hotel = answer;
 				$scope.hotels.push(answer);
 				
-		    	$http.post("https://" + microservicesUrl + "/hotel/hotels", answer).success(function(data, status, header, config) {
+		    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/hotel/hotels", answer).success(function(data, status, header, config) {
 		    		$scope.hotel.id = data.id;
 				});
 			});
@@ -88,7 +88,7 @@ hotelModule.controller("hotelController", [ '$scope', '$http', '$timeout', '$mdD
 	    	
 	    	hotel.linkedPaymentId = answer.id;
 	    	
-	    	$http.put("https://" + microservicesUrl + "/hotel/hotels/" + hotel.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/hotel/hotels/" + hotel.id, {linkedPaymentId: answer.id});
 	    	
 	    }, function() {});
 	}

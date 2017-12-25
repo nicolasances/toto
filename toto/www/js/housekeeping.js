@@ -48,7 +48,7 @@ housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope'
 	 */
 	$scope.getDueAmount = function() {
 
-		$http.get("https://" + microservicesUrl + "/housekeeping/due").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/housekeeping/due").success(function(data, status, header, config) {
 
 			$scope.housekeepingContext.due = data.amount;
 
@@ -61,7 +61,7 @@ housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope'
 	 */
 	$scope.getUnpaiedDays = function() {
 
-		$http.get("https://" + microservicesUrl + "/housekeeping/unpaied-days").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/housekeeping/unpaied-days").success(function(data, status, header, config) {
 
 			$scope.housekeepingContext.unpaiedDays = data.days;
 			
@@ -113,7 +113,7 @@ housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope'
 		data = new Object();
 		data.date = moment(day.day + "/" + day.month + "/" + day.year, "D/M/YYYY").format("DD/MM/YYYY");
 		
-		$http.post("https://" + microservicesUrl + "/housekeeping/unpaied-days", data).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/housekeeping/unpaied-days", data).success(function(data, status, header, config) {
 			
 			day.pinning = false;
 			
@@ -131,7 +131,7 @@ housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope'
 		
 		date = moment(day.day + "-" + day.month + "-" + day.year, 'D-M-YYYY').format('DD-MM-YYYY');
 
-		$http.delete("https://" + microservicesUrl + "/housekeeping/unpaied-days/" + date).success(function(data, status, header, config) {
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/housekeeping/unpaied-days/" + date).success(function(data, status, header, config) {
 			
 			day.pinning = false;
 
@@ -171,7 +171,7 @@ housekeepingModule.controller("housekeepingController", [ '$rootScope', '$scope'
 		data = new Object();
 		data.date = moment().format('DD/MM/YYYY');
 
-		$http.post("https://" + microservicesUrl + "/housekeeping/paydays", data).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/housekeeping/paydays", data).success(function(data, status, header, config) {
 
 			$scope.refresh();
 

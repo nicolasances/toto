@@ -208,13 +208,13 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 				
 				var yearMonth = expensesService.getCurrentMonth();
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=EUR").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=EUR").success(function(data, status, header, config) {
 					
 					scope.expensesTotal = data.total;
 					
 				});
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/totals?maxResults=5&currency=EUR&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/totals?maxResults=5&currency=EUR&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
 					
 					scope.moneyBars = [];
 					
@@ -233,11 +233,11 @@ dashboardModule.directive('dashboardMoney', function($http, $mdDialog, $rootScop
 			
 			scope.initCard = function() {
 				
-				$http.get("https://" + microservicesUrl + "/card/cards").success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/card/cards").success(function(data) {
 					
 					if (data != null && data.cards != null && data.cards.length > 0) {
 						
-						$http.get("https://" + microservicesUrl + "/expenses/expenses?cardId=" + data.cards[0].id + "&cardMonth=" + moment().format('MM')).success(function(data) {
+						$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?cardId=" + data.cards[0].id + "&cardMonth=" + moment().format('MM')).success(function(data) {
 							
 							if (data.expenses != null) {
 								var i;

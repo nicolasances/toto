@@ -79,7 +79,7 @@ travelModule.controller("travelController", [ '$scope', '$http', '$timeout', '$r
 	 */
 	$scope.getTravelLocations = function() {
 
-		$http.get("https://" + microservicesUrl + "/travel/locations").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/locations").success(function(data, status, header, config) {
 
 			for (i=0;i<data.locations.length;i++) {
 				lng = data.locations[i].gpsCoordinatesE;
@@ -96,7 +96,7 @@ travelModule.controller("travelController", [ '$scope', '$http', '$timeout', '$r
 	 */
 	$scope.getCategories = function() {
 
-		$http.get("https://" + microservicesUrl + "/travel/categories?retrievePhotoCount=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/categories?retrievePhotoCount=true").success(function(data, status, header, config) {
 
 			$scope.categories = data.categories;
 
@@ -160,7 +160,7 @@ travelModule.controller("travelCategoryController", [ '$scope', '$http', '$timeo
 
 		if ($scope.category.title == null) return;
 
-		$http.post("https://" + microservicesUrl + "/travel/categories", $scope.category).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/travel/categories", $scope.category).success(function(data, status, header, config) {
 
 			$scope.go('/travel');
 
@@ -202,7 +202,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 	
 	$scope.loadSettings = function(callback) {
 		
-		$http.get("https://" + microservicesUrl + "/travel/settings").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/settings").success(function(data, status, header, config) {
 
 			$scope.galleryMaxThumbnailSize = data.galleryMaxThumbnailSize;
 			$scope.galleryScaleIncrementStep = data.galleryScaleIncrementStep;
@@ -217,7 +217,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 	 */
 	$scope.getCategory = function() {
 
-		$http.get("https://" + microservicesUrl + "/travel/categories").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/categories").success(function(data, status, header, config) {
 
 			if (data.categories.length > 0) {
 				for (i = 0; i < data.categories.length; i++) {
@@ -254,7 +254,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 				
 				var data = {gpsCoordinatesN : north, gpsCoordinatesE : east};
 				
-				$http.put("https://" + microservicesUrl + "/travel/photos/" + photo.id + "/metadata", data).success(function(data, status, header, config) {
+				$http.put(microservicesProtocol + "://" + microservicesUrl + "/travel/photos/" + photo.id + "/metadata", data).success(function(data, status, header, config) {
 
 					photo.gpsCoordinatesN = north;
 					photo.gpsCoordinatesE = east;
@@ -274,7 +274,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 			title : $scope.category.title
 		};
 
-		$http.put("https://" + microservicesUrl + "/travel/categories/" + $scope.category.id, data).success(function(data, status, header, config) {
+		$http.put(microservicesProtocol + "://" + microservicesUrl + "/travel/categories/" + $scope.category.id, data).success(function(data, status, header, config) {
 
 			$scope.showUpdateCategoryTitle = false;
 
@@ -291,7 +291,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 			'private' : !$scope.category.private
 		};
 
-		$http.put("https://" + microservicesUrl + "/travel/categories/" + $scope.category.id, data).success(function(data, status, header, config) {
+		$http.put(microservicesProtocol + "://" + microservicesUrl + "/travel/categories/" + $scope.category.id, data).success(function(data, status, header, config) {
 
 			$scope.category.private = !$scope.category.private;
 
@@ -308,7 +308,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
   
 		$mdDialog.show(confirm).then(function() {
 			
-			$http.delete("https://" + microservicesUrl + "/travel/categories/" + $scope.category.id).success(function(data, status, header, config) {
+			$http.delete(microservicesProtocol + "://" + microservicesUrl + "/travel/categories/" + $scope.category.id).success(function(data, status, header, config) {
 				
 				$scope.go("/travel");
 				
@@ -319,7 +319,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 
 	$scope.getPhotos = function() {
 
-		$http.get("https://" + microservicesUrl + "/travel/categories/" + $scope.category.id + "/photos?columns=4").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/categories/" + $scope.category.id + "/photos?columns=4").success(function(data, status, header, config) {
 
 			$scope.photos = data.photos;
 			
@@ -381,7 +381,7 @@ travelModule.controller("travelCategoryDetailController", [ '$scope', '$http', '
 	 */
 	$scope.postCategoryThumbnail = function(inputEl) {
 
-		var uploadUrl = "https://" + microservicesUrl + "/travel/categories/" + $scope.category.id + "/thumbnail";
+		var uploadUrl = microservicesProtocol + "://" + microservicesUrl + "/travel/categories/" + $scope.category.id + "/thumbnail";
 
 		var scale = 0.3;
 		if (inputEl.files[0].size < 1200000) scale = null;
@@ -428,7 +428,7 @@ travelModule.controller("travelNewPhotoController", [ '$scope', '$http', '$timeo
 	 */
 	$scope.getCategories = function() {
 
-		$http.get("https://" + microservicesUrl + "/travel/categories").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/categories").success(function(data, status, header, config) {
 
 			$scope.categories = data.categories;
 
@@ -447,7 +447,7 @@ travelModule.controller("travelNewPhotoController", [ '$scope', '$http', '$timeo
 	 */
 	$scope.postPhoto = function() {
 
-		var uploadUrl = "https://" + microservicesUrl + "/travel/photos";
+		var uploadUrl = microservicesProtocol + "://" + microservicesUrl + "/travel/photos";
 
 		$scope.uploading = true;
 		
@@ -466,7 +466,7 @@ travelModule.controller("travelNewPhotoController", [ '$scope', '$http', '$timeo
 			}
 
 			// Send photo metadata
-			$http.post("https://" + microservicesUrl + "/travel/photos/" + data.photoId + "/metadata", metadata).success(function(data, status, header, config) {
+			$http.post(microservicesProtocol + "://" + microservicesUrl + "/travel/photos/" + data.photoId + "/metadata", metadata).success(function(data, status, header, config) {
 
 				$scope.uploading = false;
 
@@ -535,7 +535,7 @@ travelModule.controller("travelSettingsController", [ '$scope', '$http', '$timeo
 		data.galleryMaxThumbnailSize = $scope.galleryMaxThumbnailSize;
 		data.galleryScaleIncrementStep = $scope.galleryScaleIncrementStep;
 		
-		$http.post("https://" + microservicesUrl + "/travel/settings", data).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/travel/settings", data).success(function(data, status, header, config) {
 
 			$scope.go('/travel');
 
@@ -545,7 +545,7 @@ travelModule.controller("travelSettingsController", [ '$scope', '$http', '$timeo
 	
 	$scope.loadSettings = function() {
 		
-		$http.get("https://" + microservicesUrl + "/travel/settings").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/travel/settings").success(function(data, status, header, config) {
 
 			$scope.galleryMaxThumbnailSize = data.galleryMaxThumbnailSize;
 			$scope.galleryScaleIncrementStep = data.galleryScaleIncrementStep;

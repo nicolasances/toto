@@ -24,36 +24,44 @@ var initGoogleSignIn = function(callback, go, http) {
 					
 					console.log("Loading apps authorization");
 					
-					http.get("https://" + microservicesUrl + "/auth/apps").success(function(data) {
-						
-						appAuthorizationLoaded = true;
-						
-						// No apps = authorized on everything
-						if (data.apps.length == 0) {
-							for (var i = 0; i < totoAppList.length; i++) {
-								totoAppList[i].authorized = true;
-							}
-							
-							callback();
-							
-							return;
-						}
-						
-						for (var j = 0; j < data.apps.length; j++) {
-							
-							for (var i = 0; i < totoAppList.length; i++) {
-								
-								if (totoAppList[i].id == data.apps[j].code) {
-									
-									totoAppList[i].authorized = true;
-									
-									break;
-								}
-							}
-						}
-
-						callback();
-					});
+					appAuthorizationLoaded = true;
+					
+					for (var i = 0; i < totoAppList.length; i++) {
+						totoAppList[i].authorized = true;
+					}
+					
+					callback();
+					
+//					http.get(microservicesProtocol + "://" + microservicesUrl + "/auth/apps").success(function(data) {
+//						
+//						appAuthorizationLoaded = true;
+//						
+//						// No apps = authorized on everything
+//						if (data.apps.length == 0) {
+//							for (var i = 0; i < totoAppList.length; i++) {
+//								totoAppList[i].authorized = true;
+//							}
+//							
+//							callback();
+//							
+//							return;
+//						}
+//						
+//						for (var j = 0; j < data.apps.length; j++) {
+//							
+//							for (var i = 0; i < totoAppList.length; i++) {
+//								
+//								if (totoAppList[i].id == data.apps[j].code) {
+//									
+//									totoAppList[i].authorized = true;
+//									
+//									break;
+//								}
+//							}
+//						}
+//
+//						callback();
+//					});
 				}
 				else callback();
 			}

@@ -20,7 +20,7 @@ weekendServiceModule.factory('WeekendService', [ '$http', '$rootScope', '$locati
 
 			callback(we);
 			
-//			$http.get("https://" + microservicesUrl + "/weekend/weekends/" + weekendId).success(function(data, status, header, config) {
+//			$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + weekendId).success(function(data, status, header, config) {
 //				callback(data);
 //			});
 			

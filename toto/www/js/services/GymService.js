@@ -11,7 +11,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getMuscleGroups : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/archive");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/archive");
 			
 		},
 
@@ -24,7 +24,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getRestDay : function(date) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/restDays?date=" + date);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/restDays?date=" + date);
 		},
 		
 		/**
@@ -38,9 +38,9 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getScoresForMuscle : function(muscle, maxResults) {
 			
-			if (maxResults != null) return $http.get("https://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores?maxResults=" + maxResults);
+			if (maxResults != null) return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores?maxResults=" + maxResults);
 			
-			return $http.get("https://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores");
 			
 		},
 		
@@ -49,7 +49,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getScoresForMuscleForWeek : function(muscle, weekOfYear, year) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores?week=" + weekOfYear + "&year=" + year);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/stats/muscles/" + muscle + "/scores?week=" + weekOfYear + "&year=" + year);
 			
 		},
 		
@@ -339,7 +339,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 				exercises : exercise.exercises
 			};
 
-			return $http.put("https://" + microservicesUrl + "/gym/plans/" + planId + "/workouts/" + workoutId + "/exercises/" + exercise.id, data);
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + planId + "/workouts/" + workoutId + "/exercises/" + exercise.id, data);
 		},
 
 		/**
@@ -364,7 +364,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 				completed: exercise.completed
 			};
 
-			return $http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exercise.id, data);
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exercise.id, data);
 		},
 
 		/**
@@ -381,7 +381,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 				mood : mood
 			};
 
-			return $http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exerciseId, data);
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exerciseId, data);
 		},
 
 		/**
@@ -389,7 +389,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		changeSessionExerciseCompletion : function(sessionId, exerciseId, completed) {
 			
-			return $http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exerciseId, {completed: completed});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises/" + exerciseId, {completed: completed});
 		},
 
 		/**
@@ -420,7 +420,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 				$scope.selectPlan = function(plan) {
 					$scope.selectedPlan = plan;
 
-					$http.get("https://" + microservicesUrl + "/gym/plans/" + plan.id + "/workouts").success(function(data, status, header, config) {
+					$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + plan.id + "/workouts").success(function(data, status, header, config) {
 						$scope.workouts = data.workouts;
 					});
 				}
@@ -435,7 +435,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 					$scope.answer(answer);
 				}
 
-				$http.get("https://" + microservicesUrl + "/gym/plans").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans").success(function(data, status, header, config) {
 					$scope.plans = data.plans;
 				});
 
@@ -518,7 +518,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 				date : date
 			};
 
-			return $http.post("https://" + microservicesUrl + "/gym/sessions", data);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions", data);
 		}, 
 		
 		/**
@@ -531,7 +531,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		completeSession : function(sessionId) {
 			
-			return $http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId, {completed: true});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId, {completed: true});
 		},
 		
 		/**
@@ -576,7 +576,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		setSessionPainLevel : function(sessionId, painLevel) {
 			
-			$http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId, {postWorkoutPain: painLevel.id});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId, {postWorkoutPain: painLevel.id});
 		},
 		
 		/**
@@ -621,7 +621,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		setSessionFatigueLevel : function(sessionId, fatigueLevel) {
 			
-			$http.put("https://" + microservicesUrl + "/gym/sessions/" + sessionId, {postWorkoutFatigue: fatigueLevel.id});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId, {postWorkoutFatigue: fatigueLevel.id});
 		},
 		
 		/**
@@ -631,7 +631,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getMuscleWeekGoals : function(painLevel) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/stats/muscles/goals?painLevel=" + painLevel);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/stats/muscles/goals?painLevel=" + painLevel);
 		},
 		
 		/**
@@ -645,7 +645,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getMuscleWeekGoal : function(muscleId, painLevel) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/stats/muscles/" + muscleId + "/goal?painLevel=" + painLevel);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/stats/muscles/" + muscleId + "/goal?painLevel=" + painLevel);
 		},
 		
 		/**
@@ -653,7 +653,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		calculateEfficacy : function(painLevel, fatigueLevel) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/efficacy?painLevel=" + painLevel + "&fatigueLevel=" + fatigueLevel);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/efficacy?painLevel=" + painLevel + "&fatigueLevel=" + fatigueLevel);
 		}, 
 		
 		/**
@@ -661,7 +661,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getSettings : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/settings");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/settings");
 		}, 
 		
 		/**
@@ -673,7 +673,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		changeScoreAlgorithm : function(algorithmId) {
 			
-			return $http.put("https://" + microservicesUrl + "/gym/settings/", {scoringAlgorithmId : algorithmId});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/settings/", {scoringAlgorithmId : algorithmId});
 		}, 
 		
 		/**
@@ -685,9 +685,9 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getSessions : function(date) {
 			
-			if (date != null) return $http.get("https://" + microservicesUrl + "/gym/sessions?date=" + date);
+			if (date != null) return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions?date=" + date);
 			
-			return $http.get("https://" + microservicesUrl + "/gym/sessions");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions");
 			
 		}, 
 		
@@ -700,7 +700,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getSession : function(sessionId) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/sessions/" + sessionId);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId);
 		}, 
 		
 		/**
@@ -716,7 +716,7 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		 */
 		getWeekSummary : function(week, year, efficacyGoal) {
 			
-			return $http.get("https://" + microservicesUrl + "/gym/weeks?week=" + week + "&year=" + year + "&efficacyGoal=" + efficacyGoal);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/weeks?week=" + week + "&year=" + year + "&efficacyGoal=" + efficacyGoal);
 		}
 	}
 

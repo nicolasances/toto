@@ -81,7 +81,7 @@ noteServiceModule.factory('NoteService', [ '$http', '$rootScope', '$location', '
 				content: note
 			};
 			
-			return $http.post("https://" + microservicesUrl + "/notes/notes", body);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/notes/notes", body);
 		}, 
 		
 		/**
@@ -89,7 +89,7 @@ noteServiceModule.factory('NoteService', [ '$http', '$rootScope', '$location', '
 		 */
 		putNote : function(noteId, noteContent) {
 			
-			return $http.put("https://" + microservicesUrl + "/notes/notes/" + noteId, {content: noteContent});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/notes/notes/" + noteId, {content: noteContent});
 		},
 		
 		/**
@@ -97,7 +97,7 @@ noteServiceModule.factory('NoteService', [ '$http', '$rootScope', '$location', '
 		 */
 		getNote : function(id) {
 			
-			return $http.get("https://" + microservicesUrl + "/notes/notes/" + id);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/notes/notes/" + id);
 		}
 		
 	}

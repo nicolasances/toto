@@ -70,7 +70,7 @@ mogoalsModule.controller("mogoalsDashboardController", [ '$scope', '$http', '$ti
 	    		}
 	    	}
 	    	
-//	    	$http.post("https://" + microservicesUrl + "/mogoals/categories", data).success(function(data, status, header, config) {
+//	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/mogoals/categories", data).success(function(data, status, header, config) {
 //	    		$scope.expense.id = data.id;
 //			});
 	    	
@@ -97,7 +97,7 @@ mogoalsModule.controller("mogoalsDashboardController", [ '$scope', '$http', '$ti
 
 	    	$scope.mainGoal.amount = answer;
 	    	
-//	    	$http.post("https://" + microservicesUrl + "/mogoals/main", $scope.mainGoal).success(function(data, status, header, config) {
+//	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/mogoals/main", $scope.mainGoal).success(function(data, status, header, config) {
 //	    		$scope.expense.id = data.id;
 //			});
 	    	
@@ -120,7 +120,7 @@ mogoalsModule.controller("mogoalsDashboardController", [ '$scope', '$http', '$ti
 	 */
 	$scope.getCategories = function() {
 	
-		$http.get("https://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
 			$scope.categories = data.categories;
 		});
 	}

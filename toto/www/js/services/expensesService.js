@@ -36,7 +36,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getExpenses : function(filter) {
 			
-			if (filter == null) return $http.get("https://" + microservicesUrl + "/expenses/expenses?yearMonth=" + this.getCurrentMonth());
+			if (filter == null) return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?yearMonth=" + this.getCurrentMonth());
 			
 			var params = '';
 
@@ -46,7 +46,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			if (filter.subscriptionId != null) {if (params != '') params += '&'; params += 'subscriptionId=' + filter.subscriptionId}
 			
 			
-			return $http.get("https://" + microservicesUrl + "/expenses/expenses?" + params);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?" + params);
 
 		},
 		
@@ -62,7 +62,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getMonthTotal : function(currency, yearMonth) {
 			
-			return $http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=" + currency);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=" + currency);
 		},
 	
 		/**
@@ -72,7 +72,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getCategories : function() {
 		
-			return $http.get("https://" + microservicesUrl + "/expenses/categories");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/categories");
 		},
 		
 		/**
@@ -86,7 +86,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getTopSpendingCategories : function(maxResults, currency) {
 			
-			return $http.get("https://" + microservicesUrl + "/expenses/reports/averageByCategory?currency=" + currency + "&maxResults=" + maxResults);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/reports/averageByCategory?currency=" + currency + "&maxResults=" + maxResults);
 		},
 		
 		/**
@@ -94,7 +94,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		setExpenseCategory : function(expenseId, categoryCode) {
 			
-			return $http.put("https://" + microservicesUrl + "/expenses/expenses/" + expenseId, {category: categoryCode});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + expenseId, {category: categoryCode});
 		},
 		
 		/**
@@ -102,7 +102,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		setExpenseConsolidated : function(expenseId) {
 			
-			return $http.put("https://" + microservicesUrl + "/expenses/expenses/" + expenseId, {consolidated: true});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + expenseId, {consolidated: true});
 		},
 		
 		/**
@@ -110,7 +110,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		deleteExpense : function(expenseId) {
 			
-			return $http.delete("https://" + microservicesUrl + "/expenses/expenses/" + expenseId);
+			return $http.delete(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + expenseId);
 		},
 
 		/**
@@ -182,7 +182,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		    	
 		    	creationCallback(expense)
 		    	
-		    	$http.post("https://" + microservicesUrl + "/expenses/expenses", data).success(function(data, status, header, config) {
+		    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses", data).success(function(data, status, header, config) {
 		    		
 		    		insertionCallback(data.id);
 		    		
@@ -207,7 +207,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			var categories;
 			getCategories = function(callback) {
 			
-				$http.get("https://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
 					categories = data.categories;
 					callback();
 				});
@@ -265,7 +265,94 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 					
 					insertionCallback(expense);
 					
-					var promise = $http.post("https://" + microservicesUrl + "/expenses/expenses", data);
+					var promise = $http.post(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses", data);
+					creationCallback(promise);
+					
+					
+				}, function() {});
+			});
+			
+		},
+		
+		/**
+		 * Adds a credit card payment.
+		 * It takes as input: 
+		 *  - insertionCallback: a callback function(expense) that will receive the created expense (without ID)
+		 *  - creationCallback: a function(promise) that will receive the promise of the http call to create the expense (returning data.id)
+		 *  - creditCardId: the identifier of the credit card on which this payment is debted
+		 */
+		addCreditCardExpense : function(ev, creditCardId, insertionCallback, creationCallback) {
+
+			var categories;
+			getCategories = function(callback) {
+			
+				$http.get( microservicesProtocol + "://" + microservicesUrl + "/expenses/categories").success(function(data, status, header, config) {
+					categories = data.categories;
+					callback();
+				});
+			}
+			
+			function DialogController($scope, $mdDialog) {
+				
+				$scope.categories = categories;
+				$scope.steps = [1, 2];
+				$scope.currentStep = 1;
+				$scope.expense = new Object();
+				
+				$scope.hide = function() {$mdDialog.hide;};
+				$scope.cancel = function() {$mdDialog.cancel();};
+				$scope.answer = function(expense) {$mdDialog.hide(expense);};
+				$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}
+				$scope.setConsolidated = function(consolidated) {
+					$scope.expense.consolidated = consolidated;
+					$scope.nextStep();
+				} 
+				$scope.selectCategory = function(category) {
+					$scope.clearCategoriesSelection();
+					category.selected = true;
+					$scope.expense.category = category;
+					
+					$scope.answer($scope.expense);
+				}
+				$scope.nextStep = function () {$scope.currentStep++;}
+				
+				$scope.clearCategoriesSelection();
+				
+			}
+			
+			getCategories(function() {
+				
+				var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
+				var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgAddCreditCardExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
+				
+				$mdDialog.show(dialog).then(function(answer) {
+					
+					var expense = new Object();
+					expense.amount = answer.amount;
+					expense.date = answer.date;
+					expense.category = answer.category;
+					expense.description = answer.description;
+					expense.yearMonth = moment('01/' + moment(answer.date).format('MM/YYYY'), 'DD/MM/YYYY').add(2, 'months').format('YYYYMM');
+					expense.consolidated = false;
+					expense.cardId = creditCardId;
+					expense.cardMonth = moment(answer.date).format('MM');
+					expense.currency = answer.currency;
+					
+					var data = {
+							amount : answer.amount,
+							date : moment(answer.date).format('YYYYMMDD'), 
+							category : answer.category.code,
+							description : answer.description,
+							yearMonth: expense.yearMonth,
+							consolidated: false,
+							cardId: creditCardId,
+							cardMonth: moment(answer.date).format('MM'),
+							currency: answer.currency
+					};
+					
+					insertionCallback(expense);
+					
+					var promise = $http.post(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses", data);
 					creationCallback(promise);
 					
 					

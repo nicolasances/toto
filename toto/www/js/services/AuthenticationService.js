@@ -12,7 +12,7 @@ authServiceModule.factory('TotoAuthenticationService', [ '$http', '$rootScope', 
 				password : user.password
 			};
 			
-			$http.post("https://" + microservicesUrl + "/login/login", data).success(function (data, status, header, config) {
+			$http.post(microservicesProtocol + "://" + microservicesUrl + "/login/login", data).success(function (data, status, header, config) {
 				
 				$rootScope.user = user;
 				$rootScope.token = data.token;

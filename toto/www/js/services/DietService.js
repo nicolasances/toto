@@ -75,7 +75,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		 */
 		postWaterConsumption : function(amount) {
 			
-			return $http.post("https://" + microservicesUrl + "/diet/water", {amount: amount});
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/diet/water", {amount: amount});
 		}, 
 		
 		/**
@@ -83,7 +83,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		 */
 		getWaterConsumption : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/diet/water?date=" + moment().format('YYYYMMDD'));
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/water?date=" + moment().format('YYYYMMDD'));
 		},
 		
 		/**
@@ -91,7 +91,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		 */
 		getWaterConsumptionOfWeek : function(week, year) {
 			
-			return $http.get("https://" + microservicesUrl + "/diet/water?week=" + week + "&year=" + year);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/water?week=" + week + "&year=" + year);
 		},
 		
 		/**
@@ -101,7 +101,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		 */
 		putWaterConsumptionGoal : function(amountInMl) {
 			
-			return $http.put("https://" + microservicesUrl + "/diet/water/goal", {amount: amountInMl});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/diet/water/goal", {amount: amountInMl});
 		}, 
 		
 		/**
@@ -111,7 +111,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		 */
 		getWaterConsumptionGoal : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/diet/water/goal");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/water/goal");
 		}
 		
 	}

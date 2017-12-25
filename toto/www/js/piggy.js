@@ -9,7 +9,7 @@ piggyModule.controller("piggyController", [ '$scope', '$http', '$timeout', '$mdD
 	
 	$scope.getDeposits = function() {
 
-		$http.get("https://" + microservicesUrl + "/piggy/deposits").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/piggy/deposits").success(function(data, status, header, config) {
 
 			$scope.deposits = data.deposits;
 			
@@ -94,7 +94,7 @@ piggyModule.controller("piggyController", [ '$scope', '$http', '$timeout', '$mdD
 	    	
 	    	$scope.deposits.push($scope.deposit);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/piggy/deposits", $scope.deposit).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/piggy/deposits", $scope.deposit).success(function(data, status, header, config) {
 	    		$scope.deposit.id = data.id;
 	    		$scope.deposit.depositAmount = data.depositAmount;
 	    		$scope.deposit.deposits = new Array();
@@ -113,7 +113,7 @@ piggyModule.controller("piggyController", [ '$scope', '$http', '$timeout', '$mdD
 	    
 	    $mdDialog.show(dialog).then(function(answer) {
 	    	
-	    	$http.put("https://" + microservicesUrl + "/piggy/deposits/" + deposit.id, {depositDate: deposit.nextDeposit, linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/piggy/deposits/" + deposit.id, {depositDate: deposit.nextDeposit, linkedPaymentId: answer.id});
 	    	
 	    	for (i=0;i<$scope.deposits.length; i++) {
 	    		if ($scope.deposits[i].id == deposit.id) {

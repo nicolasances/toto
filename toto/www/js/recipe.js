@@ -30,7 +30,7 @@ recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', f
 	 */
 	$scope.getRecipes = function() {
 		
-		$http.get("https://" + microservicesUrl + "/recipe/recipes").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes").success(function(data, status, header, config) {
 			
 			$scope.recipes = data.recipes;
 			
@@ -48,7 +48,7 @@ recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', f
 	
 	$scope.buildIngredients = function(recipe) {
 		
-		$http.get("https://" + microservicesUrl + "/recipe/recipes/" + recipe.id + "/ingredients").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + recipe.id + "/ingredients").success(function(data, status, header, config) {
 
 			if (data.ingredients == null) return;
 
@@ -80,7 +80,7 @@ recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', f
 			
 			var data = {name: result};
 
-			$http.post("https://" + microservicesUrl + "/recipe/recipes", data).success(function(data, status, header, config) {
+			$http.post(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes", data).success(function(data, status, header, config) {
 				
 				$scope.go('/recipe/' + data.id);
 			});
@@ -118,7 +118,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 	 */
 	$scope.getRecipe = function() {
 		
-		$http.get("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id).success(function(data, status, header, config) {
 			
 			$scope.recipe = data;
 		});
@@ -130,7 +130,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 	 */
 	$scope.getIngredients = function() {
 		
-		$http.get("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients").success(function(data, status, header, config) {
 			
 			$scope.ingredients = data.ingredients;
 		});
@@ -142,7 +142,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 	 */
 	$scope.getSteps = function() {
 		
-		$http.get("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps").success(function(data, status, header, config) {
 			
 			$scope.steps = data.steps;
 		});
@@ -154,7 +154,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 	 */
 	$scope.postRecipeThumbnail = function(inputEl) {
 		
-		var uploadUrl = "https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/thumbnail";
+		var uploadUrl = microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/thumbnail";
 
 		thumbnailService.sendThumbnail(inputEl.files[0], uploadUrl, null, function() {
 			$scope.getRecipe();
@@ -168,7 +168,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 		
 		var data = {name: $scope.recipe.name};
 		
-		$http.put("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id, data).success(function(data, status, header, config) {
+		$http.put(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id, data).success(function(data, status, header, config) {
 			$scope.showUpdateTitle = false;
 		});
 	}
@@ -182,7 +182,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 			
 			var data = {name: result};
 			
-			$http.put("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id, data).success(function(data, status, header, config) {});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id, data).success(function(data, status, header, config) {});
 			
 			ingredient.name = result;
 		});
@@ -197,7 +197,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 
 			var data = {amount: result};
 			
-			$http.put("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id, data).success(function(data, status, header, config) {});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id, data).success(function(data, status, header, config) {});
 			
 			ingredient.amount = result;
 		});
@@ -214,7 +214,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 		
 		var data = ingredient;
 		
-		$http.post("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients", data).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients", data).success(function(data, status, header, config) {
 		
 			ingredient.id = data.id;
 			
@@ -236,7 +236,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 		
 		$scope.ingredients.splice(i, 1);
 		
-		$http.delete("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id).success(function(data, status, header, config) {});
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/ingredients/" + ingredient.id).success(function(data, status, header, config) {});
 	}
 	
 	/**
@@ -248,7 +248,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 		
 		$scope.steps.push(step);
 		
-		$http.post("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps", step).success(function(data, status, header, config) {
+		$http.post(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps", step).success(function(data, status, header, config) {
 		
 			step.id = data.id;
 			
@@ -267,7 +267,7 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 			
 			step.description = result;
 			
-			$http.put("https://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps/" + step.id, update).success(function(data, status, header, config) {});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id + "/steps/" + step.id, update).success(function(data, status, header, config) {});
 			
 		});
 

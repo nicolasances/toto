@@ -173,7 +173,7 @@ gymModule.controller("gymController", [ '$rootScope', '$scope', '$http', '$timeo
 			day = day.add(1, 'days');
 		}
 		
-		$http.get("https://" + microservicesUrl + "/gym/sessions?currentWeek=true").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions?currentWeek=true").success(function(data) {
 			
 			var i;
 			for (i = 0; i < $scope.currentWeek.length; i++) {
@@ -250,7 +250,7 @@ gymModule.controller("gymArchiveController", [ '$rootScope', '$scope', '$http', 
 	 */
 	$scope.getMuscleGroups = function() {
 		
-		$http.get("https://" + microservicesUrl + "/gym/archive").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/archive").success(function(data) {
 			$scope.muscleGroups = data.muscleGroups;
 		});
 	}
@@ -276,7 +276,7 @@ gymModule.controller("gymArchiveMuscleGroupController", [ '$rootScope', '$scope'
 	 */
 	$scope.getExcercicesOfMuscleGroup = function(muscleGroupId) {
 		
-		$http.get("https://" + microservicesUrl + "/gym/archive/" + muscleGroupId + "/exercices").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/archive/" + muscleGroupId + "/exercices").success(function(data) {
 			$scope.exercices = data.exercices;
 		});
 	}
@@ -320,7 +320,7 @@ gymModule.controller("gymArchiveMuscleGroupController", [ '$rootScope', '$scope'
 	    
 	    $mdDialog.show(dialog).then(function(answer) {
 	    	
-	    	$http.post("https://" + microservicesUrl + "/gym/archive/" + $routeParams.id + "/exercices", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/gym/archive/" + $routeParams.id + "/exercices", answer).success(function(data, status, header, config) {
 	    		$scope.exercice.id = data.id;
 		    	$scope.exercice.tool = data.tool != null ? data.tool : 'dumbbell';
 		    	$scope.exercice.difficultyFactor = data.difficultyFactor;
@@ -370,7 +370,7 @@ gymModule.controller("gymArchiveMuscleGroupController", [ '$rootScope', '$scope'
 	    
 	    $mdDialog.show(dialog).then(function(answer) {
 	    	
-	    	$http.put("https://" + microservicesUrl + "/gym/archive/" + $routeParams.id + "/exercices/" + exercice.id, answer).success(function(data, status, header, config) {
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/gym/archive/" + $routeParams.id + "/exercices/" + exercice.id, answer).success(function(data, status, header, config) {
 		    	$scope.exercice.difficultyFactor = data.difficultyFactor;
 			});
 	    	
@@ -403,7 +403,7 @@ gymModule.controller("gymPlansController", [ '$rootScope', '$scope', '$http', '$
 	 */
 	$scope.loadWorkoutPlans = function() {
 
-		$http.get("https://" + microservicesUrl + "/gym/plans").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans").success(function(data, status, header, config) {
 			$scope.plans = data.plans;
 		});
 		
@@ -441,7 +441,7 @@ gymModule.controller("gymPlansController", [ '$rootScope', '$scope', '$http', '$
 
 	    	$scope.plans.push($scope.plan);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/gym/plans", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/gym/plans", answer).success(function(data, status, header, config) {
 	    		$scope.plan.id = data.id;
 	    		$scope.plan.end = data.end;
 			});
@@ -474,7 +474,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 	 */
 	$scope.loadPlan = function(planId) {
 		
-		$http.get("https://" + microservicesUrl + "/gym/plans/" + planId).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + planId).success(function(data, status, header, config) {
 			$scope.plan = data;
 			
 			$scope.loadWorkouts();
@@ -487,7 +487,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 	 */
 	$scope.loadWorkouts = function() {
 		
-		$http.get("https://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts").success(function(data, status, header, config) {
 			$scope.workouts = data.workouts;
 			
 			var i;
@@ -502,7 +502,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 	 */
 	$scope.loadWorkoutExercises = function(wid) {
 		
-		$http.get("https://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + wid + "/exercises").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + wid + "/exercises").success(function(data, status, header, config) {
 			
 			if ($scope.workouts == null) return;
 
@@ -549,7 +549,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 
 	    	$scope.workouts.push($scope.workout);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts", answer).success(function(data, status, header, config) {
 	    		$scope.workout.id = data.id;
 	    		$scope.workout.score = data.score;
 	    		$scope.workout.exercisesCount = data.exercisesCount;
@@ -579,7 +579,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 			$scope.selections.push({value: 'striping', svgPath: 'images/gym/type/striping.svg'});
 			$scope.selections.push({value: 'hourglass', svgPath: 'images/gym/type/hourglass.svg'});
 			
-			$http.get("https://" + microservicesUrl + "/gym/archive").success(function(data) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/archive").success(function(data) {
 				$scope.muscleGroups = data.muscleGroups;
 			});
 			
@@ -588,7 +588,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 			 */
 			$scope.getExcercicesOfMuscleGroup = function(muscleGroupId) {
 				
-				$http.get("https://" + microservicesUrl + "/gym/archive/" + muscleGroupId + "/exercices").success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/archive/" + muscleGroupId + "/exercices").success(function(data) {
 					$scope.exercices = data.exercices;
 				});
 			}
@@ -638,7 +638,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 	    	
 	    	$scope.exercise = answer;
 	    	
-	    	$http.post("https://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + $scope.workout.id + "/exercises", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + $scope.workout.id + "/exercises", answer).success(function(data, status, header, config) {
 	    		$scope.exercise.id = data.id;
 	    		$scope.exercise.score = data.score;
 	    		
@@ -714,7 +714,7 @@ gymModule.controller("gymPlanController", [ '$rootScope', '$scope', '$http', '$t
 		
 		$scope.workout.exerciseCount--;
 		
-		$http.delete("https://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + $scope.workout.id + "/exercises/" + exercise.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.plan.id + "/workouts/" + $scope.workout.id + "/exercises/" + exercise.id);
 	}
 	
 	$scope.initContext();
@@ -753,7 +753,7 @@ gymModule.controller("gymSessionsController", [ '$rootScope', '$scope', '$http',
 	 */
 	$scope.loadSessions = function(yearMonth) {
 		
-		$http.get("https://" + microservicesUrl + "/gym/sessions?yearMonth=" + yearMonth).success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions?yearMonth=" + yearMonth).success(function(data) {
 			
 			$scope.sessions = data.sessions;
 			
@@ -863,7 +863,7 @@ gymModule.controller("gymSessionController", [ '$rootScope', '$scope', '$http', 
 	 */
 	$scope.loadSession = function() {
 		
-		$http.get("https://" + microservicesUrl + "/gym/sessions/" + $routeParams.id).success(function (data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + $routeParams.id).success(function (data) {
 			$scope.session = data;
 			$scope.session.date = new Date(moment(data.date, 'YYYYMMDD'));
 			
@@ -889,7 +889,7 @@ gymModule.controller("gymSessionController", [ '$rootScope', '$scope', '$http', 
 		
 		if ($scope.session == null || $scope.session.workoutId == null) return;
 		
-		$http.get("https://" + microservicesUrl + "/gym/plans/" + $scope.session.planId + "/workouts/" + $scope.session.workoutId).success(function (data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + $scope.session.planId + "/workouts/" + $scope.session.workoutId).success(function (data) {
 			$scope.workout = data;
 		});
 	}
@@ -899,7 +899,7 @@ gymModule.controller("gymSessionController", [ '$rootScope', '$scope', '$http', 
 	 */
 	$scope.loadExercises = function() {
 		
-		$http.get("https://" + microservicesUrl + "/gym/sessions/" + $routeParams.id + "/exercises").success(function (data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + $routeParams.id + "/exercises").success(function (data) {
 		
 			$scope.exercises = data.exercises;
 

@@ -81,7 +81,7 @@ sangiorgioModule.directive('sangiorgioUnpaidBills', function($http) {
 		
 			scope.init = function() {
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/taxes?unpaied=true").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/taxes?unpaied=true").success(function(data, status, header, config) {
 
 					scope.taxesUnpaiedAmount = 0;
 					
@@ -95,7 +95,7 @@ sangiorgioModule.directive('sangiorgioUnpaidBills', function($http) {
 					
 				});
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/ebills?unpaied=true").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/ebills?unpaied=true").success(function(data, status, header, config) {
 					
 					scope.ebillsUnpaiedAmount = 0;
 					if (data.bills != null) {
@@ -107,7 +107,7 @@ sangiorgioModule.directive('sangiorgioUnpaidBills', function($http) {
 					}
 				});
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/gbills?unpaied=true").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/gbills?unpaied=true").success(function(data, status, header, config) {
 					
 					scope.gbillsUnpaiedAmount = 0;
 					if (data.bills != null) {
@@ -160,7 +160,7 @@ sangiorgioModule.directive('sangiorgioBuildingTaxes', function($http, $mdDialog)
 				
 				var filter = scope.onlyUnpaid ? '?unpaied=true' : '';
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/taxes" + filter).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/taxes" + filter).success(function(data, status, header, config) {
 					scope.taxes = data.taxes;
 					
 					if (scope.taxes != null && scope.taxes.length > 0) {
@@ -196,7 +196,7 @@ sangiorgioModule.directive('sangiorgioBuildingTaxes', function($http, $mdDialog)
 			    	
 			    	scope.taxes.push(scope.tax);
 			    	
-			    	$http.post("https://" + microservicesUrl + "/sangiorgio/taxes", scope.tax).success(function(data, status, header, config) {
+			    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/taxes", scope.tax).success(function(data, status, header, config) {
 			    		scope.tax.id = data.id;
 					});
 			    	
@@ -214,7 +214,7 @@ sangiorgioModule.directive('sangiorgioBuildingTaxes', function($http, $mdDialog)
 
 			    	scope.fillDetails(tax);
 			    	
-			    	$http.put("https://" + microservicesUrl + "/sangiorgio/taxes/" + tax.id, {linkedPaymentId: answer.id});
+			    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/taxes/" + tax.id, {linkedPaymentId: answer.id});
 			    	
 			    }, function() {});
 			}
@@ -246,7 +246,7 @@ sangiorgioModule.directive('sangiorgioBuildingTaxes', function($http, $mdDialog)
 			 */
 			scope.fillDetails = function(tax) {
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + tax.linkedPaymentId).success(function (data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + tax.linkedPaymentId).success(function (data, status, header, config) {
 					
 					tax.paymentDate = data.date;
 					tax.paymentDescription = data.description;
@@ -294,7 +294,7 @@ sangiorgioModule.directive('sangiorgioEBills', function($http, $mdDialog) {
 				
 				var filter = scope.onlyUnpaid ? '?unpaied=true' : '';
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/ebills" + filter).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/ebills" + filter).success(function(data, status, header, config) {
 					scope.bills = data.bills;
 					
 					if (scope.bills != null && scope.bills.length > 0) {
@@ -310,7 +310,7 @@ sangiorgioModule.directive('sangiorgioEBills', function($http, $mdDialog) {
 			 */
 			scope.completeBillInfo = function(bill) {
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
 					
 					bill.paymentDate = data.date;
 					bill.paymentDescription = data.description;
@@ -345,7 +345,7 @@ sangiorgioModule.directive('sangiorgioEBills', function($http, $mdDialog) {
 			    	
 			    	scope.bills.push(scope.bill);
 			    	
-			    	$http.post("https://" + microservicesUrl + "/sangiorgio/ebills", scope.bill).success(function(data, status, header, config) {
+			    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/ebills", scope.bill).success(function(data, status, header, config) {
 			    		scope.bill.id = data.id;
 					});
 			    	
@@ -388,7 +388,7 @@ sangiorgioModule.directive('sangiorgioEBills', function($http, $mdDialog) {
 
 			    	scope.completeBillInfo(bill);
 			    	
-			    	$http.put("https://" + microservicesUrl + "/sangiorgio/ebills/" + bill.id, {linkedPaymentId: answer.id});
+			    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/ebills/" + bill.id, {linkedPaymentId: answer.id});
 			    	
 			    }, function() {});
 			}
@@ -432,7 +432,7 @@ sangiorgioModule.directive('sangiorgioGBills', function($http, $mdDialog) {
 				
 				var filter = scope.onlyUnpaid ? '?unpaied=true' : '';
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/gbills" + filter).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/gbills" + filter).success(function(data, status, header, config) {
 					scope.bills = data.bills;
 					
 					if (scope.bills != null && scope.bills.length > 0) {
@@ -448,7 +448,7 @@ sangiorgioModule.directive('sangiorgioGBills', function($http, $mdDialog) {
 			 */
 			scope.completeBillInfo = function(bill) {
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + bill.linkedPaymentId).success(function (data, status, header, config) {
 					
 					bill.paymentDate = data.date;
 					bill.paymentDescription = data.description;
@@ -483,7 +483,7 @@ sangiorgioModule.directive('sangiorgioGBills', function($http, $mdDialog) {
 			    	
 			    	scope.bills.push(scope.bill);
 			    	
-			    	$http.post("https://" + microservicesUrl + "/sangiorgio/gbills", scope.bill).success(function(data, status, header, config) {
+			    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/gbills", scope.bill).success(function(data, status, header, config) {
 			    		scope.bill.id = data.id;
 					});
 			    	
@@ -526,7 +526,7 @@ sangiorgioModule.directive('sangiorgioGBills', function($http, $mdDialog) {
 
 			    	scope.completeBillInfo(bill);
 			    	
-			    	$http.put("https://" + microservicesUrl + "/sangiorgio/gbills/" + bill.id, {linkedPaymentId: answer.id});
+			    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/gbills/" + bill.id, {linkedPaymentId: answer.id});
 			    	
 			    }, function() {});
 			}

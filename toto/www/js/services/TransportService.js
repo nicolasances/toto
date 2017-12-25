@@ -6,11 +6,11 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 	return {
 
 		getPlaneTickets : function() {
-			return $http.get("https://" + microservicesUrl + "/flight/tickets");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets");
 		},
 		
 		getPlaneTicket : function(id) {
-			return $http.get("https://" + microservicesUrl + "/flight/tickets/" + id);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + id);
 		},
 
 		/**
@@ -27,7 +27,7 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 				else filter += '&ticketId=' + ticketIds[i];
 			}
 			
-			$http.get("https://" + microservicesUrl + "/flight/tickets?" + filter).success(function (data) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets?" + filter).success(function (data) {
 				
 				if (data == null || data.tickets == null) {callback(null); return;}
 				
@@ -42,7 +42,7 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 				
 				if (nextTicket == null) {callback(null); return;}
 				
-				$http.get("https://" + microservicesUrl + "/flight/tickets/" + nextTicket.id + "/flights?first=true").success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + nextTicket.id + "/flights?first=true").success(function(data) {
 					
 					console.log("Next Flight:")
 					console.log(data);
@@ -55,7 +55,7 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 		},
 		
 		deletePlaneTicket : function(id) {
-			$http.delete("https://" + microservicesUrl + "/flight/tickets/" + id);
+			$http.delete(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + id);
 		},
 		
 		/**
@@ -64,13 +64,13 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 		 */
 		getNextFlight: function(planeTicket) {
 			
-			$http.get("https://" + microservicesUrl + "/flight/tickets/" + id + "/flights?first=true");
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + id + "/flights?first=true");
 			
 		},
 		
 		getFlightInfo: function(id) {
 			
-			return $http.get("https://" + microservicesUrl + "/flight/flights/" + id);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/flights/" + id);
 		},
 		
 		getTrainRideInfo: function(id, callback) {
@@ -92,12 +92,12 @@ transportServiceModule.factory('TransportService', [ '$http', '$rootScope', '$lo
 			$scope.selectTicket = function(ticket) {$scope.answer(ticket);};
 			
 			$scope.fillPaymentInfo = function(ticket) {
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + ticket.linkedPaymentId).success(function (data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + ticket.linkedPaymentId).success(function (data) {
 					ticket.amount = data.amount;
 				});
 			}
 			
-			$http.get("https://" + microservicesUrl + "/flight/tickets").success(function (data) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets").success(function (data) {
 
 				$scope.tickets = data.tickets;
 				

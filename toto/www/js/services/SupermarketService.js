@@ -9,7 +9,7 @@ supermarketServiceModule.factory('SupermarketService', [ '$http', '$rootScope', 
 		 */
 		getMissingGoods : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/supermarket/missingGoods");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/supermarket/missingGoods");
 			
 		},
 		
@@ -51,7 +51,7 @@ supermarketServiceModule.factory('SupermarketService', [ '$http', '$rootScope', 
 		 */
 		postMissingGood : function(good) {
 			
-			return $http.post("https://" + microservicesUrl + "/supermarket/missingGoods", good);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/supermarket/missingGoods", good);
 		}, 
 
 		/**
@@ -65,7 +65,7 @@ supermarketServiceModule.factory('SupermarketService', [ '$http', '$rootScope', 
 		 */
 		setMissingGoodAsBought : function(goodId, bought) {
 			
-			return $http.put("https://" + microservicesUrl + "/supermarket/missingGoods/" + goodId, {bought: bought});
+			return $http.put(microservicesProtocol + "://" + microservicesUrl + "/supermarket/missingGoods/" + goodId, {bought: bought});
 		},
 		
 		/**
@@ -73,7 +73,7 @@ supermarketServiceModule.factory('SupermarketService', [ '$http', '$rootScope', 
 		 */
 		deleteMissingGood : function(goodId) {
 			
-			return $http.delete("https://" + microservicesUrl + "/supermarket/missingGoods/" + goodId);
+			return $http.delete(microservicesProtocol + "://" + microservicesUrl + "/supermarket/missingGoods/" + goodId);
 		}, 
 		
 		/**
@@ -81,7 +81,7 @@ supermarketServiceModule.factory('SupermarketService', [ '$http', '$rootScope', 
 		 */
 		deleteAllBoughtGoods : function() {
 			
-			return $http.delete("https://" + microservicesUrl + "/supermarket/missingGoods?bought=true");
+			return $http.delete(microservicesProtocol + "://" + microservicesUrl + "/supermarket/missingGoods?bought=true");
 		}
 		
 	}

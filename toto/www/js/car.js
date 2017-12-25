@@ -4,11 +4,11 @@ carModule.controller("carController", [ '$scope', '$http', '$timeout', '$mdDialo
 
 	$scope.init = function() {
 		
-		$http.get("https://" + microservicesUrl + "/car/taxes/sum?unpaied=true").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/car/taxes/sum?unpaied=true").success(function (data, status, header, config) {
 			$scope.taxesTotalAmount = data.sum;
 		});
 		
-		$http.get("https://" + microservicesUrl + "/car/taxes?unpaied=true").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/car/taxes?unpaied=true").success(function (data, status, header, config) {
 			
 			if (data.taxes != null) $scope.taxesUnpaied = data.taxes.length;
 			
@@ -37,7 +37,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 	 */
 	$scope.getBolli = function() {
 		
-		$http.get("https://" + microservicesUrl + "/car/taxes/").success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/car/taxes/").success(function (data, status, header, config) {
 
 			$scope.taxes = data.taxes;
 			
@@ -76,7 +76,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 	    	
 	    	$scope.taxes.push($scope.tax);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/car/taxes", $scope.tax).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/car/taxes", $scope.tax).success(function(data, status, header, config) {
 	    		$scope.tax.id = data.id;
 			});
 	    	
@@ -128,7 +128,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 	    	
 	    	tax.ingiunzione = answer;
 	    	
-	    	$http.put("https://" + microservicesUrl + "/car/taxes/" + tax.id, {ingiunzione: tax.ingiunzione});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/car/taxes/" + tax.id, {ingiunzione: tax.ingiunzione});
 	    	
 	    }, function() {});
 	}
@@ -147,7 +147,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 
 	    	$scope.fillPaymentInfo(tax);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/car/taxes/" + tax.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/car/taxes/" + tax.id, {linkedPaymentId: answer.id});
 	    	
 	    }, function() {});
 	}
@@ -157,7 +157,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 	 */
 	$scope.fillPaymentInfo = function(tax) {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + tax.linkedPaymentId).success(function (data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + tax.linkedPaymentId).success(function (data, status, header, config) {
 			
 			tax.paymentDate = data.date;
 			tax.paymentDescription = data.description;

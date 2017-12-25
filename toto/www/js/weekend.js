@@ -30,7 +30,7 @@ weekendModule.controller("weekendController", [ '$scope', '$http', '$timeout', '
 	 */
 	$scope.getUpcomingWeekends = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends").success(function(data) {
 			
 			$scope.persistedWeekends = data.weekends;
 			
@@ -115,7 +115,7 @@ weekendModule.controller("weekendController", [ '$scope', '$http', '$timeout', '
 
 	    	var data = {weekend: answer.weekend, destination: answer.destination, from: answer.from, to: answer.to, type: answer.type};
 	    	
-	    	$http.post("https://" + microservicesUrl + "/weekend/weekends", data).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends", data).success(function(data, status, header, config) {
 	    		$scope.weekend.id = data.id;
 			});
 	    	
@@ -166,7 +166,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	$scope.previousHotel = function() {if ($scope.hotelIndex > 0) $scope.hotelIndex--;}
 
 	$scope.loadWeekend = function(weekendId) {
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + weekendId).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + weekendId).success(function(data, status, header, config) {
 			$scope.we = data;
 			$scope.we.planeTickets = [];
 			$scope.payments = [];
@@ -183,7 +183,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	    
 	    $mdDialog.show(dialog).then(function(answer) {
 	    	
-	    	$http.put("https://" + microservicesUrl + "/weekend/weekends/" + weekend.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + weekend.id, {linkedPaymentId: answer.id});
 	    	
 	    	answer.type = 'other';
 	    	$scope.payments.push(answer);
@@ -194,7 +194,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	}
 	
 	$scope.unlinkExpense = function(expense) {
-		$http.delete("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/payments/" + expense.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/payments/" + expense.id);
 		
 		var i;
 		for (i=0; i<$scope.payments.length;i++) {
@@ -211,25 +211,25 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 		
 		$scope.loadWeekendInfo();
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/flights/departures").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/flights/departures").success(function(data, status, header, config) {
 			$scope.flights = data.flights;
 		});
 	}
 	
 	$scope.loadWeekendInfo = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/departure").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/departure").success(function(data, status, header, config) {
 			$scope.tripDeparture = data;
 		});
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/return").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/return").success(function(data, status, header, config) {
 			$scope.tripReturn = data;
 		});
 	}
 	
 	$scope.loadHotelsInfo = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/hotels").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/hotels").success(function(data, status, header, config) {
 			$scope.hotels = data.hotels;
 			
 			if ($scope.hotels.length > 0) $scope.hotelIndex = 0;
@@ -238,7 +238,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	
 	$scope.loadPaymentsInfo = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/payments").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/payments").success(function(data, status, header, config) {
 			$scope.payments = data.payments;
 			
 			$scope.calcPaymentsTotal();
@@ -272,7 +272,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 			$scope.cancel = function() {$mdDialog.cancel();};
 			$scope.answer = function(hotel) {$mdDialog.hide(hotel);};
 			
-			$http.get("https://" + microservicesUrl + "/hotel/hotels").success(function(data, status, header, config) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/hotel/hotels").success(function(data, status, header, config) {
 				$scope.hotels = data.hotels;
 			});
 			
@@ -287,14 +287,14 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	    	
 	    	if ($scope.hotelIndex == -1) $scope.hotelIndex = 0;
 	    	
-	    	$http.put("https://" + microservicesUrl + "/weekend/weekends/" + we.id, {linkedHotelId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + we.id, {linkedHotelId: answer.id});
 	    	
 	    }, function() {});
 
 	}
 	
 	$scope.closeWeekend = function (we, ev) {
-		$http.put("https://" + microservicesUrl + "/weekend/weekends/" + we.id, {weekendClosedAndConsolidated: true});
+		$http.put(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + we.id, {weekendClosedAndConsolidated: true});
 		$scope.go('/weekend/archive');
 	}
 	
@@ -309,14 +309,14 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 
 	    	we.linkedPlaneTickets.push(answer.id);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/weekend/weekends/" + we.id, {linkedPlaneTicketId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + we.id, {linkedPlaneTicketId: answer.id});
 	    	
 	    }, function() {});
 	}
 	
 	$scope.unlinkHotel = function(hotel) {
 		
-		$http.delete("https://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/hotels/" + hotel.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + $scope.we.id + "/hotels/" + hotel.id);
 
 		var i;
 		for (i=0; i<$scope.hotels.length; i++) {
@@ -328,7 +328,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 	}
 	
 	$scope.deleteWeekend = function(we, ev) {
-		$http.delete("https://" + microservicesUrl + "/weekend/weekends/" + we.id).success(function() {
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + we.id).success(function() {
 			$scope.go('/weekend');
 		});
 	}
@@ -346,7 +346,7 @@ weekendModule.controller("weekendDetailController", [ '$scope', '$http', '$timeo
 			}
 		}
 		
-		$http.delete("https://" + microservicesUrl + "/weekend/weekends/" + we.id + "/planeTickets/" + ticket.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends/" + we.id + "/planeTickets/" + ticket.id);
 		
 	}
 	
@@ -369,7 +369,7 @@ weekendModule.controller("weekendArchiveController", [ '$scope', '$http', '$time
 	 */
 	$scope.getPastWeekends = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends?showCost=true").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends?showCost=true").success(function(data) {
 			
 			$scope.weekends = data.weekends;
 			

@@ -76,7 +76,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		postApplication : function(application) {
 			
-			return $http.post("https://" + microservicesUrl2 + "/jobsearch/applications", application);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/applications", application);
 		}, 
 		
 		/**
@@ -84,7 +84,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		getApplications : function() {
 			
-			return $http.get("https://" + microservicesUrl2 + "/jobsearch/applications");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/applications");
 		}, 
 		
 		/**
@@ -93,7 +93,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		getApplication : function(id) {
 			
-			return $http.get("https://" + microservicesUrl2 + "/jobsearch/applications/" + id);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/applications/" + id);
 		}, 
 		
 		/**
@@ -101,7 +101,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		postApplicationEvent : function(id, event) {
 			
-			return $http.post("https://" + microservicesUrl2 + "/jobsearch/applications/" + id + "/events", event);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/applications/" + id + "/events", event);
 		}, 
 		
 		/**
@@ -109,7 +109,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		getApplicationEvents : function(id) {
 			
-			return $http.get("https://" + microservicesUrl2 + "/jobsearch/applications/" + id + "/events");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/applications/" + id + "/events");
 		}, 
 		
 		/**
@@ -117,7 +117,7 @@ jobSearchServiceModule.factory('JobSearchService', [ '$http', '$rootScope', '$lo
 		 */
 		getCountries : function() {
 			
-			return $http.get("https://" + microservicesUrl2 + "/jobsearch/countries");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl2 + "/jobsearch/countries");
 		}
 		
 

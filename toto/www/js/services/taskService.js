@@ -7,7 +7,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 	
 	var getScheduleCategories = function(callback) {
 
-		$http.get("https://" + microservicesUrl + "/tasks/categories").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/categories").success(function(data, status, header, config) {
 			
 			if (data == null || data.categories == null) callback();
 			
@@ -56,12 +56,12 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 				var eventId = projectFilter.eventId;
 				
 				if (eventId == null || eventId === undefined)
-					return $http.get("https://" + microservicesUrl + "/tasks/tasks?projectId=" + projectFilter.projectId);
+					return $http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks?projectId=" + projectFilter.projectId);
 				
-				return $http.get("https://" + microservicesUrl + "/tasks/tasks?projectId=" + projectFilter.projectId + "&projectEventId=" + projectFilter.eventId);
+				return $http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks?projectId=" + projectFilter.projectId + "&projectEventId=" + projectFilter.eventId);
 			}
 			
-			return $http.get("https://" + microservicesUrl + "/tasks/tasks?scheduling=" + scheduleCategory);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks?scheduling=" + scheduleCategory);
 		},
 		
 		/**
@@ -71,7 +71,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		 */
 		getTask : function(taskId) {
 			
-			return $http.get("https://" + microservicesUrl + "/tasks/tasks/" + taskId);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + taskId);
 		},
 		
 		/**
@@ -79,7 +79,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		 */
 		setTaskCategory : function(task, category, callback) {
 			
-			$http.put("https://" + microservicesUrl + "/tasks/tasks/" + task.id, {category: category.name}).success(function(data, status, header, config) {
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + task.id, {category: category.name}).success(function(data, status, header, config) {
 				if (callback != null) callback();
 			});
 			
@@ -93,7 +93,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 			var data = new Object();
 			data.completed = !task.completed;
 			
-			$http.put("https://" + microservicesUrl + "/tasks/tasks/" + task.id, data).success(function(data, status, header, config) {});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + task.id, data).success(function(data, status, header, config) {});
 			
 			callback();
 		},
@@ -110,7 +110,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 				$scope.answer = function() {$mdDialog.hide};
 				
 				$scope.reschedule = function(cat) {
-					$http.put("https://" + microservicesUrl + "/tasks/tasks/" + task.id, {scheduling: cat.name});
+					$http.put(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + task.id, {scheduling: cat.name});
 					$mdDialog.hide(cat);
 				}
 				
@@ -172,7 +172,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		    		task.contextInfo = context.contextInfo;
 		    	}
 		    	
-		    	$http.post("https://" + microservicesUrl + "/tasks/tasks", task).success(function(data, status, header, config) {
+		    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks", task).success(function(data, status, header, config) {
 		    		callback(data.id);
 		    	});
 		    	
@@ -185,7 +185,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		 */
 		deleteTask : function(taskId) {
 			
-			$http.delete("https://" + microservicesUrl + "/tasks/tasks/" + taskId);
+			$http.delete(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + taskId);
 		},
 		
 		/**
@@ -195,7 +195,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		 */
 		saveNote : function(taskId, note) {
 			
-			$http.post("https://" + microservicesUrl + "/tasks/tasks/" + taskId + "/notes", note);
+			$http.post(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + taskId + "/notes", note);
 		}, 
 
 		/**
@@ -204,7 +204,7 @@ taskServiceModule.factory('taskService', [ '$http', '$mdDialog', function($http,
 		 */
 		getNotes : function(taskId) {
 			
-			return $http.get("https://" + microservicesUrl + "/tasks/tasks/" + taskId + "/notes");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks/" + taskId + "/notes");
 		}
 		
 	};

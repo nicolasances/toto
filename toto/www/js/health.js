@@ -11,14 +11,14 @@ healthModule.controller("healthController", [ '$scope', '$http', '$timeout', '$m
 	
 	$scope.getExpenses = function() {
 		
-		$http.get("https://" + microservicesUrl + "/health/expenses").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/health/expenses").success(function(data, status, header, config) {
 			
 			if (data == null || data.expenses == null) return;
 			
 			$scope.expenses = new Array();
 			
 			for (i=0;i<data.expenses.length;i++) {
-				$http.get("https://" + microservicesUrl + "/expenses/expenses/" + data.expenses[i].linkedExpenseId).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + data.expenses[i].linkedExpenseId).success(function(data, status, header, config) {
 					$scope.expenses.push({date: data.date, amount: data.amount, description: data.description});
 					$scope.updateTotal();
 				});
@@ -93,7 +93,7 @@ healthModule.controller("healthController", [ '$scope', '$http', '$timeout', '$m
 			 */
 			$scope.loadExpenses = function (yearMonth) {
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses?yearMonth=" + yearMonth).success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?yearMonth=" + yearMonth).success(function(data, status, header, config) {
 					$scope.expenses = data.expenses;
 				});
 			}
@@ -120,7 +120,7 @@ healthModule.controller("healthController", [ '$scope', '$http', '$timeout', '$m
 	    	
 	    	var data = {linkedExpenseId: $scope.expense.linkedExpenseId, year: moment($scope.expense.date, 'DD/MM/YYYY').format('YYYY')};
 	    	
-	    	$http.post("https://" + microservicesUrl + "/health/expenses", data).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/health/expenses", data).success(function(data, status, header, config) {
 	    		$scope.expense.id = data.id;
 			});
 	    	

@@ -50,11 +50,11 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	 *************************************************************************************************************************/
 	$scope.initCard = function() {
 		
-		$http.get("https://" + microservicesUrl + "/card/cards").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/card/cards").success(function(data) {
 			
 			if (data != null && data.cards != null && data.cards.length > 0) {
 				
-				$http.get("https://" + microservicesUrl + "/expenses/expenses?cardId=" + data.cards[0].id + "&cardMonth=" + moment().format('MM')).success(function(data) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?cardId=" + data.cards[0].id + "&cardMonth=" + moment().format('MM')).success(function(data) {
 					
 					if (data.expenses != null) {
 						var i;
@@ -89,7 +89,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	}
 	
 	$scope.findNextWeekend = function() {
-		$http.get("https://" + microservicesUrl + "/weekend/weekends?onlyNext=true").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends?onlyNext=true").success(function(data) {
 			
 			if (data.weekends == null || data.weekends.length == 0) return;
 			
@@ -101,7 +101,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	
 	$scope.findLast2Weekends = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends?maxResults=2&sortDescendingDate=true&showCost=true&onlyClosed=true").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends?maxResults=2&sortDescendingDate=true&showCost=true&onlyClosed=true").success(function(data) {
 			$scope.lastWeekends = data.weekends;
 
 			if ($scope.lastWeekends != null) {
@@ -149,7 +149,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	 */
 	$scope.getUpcomingWeekends = function() {
 		
-		$http.get("https://" + microservicesUrl + "/weekend/weekends").success(function(data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/weekend/weekends").success(function(data) {
 			
 			$scope.persistedWeekends = data.weekends;
 			
@@ -178,7 +178,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 		$scope.currentShowingTaskIndex = 0;
 		$scope.task = null;
 		
-		$http.get("https://" + microservicesUrl + "/tasks/tasks?scheduling=today").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/tasks/tasks?scheduling=today").success(function(data, status, header, config) {
 			
 			if (data == null) return;
 			
@@ -226,7 +226,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	 *************************************************************************************************************************/
 	$scope.initPiggy = function(initialized) {
 		
-		$http.get("https://" + microservicesUrl + "/piggy/deposits").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/piggy/deposits").success(function(data, status, header, config) {
 			
 			if (data == null) return;
 
@@ -266,7 +266,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	 *************************************************************************************************************************/
 	$scope.initSangiorgio = function() {
 		
-		$http.get("https://" + microservicesUrl + "/sangiorgio/taxes?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/taxes?unpaied=true").success(function(data, status, header, config) {
 			
 			$scope.sangiorgioTaxes = 0;
 
@@ -275,7 +275,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 				for (i = 0; i < data.taxes.length; i++) $scope.sangiorgioTaxes += data.taxes[i].amount; 
 			} 
 			
-			$http.get("https://" + microservicesUrl + "/sangiorgio/ebills?unpaied=true").success(function(data, status, header, config) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/ebills?unpaied=true").success(function(data, status, header, config) {
 				
 				$scope.sangiorgioEBills = 0;
 
@@ -284,7 +284,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 					for (i = 0; i < data.bills.length; i++) $scope.sangiorgioEBills += data.bills[i].amount; 
 				} 
 				
-				$http.get("https://" + microservicesUrl + "/sangiorgio/gbills?unpaied=true").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/sangiorgio/gbills?unpaied=true").success(function(data, status, header, config) {
 					
 					$scope.sangiorgioGBills = 0;
 
@@ -313,11 +313,11 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 		
 		$scope.justiceAmount = 0;
 		
-		$http.get("https://" + microservicesUrl + "/justice/equitalia/bills/sum?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/equitalia/bills/sum?unpaied=true").success(function(data, status, header, config) {
 			
 			if (data != null && data.sum != null) $scope.justiceAmount += data.sum;
 			
-			$http.get("https://" + microservicesUrl + "/justice/fines/sum?unpaied=true").success(function(data, status, header, config) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/justice/fines/sum?unpaied=true").success(function(data, status, header, config) {
 				
 				if (data != null && data.sum != null) $scope.justiceAmount += data.sum;
 				
@@ -338,7 +338,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 	 *************************************************************************************************************************/
 	$scope.initMonreale = function() {
 		
-		$http.get("https://" + microservicesUrl + "/monreale/taxes?unpaied=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/taxes?unpaied=true").success(function(data, status, header, config) {
 			
 			$scope.monrealeTaxes = 0;
 
@@ -347,7 +347,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 				for (i = 0; i < data.taxes.length; i++) $scope.monrealeTaxes += data.taxes[i].amount; 
 			}
 
-			$http.get("https://" + microservicesUrl + "/monreale/ebills?unpaied=true").success(function(data, status, header, config) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/ebills?unpaied=true").success(function(data, status, header, config) {
 				
 				$scope.monrealeEBills = 0;
 				
@@ -356,7 +356,7 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 					for (i = 0; i < data.bills.length; i++) $scope.monrealeEBills += data.bills[i].amount;
 				}
 				
-				$http.get("https://" + microservicesUrl + "/monreale/gbills?unpaied=true").success(function(data, status, header, config) {
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/monreale/gbills?unpaied=true").success(function(data, status, header, config) {
 					
 					$scope.monrealeGBills = 0;
 					
@@ -383,13 +383,13 @@ dashboardModule.controller("dashboardController", [ '$scope', '$http', '$timeout
 		
 		var yearMonth = $scope.getCurrentPeriod();
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total").success(function(data, status, header, config) {
 			
 			$scope.expensesTotal = data.total;
 			
 		});
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/totals?maxResults=10&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/totals?maxResults=10&currentYearMonth=" + yearMonth).success(function(data, status, header, config) {
 			
 			$scope.totals = data.totals;
 			

@@ -83,7 +83,7 @@ flightModule.controller("flightController", [ '$scope', '$http', '$timeout', '$m
 	    	
 	    	$scope.ticket = ticket;
 	    	
-	    	$http.post("https://" + microservicesUrl + "/flight/flights", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/flight/flights", answer).success(function(data, status, header, config) {
 	    		
 	    		if ($scope.ticket.linkedFlights == null) $scope.ticket.linkedFlights = [];
 	    		
@@ -97,7 +97,7 @@ flightModule.controller("flightController", [ '$scope', '$http', '$timeout', '$m
 	    			
 	    		});
 	    		
-	    		$http.put("https://" + microservicesUrl + "/flight/tickets/" + $scope.ticket.id, {linkedFlightId : data.id});
+	    		$http.put(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + $scope.ticket.id, {linkedFlightId : data.id});
 	    		
 	    	});
 	    	
@@ -117,7 +117,7 @@ flightModule.controller("flightController", [ '$scope', '$http', '$timeout', '$m
 
 	    	$scope.fillPaymentInfo(ticket);
 	    	
-	    	$http.put("https://" + microservicesUrl + "/flight/tickets/" + ticket.id, {linkedPaymentId: answer.id});
+	    	$http.put(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets/" + ticket.id, {linkedPaymentId: answer.id});
 	    	
 	    }, function() {});
 	}
@@ -127,7 +127,7 @@ flightModule.controller("flightController", [ '$scope', '$http', '$timeout', '$m
 	 */
 	$scope.fillPaymentInfo = function(ticket) {
 		
-		$http.get("https://" + microservicesUrl + "/expenses/expenses/" + ticket.linkedPaymentId).success(function (data) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + ticket.linkedPaymentId).success(function (data) {
 			
 			ticket.amount = data.amount;
 			
@@ -160,7 +160,7 @@ flightModule.controller("flightController", [ '$scope', '$http', '$timeout', '$m
 	    	
 	    	$scope.tickets.push(ticket);
 	    	
-	    	$http.post("https://" + microservicesUrl + "/flight/tickets", ticket).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/flight/tickets", ticket).success(function(data, status, header, config) {
 	    		ticket.id = data.id;
 			});
 	    	

@@ -22,7 +22,7 @@ subscriptionsModule.controller("subscriptionsController", [ '$scope', '$http', '
 	 */
 	$scope.getSubscriptions = function () {
 
-		$http.get("https://" + microservicesUrl + "/subscriptions/subscriptions?onlyActive=true").success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions?onlyActive=true").success(function(data, status, header, config) {
 			$scope.subscriptions = data.subscriptions;
 		});
 	}
@@ -58,7 +58,7 @@ subscriptionsModule.controller("subscriptionsController", [ '$scope', '$http', '
 	    	$scope.subscription = answer;
 	    	$scope.subscriptions.push($scope.subscription);
 
-	    	$http.post("https://" + microservicesUrl + "/subscriptions/subscriptions", answer).success(function(data, status, header, config) {
+	    	$http.post(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions", answer).success(function(data, status, header, config) {
 	    		$scope.subscription.id = data.id;
 			});
 	    	
@@ -84,7 +84,7 @@ subscriptionsModule.controller("subscriptionDetailController", [ '$scope', '$htt
 	 */
 	$scope.getSubscription = function(id) {
 		
-		$http.get("https://" + microservicesUrl + "/subscriptions/subscriptions/" + id).success(function(data, status, header, config) {
+		$http.get(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions/" + id).success(function(data, status, header, config) {
 			
 			$scope.subscription = data;
 			
@@ -113,7 +113,7 @@ subscriptionsModule.controller("subscriptionDetailController", [ '$scope', '$htt
 		
 		expensesService.pickExpense(ev).then(function (expense) {
 
-			$http.put("https://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id, {linkedPaymentId : expense.id});
+			$http.put(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id, {linkedPaymentId : expense.id});
 
 			$scope.expenses.push(expense);
 			
@@ -125,7 +125,7 @@ subscriptionsModule.controller("subscriptionDetailController", [ '$scope', '$htt
 	 */
 	$scope.terminateSubscription = function() {
 		
-		$http.put("https://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id, {terminated : true});
+		$http.put(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id, {terminated : true});
 	}
 	
 	/**
@@ -133,7 +133,7 @@ subscriptionsModule.controller("subscriptionDetailController", [ '$scope', '$htt
 	 */
 	$scope.deleteSubscription = function() {
 		
-		$http.delete("https://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id);
+		$http.delete(microservicesProtocol + "://" + microservicesUrl + "/subscriptions/subscriptions/" + $scope.subscription.id);
 		
 		$scope.go('/subscriptions');
 	}

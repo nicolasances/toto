@@ -1,6 +1,7 @@
 
-var microservicesHost = "localhost";
-var microservicesPort = "8443";
-var microservicesUrl = "localhost:8443";
-var microservicesUrl2 = "localhost";
+var microservicesProtocol = "http";
+var microservicesHost = "35.187.24.33 ";
+var microservicesPort = "80";
+var microservicesUrl = "35.187.24.33";
+var microservicesUrl2 = "35.187.24.33";
 var imagesServerPort = "80";

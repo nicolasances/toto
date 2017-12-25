@@ -18,7 +18,7 @@ bodyWeightServiceModule.factory('BodyWeightService', [ '$http', '$rootScope', '$
 		 */
 		getWeights : function() {
 			
-			return $http.get("https://" + microservicesUrl + "/weight/weights");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/weight/weights");
 			
 		}, 
 		
@@ -36,7 +36,7 @@ bodyWeightServiceModule.factory('BodyWeightService', [ '$http', '$rootScope', '$
 		 */
 		getCurrentWeight : function(callback) {
 			
-			$http.get("https://" + microservicesUrl + "/weight/weights?current=true").success(function(data) {
+			$http.get(microservicesProtocol + "://" + microservicesUrl + "/weight/weights?current=true").success(function(data) {
 				
 				
 				if (data.weights.length > 0) callback(data.weights[0]);
@@ -96,7 +96,7 @@ bodyWeightServiceModule.factory('BodyWeightService', [ '$http', '$rootScope', '$
 		 */
 		postWeight : function(weight) {
 			
-			return $http.post("https://" + microservicesUrl + "/weight/weights", weight);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/weight/weights", weight);
 		},
 		
 		/**

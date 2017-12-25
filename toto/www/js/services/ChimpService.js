@@ -12,7 +12,7 @@ chimpServiceModule.factory('ChimpService', [ '$http', '$mdDialog', function($htt
 		 */
 		getConversations : function() {
 
-			return $http.get("https://" + microservicesUrl + "/chimp/conversations");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/chimp/conversations");
 		},
 
 		/**
@@ -20,7 +20,7 @@ chimpServiceModule.factory('ChimpService', [ '$http', '$mdDialog', function($htt
 		 */
 		getNextConversation : function() {
 
-			return $http.get("https://" + microservicesUrl + "/chimp/conversations?first=true");
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/chimp/conversations?first=true");
 		},
 
 		/**
@@ -40,7 +40,7 @@ chimpServiceModule.factory('ChimpService', [ '$http', '$mdDialog', function($htt
 				conversationId : conversationId
 			};
 
-			return $http.post("https://" + microservicesUrl + "/chimp/conversations/" + conversationId + "/interactions", body);
+			return $http.post(microservicesProtocol + "://" + microservicesUrl + "/chimp/conversations/" + conversationId + "/interactions", body);
 		}
 
 	};
