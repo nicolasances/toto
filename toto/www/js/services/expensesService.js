@@ -121,10 +121,10 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 * 	-	creationCallback	:	function to be called when the expense is created (but not yet inserted in the backend)
 		 * 
 		 * 	-	insertionCallback	:	function to be called when the expense has been successfully inserted in the backend store
+		 * 
+		 *  -	yearMonth			:	the yearMonth to be used
 		 */
-		addPayment : function(creationCallback, insertionCallback) {
-			
-			var yearMonth = this.getCurrentMonth();
+		addPayment : function(creationCallback, insertionCallback, yearMonth) {
 			
 			function DialogController($scope, $mdDialog, expensesService) {
 				

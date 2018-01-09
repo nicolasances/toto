@@ -46,15 +46,6 @@ expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http
 		$scope.currency = $routeParams.currency != null ? $routeParams.currency : 'EUR';
 
 	}
-
-	/**
-	 * Add a new expense
-	 */
-	$scope.addExpense = function(ev) {
-		
-		expensesService.addPayment(function(expense) {}, function(expenseId) {});
-		
-	}
 	
 	$scope.initContext();
 
@@ -156,6 +147,8 @@ expensesModule.directive('expensesTopSpendingCategories', ['expensesService', '$
  * 	-	showNavigator	:	(optional, default = false)
  * 							Shows the month navigator
  * 
+ *  - 	currentYearMonth:	the yearMonth that is going to be overridden
+ * 
  */
 expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDialog', function(expensesService, $timeout, $mdDialog) {
 	
@@ -185,6 +178,15 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDia
 				for (var i = 0; i < scope.categories.length; i++) {
 					if (scope.categories[i].code == code) return scope.categories[i];
 				}
+			}
+
+			/**
+			 * Add a new expense
+			 */
+			scope.addExpense = function(ev) {
+				
+				expensesService.addPayment(function(expense) {}, function(expenseId) {}, scope.selectedPeriod.yearMonth);
+				
 			}
 
 			/**
