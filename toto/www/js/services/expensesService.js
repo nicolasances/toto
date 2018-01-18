@@ -112,6 +112,35 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			
 			return $http.delete(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + expenseId);
 		},
+		
+		/**
+		 * Links an expense. 
+		 * 
+		 * Opens the dialog to select an expense and returns it.
+		 * 
+		 * Requires: 
+		 * 	-	linkCallback	:	the callback(expense) to be called when the expense is selected.
+		 */
+		linkExpense : function(linkCallback) {
+			
+			function DialogController($scope, $mdDialog) {
+				
+				$scope.hide = function() {$mdDialog.hide;};
+				$scope.cancel = function() {$mdDialog.cancel();};
+				$scope.answer = function(expense) {$mdDialog.hide(expense);};
+				
+			}
+			
+		    var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
+		    var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgLinkExpense.html', parent: angular.element(document.body), clickOutsideToClose: true, fullscreen: useFullScreen};
+		    
+		    $mdDialog.show(dialog).then(function(answer) {
+		    	
+		    	linkCallback(answer);
+		    	
+		    }, function() {});
+		
+		},
 
 		/**
 		 * Adds a new Payment

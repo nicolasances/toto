@@ -148,6 +148,8 @@ expensesModule.directive('expensesTopSpendingCategories', ['expensesService', '$
  * 							Shows the month navigator
  * 
  *  - 	currentYearMonth:	the yearMonth that is going to be overridden
+ *  
+ *  -	onSelect		:	a callback(expense) for the selection of an expense
  * 
  */
 expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDialog', function(expensesService, $timeout, $mdDialog) {
@@ -156,7 +158,8 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDia
 		scope: {
 			currency: '@',
 			maxResults: '@',
-			showNavigator: '@'
+			showNavigator: '@',
+			onSelect: '='
 		},
 		templateUrl: 'modules/expenses/directives/expenses-list.html',
 		link: function(scope) {
@@ -167,6 +170,8 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDia
 			scope.selectedPeriod.yearMonth = expensesService.getCurrentMonth();
 			scope.selectedPeriod.year = moment(expensesService.getCurrentMonth() + '01', 'YYYYMMDD').format('YYYY');
 			scope.selectedPeriod.month = moment(expensesService.getCurrentMonth() + '01', 'YYYYMMDD').format('MMMM');
+			
+			if (scope.onSelect == null) scope.onSelect = function() {};
 			
 			/**
 			 * Retrieve a single category

@@ -110,10 +110,7 @@ justiceModule.controller("justiceFinesController", [ '$scope', '$http', '$timeou
 	 */
 	$scope.linkToExpense = function(fine, ev) {
 		
-		var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-	    var dialog = {controller: expensesService.DialogController, templateUrl: 'modules/expenses/dlgLinkExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
-	    
-	    $mdDialog.show(dialog).then(function(answer) {
+	    expensesService.linkExpense(function(answer) {
 	    	
 	    	fine.linkedPaymentId = answer.id;
 
@@ -233,10 +230,7 @@ justiceModule.controller("justiceEquitaliaController", [ '$scope', '$http', '$ti
 	 */
 	$scope.linkToExpense = function(bill, ev) {
 		
-		var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-	    var dialog = {controller: expensesService.DialogController, templateUrl: 'modules/expenses/dlgLinkExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
-	    
-	    $mdDialog.show(dialog).then(function(answer) {
+		expensesService.linkExpense(function(answer) {
 	    	
 	    	bill.linkedPaymentId = answer.id;
 
