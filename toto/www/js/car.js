@@ -138,10 +138,7 @@ carModule.controller("carBolloController", [ '$scope', '$http', '$timeout', '$md
 	 */
 	$scope.linkToExpense = function(tax, ev) {
 		
-		var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-	    var dialog = {controller: expensesService.DialogController, templateUrl: 'modules/expenses/dlgLinkExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
-	    
-	    $mdDialog.show(dialog).then(function(answer) {
+	    expensesService.linkExpense(function(answer) {
 	    	
 	    	tax.linkedPaymentId = answer.id;
 
