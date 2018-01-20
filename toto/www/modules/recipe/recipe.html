@@ -1,26 +1,8 @@
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-<div class="theme-cyan" id="recipe-detail" scroll flex layout-gt-sm="column">
+<div id="gym" class="toto-central-area" flex>
 
-	<md-toolbar class="md-tall">
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" >
-				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/recipe')"></md-icon>
-			</md-button>
-			<span flex></span>
-			<md-button class="md-icon-button" >
-				<md-icon md-svg-src="images/svg/edit.svg" ng-click=""></md-icon>
-				<input type="file" file-model="recipeThumbnail" accept="image/*" onchange="angular.element(this).scope().postRecipeThumbnail(this)"/>
-			</md-button>
-			<h1 id="recipeTitle" class="title" ng-click="showUpdateTitle = !showUpdateTitle" ng-show="!showUpdateTitle">{{recipe.name}}</h1>
-			<md-input-container id="recipeTitleUpdate" class="title" ng-show="showUpdateTitle">
-	        	<label>Recipe name</label>
-	        	<input ng-model="recipe.name" onchange="angular.element(this).scope().updateRecipeName()">
-	    	</md-input-container>
-		</div>
-		<img class="background" id="recipeThumbnailBackground" ng-src="http://{{imagesServerHost}}:{{imagesServerPort}}/{{recipe.thumbnail}}"/>
-	</md-toolbar>
-	
-	<div class="content" layout="column" layout-gt-sm="row" flex>
+	<div class="toto-card">
 		<md-content style="padding: 16px;">
 			<div class="section-header" layout="row">
 				<h3>Ingredients</h3>
@@ -69,6 +51,7 @@
 			</md-button>
 		</md-fab-actions>
 	</md-fab-speed-dial>
-	
 </div>
+
+<div class="toto-right-area" ng-show="gtMd"></div>
 	

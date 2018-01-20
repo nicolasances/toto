@@ -1,22 +1,11 @@
 
-<div class="theme-cyan content" id="recipe">
+<div class="toto-left-area" ng-show="gtMd"></div>
 
-	<md-toolbar class="" md-scroll-shrink="true" >
-		<div class="md-toolbar-tools">
-			<md-button class="md-icon-button" >
-				<md-icon md-svg-src="images/svg/back.svg" ng-click="go('/')"></md-icon>
-			</md-button>
-			<span class="title" flex>Your recipes</span>
-		</div>
-	</md-toolbar>
-	
-	<div style="margin: 8px; margin-top: 57px;"></div>
-	
-	<md-content>
+<div id="gym" class="toto-central-area" flex>
+
+	<div class="toto-card">
 		<md-list>
-			<md-subheader class="md-no-sticky">You have {{recipes.length}} recipes!</md-subheader>
 			<md-list-item class="md-2-line" ng-click="go('/recipe/' + recipe.id)" ng-repeat="recipe in recipes">
-          		<img ng-src="http://{{imagesServerHost}}:{{imagesServerPort}}/{{recipe.thumbnail}}" class="md-avatar" />
         		<div class="md-list-item-text" layout="column">
     	       		<h3>{{recipe.name}}</h3>
         	   		<p>Ingredients: {{recipe.ingredients}}</p>
@@ -24,7 +13,7 @@
          		</div>
    			</md-list-item>
 		</md-list>
-	</md-content>
+	</div>
 	
 	<md-button class="md-fab md-fab-bottom-right" aria-label="Add recipe" ng-click="newRecipe()">
 		<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
@@ -32,3 +21,4 @@
 	
 </div>
 
+<div class="toto-right-area" ng-show="gtMd"></div>

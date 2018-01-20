@@ -15,7 +15,7 @@ recipeModule.directive("scroll", function ($window) {
 /************************************************************************************************************************************************
  * RECIPES
  ************************************************************************************************************************************************/
-recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
+recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', '$rootScope', function($scope, $http, $mdDialog, $rootScope) {
 
 	$scope.initContext = function() {
 		
@@ -23,6 +23,9 @@ recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', f
 		$scope.imagesServerPort = imagesServerPort;
 		
 		$scope.getRecipes();
+		
+		$rootScope.currentMenu = 'Recipes';
+
 	}
 	
 	/**
@@ -96,7 +99,7 @@ recipeModule.controller("recipesController", [ '$scope', '$http', '$mdDialog', f
 /************************************************************************************************************************************************
  * RECIPE DETAIL
  ************************************************************************************************************************************************/
-recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$timeout', '$routeParams', 'thumbnailService', function($scope, $http, $mdDialog, $timeout, $routeParams, thumbnailService) {
+recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$timeout', '$routeParams', 'thumbnailService', '$rootScope', function($scope, $http, $mdDialog, $timeout, $routeParams, thumbnailService, $rootScope) {
 
 	$scope.initContext = function() {
 		
@@ -121,6 +124,9 @@ recipeModule.controller("recipeController", [ '$scope', '$http', '$mdDialog', '$
 		$http.get(microservicesProtocol + "://" + microservicesUrl + "/recipe/recipes/" + $routeParams.id).success(function(data, status, header, config) {
 			
 			$scope.recipe = data;
+			
+			$rootScope.currentMenu = $scope.recipe.name;
+
 		});
 		
 	}
