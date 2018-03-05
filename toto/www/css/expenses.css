@@ -118,6 +118,14 @@ expenses-month-total .total.small md-icon {width: 14px; height: 14px; margin-top
 #expenses-dashboard #expenses-of-category .month .expenses-container .expense .amount {font-size: 0.9em;}
  
 /************************************************************************
+ * DIRECTIVE - EXPENSES TOTAL
+ ***********************************************************************/
+expenses-total {display: block; border: 6px solid #F44336; border-radius: 50%; color: rgba(0,0,0,0.65); }
+expenses-total md-icon {padding-top: 6px; width: 20px;}
+expenses-total .text .amount {font-size: 1.3em;}
+expenses-total .text .currency {font-size: 0.7em; margin-right: 6px; padding-top: 6px;}
+ 
+/************************************************************************
  * RESPONSIVE
  ***********************************************************************/
 @media only screen and (min-width: 960px) {

@@ -62,7 +62,26 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getMonthTotal : function(currency, yearMonth) {
 			
-			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total?currency=" + currency);
+			var currencyParam = currency != null ? '?currency=' + currency : '';
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/" + yearMonth + "/total" + currencyParam);
+		},
+		
+		/**
+		 * Retrieves the total expenses for every month starting from the current Month and going back.
+		 * 
+		 * Requires: 
+		 *  - yearMonth : mandatory
+		 *  - currency  : optional, in case not passed it will provide a sum of all expenses (independently from the currency) in EUR
+		 *  - maxResults : the max number of months, 5 if not passed
+		 * 
+		 */
+		getMonthTotals : function(yearMonth, currency, maxResults) {
+			
+			var currencyParam = currency != null ? '&currency=' + currency : '';
+			var maxResultsParam = maxResults == null ? 5 : maxResults;
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses/totals?maxResults=" + maxResultsParam + "&currentYearMonth=" + yearMonth + currencyParam);
 		},
 	
 		/**

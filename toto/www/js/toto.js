@@ -20,7 +20,13 @@ var totoAppList = [
 
 //navigator.geolocation.getCurrentPosition(function(position) {console.log(position);});
 
-var totoModule = angular.module("toto", [ "ngRoute", "ngMaterial", "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "TotoAuthServiceModule", "weekendModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule", "totoDirectivesModule", "gymDirectivesModule", "ChimpServiceModule", "ApiAiServiceModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "DietServiceModule", "dietModule", "totoHealthFitnessDirectiveModule", "supermarketModule", "SupermarketServiceModule", "projectModule", "ProjectServiceModule", "NoteServiceModule", "jobSearchModule", "JobSearchServiceModule", "partnerModule", "PartnerServiceModule" ])
+var totoModule = angular.module("toto", [ 
+      "ngRoute", "ngMaterial", 
+      "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "weekendModule","flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule","dietModule","supermarketModule","projectModule","jobSearchModule","partnerModule",        
+      "TotoAuthServiceModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "ChimpServiceModule", "ApiAiServiceModule", "DietServiceModule", "SupermarketServiceModule", "ProjectServiceModule", "NoteServiceModule", "JobSearchServiceModule", "PartnerServiceModule", 
+      "expensesDirectivesModule", "totoWidgetDirectiveModule", "totoDirectivesModule", "gymDirectivesModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "totoHealthFitnessDirectiveModule",
+      "BarchartDirective"
+])
 .factory('totoAuthManager', [ '$rootScope', '$location', function($rootScope, $location) {
 	return {
 		request : function(config) {

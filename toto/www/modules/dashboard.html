@@ -1,37 +1,31 @@
 
-<!-- <toto-chimp></toto-chimp> -->
+<div id="toto-dashboard" layout="column" flex>
 
-<div class="toto-left-area" ng-show="gtMd" flex>
-
-	<sangiorgio-unpaid-bills title="Home bills"></sangiorgio-unpaid-bills>
+	<div class="" layout-gt-sm="row" layout="column" >
 	
-</div>	
-	
-<div id="dashboard" class="toto-central-area" flex layout="column">
-
-	<dashboard-money></dashboard-money>
-
-	<toto-weight-graph></toto-weight-graph>		
-
-	<dashboard-health-fitness></dashboard-health-fitness>		
-	
-	<div class="toto-card dark-primary-color" flex layout="column">
-		<div flex></div>
-		<div class="content">
-			<toto-health-fitness layout="column" flex></toto-health-fitness>
+		<div class="" layout="row" flex>
+			<toto-widget color="red" layout="column" ng-click="go('/expenses')">
+				<div class="title" ng-if="gtXs">Current month expenses</div>
+				<div flex></div>
+				<expenses-total></expenses-total>
+				<div flex></div>
+				<div class="title" ng-if="xs">Current month expenses</div>
+			</toto-widget>			
+			<toto-widget layout="column">
+				<div flex></div>
+				<expenses-graph></expenses-graph>
+				<div flex></div>
+			</toto-widget>			
 		</div>
+		<div class="" layout="row" flex>
+			<toto-widget></toto-widget>
+			<toto-widget></toto-widget>			
+		</div>
+		<div class="" layout="row" flex>
+			<toto-widget></toto-widget>			
+			<toto-widget></toto-widget>			
+		</div>
+	
 	</div>
-	
-</div>
-
-<div class="toto-right-area" ng-show="gtXs" flex layout="column">
-
-	<tasks schedule="today" title="Your tasks for today"></tasks>
-	
-	<toto-drawing-pad height="250"></toto-drawing-pad>
 
 </div>
-
-	
-	
-
