@@ -16,7 +16,7 @@ BarchartDirective.directive('d3Barchart', function($timeout) {
 			color : '@',
 			unit : '@'
 		},
-    link : function(scope, element) {
+		link : function(scope, element) {
     	
     		var container = element[0].parentNode;
     		
@@ -34,13 +34,13 @@ BarchartDirective.directive('d3Barchart', function($timeout) {
 			var g;
 			var x, y, colorScale;
 
-      /**
-       * Draws the svg
-       */
-      var init = function() {
+	      /**
+	       * Draws the svg
+	       */
+	      var init = function() {
 
-				width = barchartContainer.offsetWidth;
-				height = barchartContainer.offsetHeight;
+				width = container.offsetWidth;
+				height = container.offsetHeight;
 				
 				x = d3.scaleBand().range([0, width]).padding(0.1);
 				y = d3.scaleLinear().range([0, height - 20]);
@@ -83,7 +83,7 @@ BarchartDirective.directive('d3Barchart', function($timeout) {
 							.style('fill', function(d) {if (y(d.value) < 25) return 'rgba(0,0,0,0.8)'; return 'white';})
 							.attr('class', 'value')
 							.attr('text-anchor', 'middle')
-							.attr('font-size', '65%')
+							.attr('font-size', '60%')
 							.attr('x', function(d) {return x(d.label) + x.bandwidth() / 2})
 							.attr('y', function(d) {if (y(d.value) < 25) return height - y(d.value) - 9; return height - 9;})
 							.text(function(d) {return d.value + ' ' + unit;})
@@ -106,10 +106,10 @@ BarchartDirective.directive('d3Barchart', function($timeout) {
 
 				});
 
-      }
-
-      $timeout(init, 100);
-
-    }
+	      }
+	
+	      $timeout(init, 100);
+	
+	    }
 	};
 });

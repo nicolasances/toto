@@ -64,6 +64,7 @@ expensesDirectivesModule.directive('expensesGraph', [ '$timeout', '$mdMedia', 'e
 			var scale = 0.8;
 			comp.style.width = containerWidth * scale + 'px';
 			comp.style.height = containerHeight * scale + 'px';
+			comp.style.marginLeft = (containerWidth - 18 - containerWidth * scale) / 2 + 'px';
 			comp.classList.add('layout-column');
 			
 			// 2. Load months totals

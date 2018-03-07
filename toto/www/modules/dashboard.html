@@ -11,15 +11,17 @@
 				<div flex></div>
 				<div class="title" ng-if="xs">Current month expenses</div>
 			</toto-widget>			
-			<toto-widget layout="column">
+			<toto-widget layout="column" color="red">
 				<div flex></div>
 				<expenses-graph></expenses-graph>
 				<div flex></div>
 			</toto-widget>			
 		</div>
 		<div class="" layout="row" flex>
-			<toto-widget></toto-widget>
-			<toto-widget></toto-widget>			
+			<toto-widget layout="column">
+				<div class="title">Training week</div>
+				<gym-week layout="column"></gym-week>
+			</toto-widget>
 		</div>
 		<div class="" layout="row" flex>
 			<toto-widget></toto-widget>			
