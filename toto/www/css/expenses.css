@@ -16,23 +16,23 @@
 
 #expenses #expenses-container {position: relative;}
 #expenses #expenses-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 90%; width: 32px; margin-left: 23px; background-size: 5px; background-repeat: repeat-y; background-position: 50%; }
-#expenses #expenses-container md-list {margin-top: 12px;}
-#expenses #expenses-container md-list md-list-item {color: rgba(0,0,0,0.8); min-height: 56px;}
-#expenses #expenses-container md-list md-list-item .prospect {color: rgba(0,0,0,0.3);}
-#expenses #expenses-container md-list md-list-item .avatar {background-color: white;border-radius: 50%;border: 3px solid #E0E0E0;width: 40px;height: 40px;background-size: 24px;background-position: 50%;background-repeat: no-repeat;outline: none;min-width: 40px;min-height: 40px;}
-#expenses #expenses-container md-list md-list-item .date {margin-left: 12px; text-align: center; outline: none;}
-#expenses #expenses-container md-list md-list-item .date .day {font-size: 1.2em;}
-#expenses #expenses-container md-list md-list-item .date .month {font-size: 0.6em; text-transform: uppercase;}
-#expenses #expenses-container md-list md-list-item .description {font-size: 0.8em; margin-left: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 12px; outline: none;}
-#expenses #expenses-container md-list md-list-item .amount {font-size: 1em; outline: none;}
-#expenses #expenses-container md-list md-list-item .weekend-icon md-icon {margin: 0 12px; width: 18px; height: 18px; fill: #4CAF50;}
-#expenses #expenses-container md-list md-list-item .menu {}
-#expenses #expenses-container md-list md-list-item .menu .icon {background-color: #8BC34A;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
+#expenses #expenses-container .list {margin-top: 12px;}
+#expenses #expenses-container .list .list-item {color: rgba(0,0,0,0.8); min-height: 56px;}
+#expenses #expenses-container .list .list-item .prospect {color: rgba(0,0,0,0.3); padding-left: 16px;}
+#expenses #expenses-container .list .list-item .avatar {background-color: white;border-radius: 50%;border: 3px solid #E0E0E0;width: 40px;height: 40px;background-size: 24px;background-position: 50%;background-repeat: no-repeat;outline: none;min-width: 40px;min-height: 40px; z-index: 2; margin-top: 5px;}
+#expenses #expenses-container .list .list-item .date {margin-left: 12px; text-align: center; outline: none;}
+#expenses #expenses-container .list .list-item .date .day {font-size: 1.2em;}
+#expenses #expenses-container .list .list-item .date .month {font-size: 0.6em; text-transform: uppercase;}
+#expenses #expenses-container .list .list-item .description {font-size: 0.8em; margin-left: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 12px; outline: none;}
+#expenses #expenses-container .list .list-item .amount {font-size: 1em; outline: none;}
+#expenses #expenses-container .list .list-item .weekend-icon md-icon {margin: 0 12px; width: 18px; height: 18px; fill: #4CAF50;}
+#expenses #expenses-container .list .list-item .menu {}
+#expenses #expenses-container .list .list-item .menu .icon {background-color: #8BC34A;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
 
 toto-chimp #expenses #expenses-container .timeline {display: none;}
-toto-chimp #expenses #expenses-container md-list md-list-item {color: rgba(255, 255, 255, 0.87);}
-toto-chimp #expenses #expenses-container md-list md-list-item .avatar {background: transparent; width: 48px; height: 48px;}
-toto-chimp #expenses #expenses-container md-list md-list-item .avatar md-icon {fill: rgba(255, 255, 255, 0.6);} 
+toto-chimp #expenses #expenses-container .list .list-item {color: rgba(255, 255, 255, 0.87);}
+toto-chimp #expenses #expenses-container .list .list-item .avatar {background: transparent; width: 48px; height: 48px;}
+toto-chimp #expenses #expenses-container .list .list-item .avatar md-icon {fill: rgba(255, 255, 255, 0.6);} 
 
 #expenses-add-expense .type-container {margin-top: 24px; color: rgba(0,0,0,0.8);}
 #expenses-add-expense .type-container .type {margin: 0 24px;}

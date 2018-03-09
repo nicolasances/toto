@@ -33,6 +33,7 @@ toto-widget.medium {height: 424px; max-height: 424px;}
 toto-widget.color-red {border-left: 5px solid #E53935;}
 toto-widget.color-teal {border-left: 5px solid #00897B;}
 toto-widget.color-green {border-left: 5px solid #4CAF50;}
+toto-widget.color-blue {border-left: 5px solid #2196F3;}
 
 toto-widget .title {font-size: 0.9em; color: rgba(0,0,0,0.6); text-align: center; }
 

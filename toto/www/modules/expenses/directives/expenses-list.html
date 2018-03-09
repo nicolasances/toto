@@ -33,9 +33,9 @@
 	</div>
 	<div id="expenses-container" layout="column" flex>
 		<div class="timeline"></div>
-		<md-list>
-			<md-list-item class="md-2-line" ng-repeat="expense in expenses" ng-if="!expense.hide" ng-click="onSelect(expense)">
-				<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
+		<div layout="column" class="list">
+			<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-if="!expense.hide" ng-click="onSelect(expense)">
+				<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
 					<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)"></div>
 					<div class="date" layout="column" ng-click="expense.showMenu = true">
 						<div flex></div>
@@ -68,8 +68,8 @@
 						<div flex></div>
 					</div>
 				</div>
-   			</md-list-item>
-		</md-list>
+   			</div>
+		</div>
 	</div>
 </div>
 

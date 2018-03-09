@@ -92,7 +92,7 @@ gymDirectivesModule.directive('totoWeightGraph', ['BodyWeightService', '$timeout
  * 
  *  	-	... 		:	...
  */
-gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(GymService, $timeout) {
+gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope', function(GymService, $timeout, $rootScope) {
 	
 	return {
 		scope: {
@@ -106,6 +106,8 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(Gym
 				GymService.getWeekSummary(moment().format('W'), moment().format('YYYY'), scope.benchmarkEfficacy).success(function(data) {
 
 					scope.gymDays = data.days;
+					
+					console.log(scope.gymDays);
 					
 					draw();
 					
@@ -141,6 +143,38 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(Gym
 			    	}
 			    }
 			}
+			
+			/**
+			 * Starts or resume a session in a specified day.
+			 * 
+			 * The session will be started if there are no sessions ongoing for that
+			 * day. The session will be resumed if there is a session ongoing for that
+			 * day.
+			 * 
+			 * Parameters:
+			 *  - day: the gym day loaded in getWeekSummary() call
+			 */
+			var startOrResumeSession = function(day) {
+				
+				console.log(day);
+				
+				if (day.muscle == null) {
+					
+					GymService.showStartSessionUI(function(answer) {
+
+						GymService.startSession(answer.planId, answer.planWorkoutId, day.date).success(function(data) {
+							$rootScope.go('/gym/sessions/' + data.sessionId);
+						});
+					});
+					
+				}
+				else {
+					
+					GymService.getSessions(day.date).success(function(sessions) {
+						$rootScope.go('/gym/sessions/' + sessions.sessions[0].id);
+					})
+				}
+			}
 	      
 			/**
 			 * Draws the circles
@@ -160,8 +194,6 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(Gym
 				
 				g = svg.append('g');
 				
-				console.log(scope.gymDays);
-				
 				g.selectAll('.circle').data(scope.gymDays).enter().append('circle')
 					.style('fill', function(d, i) {return 'white';})
 					.style('stroke', '#eaeaea')
@@ -170,10 +202,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(Gym
 					.attr('cx', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2;})
 					.attr('cy', function(d, i) {if (i % 2 == 0) return (height / 3); return 2 * height / 3;})
 					.attr('r', circleR)
-//					.transition()
-//					.duration(500)
-//					.attr('y', function(d) {return height - y(d.value);})
-//					.attr('height', function(d) {return y(d.value); })
+					.on('click', function(d) {startOrResumeSession(d);})
 					
 				g.selectAll('.day').data(scope.gymDays).enter().append('text')
 					.style('fill', '#eaeaea')
@@ -183,25 +212,26 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', function(Gym
 					.attr('line-height', dayFontSize + 'px')
 					.attr('x', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2;})
 					.attr('y', function(d, i) {if (i % 2 == 0) return (height / 3) + dayFontSize/2; return 2 * height / 3 + dayFontSize/2;})
-					.text(function(d) {if (d.muscle == null) return moment(d.date, 'YYYYMMDD').format('dd'); return '';});
+					.text(function(d) {if (d.muscle == null) return moment(d.date, 'YYYYMMDD').format('dd'); return '';})
+					.on('click', function(d) {startOrResumeSession(d);})
 				
 				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
 					.attr('class', 'sessionArc')
-					.attr('fill', '#4CAF50')
+					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return 'rgb(0, 151, 167)';})
 					.attr('transform', function(d, i) {return 'translate(' + (i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2) + ', ' + ((i % 2 == 0) ? (height / 3) : 2 * height / 3) + ')';})
 					.attr('d', gymSessionArc)
 					.transition()
 					.duration(500)
-					.attrTween('d', gymSessionArcTween(Math.PI));
+					.attrTween('d', gymSessionArcTween(Math.PI))
 					
 				g.selectAll('.muscleImg').data(scope.gymDays).enter().append('svg:image')
 					.attr('class', 'muscleImg')
-					.attr('xlink:href', function(d) {return d.muscle != null ? 'images/gym/muscle-avatars-green/' + d.muscle.id + '.svg' : '';})
+					.attr('xlink:href', function(d) {return d.muscle != null ? 'images/gym/muscle-avatars-grey/' + d.muscle.id + '.svg' : '';})
 					.attr('width', '20px')
 					.attr('height', '20px')
-					.attr('fill', '#4CAF50')
 					.attr('x', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2 - 10;})
 					.attr('y', function(d, i) {if (i % 2 == 0) return (height / 3) + dayFontSize/2 - 15; return 2 * height / 3 + dayFontSize/2 - 15;})
+					.on('click', function(d) {startOrResumeSession(d);})
 					
 			}
 			

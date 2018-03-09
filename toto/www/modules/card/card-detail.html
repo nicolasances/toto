@@ -48,8 +48,8 @@
 			<div id="expenses" style="margin-left: 8px;">
 				<div id="expenses-container" layout="column" flex>
 					<div class="timeline"></div>
-					<md-list>
-						<md-list-item class="md-2-line" ng-repeat="expense in expenses">
+					<div class="list" layout="column">
+						<div class="list-item" class="md-2-line" ng-repeat="expense in expenses">
 							<div layout="row" style="width: 100%;" class="{{expense.consolidated ? '' : 'prospect'}}">
 								<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};"></div>
 								<div class="date" layout="column">
@@ -69,8 +69,8 @@
 									<div flex></div>
 								</div>
 							</div>
-			   			</md-list-item>
-					</md-list>
+			   			</div>
+					</div>
 				</div>
 			</div>
 		</div>
