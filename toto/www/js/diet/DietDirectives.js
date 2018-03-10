@@ -92,7 +92,7 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
 						.attr('y', height / 2)
 						.attr('font-size', '1.8em')
 						.attr('fill', 'rgba(0,0,0,0.7)')
-						.html(function(d) {return (d / 1000).toFixed(2) + '&#8467;'})
+						.html(function(d) {return (d / 1000).toFixed(2) + ' &#8467;'})
 					
 				});
 			});

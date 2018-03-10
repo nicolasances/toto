@@ -24,7 +24,7 @@ var totoModule = angular.module("toto", [
       "ngRoute", "ngMaterial", 
       "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "weekendModule","flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule","dietModule","supermarketModule","projectModule","jobSearchModule","partnerModule",        
       "TotoAuthServiceModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "ChimpServiceModule", "ApiAiServiceModule", "DietServiceModule", "SupermarketServiceModule", "ProjectServiceModule", "NoteServiceModule", "JobSearchServiceModule", "PartnerServiceModule", 
-      "dietDirectivesModule", "expensesDirectivesModule", "totoWidgetDirectiveModule", "totoDirectivesModule", "gymDirectivesModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "totoHealthFitnessDirectiveModule",
+      "dietDirectivesModule", "BodyWeightDirectivesModule", "expensesDirectivesModule", "totoWidgetDirectiveModule", "totoDirectivesModule", "gymDirectivesModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "totoHealthFitnessDirectiveModule",
       "BarchartDirective"
 ])
 .factory('totoAuthManager', [ '$rootScope', '$location', function($rootScope, $location) {

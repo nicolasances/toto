@@ -107,8 +107,6 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 
 					scope.gymDays = data.days;
 					
-					console.log(scope.gymDays);
-					
 					draw();
 					
 				});
@@ -156,8 +154,6 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			 */
 			var startOrResumeSession = function(day) {
 				
-				console.log(day);
-				
 				if (day.muscle == null) {
 					
 					GymService.showStartSessionUI(function(answer) {
@@ -195,7 +191,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 				g = svg.append('g');
 				
 				g.selectAll('.circle').data(scope.gymDays).enter().append('circle')
-					.style('fill', function(d, i) {return 'white';})
+					.style('fill', function(d, i) {if (d.muscle != null && d.efficacyGoalReached) return '#F1F8E9'; return 'white';})
 					.style('stroke', '#eaeaea')
 					.style('strokeWidth', '2')
 					.attr('class', 'circle')
@@ -217,7 +213,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 				
 				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
 					.attr('class', 'sessionArc')
-					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return 'rgb(0, 151, 167)';})
+					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return '#26C6DA';})
 					.attr('transform', function(d, i) {return 'translate(' + (i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2) + ', ' + ((i % 2 == 0) ? (height / 3) : 2 * height / 3) + ')';})
 					.attr('d', gymSessionArc)
 					.transition()
@@ -226,7 +222,11 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					
 				g.selectAll('.muscleImg').data(scope.gymDays).enter().append('svg:image')
 					.attr('class', 'muscleImg')
-					.attr('xlink:href', function(d) {return d.muscle != null ? 'images/gym/muscle-avatars-grey/' + d.muscle.id + '.svg' : '';})
+					.attr('xlink:href', function(d) {
+						if (d.muscle != null && d.efficacyGoalReached) return 'images/gym/muscle-avatars-green/' + d.muscle.id + '.svg';
+						else if (d.muscle != null) return 'images/gym/muscle-avatars-grey/' + d.muscle.id + '.svg';
+						else return '';
+					})
 					.attr('width', '20px')
 					.attr('height', '20px')
 					.attr('x', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2 - 10;})
