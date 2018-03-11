@@ -1,7 +1,7 @@
 
-var microservicesProtocol = "https";
-var microservicesHost = "imatz.info";
+var microservicesProtocol = "http";
+var microservicesHost = "35.224.91.146";
 var microservicesPort = "80";
-var microservicesUrl = "imatz.info";
-var microservicesUrl2 = "imatz.info";
+var microservicesUrl = "35.224.91.146";
+var microservicesUrl2 = "35.224.91.146";
 var imagesServerPort = "80";

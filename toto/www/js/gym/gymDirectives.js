@@ -99,6 +99,16 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 		},
 		link: function(scope, el) {
 			
+			var container = el[0].parentNode;
+			var component = el[0];
+			var scale = 0.9;
+			var width, height;
+			var svg, g;
+			var dayFontSize = 12;
+			var gymSessionArc;
+			
+			component.id = 'gymWeek-' + Math.floor(Math.random() * 1000000);
+			
 			GymService.calculateEfficacy('goodPain', 'ok').success(function(data) {
 
 				scope.benchmarkEfficacy = data.efficacy;
@@ -111,18 +121,6 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					
 				});
 			});
-			
-			var container = el[0].parentNode;
-			var scale = 0.9;
-			var width, height;
-			var svg, g;
-			var circleR = 30;
-			var dayFontSize = 14;
-			var gymSessionCircleWidth = 5;
-			var gymSessionArc = d3.arc().innerRadius(circleR - gymSessionCircleWidth / 2).outerRadius(circleR + gymSessionCircleWidth / 2).startAngle(0).endAngle(0);
-			
-			var component = el[0];
-			component.id = 'gymWeek-' + Math.floor(Math.random() * 1000000);
 
 			/**
 			 * Animates the green circle that specifies if the gym session has been done
@@ -184,41 +182,80 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 				component.style.height = height + 'px';
 				component.style.marginLeft = (container.offsetWidth - 18 - container.offsetWidth * scale) / 2 + 'px';
 				
+				var circleGutter = 10;
+				var gymSessionCircleWidth = 3;
+				
+				/**
+				 * Calculates each circle's x position
+				 */
+				var circleCX = function(d, i) {
+					var circleWidth = circleR() * 2;
+					return circleGutter / 2 + circleWidth / 2 + i * (circleWidth + circleGutter);
+				}
+				
+				/**
+				 * Calculates each circle's y position
+				 */
+				var circleCY = function(d, i) {
+					return height / 2;
+				}
+				
+				/**
+				 * Calculates the circle's radius
+				 */
+				var circleR = function(d, i) {
+					return (width / 7 - circleGutter) / 2;
+				}
+				
+				gymSessionArc = d3.arc().innerRadius(circleR() - gymSessionCircleWidth / 2).outerRadius(circleR() + gymSessionCircleWidth / 2).startAngle(0).endAngle(0);
+				
 				svg = d3.select('#' + component.id).append('svg')
 						.attr('width', width)
 						.attr('height', height);
 				
 				g = svg.append('g');
 				
+				g.selectAll('.bar').data(scope.gymDays).enter().append('rect')
+					.style('fill', '#4CAF50')
+					.attr('class', 'bar')
+					.attr('width', circleR)
+					.attr('x', function(d, i) {return circleCX(d, i) - circleR() / 2})
+					.attr('y', circleCY)
+					.attr('height', 0)
+					.transition()
+					.duration(500)
+					.attr('height', function(d) {if (d.efficacyGoalReached) return circleR() * 2; return 0;})
+				
 				g.selectAll('.circle').data(scope.gymDays).enter().append('circle')
-					.style('fill', function(d, i) {if (d.muscle != null && d.efficacyGoalReached) return '#F1F8E9'; return 'white';})
-					.style('stroke', '#eaeaea')
+					.style('fill', function(d, i) {if (d.muscle != null) return '#F1F8E9'; return 'white';})
+					.style('stroke', 'rgb(212, 211, 211)')
 					.style('strokeWidth', '2')
 					.attr('class', 'circle')
-					.attr('cx', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2;})
-					.attr('cy', function(d, i) {if (i % 2 == 0) return (height / 3); return 2 * height / 3;})
+					.attr('cx', circleCX)
+					.attr('cy', circleCY)
 					.attr('r', circleR)
 					.on('click', function(d) {startOrResumeSession(d);})
 					
 				g.selectAll('.day').data(scope.gymDays).enter().append('text')
-					.style('fill', '#eaeaea')
+					.style('fill', 'rgba(0,0,0,0.5)')
 					.attr('class', 'day')
 					.attr('text-anchor', 'middle')
+					.attr('alignment-baseline', 'baseline')
 					.attr('font-size', dayFontSize + 'px')
 					.attr('line-height', dayFontSize + 'px')
-					.attr('x', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2;})
-					.attr('y', function(d, i) {if (i % 2 == 0) return (height / 3) + dayFontSize/2; return 2 * height / 3 + dayFontSize/2;})
-					.text(function(d) {if (d.muscle == null) return moment(d.date, 'YYYYMMDD').format('dd'); return '';})
+					.attr('x', circleCX)
+					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - 6})
+					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
 					.on('click', function(d) {startOrResumeSession(d);})
 				
-				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
-					.attr('class', 'sessionArc')
-					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return '#26C6DA';})
-					.attr('transform', function(d, i) {return 'translate(' + (i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2) + ', ' + ((i % 2 == 0) ? (height / 3) : 2 * height / 3) + ')';})
-					.attr('d', gymSessionArc)
-					.transition()
-					.duration(500)
-					.attrTween('d', gymSessionArcTween(Math.PI))
+//				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
+//					.attr('class', 'sessionArc')
+//					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return '#26C6DA';})
+//					.attr('transform', function(d, i) {return 'translate(' + circleCX(d, i) + ', ' + circleCY(d, i) + ')';})
+//					.attr('d', gymSessionArc)
+//					.transition()
+//					.duration(500)
+//					.attrTween('d', gymSessionArcTween(Math.PI))
 					
 				g.selectAll('.muscleImg').data(scope.gymDays).enter().append('svg:image')
 					.attr('class', 'muscleImg')
@@ -227,10 +264,10 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 						else if (d.muscle != null) return 'images/gym/muscle-avatars-grey/' + d.muscle.id + '.svg';
 						else return '';
 					})
-					.attr('width', '20px')
-					.attr('height', '20px')
-					.attr('x', function(d, i) {return i * ((width - circleR) / 7) + circleR + gymSessionCircleWidth/2 - 10;})
-					.attr('y', function(d, i) {if (i % 2 == 0) return (height / 3) + dayFontSize/2 - 15; return 2 * height / 3 + dayFontSize/2 - 15;})
+					.attr('width', circleR)
+					.attr('height', circleR)
+					.attr('x', function(d, i) {return circleCX(d, i) - circleR() / 2})
+					.attr('y', function(d, i) {return circleCY(d, i) - circleR() / 2})
 					.on('click', function(d) {startOrResumeSession(d);})
 					
 			}
