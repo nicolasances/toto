@@ -25,10 +25,13 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 /************************************************************************
  * WIDGETS 
  ***********************************************************************/
-toto-widget {overflow: hidden !important; margin: 12px; padding: 9px; background: white; border-radius: 1px; position: relative; overflow: scroll; height: 200px; max-height: 200px;}
+toto-widget {margin: 12px; padding: 9px; background: white; border-radius: 1px; position: relative; overflow: scroll; height: 200px; max-height: 200px;}
 
-toto-widget.small {height: 200px; max-height: 200px;}
-toto-widget.medium {height: 424px; max-height: 424px;}
+toto-widget.small {height: 200px; }
+toto-widget.medium {height: 424px;}
+toto-widget.v-unbounded {height: auto; max-height: none;}
+
+toto-widget.no-scroll {overflow: hidden !important;}
 
 toto-widget.color-red {border-left: 5px solid #E53935;}
 toto-widget.color-teal {border-left: 5px solid #00897B;}

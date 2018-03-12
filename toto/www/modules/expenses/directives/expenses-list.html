@@ -1,77 +1,55 @@
 
-<div class="toto-card" id="expenses" flex>
-	<div layout="row" class="header" ng-if="showNavigator">
-		<div class="navigator" layout="row" flex>
-			<div class="calendar" layout="column">
-				<md-icon md-svg-src="images/svg/calendar.svg"></md-icon>
-			</div>
-		</div>
-		<div class="month-nav" layout="column">
-			<div flex></div>
-			<div layout="row">
-				<div flex></div>
-				<div class="arrow" layout="column" md-whiteframe="3">
+<div layout="row" class="header light-primary-color" ng-if="showNavigator">
+	<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
+	<div class="text" flex>{{selectedPeriod.month}}</div>
+	<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
+</div>
+
+<div id="expenses-container" layout="column" flex>
+	<div class="timeline"></div>
+	<div layout="column" class="list">
+		<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-click="onSelect(expense)">
+			<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
+				<div class="avatar" style="border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)" layout="column">
 					<div flex></div>
-					<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
+					<md-icon md-svg-src="images/expenses/avatars/{{expense.category.filename}}"></md-icon>
+					<div flex></div>
+				</div>
+				<div class="date" layout="column" ng-click="expense.showMenu = true">
+					<div flex></div>
+					<div class="day">{{expense.date | date : 'd'}}</div>
+					<div class="month">{{expense.date | date : 'MMM'}}</div>
+					<div flex></div>
+				</div>
+				<div class="description" flex layout="column" ng-click="expense.showMenu = true">
+					<div flex></div>
+					<div>{{expense.description}}</div>
+					<div flex></div>
+				</div>
+				<div class="weekend-icon" layout="column" ng-if="expense.weekendId != null">
+					<div flex></div>
+					<div><md-icon md-svg-src="images/svg/palm-tree.svg"></md-icon></div>
+					<div flex></div>
+				</div>
+				<div class="amount" layout="column" ng-if="!expense.showMenu" ng-click="expense.showMenu = true">
+					<div flex></div>
+					<div>&euro; {{expense.amount | number : 2}}</div>
 					<div flex></div>
 				</div>
 				<div layout="column">
 					<div flex></div>
-					<div class="text">{{selectedPeriod.month}}</div>
+					<div class="menu" ng-if="expense.showMenu" layout="row">
+						<div class="icon" style="background-image: url('images/svg/checked-white.svg');" ng-click="consolidateExpense(expense)" ng-if="!expense.consolidated"></div>
+						<div class="icon" style="background-image: url('images/svg/trash-white.svg');" ng-click="deleteExpense(expense)"></div>
+						<div class="icon" style="background-image: url('images/svg/close-white.svg');" ng-click="expense.showMenu = false"></div>
+					</div>
 					<div flex></div>
 				</div>
-				<div class="arrow" layout="column" md-whiteframe="3">
-					<div flex></div>
-					<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
-					<div flex></div>
-				</div>
-				<div flex></div>
 			</div>
-			<div flex></div>
-		</div>
-		<div flex></div>
-	</div>
-	<div id="expenses-container" layout="column" flex>
-		<div class="timeline"></div>
-		<div layout="column" class="list">
-			<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-if="!expense.hide" ng-click="onSelect(expense)">
-				<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
-					<div class="avatar" style="background-image: url('images/expenses/avatars/{{expense.category.filename}}'); border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)"></div>
-					<div class="date" layout="column" ng-click="expense.showMenu = true">
-						<div flex></div>
-						<div class="day">{{expense.date | date : 'd'}}</div>
-						<div class="month">{{expense.date | date : 'MMM'}}</div>
-						<div flex></div>
-					</div>
-					<div class="description" flex layout="column" ng-click="expense.showMenu = true">
-						<div flex></div>
-						<div>{{expense.description}}</div>
-						<div flex></div>
-					</div>
-					<div class="weekend-icon" layout="column" ng-if="expense.weekendId != null">
-						<div flex></div>
-						<div><md-icon md-svg-src="images/svg/palm-tree.svg"></md-icon></div>
-						<div flex></div>
-					</div>
-					<div class="amount" layout="column" ng-if="!expense.showMenu" ng-click="expense.showMenu = true">
-						<div flex></div>
-						<div>&euro; {{expense.amount | number : 2}}</div>
-						<div flex></div>
-					</div>
-					<div layout="column">
-						<div flex></div>
-						<div class="menu" ng-if="expense.showMenu" layout="row">
-							<div class="icon" style="background-image: url('images/svg/checked-white.svg');" ng-click="consolidateExpense(expense)" ng-if="!expense.consolidated"></div>
-							<div class="icon" style="background-image: url('images/svg/trash-white.svg');" ng-click="deleteExpense(expense)"></div>
-							<div class="icon" style="background-image: url('images/svg/close-white.svg');" ng-click="expense.showMenu = false"></div>
-						</div>
-						<div flex></div>
-					</div>
-				</div>
-   			</div>
-		</div>
+  			</div>
 	</div>
 </div>
+
 
 <md-button class="md-fab floating" aria-label="Add an expense" ng-click="addExpense($event)">
 	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>

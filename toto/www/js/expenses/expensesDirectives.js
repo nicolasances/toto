@@ -6,7 +6,7 @@ var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'exp
  * 
  * Accepts the following parameters:
  * 
- *  - ... 	: 	... 
+ *  - currency 	: 	(optional) the currency code to be used. EUR, DKK, ..
  *  
  */
 expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', function($timeout, $mdMedia, expensesService) {
@@ -14,6 +14,7 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
 	return {
 		progress : {},
 		scope : {
+			currency: '@'
 		},
 		templateUrl : 'modules/expenses/directives/expenses-total.html',
 		link : function(scope, el) {
@@ -29,7 +30,7 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
 			circle.style.marginLeft = (widgetSize.width - 18 - circleSize) / 2 + 'px';
 			circle.classList.add('layout-column');
 			
-			expensesService.getMonthTotal(null, expensesService.getCurrentMonth()).success(function(data) {
+			expensesService.getMonthTotal(scope.currency, expensesService.getCurrentMonth()).success(function(data) {
 				
 				scope.amount = data.total;
 			});
@@ -43,7 +44,7 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
  * 
  * Accepts the following parameters:
  * 
- *  - ... 	: 	... 
+ *  - months 	: 	(optional) number of months to extract
  *  
  */
 expensesDirectivesModule.directive('expensesGraph', [ '$timeout', '$mdMedia', 'expensesService', function($timeout, $mdMedia, expensesService) {
@@ -51,6 +52,7 @@ expensesDirectivesModule.directive('expensesGraph', [ '$timeout', '$mdMedia', 'e
 	return {
 		progress : {},
 		scope : {
+			months: '@'
 		},
 		templateUrl : 'modules/expenses/directives/expenses-graph.html',
 		link : function(scope, el) {
@@ -70,7 +72,8 @@ expensesDirectivesModule.directive('expensesGraph', [ '$timeout', '$mdMedia', 'e
 			// 2. Load months totals
 			scope.monthExpenses = [];
 			
-			var maxResults = containerWidth > 250 ? 6 : 5; 
+			var maxResults = containerWidth > 250 ? 6 : 5;
+			if (scope.months != null) maxResults = scope.months;
 			
 			expensesService.getMonthTotals(expensesService.getCurrentMonth(), null, maxResults).success(function(data) {
 				

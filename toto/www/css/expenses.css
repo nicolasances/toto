@@ -2,6 +2,25 @@
 /* #expenses-container md-list-item .description {line-height: 1em; font-weight: normal;} */
 /* #expenses-container md-list-item .md-avatar {margin-top: 16px;} */
 
+expenses-list {}
+expenses-list .header {margin: -9px -9px 0 -9px; padding: 15px; text-align: center; font-size: 1.1em; color: rgba(0,0,0,0.7);}
+
+expenses-list #expenses-container {padding: 0 12px;}
+/* expenses-list #expenses-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 90%; width: 32px; margin-left: 23px; background-size: 5px; background-repeat: repeat-y; background-position: 50%; } */
+expenses-list #expenses-container .list {margin-top: 12px;}
+expenses-list #expenses-container .list .list-item {color: rgba(0,0,0,0.8); margin: 6px 0;}
+expenses-list #expenses-container .list .list-item .prospect {color: rgba(0,0,0,0.3);}
+expenses-list #expenses-container .list .list-item .avatar {background-color: white; border-radius: 50%;border: 3px solid #E0E0E0; width: 40px; height: 40px; outline: none; min-width: 40px; min-height: 40px; z-index: 2;}
+expenses-list #expenses-container .list .list-item .avatar md-icon {width: 20px; height: 20px;}
+expenses-list #expenses-container .list .list-item .date {margin-left: 12px; text-align: center; outline: none;}
+expenses-list #expenses-container .list .list-item .date .day {fonexpenses-list .2em;}
+expenses-list #expenses-container .list .list-item .date .month {font-size: 0.6em; text-transform: uppercase;}
+expenses-list #expenses-container .list .list-item .description {font-size: 0.8em; margin-left: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 12px; outline: none;}
+expenses-list #expenses-container .list .list-item .amount {font-size: 1em; outline: none;}
+expenses-list #expenses-container .list .list-item .weekend-icon md-icon {margin: 0 12px; width: 18px; height: 18px; fill: #4CAF50;}
+expenses-list #expenses-container .list .list-item .menu {}
+expenses-list #expenses-container .list .list-item .menu .icon {background-color: #8BC34A;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
+
 .expenses-header {background-color: #FFCDD2; height: 48px; padding: 14px 24px 0 24px; font-size: 18px; color: #B71C1C; min-height: 49px;}
 .expenses-header .month {text-transform: uppercase;}
 .expenses-header .money {}
