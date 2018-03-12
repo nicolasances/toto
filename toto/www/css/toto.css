@@ -25,7 +25,7 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 /************************************************************************
  * WIDGETS 
  ***********************************************************************/
-toto-widget {overflow: hidden; margin: 12px; padding: 9px; background: white; border-radius: 1px; position: relative; overflow: scroll; height: 200px; max-height: 200px;}
+toto-widget {overflow: hidden !important; margin: 12px; padding: 9px; background: white; border-radius: 1px; position: relative; overflow: scroll; height: 200px; max-height: 200px;}
 
 toto-widget.small {height: 200px; max-height: 200px;}
 toto-widget.medium {height: 424px; max-height: 424px;}
