@@ -33,7 +33,7 @@
 				</div>
 				<div class="amount" layout="column" ng-if="!expense.showMenu" ng-click="expense.showMenu = true">
 					<div flex></div>
-					<div>&euro; {{expense.amount | number : 2}}</div>
+					<div><span ng-if="expense.currency == 'EUR'">&euro;</span><span ng-if="expense.currency == 'DKK'">kr.</span> {{expense.amount | number : 2}}</div>
 					<div flex></div>
 				</div>
 				<div layout="column">
