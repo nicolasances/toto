@@ -6,6 +6,8 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 	
 	$scope.init = function() {
 		
+		$rootScope.currentMenu = 'Toto';
+		
 	}
 	
 	$scope.init();
