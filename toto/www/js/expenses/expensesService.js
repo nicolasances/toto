@@ -32,6 +32,8 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 * 		currency: string (optional, default value : EUR)
 		 * 		subscriptionId: 'retrieves the list of expenses linked to that subscription'
 		 * 		maxResults: the max number of results to get
+		 * 		cardId: (optional) the id of the credit card
+		 * 		cardMonth: (optional) the month of the card 
 		 * }
 		 */
 		getExpenses : function(filter) {
@@ -44,7 +46,8 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			if (filter.maxResults != null) {if (params != '') params += '&'; params += 'maxResults=' + filter.maxResults}
 			if (filter.yearMonth != null) {if (params != '') params += '&'; params += 'yearMonth=' + filter.yearMonth}
 			if (filter.subscriptionId != null) {if (params != '') params += '&'; params += 'subscriptionId=' + filter.subscriptionId}
-			
+			if (filter.cardId != null) {if (params != '') params += '&'; params += 'cardId=' + filter.cardId}
+			if (filter.cardMonth != null) {if (params != '') params += '&'; params += 'cardMonth=' + filter.cardMonth}
 			
 			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?" + params);
 

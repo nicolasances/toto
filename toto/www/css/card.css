@@ -1,4 +1,5 @@
 
+
 #cards .card {padding: 12px;background-color: #B2EBF2;border-radius: 3px;height: 100%;width: 100%;}
 #cards .card .logo {margin-right: 24px;}
 #cards .card .logo md-icon {width: 50px;height: 50px;fill: #0097A7;}
@@ -6,6 +7,18 @@
 #cards .card .pan {font-size: 0.8em; margin-top: 4px;}
 #cards .card .expiry-text {font-size: 0.5em; margin-top: 3px; text-transform: uppercase;}
 #cards .card .expiry {font-size: 1.2em;}
+
+
+/******************************************************************************************************************
+ * DIRECTIVE - CARD TOTAL
+ ******************************************************************************************************************/
+card-total { position: relative; }
+card-total .card-name {text-transform: uppercase; font-size: 1.1em; color: rgba(0,0,0,0.4); z-index: 2;}
+card-total .card-pan {color: rgba(0,0,0,0.4); font-size: 0.8em; z-index: 2;}
+card-total .card-expiry {color: rgba(0,0,0,0.4); font-size: 0.8em; z-index: 2;}
+card-total .amount {color: rgba(0,0,0,0.7);font-size: 2em;text-align: center;z-index: 2;}
+card-total .card-image {position: absolute; top: -28px; right: -39px;}
+card-total .card-image md-icon {width: 120Px;height: 120px;fill: rgba(181, 124, 124, 0.21);}
 
 
 /******************************************************************************************************************

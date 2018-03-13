@@ -1,6 +1,6 @@
-var cardModule = angular.module("cardModule", ["expensesServiceModule"]);
+var cardModule = angular.module("cardModule", ["expensesServiceModule", "CardServiceModule"]);
 	
-cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval) {
+cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$interval', 'CardService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $interval, CardService) {
 
 	$scope.init = function() {
 		
@@ -14,7 +14,7 @@ cardModule.controller("cardController", [ '$rootScope', '$scope', '$http', '$tim
 	 */
 	$scope.getCards = function() {
 		
-		$http.get(microservicesProtocol + "://" + microservicesUrl + "/card/cards").success(function(data) {
+		CardService.getCards().success(function(data) {
 			$scope.cards = data.cards;
 		});
 		

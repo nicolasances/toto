@@ -7,14 +7,14 @@
 	<!-- FIRST COLUMN -->
 	<div layout="column" flex>
 		<div layout="row" flex>
-			<toto-widget color="red" layout="column" ng-click="go('/expenses/payments/EUR')">
+			<toto-widget color="red" layout="column">
 				<div class="title" ng-if="gtXs">Current expenses (EUR)</div>
 				<div flex></div>
 				<expenses-total currency="EUR"></expenses-total>
 				<div flex></div>
 				<div class="title" ng-if="xs">Current expenses (EUR)</div>
 			</toto-widget>
-			<toto-widget color="red" layout="column" ng-click="go('/expenses/payments/DKK')">
+			<toto-widget color="red" layout="column">
 				<div class="title" ng-if="gtXs">Current expenses (DKK)</div>
 				<div flex></div>
 				<expenses-total currency="DKK"></expenses-total>

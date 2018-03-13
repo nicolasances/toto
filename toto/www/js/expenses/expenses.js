@@ -31,26 +31,6 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 	
 }]);
 
-/***********************************************************************************************************************
- * EXPENSES LIST
- **********************************************************************************************************************/
-expensesModule.controller("expensesController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'expensesService', '$routeParams', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, expensesService, $routeParams) {
-
-	/**
-	 * Prepares the context object
-	 */
-	$scope.initContext = function() {
-		
-		$rootScope.currentMenu = 'Month payments';
-		$scope.expensesMenus = expensesMenus;
-		$scope.currency = $routeParams.currency != null ? $routeParams.currency : 'EUR';
-
-	}
-	
-	$scope.initContext();
-
-} ]);
-
 /******************************************************************************************
  * DIRECTIVES
  *****************************************************************************************/

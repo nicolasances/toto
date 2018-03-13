@@ -23,8 +23,8 @@ var totoAppList = [
 var totoModule = angular.module("toto", [ 
       "ngRoute", "ngMaterial", 
       "housekeepingModule", "healthModule", "gymModule", "travelModule", "monrealeModule", "dashboardModule", "recipeModule", "tripModule", "expensesModule", "tasksModule", "justiceModule", "carModule", "sangiorgioModule", "piggyModule", "loginModule", "weekendModule","flightModule", "hotelModule", "mogoalsModule", "cardModule", "subscriptionsModule","dietModule","supermarketModule","projectModule","jobSearchModule","partnerModule",        
-      "TotoAuthServiceModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "ChimpServiceModule", "ApiAiServiceModule", "DietServiceModule", "SupermarketServiceModule", "ProjectServiceModule", "NoteServiceModule", "JobSearchServiceModule", "PartnerServiceModule", 
-      "dietDirectivesModule", "BodyWeightDirectivesModule", "expensesDirectivesModule", "totoWidgetDirectiveModule", "totoDirectivesModule", "gymDirectivesModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "totoHealthFitnessDirectiveModule",
+      "TotoAuthServiceModule", "CardServiceModule", "GoogleServiceModule", "TransportServiceModule", "HotelServiceModule", "ChimpServiceModule", "ApiAiServiceModule", "DietServiceModule", "SupermarketServiceModule", "ProjectServiceModule", "NoteServiceModule", "JobSearchServiceModule", "PartnerServiceModule", 
+      "dietDirectivesModule", "BodyWeightDirectivesModule", "CardDirectivesModule", "expensesDirectivesModule", "totoWidgetDirectiveModule", "totoDirectivesModule", "gymDirectivesModule", "totoChimpDirectiveModule", "totoChimpInfoDirectivesModule", "totoHealthFitnessDirectiveModule",
       "BarchartDirective"
 ])
 .factory('totoAuthManager', [ '$rootScope', '$location', function($rootScope, $location) {
@@ -162,8 +162,6 @@ var totoModule = angular.module("toto", [
 					.when('/trip', {templateUrl : 'modules/trip/trips.html', controller : 'tripsController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/trip/:id', {templateUrl : 'modules/trip/trip.html', controller : 'tripController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/expenses', {templateUrl : 'modules/expenses/expenses-dashboard.html', controller : 'expensesDashboardController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
-					.when('/expenses/payments', {templateUrl : 'modules/expenses/expenses.html', controller : 'expensesController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
-					.when('/expenses/payments/:currency', {templateUrl : 'modules/expenses/expenses.html', controller : 'expensesController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks', {templateUrl : 'modules/tasks/today.html', controller : 'tasksTodayController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks/:schedule', {templateUrl : 'modules/tasks/today.html', controller : 'tasksTodayController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/tasks/:schedule/:id', {templateUrl : 'modules/tasks/task-detail.html', controller : 'taskDetailController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
