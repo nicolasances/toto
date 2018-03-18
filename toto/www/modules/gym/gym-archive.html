@@ -1,25 +1,26 @@
 <toto-app-menu menus="gymMenus"></toto-app-menu>
 
-<div class="toto-left-area" ng-show="gtMd"></div>
+<div id="toto-dashboard" layout="column" flex>
 
-<div id="gym" class="toto-central-area" flex>
-
-	<div class="toto-card">
-		<md-grid-list md-cols="3" md-cols-gt-sm="6" md-gutter="4px" md-row-height="1:1">
+	<toto-widget color="green" flex id="gym-archive" layout="column" unbounded="true">
+		<md-grid-list md-cols="3" md-cols-gt-md="8" md-gutter="4px" md-row-height="1:1">
 			<md-grid-tile ng-repeat="muscle in muscleGroups" ng-click="go('/gym/archive/' + muscle.id)">
 				<div class="group-container" layout="column">
-					<div class="image">
-						<img src="images/gym/muscles/{{muscle.image}}"/>
-					</div>
-					<div class="overlay" layout="row">
-						<div>{{muscle.name}}</div>
+					<div flex></div>
+					<div layout="row" class="muscle-container">
 						<div flex></div>
-						<div>{{muscle.count}}</div>
+						<div class="muscle" layout="column">
+							<div flex></div>
+							<div class="text">{{muscle.name}}</div>
+							<div flex></div>
+						</div>
+						<div flex></div>
 					</div>
+					<div flex></div>
 				</div>
 			</md-grid-tile>
 		</md-grid-list>
-	</div>
+	</toto-widget>
+
 </div>
 
-<div class="toto-right-area" ng-show="gtMd"></div>

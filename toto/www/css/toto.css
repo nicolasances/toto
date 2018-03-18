@@ -23,6 +23,11 @@ md-sidenav md-content {background: white !important; padding-top: 0 !important;}
 }
 
 /************************************************************************
+ * WHITE PAGE 
+ ***********************************************************************/
+#toto-white-page {background: white;}
+
+/************************************************************************
  * WIDGETS 
  ***********************************************************************/
 toto-widget {margin: 12px; padding: 9px; background: white; border-radius: 1px; position: relative; overflow: scroll; height: 200px; max-height: 200px;}

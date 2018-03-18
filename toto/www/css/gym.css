@@ -1,8 +1,12 @@
 
-#gym md-grid-tile .group-container {width: 100%; height: 100%; position: relative; border: 1px solid #efefef;}
-#gym md-grid-tile .group-container .image {width: 100%; height: 100%;}
-#gym md-grid-tile .group-container .image img {width: 100%; height: 100%;}
-#gym md-grid-tile .group-container .overlay {position: absolute; width: 100%; bottom: 0; background-color: rgba(76,175,80,0.4); padding: 6px; box-sizing: border-box; font-size: 0.9em; color: white;}
+#gym-archive md-grid-tile .group-container {width: 100%; height: 100%; position: relative;}
+#gym-archive md-grid-tile .group-container .muscle-container {height: 80%; width: 100%;}
+#gym-archive md-grid-tile .group-container .muscle-container .muscle {border: 5px solid #00BCD4; border-radius: 50%; width: 80%; height: 100%;}
+#gym-archive md-grid-tile .group-container .muscle-container .muscle .text {text-align: center; color: rgba(0,0,0,0.7);}
+
+@media only screen and (min-width: 1280px) {
+	#gym-archive md-grid-tile .group-container .muscle-container .muscle .text {font-size: 1.3em;}
+}
 
 #gym.archive .exercices-container {padding: 6px 0 6px 12px;}
 #gym.archive .exercices-container .exercice-container {margin: 3px 0; padding-top: 6px; font-size: 0.9em;}
