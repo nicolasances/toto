@@ -207,6 +207,16 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					return (width / 7 - circleGutter) / 2;
 				}
 				
+				var ua = navigator.userAgent.toLowerCase();
+				var safari = false;
+				if (ua.indexOf('safari') != -1) { 
+				  if (ua.indexOf('chrome') > -1) {
+					  safari = false;
+				  } else {
+					  safari = true;
+				  }
+				}
+				
 				gymSessionArc = d3.arc().innerRadius(circleR() - gymSessionCircleWidth / 2).outerRadius(circleR() + gymSessionCircleWidth / 2).startAngle(0).endAngle(0);
 				
 				svg = d3.select('#' + component.id).append('svg')
@@ -244,12 +254,10 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					.attr('font-size', dayFontSize + 'px')
 					.attr('line-height', dayFontSize + 'px')
 					.attr('x', circleCX)
-					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - (navigator.userAgent.indexOf('afari') >= 0 ? 18 : 6)})
+					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - (safari ? 18 : 6)})
 					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
 					.on('click', function(d) {startOrResumeSession(d);})
 					
-					console.log(navigator);
-				
 //				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
 //					.attr('class', 'sessionArc')
 //					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return '#26C6DA';})
