@@ -247,6 +247,8 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - (navigator.userAgent.indexOf('afari') >= 0 ? 18 : 6)})
 					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
 					.on('click', function(d) {startOrResumeSession(d);})
+					
+					console.log(navigator.userAgent);
 				
 //				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
 //					.attr('class', 'sessionArc')
