@@ -248,7 +248,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
 					.on('click', function(d) {startOrResumeSession(d);})
 					
-					console.log(navigator.userAgent);
+					console.log(navigator);
 				
 //				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
 //					.attr('class', 'sessionArc')
