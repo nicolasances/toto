@@ -244,7 +244,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 					.attr('font-size', dayFontSize + 'px')
 					.attr('line-height', dayFontSize + 'px')
 					.attr('x', circleCX)
-					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - dayFontSize})
+					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - (navigator.userAgent.indexOf('afari') >= 0 ? 18 : 6)})
 					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
 					.on('click', function(d) {startOrResumeSession(d);})
 				
