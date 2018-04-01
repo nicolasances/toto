@@ -193,6 +193,7 @@ var totoModule = angular.module("toto", [
 					.when('/subscriptions', {templateUrl : 'modules/subscriptions/subscriptions.html', controller : 'subscriptionsController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/subscriptions/:id', {templateUrl : 'modules/subscriptions/subscription-detail.html', controller : 'subscriptionDetailController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/diet', {templateUrl : 'modules/diet/diet-dashboard.html', controller : 'dietDashboardController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
+					.when('/diet/foods', {templateUrl : 'modules/diet/foods.html', controller : 'dietFoodArchiveController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/supermarket', {templateUrl : 'modules/supermarket/supermarket-missing-goods.html', controller : 'supermarketController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/project', {templateUrl : 'modules/project/projects.html', controller : 'projectsController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})
 					.when('/project/:id', {templateUrl : 'modules/project/project.html', controller : 'projectController', resolve: {auth: function(googleSignInService) {return googleSignInService.initGoogleSignIn()}}})

@@ -1,8 +1,17 @@
 
-#diet .water-info-container {margin: 12px 0;}
-#diet .water-info-container toto-progress#water-consumption {width: 110px; height: 110px;}
+.water-info-container {margin: 12px 0;}
+.water-info-container toto-progress#water-consumption {width: 110px; height: 110px;}
 
-#diet .connection-line {border: 1px solid #00BCD4;}
+.connection-line {border: 1px solid #00BCD4;}
+
+diet-foods {padding-top: 12px;}
+diet-foods .food {margin-bottom: 18px; position: relative; outline: none;}
+diet-foods .food .avatar {padding: 12px; border-radius: 50%; border: 3px solid #0097a7; margin-right: 12px;}
+diet-foods .food .name {font-size: 1.2em; color: rgba(0,0,0,0.8);}
+diet-foods .food .details {font-size: 0.8em; color: rgba(0,0,0,0.5); margin-top: 3px;}
+diet-foods .food .options {position: absolute; right: 12px; height: 100%;}
+diet-foods .food .options .option {padding: 12px; border-radius: 50%;}
+diet-foods .food .options .option md-icon {fill: white;}
 
 /******************************************************************************************************************
  * RESPONSIVE

@@ -1,6 +1,7 @@
 var dietMenus = [
 	{path: '/', imageUrl: 'images/svg/home.svg', name: "Home"},
-	{path: '/diet', imageUrl: 'images/svg/dashboard.svg', name: 'Dashboard', selected: true}
+	{path: '/diet', imageUrl: 'images/svg/dashboard.svg', name: 'Dashboard', selected: true},
+	{path: '/diet/foods', imageUrl: 'images/svg/fast-food.svg', name: 'Food Archive'}
 ];
 
 var dietModule = angular.module("dietModule", ["DietServiceModule"]);
@@ -8,11 +9,12 @@ var dietModule = angular.module("dietModule", ["DietServiceModule"]);
 /**
  * Diet Dashboard controller
  */
-dietModule.controller("dietDashboardController", [ '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'DietService', function($scope, $http, $timeout, $mdDialog, $mdSidenav, DietService) {
+dietModule.controller("dietDashboardController", [ '$scope', '$rootScope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'DietService', function($scope, $rootScope, $http, $timeout, $mdDialog, $mdSidenav, DietService) {
 
 	$scope.init = function() {
 		
 		$scope.dietMenus = dietMenus;
+		$rootScope.currentMenu = 'Nutrition';
 		
 		DietService.getWaterConsumption().success(function(data) {
 
@@ -80,5 +82,18 @@ dietModule.controller("dietDashboardController", [ '$scope', '$http', '$timeout'
 	
 	$scope.init();
 	
+} ]);
+
+
+dietModule.controller("dietFoodArchiveController", [ '$scope', '$rootScope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'DietService', function($scope, $rootScope, $http, $timeout, $mdDialog, $mdSidenav, DietService) {
+	
+	$scope.init = function() {
+		
+		$scope.dietMenus = dietMenus;
+		$rootScope.currentMenu = 'Food archive';
+		
+	}
+	
+	$scope.init();
 } ]);
 

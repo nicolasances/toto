@@ -100,3 +100,50 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
 		}
 	}
 }]);
+
+/**
+ * Shows the list of foods (master data) that have been recorded
+ */
+dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function(DietService, $timeout) {
+	
+	return {
+		scope: {
+		},
+		templateUrl: 'modules/diet/directives/diet-foods.html',
+		link: function(scope, el) {
+			
+			scope.foods = [];
+			
+			DietService.getFoods().success(function(data) {
+				
+				scope.foods = data.foods;
+				
+				for (var i = 0; i < scope.foods.length; i++) {
+					scope.foods.showOptions = false;
+				}
+				
+			});
+			
+			scope.deleteFood = function(id) {
+				
+				DietService.deleteFood(id).success(function() {
+					
+					for (var i = 0; i < scope.foods.length; i++) {
+						if (scope.foods[i].id == id) scope.foods.splice(i, 1);
+					}
+				});
+			}
+			
+			scope.addFood = function() {
+				
+				DietService.showAddFoodDialog(function(food) {
+					
+					scope.food = food;
+					scope.foods.push(scope.food);
+					
+					DietService.postFood(food).success(function(data) {scope.food.id = data.id;});
+				});
+			}
+		}
+	}
+}]);
