@@ -1,0 +1,18 @@
+	
+	<div class="h1">
+		Nutrition
+		<div class="h3">{{currentDay | date : 'EEEE d MMM'}}</div>
+	</div>
+	
+	<div layout="column" flex>
+		<div flex></div>
+		
+		<div layout="column">
+			<diet-week-macronutrients></diet-week-macronutrients>
+			<diet-water style="margin-top: 42px;"></diet-water>
+		</div>
+		
+		<div flex></div>
+	</div>
+	
+	

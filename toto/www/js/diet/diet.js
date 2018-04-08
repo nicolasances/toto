@@ -80,6 +80,12 @@ dietModule.controller("dietDashboardController", [ '$scope', '$rootScope', '$htt
 		});
 	}
 	
+	$scope.addMeal = function() {
+		
+		DietService.showAddMealDialog(DietService.postMeal);
+		
+	}
+	
 	$scope.init();
 	
 } ]);
@@ -95,5 +101,41 @@ dietModule.controller("dietFoodArchiveController", [ '$scope', '$rootScope', '$h
 	}
 	
 	$scope.init();
+} ]);
+
+dietModule.controller("dietMealsController", [ '$scope', '$rootScope', '$http', '$timeout', '$mdDialog', '$mdSidenav', 'DietService', function($scope, $rootScope, $http, $timeout, $mdDialog, $mdSidenav, DietService) {
+	
+	$scope.init = function() {
+		
+		$scope.meals = [];
+		$scope.currentDay = new Date();
+		
+		$scope.getMeals();
+		
+	}
+	
+	$scope.getMeals = function() {
+		
+		DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
+			
+			$scope.meals = data.meals;
+			
+		});
+	}
+	
+	$scope.addMeal = function() {
+		
+		DietService.showAddMealDialog(function(meal) {
+			
+			DietService.postMeal(meal);
+			
+			$scope.meals.push(meal);
+			
+		});
+		
+	}
+	
+	$scope.init();
+	
 } ]);
 

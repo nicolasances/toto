@@ -1,5 +1,5 @@
 
-<div class="food" ng-repeat="food in foods" layout="row" ng-click="food.showOptions = !food.showOptions">
+<div class="diet-food" ng-repeat="food in foods" layout="row" ng-click="onClick(food)">
 
 	<div layout="column">
 		<div class="avatar" layout="column">
@@ -33,6 +33,6 @@
 	
 </div>
 
-<md-button class="md-fab floating " aria-label="Add food" ng-click="addFood()">
+<md-button class="md-fab floating " aria-label="Add food" ng-click="addFood()" ng-if="!hideAdd">
 	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
 </md-button>

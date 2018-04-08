@@ -1,26 +1,13 @@
-<toto-app-menu menus="gymMenus"></toto-app-menu>
 
-<div class="toto-left-area" ng-show="gtMd"></div>
+<home-link></home-link>
 
-<div id="gym" class="session toto-central-area" flex>
-	<div class="toto-card dark-primary-color">
-		<div layout="row">
-			<div class="date-container" layout="column">
-				<div class="day">{{session.date | date : 'dd'}}</div>
-				<div class="month">{{session.date | date : 'MMM'}}</div>
-			</div>
-			<div class="workout-container" flex layout="column">
-				<div flex></div>
-				<div class="title-container">{{workout.name}}</div>
-				<div class="exercises">{{workout.exerciseCount}} exercises</div>
-				<div flex></div>
-			</div>
-			<div class="score-container" layout="column" ng-show="session.score != null">
-				<div flex></div>
-				<div class="score">{{session.score | number : 1}} <span>pts</span></div>
-				<div flex></div>
-			</div>
-		</div>
+<div class="h1">
+	{{workout.name}}
+	<div class="h3">{{session.date | date : 'dd MMM'}}</div>
+</div>
+
+<div id="gym" class="session" layout="column" flex>
+	<div>
 	
 		<div class="goals-container" ng-show="session.score == null" layout="column">
 			<div ng-class="['goal-container', impactedMuscle.actualScore >= impactedMuscle.goal ? 'completed' : '']" layout="row" ng-repeat="impactedMuscle in session.impactedMuscles">
@@ -55,8 +42,7 @@
 		</div>
 	</div>
 	
-	<div class="toto-card exercices-container" layout="column">
-		<div class="timeline"></div>
+	<div class="exercices-container" >
 		<div class="exercice-container{{ex.completed ? ' completed' : ''}}" layout="row" ng-repeat="ex in exercises">
 			<div class="icon" layout="column" ng-click="toggleCompletion(ex)">
 				<div flex></div>
@@ -116,6 +102,5 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="toto-right-area" ng-show="gtMd"></div>
+</div>

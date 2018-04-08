@@ -2,16 +2,15 @@
 /* #expenses-container md-list-item .description {line-height: 1em; font-weight: normal;} */
 /* #expenses-container md-list-item .md-avatar {margin-top: 16px;} */
 
-expenses-list {}
+expenses-list {overflow: scroll;}
 expenses-list .header {margin: -9px -9px 0 -9px; padding: 15px; text-align: center; font-size: 1.1em; color: rgba(0,0,0,0.7);}
 
 expenses-list #expenses-container {padding: 0 12px;}
-/* expenses-list #expenses-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 90%; width: 32px; margin-left: 23px; background-size: 5px; background-repeat: repeat-y; background-position: 50%; } */
 expenses-list #expenses-container .list {margin-top: 12px;}
 expenses-list #expenses-container .list .list-item {color: rgba(0,0,0,0.8); margin: 6px 0;}
 expenses-list #expenses-container .list .list-item .prospect {color: rgba(0,0,0,0.3);}
-expenses-list #expenses-container .list .list-item .avatar {background-color: white; border-radius: 50%;border: 3px solid #E0E0E0; width: 40px; height: 40px; outline: none; min-width: 40px; min-height: 40px; z-index: 2;}
-expenses-list #expenses-container .list .list-item .avatar md-icon {width: 20px; height: 20px;}
+expenses-list #expenses-container .list .list-item .avatar {border-radius: 50%;border: 3px solid #E0E0E0; width: 40px; height: 40px; outline: none; min-width: 40px; min-height: 40px; z-index: 2;}
+expenses-list #expenses-container .list .list-item .avatar md-icon {width: 20px; height: 20px; fill: white;}
 expenses-list #expenses-container .list .list-item .date {margin-left: 12px; text-align: center; outline: none;}
 expenses-list #expenses-container .list .list-item .date .day {fonexpenses-list .2em;}
 expenses-list #expenses-container .list .list-item .date .month {font-size: 0.6em; text-transform: uppercase;}
@@ -19,7 +18,7 @@ expenses-list #expenses-container .list .list-item .description {font-size: 0.8e
 expenses-list #expenses-container .list .list-item .amount {font-size: 1em; outline: none;}
 expenses-list #expenses-container .list .list-item .weekend-icon md-icon {margin: 0 12px; width: 18px; height: 18px; fill: #4CAF50;}
 expenses-list #expenses-container .list .list-item .menu {}
-expenses-list #expenses-container .list .list-item .menu .icon {background-color: #8BC34A;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
+expenses-list #expenses-container .list .list-item .menu .icon {background-color: #9CCC65;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
 
 .expenses-header {background-color: #FFCDD2; height: 48px; padding: 14px 24px 0 24px; font-size: 18px; color: #B71C1C; min-height: 49px;}
 .expenses-header .month {text-transform: uppercase;}
@@ -29,7 +28,7 @@ expenses-list #expenses-container .list .list-item .menu .icon {background-color
 #expenses .navigator {}
 #expenses .navigator .calendar {margin-left: 23px; z-index: 2;}
 #expenses .navigator .calendar md-icon {width: 32px; height: 32px; fill: #c5c5c5;}
-#expenses .month-nav .arrow {background-color: #8BC34A;margin: 0 24px;border-radius: 50%;width: 28px;height: 28px;}
+#expenses .month-nav .arrow {background-color: #9CCC65;margin: 0 24px;border-radius: 50%;width: 28px;height: 28px;}
 #expenses .month-nav .arrow md-icon {fill: white; margin-top: 2px; outline: none;}
 #expenses .month-nav {text-align: center; font-size: 1.3em; }
 
@@ -46,7 +45,7 @@ expenses-list #expenses-container .list .list-item .menu .icon {background-color
 #expenses #expenses-container .list .list-item .amount {font-size: 1em; outline: none;}
 #expenses #expenses-container .list .list-item .weekend-icon md-icon {margin: 0 12px; width: 18px; height: 18px; fill: #4CAF50;}
 #expenses #expenses-container .list .list-item .menu {}
-#expenses #expenses-container .list .list-item .menu .icon {background-color: #8BC34A;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
+#expenses #expenses-container .list .list-item .menu .icon {background-color: #9CCC65;border-radius: 50%;height: 40px;width: 40px;margin: 0 6px;background-position: 50%;background-size: 40%;background-repeat: no-repeat;}
 
 toto-chimp #expenses #expenses-container .timeline {display: none;}
 toto-chimp #expenses #expenses-container .list .list-item {color: rgba(255, 255, 255, 0.87);}
@@ -106,7 +105,7 @@ expenses-month-total .total.small md-icon {width: 14px; height: 14px; margin-top
 
 #expenses-dashboard #totals-row {opacity: 1; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
 #expenses-dashboard #totals-row.hidden {opacity: 0; transition: opacity 0.3s; -webkit-transition: opacity 0.3s;}
-#expenses-dashboard .quickexpense {background-color: #8BC34A;height: 62px;width: 62px;border-radius: 50%;box-sizing: border-box;margin: 15px 24px;}
+#expenses-dashboard .quickexpense {background-color: #9CCC65;height: 62px;width: 62px;border-radius: 50%;box-sizing: border-box;margin: 15px 24px;}
 #expenses-dashboard .quickexpense md-icon {fill: white;}
 
 #expenses-dashboard .categories-widget {outline: none; z-index: 2;}
@@ -139,10 +138,9 @@ expenses-month-total .total.small md-icon {width: 14px; height: 14px; margin-top
 /************************************************************************
  * DIRECTIVE - EXPENSES TOTAL
  ***********************************************************************/
-expenses-total {display: block; border: 6px solid #F44336; border-radius: 50%; color: rgba(0,0,0,0.65); }
-expenses-total md-icon {padding-top: 6px; width: 20px;}
-expenses-total .text .amount {font-size: 1.3em;}
-expenses-total .text .currency {font-size: 0.7em; margin-right: 6px; padding-top: 6px;}
+expenses-total {display: block;border: 12px solid #B2EBF2;border-radius: 50%;width: 200px;height: 200px; color: white;}
+expenses-total .text .amount {font-size: 32px;}
+expenses-total .text .currency {font-size: 20px; margin-right: 6px; padding-top: 6px;}
  
 /************************************************************************
  * RESPONSIVE

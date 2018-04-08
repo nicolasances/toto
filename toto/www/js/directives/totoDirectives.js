@@ -1,6 +1,29 @@
 var totoDirectivesModule = angular.module('totoDirectivesModule', [ ]);
 
 /**
+ * Directive to show the "home link"
+ * 
+ * Accepts the following parameters: 
+ */
+totoDirectivesModule.directive('homeLink', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			back: '@'
+		},
+		templateUrl : 'directives/home-link.html',
+		link : function(scope, el) {
+			
+			scope.go = function(url) {
+				
+				if (scope.back != null && scope.back == 'true') $window.history.back();
+				else $rootScope.go(url);
+			}
+		}
+	};
+});
+
+/**
  * Directive to draw an info circle.
  * 
  * Accepts the following parameters: 

@@ -9,7 +9,7 @@ var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'exp
  *  - currency 	: 	(optional) the currency code to be used. EUR, DKK, ..
  *  
  */
-expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', function($timeout, $mdMedia, expensesService) {
+expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', '$rootScope', function($timeout, $mdMedia, expensesService, $rootScope) {
 	
 	return {
 		progress : {},
@@ -19,15 +19,17 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
 		templateUrl : 'modules/expenses/directives/expenses-total.html',
 		link : function(scope, el) {
 			
-			var scale = 0.6;
-			var widgetSize = {width: el[0].parentNode.offsetWidth, height: el[0].parentNode.offsetHeight};
-			var circleSize = widgetSize.width > widgetSize.height ? widgetSize.height * scale : widgetSize.width * scale;
+			scope.go = $rootScope.go;
 			
+//			var scale = 0.6;
+//			var widgetSize = {width: el[0].parentNode.offsetWidth, height: el[0].parentNode.offsetHeight};
+//			var circleSize = widgetSize.width > widgetSize.height ? widgetSize.height * scale : widgetSize.width * scale;
+//			
 			var circle = el[0];
-			
-			circle.style.width = circleSize + 'px';
-			circle.style.height = circleSize + 'px';
-			circle.style.marginLeft = (widgetSize.width - 18 - circleSize) / 2 + 'px';
+//			
+//			circle.style.width = circleSize + 'px';
+//			circle.style.height = circleSize + 'px';
+//			circle.style.marginLeft = (widgetSize.width - 18 - circleSize) / 2 + 'px';
 			circle.classList.add('layout-column');
 			
 			expensesService.getMonthTotal(scope.currency, expensesService.getCurrentMonth()).success(function(data) {

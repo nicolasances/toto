@@ -1,0 +1,67 @@
+
+<div id="toto-dashboard" flex>
+
+	<!-- ROW 1 - BIG DISLPAY -->
+	<div layout-gt-sm="row" layout="column" >
+	
+		<div layout="row" flex>
+		
+			<toto-widget color="red" layout="column" ng-click="go('/expenses')">
+				<div class="title" ng-if="gtXs">Current month expenses</div>
+				<div flex></div>
+				<expenses-total></expenses-total>
+				<div flex></div>
+				<div class="title" ng-if="xs">Current month expenses</div>
+			</toto-widget>			
+		
+			<toto-widget layout="column" color="red">
+				<div flex></div>
+				<expenses-graph></expenses-graph>
+				<div flex></div>
+			</toto-widget>
+						
+		</div>
+		<div layout="row" flex>
+		
+			<toto-widget color="green" layout="column">
+				<div class="title">Training week</div>
+				<gym-week layout="column"></gym-week>
+			</toto-widget>
+			
+		</div>
+		<div layout="row" flex>
+		
+			<toto-widget color="blue" layout="column">
+				<diet-water layout="column"></diet-water>
+			</toto-widget>
+						
+			<toto-widget color="blue", layout="column" ng-click="go('/gym/weights')">
+				<weight-graph></weight-graph>
+			</toto-widget>
+						
+		</div>
+	
+	</div>
+	
+	<!-- ROW 2 - BIG DISLPAY -->
+	<div layout-gt-sm="row" layout="column" >
+	
+		<div layout="row" flex>
+		
+			<toto-widget color="red" layout="column">
+				<card-total layout="column" flex></card-total>
+			</toto-widget>
+			<toto-widget layout="column">
+			</toto-widget>
+		
+		</div>
+		
+		<div layout="row" flex>
+		</div>
+		
+		<div layout="row" flex>
+		</div>
+		
+	</div>
+
+</div>

@@ -97,7 +97,11 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 	return {
 		scope: {
 		},
+		templateUrl: 'modules/gym/directives/gym-week.html',
 		link: function(scope, el) {
+			
+			el[0].classList.add('flex');
+			el[0].classList.add('layout-column');
 			
 			var container = el[0].parentNode;
 			var component = el[0];
@@ -109,6 +113,20 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			
 			component.id = 'gymWeek-' + Math.floor(Math.random() * 1000000);
 			
+			// 1. Create days of week
+			scope.days = [];
+			var startOfWeek = moment().startOf('week');
+			
+			if (startOfWeek.format('YYYYMMDD') == moment().format('YYYYMMDD')) startOfWeek.subtract(7, 'days');
+			
+			startOfWeek.add(1, 'days');
+			
+			scope.days.push({date: new Date(startOfWeek)});
+
+			for (var i = 1; i < 7; i++) {
+				scope.days.push({date: new Date(moment(startOfWeek).add(i, 'days'))});
+			}
+
 			GymService.calculateEfficacy('goodPain', 'ok').success(function(data) {
 
 				scope.benchmarkEfficacy = data.efficacy;
@@ -117,7 +135,11 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 
 					scope.gymDays = data.days;
 					
-					draw();
+					for (var i = 0; i < data.days.length; i++) {
+						scope.days[i].training = data.days[i];
+					}
+					
+//					draw();
 					
 				});
 			});
@@ -150,9 +172,11 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			 * Parameters:
 			 *  - day: the gym day loaded in getWeekSummary() call
 			 */
-			var startOrResumeSession = function(day) {
+			scope.startOrResumeSession = function(day) {
 				
-				if (day.muscle == null) {
+				console.log(day);
+				
+				if (day.muscles.length == 0) {
 					
 					GymService.showStartSessionUI(function(answer) {
 

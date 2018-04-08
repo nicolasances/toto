@@ -17,6 +17,11 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 		$scope.expensesMenus = expensesMenus;
 		$rootScope.currentMenu = 'Payments dashboard';
 		
+		var currentYearMonth = expensesService.getCurrentMonth();
+		
+		$scope.currentMonth = moment(currentYearMonth + '01', 'YYYYMMDD').format('MMMM');
+		$scope.currentYear = moment(currentYearMonth + '01', 'YYYYMMDD').format('YY');
+		
 	}
 	
 	/**

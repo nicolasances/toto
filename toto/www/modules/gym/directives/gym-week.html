@@ -1,0 +1,27 @@
+
+<div ng-repeat="day in days" layout="row" flex class="day-container">
+
+	<div flex layout="row">
+		<div flex></div>
+		<div layout="column">
+			<div flex></div>
+			<div class="day">{{day.date | date : 'EEE'}}</div>
+			<div flex></div>
+		</div>
+	</div>
+	
+	<div layout="column" flex>
+		<div flex></div>
+		<div layout="row">
+			<div ng-class="['circle-container']" layout="column" ng-click="startOrResumeSession(day.training)" ng-if="day.training == null || day.training.muscles.length == 0"></div>
+			<div ng-class="['circle-container', day.training.muscles.length > 0 ? 'trained' : '']" layout="column" ng-repeat="muscle in day.training.muscles" ng-click="startOrResumeSession(day.training)">
+				<div flex></div>
+				<md-icon md-svg-src="images/gym/muscle-avatars/{{muscle.id}}.svg"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+		<div flex></div>
+	</div>
+	
+	
+</div>

@@ -1,31 +1,26 @@
-body {background: #e5e6e6;}
-section {background: #e5e6e6 !important;}
-md-content {background: #e5e6e6 !important; padding-top: 56px;}
-md-sidenav md-content {background: white !important; padding-top: 0 !important;}
+/* body {background: #e5e6e6;} */
+/* section {background: #e5e6e6 !important;} */
+/* md-content {background: #e5e6e6 !important; padding-top: 56px;} */
+md-sidenav md-content {padding-top: 0 !important;}
 
 .toto-central-area {position: relative;}
 
-@media only screen and (max-width: 600px) {
-	body {background: white;}
-	section {background: white !important;}
-	md-content {background: white !important;}
-}
-
-@media only screen and (min-width: 600px) {
-	
-	.toto-right-area {width: 40%;}
-	
-	#ng-view {padding: 6px;}
-}
-@media only screen and (min-width: 1280px) {
-	.toto-left-area {width: 30%;}
-	.toto-right-area {width: 30%;}
-}
+home-link {position: absolute; width: 100%; margin-top: 12px;}
+home-link md-icon {fill: white;}
 
 /************************************************************************
- * WHITE PAGE 
+ * MAIN APPS BAR
  ***********************************************************************/
-#toto-white-page {background: white;}
+.main-apps-toolbar {padding: 18px 0;}
+.main-apps-toolbar .app-link {outline: none;}
+.main-apps-toolbar .app-link .icon-container {padding: 12px; border-radius: 50%;}
+.main-apps-toolbar .app-link .icon-container md-icon {width: 28px; height: 28px; fill: white;}
+
+/************************************************************************
+ * FONTS 
+ ***********************************************************************/
+div.h1 {text-align: center; margin-top: 52px; color: white; font-weight: 500; font-size: 32px;}
+div.h3 {text-align: center; color: white; font-size: 16px; margin-top: 3px;}
 
 /************************************************************************
  * WIDGETS 
@@ -97,7 +92,7 @@ toto-drawing-pad .toolbox-container .toolbox .icon md-icon {width: 20px; height:
 /************************************************************************
  * TOTO (THE CHIMP) 
  ***********************************************************************/
-toto-chimp .toto-chimp {background-color: #8BC34A;padding: 16px;border-radius: 50%; position: fixed; right: 12px; bottom: 24px; z-index: 6; outline: none; opacity: 1; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
+toto-chimp .toto-chimp {background-color: #9CCC65;padding: 16px;border-radius: 50%; position: fixed; right: 12px; bottom: 24px; z-index: 6; outline: none; opacity: 1; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
 toto-chimp .toto-chimp.hidden {opacity: 0; transition: opacity 0.2s; -webkit-transition: opacity 0.2s;}
 toto-chimp .toto-chimp md-icon {}
 toto-chimp #toto-chimp-bubble {position: absolute;z-index: 3;bottom: 74px;right: 49px;display: none;opacity: 0;transition: opacity 0.2s;-webkit-transition: opacity 0.2s;}
@@ -117,7 +112,7 @@ toto-chimp #toto-chimp-dialog .user-action-container {position: absolute;width: 
 toto-chimp #toto-chimp-dialog .user-action-container .user-text {text-align: center; font-size: 1.1em; color: rgba(255, 255, 255, 0.5); margin-bottom: 12px;}
 toto-chimp #toto-chimp-dialog .user-action-container .microphone-container {outline: none;}
 toto-chimp #toto-chimp-dialog .user-action-container .microphone-container md-icon {width: 52px;height: 52px;fill: #efefef;opacity: 0.7; padding: 12px; outline: none;}
-toto-chimp #toto-chimp-dialog .user-action-container .microphone-container.active md-icon {fill: #8BC34A;}
+toto-chimp #toto-chimp-dialog .user-action-container .microphone-container.active md-icon {fill: #9CCC65;}
 toto-chimp #toto-chimp-dialog .user-action-container .keyboard-icon-container {outline: none; margin: 12px 24px;}
 toto-chimp #toto-chimp-dialog .user-action-container .keyboard-icon-container md-icon {fill: #efefef;opacity: 0.7; outline: none;}
 toto-chimp #toto-chimp-dialog .user-action-container .close-icon-container {outline: none;margin: 15px 24px;}
@@ -230,7 +225,7 @@ toto-progress {position: relative;}
 
 .toto-progress-overlay {position: absolute; z-index: 2; width: 100%; height: 100%; outline: none;}
 .toto-progress-overlay md-icon {fill: #0097A7 !important; width: 16px; height: 16px; outline: none;}
-.toto-progress-overlay md-icon.completed {fill: #8BC34A !important;}
+.toto-progress-overlay md-icon.completed {fill: #9CCC65 !important;}
 .toto-progress-overlay .percentage {text-align: center; font-size: 1.3em; color: rgba(0,0,0,0.8);}
 
 toto-progress .label {position: absolute; width: 100%; bottom: -18px; font-size: 0.7em; font-weight: 500; text-align: center; color: rgba(0,0,0,0.7);}
@@ -291,16 +286,14 @@ toto-bar-graph .toto-bar-graph-container .bar-container .label {text-align: cent
 .default-primary-color { background: #00BCD4;}
 .light-primary-color   { background: #B2EBF2;}
 .text-primary-color    { color: #FFFFFF; }
-.accent-color          { background: #8BC34A; }
+.accent-color          { background: #9CCC65 !important; }
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
 
-.default-primary-color md-icon { fill: white; }
-.dark-primary-color md-icon { fill: white; }
 
 md-toolbar {background: #0097A7 !important; }
 
 .md-button.md-default-theme.md-raised:not([disabled]) md-icon, .md-button.md-raised:not([disabled]) md-icon {color: white;}
-.md-button.md-default-theme.md-fab, .md-button.md-fab {background: #8BC34A;}
+.md-button.md-default-theme.md-fab, .md-button.md-fab {background: #9CCC65;}
 

@@ -1,46 +1,9 @@
 
-<toto-app-menu menus="expensesMenus"></toto-app-menu>
+<home-link></home-link>
 
-<!-- COLUMNAR LAYOUT: the page is split in 3 COLUMNS -->
-<div id="toto-dashboard" layout-gt-xs="row" flex-gt-sm >
-	
-	<!-- FIRST COLUMN -->
-	<div layout="column" flex>
-		<div layout="row" flex>
-			<toto-widget color="red" layout="column">
-				<div class="title" ng-if="gtXs">Current expenses (EUR)</div>
-				<div flex></div>
-				<expenses-total currency="EUR"></expenses-total>
-				<div flex></div>
-				<div class="title" ng-if="xs">Current expenses (EUR)</div>
-			</toto-widget>
-			<toto-widget color="red" layout="column">
-				<div class="title" ng-if="gtXs">Current expenses (DKK)</div>
-				<div flex></div>
-				<expenses-total currency="DKK"></expenses-total>
-				<div flex></div>
-				<div class="title" ng-if="xs">Current expenses (DKK)</div>
-			</toto-widget>
-		</div>
-	</div>
-	<!-- SECOND COLUMN -->
-	<div layout="column" flex>
-		<div layout="row" flex>
-			<toto-widget color="red" layout="column">
-				<div flex></div>
-				<expenses-graph months="10"></expenses-graph>
-				<div flex></div>
-			</toto-widget>
-		</div>
-	</div>
-	<!-- THIRD COLUMN -->
-	<div layout="column" flex>
-		<toto-widget unbounded="true" layout="column">
-			<expenses-list show-navigator="true" flex></expenses-list>
-		</toto-widget>				
-	</div>
-
+<div class="h1">
+	Payments
+	<div class="h3">{{currentMonth}} '{{currentYear}}</div>
 </div>
 
-
-
+<expenses-list show-navigator="true"></expenses-list>

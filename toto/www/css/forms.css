@@ -12,6 +12,16 @@
 /****************************
  * SELECTORS
  ***************************/
+.toto-form .toto-alternatives-picker {border-radius: 5px;}
+.toto-form .toto-alternatives-picker .alternative {background: #efefef; padding: 18px 24px; color: rgba(0,0,0,0.5); border-right: 1px solid #d0d0d0; outline: none;}
+.toto-form .toto-alternatives-picker .alternative.first {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+.toto-form .toto-alternatives-picker .alternative.last {border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-right: none;}
+.toto-form .toto-alternatives-picker .alternative.selected {color: rgba(0,0,0,0.8);}
+ 
+ 
+/****************************
+ * SELECTORS
+ ***************************/
 .toto-form .toto-selector-container {}
 .toto-form .toto-selector-container md-grid-tile {outline: none;}
 .toto-form .toto-selector-container .title {}
@@ -44,7 +54,7 @@
 .toto-form .toto-input-container .md-datepicker-input-container {border-bottom: none;}
 .toto-form .toto-input-container .md-datepicker-input-container .md-datepicker-triangle-button {display: none;}
 
-.toto-form .step-tracker {margin: 24px 0; background-image: url('../images/dot-grey.png'); background-repeat: repeat-x; background-size: 12px; background-position: 50%;}
+.toto-form .step-tracker {margin: 24px -24px; background-image: url('../images/dot-grey.png'); background-repeat: repeat-x; background-size: 12px; background-position: 50%;}
 .toto-form .step-tracker .step {background-color: #C8E6C9; color: #AFAFAF; margin: 0 12px; width: 32px; height: 32px; border-radius: 50%; box-sizing: border-box; text-align: center; padding-top: 7px; font-size: 1em;}
 .toto-form .step-tracker .step.current{background-color: #388E3C; color: white;}
 

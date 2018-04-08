@@ -43,7 +43,7 @@ toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 
 #tasks .tasks-container .timeline {background-image: url('../images/dot-grey.png'); position: absolute; height: 100%; width: 32px; margin-top: 12px; margin-left: 10px; background-size: 5px; background-repeat: repeat-y; background-position: 50%;}
 
 #tasks .actions-container {margin: 6px 0;}
-#tasks .actions-container .action {margin: 0 12px;background-color: #8BC34A;padding: 12px;border-radius: 50%;outline: none;}
+#tasks .actions-container .action {margin: 0 12px;background-color: #9CCC65;padding: 12px;border-radius: 50%;outline: none;}
 #tasks .actions-container .action md-icon {fill: white;}
 #tasks .actions-container .action.save {background-color: #0097A7;}
 
@@ -68,7 +68,7 @@ toto-chimp #tasks .tasks-container .task .text-container {color: rgba(255, 255, 
 
 #new-task {padding: 12px; color: rgba(0,0,0,0.8);}
 #new-task textarea {width: 100%; font-size: 0.8em; padding: 6px; box-sizing: border-box; outline: none; resize: none; border-radius: 3px;}
-#new-task button {background-color: #8BC34A;border: none;padding: 6px;border-radius: 3px;width: 100%;margin-top: 12px;color: white;font-size: 1.2em;}
+#new-task button {background-color: #9CCC65;border: none;padding: 6px;border-radius: 3px;width: 100%;margin-top: 12px;color: white;font-size: 1.2em;}
 
 
 /************************************************************************

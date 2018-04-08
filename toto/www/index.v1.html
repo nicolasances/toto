@@ -47,7 +47,7 @@
 <meta name="theme-color" content="#0097A7" />
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Toto">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="#006064">
 
 <script src="js/util/google-maps-init.js"></script>
 <script src="js/lib/angular.min.js"></script>
@@ -123,14 +123,35 @@
 <script src="js/directives/totoHealthFitnessDirective.js"></script>
 <script src="js/directives/totoWidgetDirective.js"></script>
 <script src="js/directives/d3/barchart.js"></script>
-<script src="js/screens/SpendingScreenDirectives.js"></script>
-<script src="js/screens/TrainingScreenDirectives.js"></script>
-<script src="js/screens/NutritionScreenDirectives.js"></script>
 
 </head>
-<body class="default-primary-color" ng-app="toto" ng-controller="totoController" layout="column">
+<body class="app-theme-cyan" ng-app="toto" ng-controller="totoController" layout-xs="column">
 
-	<div id="ng-view" ng-view layout-gt-xs="row" layout="column" flex></div>
+	<md-toolbar ng-class="['dark-primary-color', gtMd ? 'md-whiteframe-3dp' : '']">
+		<div class="md-toolbar-tools teal">
+			<md-button class="md-icon-button" aria-label="Show menu" >
+				<md-icon md-svg-src="images/svg/bars.svg" ng-click="toggleNavbar('app-sidenav')"></md-icon>
+			</md-button>
+			<span class="title" flex>{{currentMenu}}</span>
+			<md-button class="md-icon-button" aria-label="Show apps" >
+				<md-icon md-svg-src="images/svg/apps.svg" ng-click="toggleShowApps()"></md-icon>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="Home">
+				<md-icon md-svg-src="images/svg/home.svg" ng-click="go('/')"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+
+	<toto-apps-sidemenu layout="column" md-whiteframe="10"></toto-apps-sidemenu>	
+
+	<section layout="row" style="min-height: 100%;" flex>
+		<md-content layout="column" flex>
+			
+			<div id="ng-view" ng-view layout-gt-xs="row" layout="column" flex></div>
+			
+		</md-content>
+	</section>
+	
 
 </body>
 </html>

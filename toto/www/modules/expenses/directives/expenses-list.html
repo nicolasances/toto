@@ -1,18 +1,18 @@
 
-<div layout="row" class="header light-primary-color" ng-if="showNavigator">
-	<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon>
-	<div class="text" flex>{{selectedPeriod.month}}</div>
-	<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon>
-</div>
+<!-- <div layout="row" class="header light-primary-color" ng-if="showNavigator"> -->
+<!-- 	<md-icon md-svg-src="images/svg/arrow-left.svg" ng-click="loadPreviousMonth()"></md-icon> -->
+<!-- 	<div class="text" flex>{{selectedPeriod.month}}</div> -->
+<!-- 	<md-icon md-svg-src="images/svg/arrow-right.svg" ng-click="loadNextMonth()"></md-icon> -->
+<!-- </div> -->
 
 <div id="expenses-container" layout="column" flex>
 	<div class="timeline"></div>
 	<div layout="column" class="list">
 		<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-click="onSelect(expense)">
 			<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
-				<div class="avatar" style="border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)" layout="column">
+				<div class="avatar" style="background: {{expense.category.color}}; border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)" layout="column">
 					<div flex></div>
-					<md-icon md-svg-src="images/expenses/avatars/{{expense.category.filename}}"></md-icon>
+					<md-icon md-svg-src="images/expenses/avatars-nofill/{{expense.category.filename}}"></md-icon>
 					<div flex></div>
 				</div>
 				<div class="date" layout="column" ng-click="expense.showMenu = true">

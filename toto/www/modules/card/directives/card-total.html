@@ -1,8 +1,17 @@
 
-<div flex></div>
-<div class="amount" flex>&euro; {{total | number : 2}}</div>
-<div class="card-name">{{card.name}}</div>
-<div class="card-pan">XXXX XXXX XXXX {{card.digits}}</div>
-<div class="card-expiry">Expires on {{card.expiry | date : 'MMM yyyy'}}</div>
 
-<div class="card-image"><md-icon md-svg-src="images/svg/credit-card.svg"></md-icon></div>
+<div flex></div>
+<div class="text" layout="row">
+	<div flex layout="row">
+		<div flex></div>
+		<div class="currency" layout="column">
+			<div flex></div>
+			<span ng-if="currency == null || currency == 'EUR'">&euro;</span>
+			<span ng-if="currency == 'DKK'">kr.</span>
+			<div flex></div>
+		</div>
+	</div>
+	<div class="amount">{{total | number : 1}}</div>
+	<div flex></div>
+</div>
+<div flex></div>

@@ -1,67 +1,40 @@
 
-<div id="toto-dashboard" flex>
-
-	<!-- ROW 1 - BIG DISLPAY -->
-	<div layout-gt-sm="row" layout="column" >
+<div layout="column" flex>
 	
-		<div layout="row" flex>
-		
-			<toto-widget color="red" layout="column" ng-click="go('/expenses')">
-				<div class="title" ng-if="gtXs">Current month expenses</div>
-				<div flex></div>
-				<expenses-total></expenses-total>
-				<div flex></div>
-				<div class="title" ng-if="xs">Current month expenses</div>
-			</toto-widget>			
-		
-			<toto-widget layout="column" color="red">
-				<div flex></div>
-				<expenses-graph></expenses-graph>
-				<div flex></div>
-			</toto-widget>
-						
-		</div>
-		<div layout="row" flex>
-		
-			<toto-widget color="green" layout="column">
-				<div class="title">Training week</div>
-				<gym-week layout="column"></gym-week>
-			</toto-widget>
-			
-		</div>
-		<div layout="row" flex>
-		
-			<toto-widget color="blue" layout="column">
-				<diet-water layout="column"></diet-water>
-			</toto-widget>
-						
-			<toto-widget color="blue", layout="column" ng-click="go('/gym/weights')">
-				<weight-graph></weight-graph>
-			</toto-widget>
-						
-		</div>
+	<spending-screen ng-if="selectedScreen == 'spending'"></spending-screen>
 	
+	<training-screen ng-if="selectedScreen == 'training'"></training-screen>
+	
+	<nutrition-screen ng-if="selectedScreen == 'nutrition'"></nutrition-screen>
+	
+	<div class="main-apps-toolbar" layout="row">
+		<div class="app-link" layout="row" flex ng-click="selectScreen('spending')">
+			<div flex></div>
+			<div ng-class="['icon-container', selectedScreen == 'spending' ? 'dark-primary-color' : '']">
+				<md-icon md-svg-src="images/svg/budget.svg"></md-icon>
+			</div>
+			<div flex></div>
+		</div>
+		<div class="app-link" layout="row" flex ng-click="selectScreen('training')">
+			<div flex></div>
+			<div ng-class="['icon-container', selectedScreen == 'training' ? 'dark-primary-color' : '']">
+				<md-icon md-svg-src="images/svg/gym.svg"></md-icon>
+			</div>
+			<div flex></div>
+		</div>
+		<div class="app-link" layout="row" flex ng-click="selectScreen('nutrition')">
+			<div flex></div>
+			<div ng-class="['icon-container', selectedScreen == 'nutrition' ? 'dark-primary-color' : '']">
+				<md-icon md-svg-src="images/svg/fast-food.svg"></md-icon>
+			</div>
+			<div flex></div>
+		</div>
+		<div class="app-link" layout="row" flex>
+			<div flex></div>
+			<div ng-class="['icon-container']">
+				<md-icon md-svg-src="images/svg/dots.svg"></md-icon>
+			</div>
+			<div flex></div>
+		</div>
 	</div>
-	
-	<!-- ROW 2 - BIG DISLPAY -->
-	<div layout-gt-sm="row" layout="column" >
-	
-		<div layout="row" flex>
-		
-			<toto-widget color="red" layout="column">
-				<card-total layout="column" flex></card-total>
-			</toto-widget>
-			<toto-widget layout="column">
-			</toto-widget>
-		
-		</div>
-		
-		<div layout="row" flex>
-		</div>
-		
-		<div layout="row" flex>
-		</div>
-		
-	</div>
-
 </div>

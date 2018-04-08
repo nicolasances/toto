@@ -38,7 +38,7 @@
 #gym #week .week-container .day-container .icon {outline: none;border: 2px solid #B2EBF2;border-radius: 50%;height: 40px;z-index: 2;background-color: white;}
 #gym #week .week-container .day-container .icon md-icon {width: 18px; height: 18px;}
 #gym #week .week-container .day-container .score {}
-#gym #week .week-container .day-container.today .icon {border-color: #8BC34A;}
+#gym #week .week-container .day-container.today .icon {border-color: #9CCC65;}
 #gym #week .week-container .day-container.completed .icon {background-color: #B2EBF2;}
 #gym #week .week-container .day-container.completed .icon md-icon {fill: #b9b9b9;}
 #gym #week .week-container .day-container.completed.today .icon {background-color:white;}
@@ -137,55 +137,47 @@
 #gym.plan .exercices-container .exercice-container .text-container .factor {font-weight: 400;}
 #gym.plan .exercices-container .exercice-container .icon {margin-right: 12px; z-index: 2; width: 32px; height: 32px; background-color: white; text-align: center; border: 2px solid #efefef; border-radius: 50%; box-sizing: border-box;}
 #gym.plan .exercices-container .exercice-container .icon md-icon {width: 16px; height: 16px; opacity: 0.6;}
-#gym.plan .exercices-container .exercice-container .icon.add {background-color: #8BC34A;border-color: transparent;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);outline: none;}
+#gym.plan .exercices-container .exercice-container .icon.add {background-color: #9CCC65;border-color: transparent;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);outline: none;}
 #gym.plan .exercices-container .exercice-container .icon.add md-icon {fill: white; opacity: 0.8; outline: none;}
 #gym.plan .exercices-container .exercice-container .exercise .text-container .menu-container {position: absolute;right: 6px;padding: 0;}
 #gym.plan .exercices-container .exercice-container .exercise .text-container .menu-container .action {background-color: transparent;box-shadow: none;margin: 0;}
 #gym.plan .exercices-container .exercice-container .exercise .text-container .menu-container .action md-icon {height: 18px; width: 18px; fill: currentColor; }
 #gym.plan .exercices-container .exercice-container .menu-container {}
-#gym.plan .exercices-container .exercice-container .menu-container .action {background-color: #8BC34A;border-radius: 50%;padding: 10px;margin: 6px 6px 0 0;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);}
+#gym.plan .exercices-container .exercice-container .menu-container .action {background-color: #9CCC65;border-radius: 50%;padding: 10px;margin: 6px 6px 0 0;box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);}
 #gym.plan .exercices-container .exercice-container .menu-container .action md-icon {height: 16px; width: 16px; fill: white;}
 
-#gym.session {}
-#gym.session .date-container {text-align: center;}
-#gym.session .date-container .day {font-size: 1.3em;}
-#gym.session .date-container .month {font-size: 0.7em; opacity: 0.7; text-transform: uppercase;}
-#gym.session .workout-container {margin-left: 12px;}
-#gym.session .workout-container .title-container {font-size: 1.1em;}
-#gym.session .workout-container .exercises {font-size: 0.7em; opacity: 0.6;}
-#gym.session .score-container {margin-right: 12px;}
-#gym.session .score-container .score {font-size: 1.2em; font-weight: 500;}
-#gym.session .score-container .score span {font-size: 0.6em;}
-#gym.session .exercices-container {position: relative;}
+#gym.session {padding: 12px;}
+#gym.session .exercices-container {color: white; overflow: scroll}
 #gym.session .exercices-container .timeline {background-image: url('../images/dot-grey.png'); background-repeat: repeat-y; background-size: 6px; height: 90%; width: 56px; position: absolute; background-position: 50%; margin-top: 12px;}
 #gym.session .exercices-container .exercice-container {margin: 6px 0;}
-#gym.session .exercices-container .exercice-container .icon {width: 56px; height: 56px; border: 3px solid #81C784; border-radius: 50%; background-color: white; z-index: 2; outline: none;}
-#gym.session .exercices-container .exercice-container .icon md-icon {width: 20px; height: 20px; opacity: 0.9;}
+#gym.session .exercices-container .exercice-container .icon {width: 56px; height: 56px; border: 3px solid #B2EBF2; border-radius: 50%; outline: none;}
+#gym.session .exercices-container .exercice-container .icon md-icon {width: 20px; height: 20px; fill: white;}
 #gym.session .exercices-container .exercice-container .exercise {margin-left: 12px;}
 #gym.session .exercices-container .exercice-container .exercise .text-container {margin: 6px 0;}
 #gym.session .exercices-container .exercice-container .exercise .text-container .ex-name {font-weight: 400;}
-#gym.session .exercices-container .exercice-container .exercise .text-container .value {font-size: 0.8em; margin-right: 12px; opacity: 0.8;}
-#gym.session .exercices-container .final-icon {width: 56px; height: 56px; border: 3px solid #81C784; border-radius: 50%; background-color: white; z-index: 2; margin-top: 12px;}
-#gym.session .exercices-container .final-icon md-icon {width: 20px; height: 20px; opacity: 0.9;}
-#gym.session .exercices-container .final-icon.completed {background-color: #efefef; border-color: #efefef;}
+#gym.session .exercices-container .exercice-container .exercise .text-container .value {font-size: 0.8em; margin-right: 12px; opacity: 0.9;}
+#gym.session .exercices-container .mood md-icon {fill: white;}
+#gym.session .exercices-container .final-icon {width: 56px; height: 56px; border: 3px solid #B2EBF2; border-radius: 50%; margin-top: 12px; outline: none;}
+#gym.session .exercices-container .final-icon md-icon {width: 20px; height: 20px; fill: white;}
+#gym.session .exercices-container .final-icon.completed {background-color: #B2EBF2; border-color: #B2EBF2;}
 #gym.session .exercices-container .final-icon.completed md-icon {fill: #b9b9b9;}
 #gym.session .exercices-container .final-text {font-size: 1.3em; margin-top: 12px; margin-left: 12px; opacity: 0.7;}
 #gym.session .exercices-container .pain {margin-top: 12px; margin-right: 12px;}
-#gym.session .exercices-container .exercice-container .score {font-size: 0.9em;}
+#gym.session .exercices-container .exercice-container .score {font-size: 0.9em; opacity: 0.8;}
 #gym.session .exercices-container .exercice-container .score span {font-size: 0.8em;}
 #gym.session .exercices-container .exercice-container .mood {margin-right: 12px; margin-top: 12px;}
-#gym.session .exercices-container .exercice-container.completed .icon {background-color: #efefef; border-color: #efefef;}
+#gym.session .exercices-container .exercice-container.completed .icon {background-color: #B2EBF2; border-color: #B2EBF2;}
 #gym.session .exercices-container .exercice-container.completed .icon md-icon {fill: #b9b9b9;}
-#gym.session .exercices-container .exercice-container.completed .exercise .text-container {opacity: 0.3;}
-#gym.session .exercices-container .exercice-container.completed .mood {opacity: 0.4;}
-#gym.session .exercices-container .exercice-container.completed .score {opacity: 0.3;}
-#gym.session .post-workout-icons-container {margin-top: 18px; margin-bottom: 12px;}
-#gym.session .post-workout-icons-container .connector {border: 1px solid #81C784; width: 12px; min-width: 12px; max-width: 12px; height: 0;}
-#gym.session .post-workout-icons-container .post-workout-icon {border: 3px solid #81C784; border-radius: 50%; padding: 10px; outline: none;}
-#gym.session .post-workout-icons-container .post-workout-icon md-icon {width: 20px; height: 20px; opacity: 0.8; outline: none;}
-#gym.session .goals-container {}
-#gym.session .goals-container .goal-container {position: relative; border: 2px solid #B2EBF2; padding: 6px; border-radius: 5px; overflow: hidden; box-sizing: border-box; margin-top: 12px;}
-#gym.session .goals-container .goal-container md-icon {z-index: 2;}
+#gym.session .exercices-container .exercice-container.completed .exercise .text-container {opacity: 0.7;}
+#gym.session .exercices-container .exercice-container.completed .mood {opacity: 0.7;}
+#gym.session .exercices-container .exercice-container.completed .score {opacity: 0.7;}
+#gym.session .post-workout-icons-container {margin-top: 24px; margin-bottom: 24px;}
+#gym.session .post-workout-icons-container .connector {border: 1px solid #9CCC65; width: 12px; min-width: 12px; max-width: 12px; height: 0;}
+#gym.session .post-workout-icons-container .post-workout-icon {border: 4px solid #9CCC65; border-radius: 50%; padding: 10px; outline: none;}
+#gym.session .post-workout-icons-container .post-workout-icon md-icon {width: 20px; height: 20px; outline: none; fill: white;}
+#gym.session .goals-container {margin-top: 12px; margin-bottom: 0px;}
+#gym.session .goals-container .goal-container {color: white; position: relative; border: 2px solid #B2EBF2; padding: 6px; border-radius: 5px; overflow: hidden; box-sizing: border-box; margin-top: 12px;}
+#gym.session .goals-container .goal-container md-icon {z-index: 2; fill: white;}
 #gym.session .goals-container .goal-container .remaining-points {z-index: 2; text-align: right; opacity: 0.8;}
 #gym.session .goals-container .goal-container .remaining-points .pts {font-size: 0.7em; margin-top: 4px; margin-left: 2px;}
 #gym.session .goals-container .goal-container .level {content: ''; position: absolute; height: 100%; bottom: 0; left: 0;}
@@ -234,6 +226,13 @@ toto-gym-muscle-graph #muscle-graph-container .x-axis-container {margin: 3px 0;}
 toto-gym-muscle-graph #muscle-graph-container .x-axis-container .day {width: 10px;margin: 0 2px;font-size: 0.7em;text-align: center;color: rgba(0,0,0,0.7);}
 .dark-primary-color toto-gym-muscle-graph #muscle-graph-container .x-axis-container .day {color: rgba(255,255,255,1);}
 .dark-primary-color toto-gym-muscle-graph #muscle-graph-container .graph-container .muscle-icon {opacity: 0.8;}
+
+gym-week {}
+gym-week .day-container {}
+gym-week .day-container .day {color: white; margin-right: 38px; text-align: right;}
+gym-week .day-container .circle-container {width: 46px; height: 46px; border: 2px solid #4DD0E1; border-radius: 50%; outline: none; margin-right: 12px;}
+gym-week .day-container .circle-container.trained {border: 3px solid #9CCC65; background: #9CCC65;}
+gym-week .day-container .circle-container md-icon {fill: white;}
  
 /************************************************************************
  * RESPONSIVE

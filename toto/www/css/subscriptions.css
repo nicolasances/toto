@@ -26,7 +26,7 @@
 #subscriptions .types-container .type-container.selected md-icon {fill: white;}
 
 #subscriptions .actions-container {margin: 24px 0;}
-#subscriptions .actions-container .action {margin: 0 12px;background-color: #8BC34A;padding: 12px;border-radius: 50%;outline: none;}
+#subscriptions .actions-container .action {margin: 0 12px;background-color: #9CCC65;padding: 12px;border-radius: 50%;outline: none;}
 #subscriptions .actions-container .action md-icon {fill: white;}
 #subscriptions .actions-container .action.save {background-color: #9C27B0;}
 

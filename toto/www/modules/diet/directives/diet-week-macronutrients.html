@@ -1,0 +1,55 @@
+
+<div layout="column" style="outline: none;" ng-click="go('/diet/meals')">
+	<div class="line" layout="row" ng-click="showMenu = !showMenu">
+		<div flex></div>
+		<div class="nutrient-container" layout="column">
+			<div class="circle big" layout="column">
+				<div flex></div>
+				<div class="text">{{cal | number : 0}}</div>
+				<div class="unit" flex>cal</div>
+			</div>
+		</div>
+		<div flex></div>
+	</div>
+	
+	<div layout="row" class="line" ng-click="showMenu = !showMenu">
+		<div flex></div>
+		<div class="nutrient-container" layout="column">
+			<div class="circle" layout="column">
+				<div flex></div>
+				<div class="text">{{carbs | number : 0}}</div>
+				<div class="unit" flex>gr</div>
+			</div>
+			<div layout="row">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/carbs.svg"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+		<div class="nutrient-container" layout="column">
+			<div class="circle" layout="column">
+				<div flex></div>
+				<div class="text">{{proteins | number : 0}}</div>
+				<div class="unit" flex>gr</div>
+			</div>
+			<div layout="row">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/proteins.svg"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+		<div class="nutrient-container" layout="column">
+			<div class="circle" layout="column">
+				<div flex></div>
+				<div class="text">{{fats | number : 0}}</div>
+				<div class="unit" flex>gr</div>
+			</div>
+			<div layout="row">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/body-fat.svg"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+		<div flex></div>
+	</div>
+</div>

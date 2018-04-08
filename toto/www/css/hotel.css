@@ -17,7 +17,7 @@
 #hotel .hotel .icon {margin-left: 12px; margin-right: 12px;}
 #hotel .hotel .icon md-icon {width: 32px; height: 32px; outline: none;}
 #hotel .hotel .actions {position: absolute; height: 100%; right: 12px; margin-top: -12px;}
-#hotel .hotel .actions .action {background-color: #8BC34A;border-radius: 50%;padding: 9px 11px 11px 11px;margin-left: 12px;outline: none;}
+#hotel .hotel .actions .action {background-color: #9CCC65;border-radius: 50%;padding: 9px 11px 11px 11px;margin-left: 12px;outline: none;}
 #hotel .hotel .actions .action md-icon {width: 16px; height: 16px; fill: white;}
 
 #hotel-add .mop-container {margin: 24px 0;}
