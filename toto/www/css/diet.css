@@ -33,7 +33,7 @@ diet-week-macronutrients .menu-container .menu {margin: 12px 0; }
 diet-week-macronutrients .menu-container .menu .item {padding: 12px; border-radius: 50%; margin: 0 12px; outline: none;}
 diet-week-macronutrients .menu-container .menu .item md-icon {width: 18px; height: 18px; fill: white;}
 
-.meals-container {margin: 12px; margin-top: 32px;}
+.meals-container {margin: 12px; margin-top: 32px; overflow: scroll;}
 .meals-container .meal-container {margin: 6px 0;}
 .meals-container .meal-container .calories-container {border: 3px solid #B2EBF2; border-radius: 50%; width: 48px; height: 48px; color: white; text-align: center; outline:none;}
 .meals-container .meal-container .calories-container .amount {font-size: 14px;}

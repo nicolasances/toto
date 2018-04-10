@@ -38,10 +38,6 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
 					
 					var width = barContainer.offsetWidth;
 					var height = barContainer.offsetHeight;
-//					component.style.width = width + 'px';
-//					component.style.height = height + 'px';
-//					component.style.marginLeft = (widget.offsetWidth - 18 - width) / 2 + 'px';
-//					component.style.marginTop = 24 + 'px';
 					
 					svg = d3.select('#' + component.id + ' .bar-container').append('svg')
 						.attr('width', width)
@@ -61,8 +57,6 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
 										.attr('fill', function(d) {if (d >= scope.goal.amount) return '#9CCC65'; return '#B2EBF2';})
 										.attr('width', function(d) {if (d >= scope.goal.amount) return width - 6; return (d / scope.goal.amount) * width})
 										
-									g.selectAll('.text').data(scope.total)
-										.html(function(d) {return (d / 1000).toFixed(2) + '&#8467;'})
 									
 								});
 							})
