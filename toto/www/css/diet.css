@@ -14,6 +14,7 @@ diet-foods {padding-top: 12px; overflow: scroll; margin: 12px; margin-top: 32px;
 .diet-food .options .option {padding: 12px; border-radius: 50%;}
 .diet-food .options .option md-icon {fill: white;}
 .toto-form .diet-food {color: rgba(0,0,0,0.8);}
+.toto-form .diet-food .avatar md-icon {fill: currentColor;}
 
 .toto-form .add-aliment {padding: 12px;border-radius: 50%;}
 .toto-form .add-aliment md-icon {fill: white; }
