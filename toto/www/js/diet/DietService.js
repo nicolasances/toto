@@ -209,11 +209,11 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 						sugars = $scope.newFood.sugars * $scope.newFood.amountMl / 100;
 					}
 					else {
-						prot = $scope.newFood.proteins * $scope.newFood.amountMl;
-						cal = $scope.newFood.calories * $scope.newFood.amountMl;
-						fat = $scope.newFood.fat * $scope.newFood.amountMl;
-						carbs = $scope.newFood.carbs * $scope.newFood.amountMl;
-						sugars = $scope.newFood.sugars * $scope.newFood.amountMl;
+						prot = $scope.newFood.proteins * $scope.newFood.amount;
+						cal = $scope.newFood.calories * $scope.newFood.amount;
+						fat = $scope.newFood.fat * $scope.newFood.amount;
+						carbs = $scope.newFood.carbs * $scope.newFood.amount;
+						sugars = $scope.newFood.sugars * $scope.newFood.amount;
 					}
 					
 					$scope.meal.proteins += prot;
@@ -222,7 +222,6 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 					$scope.meal.carbs += carbs;
 					$scope.meal.sugars += sugars;
 					
-					console.log($scope.meal);
 				}
 				
 				$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}
