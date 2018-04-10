@@ -221,6 +221,8 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 					$scope.meal.fat += fat;
 					$scope.meal.carbs += carbs;
 					$scope.meal.sugars += sugars;
+					
+					console.log($scope.meal);
 				}
 				
 				$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}
