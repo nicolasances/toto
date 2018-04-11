@@ -13,10 +13,11 @@
 	<div layout="column" flex>
 		<div flex></div>
 		<div layout="row">
-			<div ng-class="['circle-container']" layout="column" ng-click="startOrResumeSession(day.training)" ng-if="day.training == null || day.training.muscles.length == 0"></div>
-			<div ng-class="['circle-container', day.training.muscles.length > 0 ? 'trained' : '']" layout="column" ng-repeat="muscle in day.training.muscles" ng-click="startOrResumeSession(day.training)">
+			<div ng-class="['circle-container']" layout="column" ng-click="startOrResumeSession(day.session)" ng-if="day.session == null"></div>
+			<div ng-class="['circle-container', 'trained']" layout="column" ng-click="startOrResumeSession(day.session)" ng-if="day.session != null && day.session.impactedMuscles == null"></div>
+			<div ng-class="['circle-container', 'trained']" layout="column" ng-repeat="muscle in day.session.impactedMuscles" ng-click="startOrResumeSession(day.session)" ng-if="day.session.impactedMuscles != null">
 				<div flex></div>
-				<md-icon md-svg-src="images/gym/muscle-avatars/{{muscle.id}}.svg"></md-icon>
+				<md-icon md-svg-src="images/gym/muscle-avatars/{{muscle.muscle.id}}.svg"></md-icon>
 				<div flex></div>
 			</div>
 		</div>

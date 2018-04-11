@@ -102,16 +102,7 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			
 			el[0].classList.add('flex');
 			el[0].classList.add('layout-column');
-			
-			var container = el[0].parentNode;
-			var component = el[0];
-			var scale = 0.9;
-			var width, height;
-			var svg, g;
-			var dayFontSize = 12;
-			var gymSessionArc;
-			
-			component.id = 'gymWeek-' + Math.floor(Math.random() * 1000000);
+			el[0].id = 'gymWeek-' + Math.floor(Math.random() * 1000000);
 			
 			// 1. Create days of week
 			scope.days = [];
@@ -127,41 +118,44 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 				scope.days.push({date: new Date(moment(startOfWeek).add(i, 'days'))});
 			}
 
+			// 2. Retrieve sessions
+			GymService.getSessionsCurrentWeek().success(function(data) {
+				
+				for (var i = 0; i < data.sessions.length; i++) {
+					
+					scope.days[i].session = data.sessions[i];
+					
+					// 3. Retrieve session details & impacted muscle
+					GymService.getSession(data.sessions[i].id).success(function(data) {
+						
+						for (var i = 0; i < scope.days.length; i++) {
+							
+							if (scope.days[i].session.id == data.id) {
+								scope.days[i].session = data;
+								break;
+							}
+						}
+						
+					});
+				}
+			});
+			
+			
 			GymService.calculateEfficacy('goodPain', 'ok').success(function(data) {
 
 				scope.benchmarkEfficacy = data.efficacy;
 				
-				GymService.getWeekSummary(moment().format('W'), moment().format('YYYY'), scope.benchmarkEfficacy).success(function(data) {
-
-					scope.gymDays = data.days;
-					
-					for (var i = 0; i < data.days.length; i++) {
-						scope.days[i].training = data.days[i];
-					}
-					
-//					draw();
-					
-				});
+//				GymService.getWeekSummary(moment().format('W'), moment().format('YYYY'), scope.benchmarkEfficacy).success(function(data) {
+//
+//					scope.gymDays = data.days;
+//					
+//					for (var i = 0; i < data.days.length; i++) {
+//						scope.days[i].training = data.days[i];
+//					}
+//					
+//				});
 			});
 
-			/**
-			 * Animates the green circle that specifies if the gym session has been done
-			 */
-			var gymSessionArcTween = function() {
-				
-			    return function(d) {
-			    	var interpolate = d3.interpolate(0, 2 * Math.PI);
-			
-			    	return function(t) {
-
-			    		if (d.muscle == null) gymSessionArc.endAngle(0);
-			    		else gymSessionArc.endAngle(interpolate(t));
-			    		
-			    		return gymSessionArc();
-			    	}
-			    }
-			}
-			
 			/**
 			 * Starts or resume a session in a specified day.
 			 * 
@@ -170,13 +164,11 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			 * day.
 			 * 
 			 * Parameters:
-			 *  - day: the gym day loaded in getWeekSummary() call
+			 *  - session: the gym session
 			 */
-			scope.startOrResumeSession = function(day) {
+			scope.startOrResumeSession = function(session) {
 				
-				console.log(day);
-				
-				if (day.muscles.length == 0) {
+				if (session == null) {
 					
 					GymService.showStartSessionUI(function(answer) {
 
@@ -188,124 +180,10 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 				}
 				else {
 					
-					GymService.getSessions(day.date).success(function(sessions) {
-						$rootScope.go('/gym/sessions/' + sessions.sessions[0].id);
-					})
+					$rootScope.go('/gym/sessions/' + session.id);
 				}
 			}
 	      
-			/**
-			 * Draws the circles
-			 */
-			var draw = function() {
-				
-				width = container.offsetWidth * scale;
-				height = container.offsetHeight * scale;
-				
-				component.style.width = width + 'px';
-				component.style.height = height + 'px';
-				component.style.marginLeft = (container.offsetWidth - 18 - container.offsetWidth * scale) / 2 + 'px';
-				
-				var circleGutter = 10;
-				var gymSessionCircleWidth = 3;
-				
-				/**
-				 * Calculates each circle's x position
-				 */
-				var circleCX = function(d, i) {
-					var circleWidth = circleR() * 2;
-					return circleGutter / 2 + circleWidth / 2 + i * (circleWidth + circleGutter);
-				}
-				
-				/**
-				 * Calculates each circle's y position
-				 */
-				var circleCY = function(d, i) {
-					return height / 2;
-				}
-				
-				/**
-				 * Calculates the circle's radius
-				 */
-				var circleR = function(d, i) {
-					return (width / 7 - circleGutter) / 2;
-				}
-				
-				var ua = navigator.userAgent.toLowerCase();
-				var safari = false;
-				if (ua.indexOf('safari') != -1) { 
-				  if (ua.indexOf('chrome') > -1) {
-					  safari = false;
-				  } else {
-					  safari = true;
-				  }
-				}
-				
-				gymSessionArc = d3.arc().innerRadius(circleR() - gymSessionCircleWidth / 2).outerRadius(circleR() + gymSessionCircleWidth / 2).startAngle(0).endAngle(0);
-				
-				svg = d3.select('#' + component.id).append('svg')
-						.attr('width', width)
-						.attr('height', height);
-				
-				g = svg.append('g');
-				
-				g.selectAll('.bar').data(scope.gymDays).enter().append('rect')
-					.style('fill', '#4CAF50')
-					.attr('class', 'bar')
-					.attr('width', circleR)
-					.attr('x', function(d, i) {return circleCX(d, i) - circleR() / 2})
-					.attr('y', circleCY)
-					.attr('height', 0)
-					.transition()
-					.duration(500)
-					.attr('height', function(d) {if (d.efficacyGoalReached) return circleR() * 2; return 0;})
-				
-				g.selectAll('.circle').data(scope.gymDays).enter().append('circle')
-					.style('fill', function(d, i) {if (d.muscle != null) return '#F1F8E9'; return 'white';})
-					.style('stroke', 'rgb(212, 211, 211)')
-					.style('strokeWidth', '2')
-					.attr('class', 'circle')
-					.attr('cx', circleCX)
-					.attr('cy', circleCY)
-					.attr('r', circleR)
-					.on('click', function(d) {startOrResumeSession(d);})
-					
-				g.selectAll('.day').data(scope.gymDays).enter().append('text')
-					.style('fill', 'rgba(0,0,0,0.5)')
-					.attr('class', 'day')
-					.attr('text-anchor', 'middle')
-					.attr('alignment-baseline', 'baseline')
-					.attr('font-size', dayFontSize + 'px')
-					.attr('line-height', dayFontSize + 'px')
-					.attr('x', circleCX)
-					.attr('y', function(d, i) {return circleCY(d, i) - circleR(d, i) - (safari ? 18 : 6)})
-					.text(function(d) {return moment(d.date, 'YYYYMMDD').format('dd');})
-					.on('click', function(d) {startOrResumeSession(d);})
-					
-//				g.selectAll('.sessionArc').data(scope.gymDays).enter().append('path')
-//					.attr('class', 'sessionArc')
-//					.attr('fill', function(d) {if (d.efficacyGoalReached) return '#4CAF50'; return '#26C6DA';})
-//					.attr('transform', function(d, i) {return 'translate(' + circleCX(d, i) + ', ' + circleCY(d, i) + ')';})
-//					.attr('d', gymSessionArc)
-//					.transition()
-//					.duration(500)
-//					.attrTween('d', gymSessionArcTween(Math.PI))
-					
-				g.selectAll('.muscleImg').data(scope.gymDays).enter().append('svg:image')
-					.attr('class', 'muscleImg')
-					.attr('xlink:href', function(d) {
-						if (d.muscle != null && d.efficacyGoalReached) return 'images/gym/muscle-avatars-green/' + d.muscle.id + '.svg';
-						else if (d.muscle != null) return 'images/gym/muscle-avatars-grey/' + d.muscle.id + '.svg';
-						else return '';
-					})
-					.attr('width', circleR)
-					.attr('height', circleR)
-					.attr('x', function(d, i) {return circleCX(d, i) - circleR() / 2})
-					.attr('y', function(d, i) {return circleCY(d, i) - circleR() / 2})
-					.on('click', function(d) {startOrResumeSession(d);})
-					
-			}
-			
 		}
 	}
 }]);

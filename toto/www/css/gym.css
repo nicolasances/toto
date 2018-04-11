@@ -231,7 +231,7 @@ gym-week {}
 gym-week .day-container {}
 gym-week .day-container .day {color: white; margin-right: 38px; text-align: right;}
 gym-week .day-container .circle-container {width: 46px; height: 46px; border: 2px solid #4DD0E1; border-radius: 50%; outline: none; margin-right: 12px;}
-gym-week .day-container .circle-container.trained {border: 3px solid #9CCC65; background: #9CCC65;}
+gym-week .day-container .circle-container.trained {border: 3px solid #9CCC65; }
 gym-week .day-container .circle-container md-icon {fill: white;}
  
 /************************************************************************

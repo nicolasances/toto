@@ -692,6 +692,14 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		}, 
 		
 		/**
+		 * Retrieves the sessions of the current week
+		 */
+		getSessionsCurrentWeek : function() {
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions?currentWeek=true");
+		},
+		
+		/**
 		 * This method returns a specific session, identified by its id
 		 * 
 		 *  - id	:	the unique session identifier
