@@ -145,15 +145,6 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 
 				scope.benchmarkEfficacy = data.efficacy;
 				
-//				GymService.getWeekSummary(moment().format('W'), moment().format('YYYY'), scope.benchmarkEfficacy).success(function(data) {
-//
-//					scope.gymDays = data.days;
-//					
-//					for (var i = 0; i < data.days.length; i++) {
-//						scope.days[i].training = data.days[i];
-//					}
-//					
-//				});
 			});
 
 			/**
@@ -166,13 +157,13 @@ gymDirectivesModule.directive('gymWeek', ['GymService', '$timeout', '$rootScope'
 			 * Parameters:
 			 *  - session: the gym session
 			 */
-			scope.startOrResumeSession = function(session) {
+			scope.startOrResumeSession = function(session, date) {
 				
 				if (session == null) {
 					
 					GymService.showStartSessionUI(function(answer) {
 
-						GymService.startSession(answer.planId, answer.planWorkoutId, day.date).success(function(data) {
+						GymService.startSession(answer.planId, answer.planWorkoutId, moment(date).format('YYYYMMDD')).success(function(data) {
 							$rootScope.go('/gym/sessions/' + data.sessionId);
 						});
 					});
