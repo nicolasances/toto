@@ -7,6 +7,7 @@ var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'exp
  * Accepts the following parameters:
  * 
  *  - currency 	: 	(optional) the currency code to be used. EUR, DKK, ..
+ *  - yearMonth :	(optional) the year month to load (default to current year month)
  *  
  */
 expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', '$rootScope', function($timeout, $mdMedia, expensesService, $rootScope) {
@@ -14,25 +15,20 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
 	return {
 		progress : {},
 		scope : {
-			currency: '@'
+			currency: '@',
+			yearMonth: '@'
 		},
 		templateUrl : 'modules/expenses/directives/expenses-total.html',
 		link : function(scope, el) {
 			
 			scope.go = $rootScope.go;
 			
-//			var scale = 0.6;
-//			var widgetSize = {width: el[0].parentNode.offsetWidth, height: el[0].parentNode.offsetHeight};
-//			var circleSize = widgetSize.width > widgetSize.height ? widgetSize.height * scale : widgetSize.width * scale;
-//			
 			var circle = el[0];
-//			
-//			circle.style.width = circleSize + 'px';
-//			circle.style.height = circleSize + 'px';
-//			circle.style.marginLeft = (widgetSize.width - 18 - circleSize) / 2 + 'px';
 			circle.classList.add('layout-column');
 			
-			expensesService.getMonthTotal(scope.currency, expensesService.getCurrentMonth()).success(function(data) {
+			var yearMonth = scope.yearMonth == null ? expensesService.getCurrentMonth() : scope.yearMonth;
+			
+			expensesService.getMonthTotal(scope.currency, yearMonth).success(function(data) {
 				
 				scope.amount = data.total;
 			});

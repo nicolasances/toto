@@ -26,8 +26,6 @@ CardDirectivesModule.directive('cardTotal', [ '$timeout', '$mdMedia', 'CardServi
 				
 				scope.card = data.cards[0];
 				
-				console.log(scope.card);
-				
 				CardService.getCurrentMonthExpensesTotal(data.cards[0].id).then(function(total) {
 					
 					scope.total = total;

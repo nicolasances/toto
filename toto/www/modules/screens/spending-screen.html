@@ -1,22 +1,26 @@
 	
 	<div class="h1">
 		Spendings
-		<div class="h3">{{currentMonth}} '{{currentYear}}</div>
+		<div class="h3" id="month"></div>
 	</div>
 	
-	<div layout="column" flex>
-		<div flex></div>
-		<div layout="row">
-			<div flex></div>
-			<expenses-total></expenses-total>
-			<div flex></div>
-		</div>
-		<div flex></div>
-		
-		<div layout="row">
-			<div flex></div>
-			<card-total layout="column"></card-total>
-			<div flex></div>
+	<div class="swiper-container" layout="column" flex>
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" layout="column">
+				<div flex></div>
+				<div layout="row">
+					<div flex></div>
+					<expenses-total></expenses-total>
+					<div flex></div>
+				</div>
+				<div flex></div>
+				<div layout="row">
+					<div flex></div>
+					<card-total layout="column"></card-total>
+					<div flex></div>
+				</div>
+				<div flex></div>
+			</div>
 		</div>
 		<div flex></div>
 	</div>
