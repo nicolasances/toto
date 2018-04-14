@@ -99,7 +99,7 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 							
 							if (data.cards == null) return;
 							
-							CardService.getCurrentMonthExpensesTotal(data.cards[0].id).then(function(total) {
+							CardService.getExpensesTotal(data.cards[0].id, ym).then(function(total) {
 								
 								var cardAmount = parseFloat(total.toFixed(1)).toLocaleString('en');
 								
@@ -116,7 +116,6 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 				
 				mySwiper = new Swiper ('.swiper-container', {
 					loop: false,
-					initialSlide: 1,
 					on: {
 						init: function() {
 							
@@ -131,6 +130,9 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 							currentYear = moment(currentYearMonth + '01', 'YYYYMMDD').format('YY');
 							
 							document.querySelector('spending-screen #month').innerHTML = currentMonth + ' \'' + currentYear;
+
+							if (this.isBeginning) loadMore(1, currentYearMonth);
+							
 						},
 						slideNextTransitionEnd: function() {
 							
@@ -142,8 +144,6 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 							document.querySelector('spending-screen #month').innerHTML = currentMonth + ' \'' + currentYear;
 						},
 						reachBeginning: function() {
-							
-							loadMore(1, currentYearMonth);
 						}
 					}
 				});
