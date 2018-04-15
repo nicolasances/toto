@@ -4,7 +4,7 @@
 
 .connection-line {border: 1px solid #00BCD4;}
 
-diet-foods {padding-top: 12px; overflow: scroll; margin: 12px; margin-top: 32px;}
+diet-foods {padding-top: 12px; overflow: scroll; -webkit-overflow-scrolling: touch; margin: 12px; margin-top: 32px;}
 .diet-food {margin-bottom: 18px; position: relative; outline: none; color: white;}
 .diet-food .avatar {padding: 12px; border-radius: 50%; border: 3px solid #B2EBF2; margin-right: 12px;}
 .diet-food .avatar md-icon {fill: white;}
