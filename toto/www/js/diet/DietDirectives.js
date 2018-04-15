@@ -15,71 +15,114 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
 		templateUrl: 'modules/diet/directives/diet-water.html',
 		link: function(scope, el) {
 			
-			var widget = el[0].parentNode;
 			var component = el[0];
 			var scale = 0.8;
 
 			component.classList.add('layout-row');
 			component.id = 'dietWater-' + Math.floor(Math.random() * 1000000);
-
-			var barContainer = document.querySelector('#' + component.id + ' .bar-container');
 			
+			var waterEl = document.querySelector('#' + component.id + ' .circle');
+
 			scope.totalAmount = 0;
 			
+			var arcGutter = 0.01 * 2 * Math.PI;
+			var waterArch = d3.arc().innerRadius(waterEl.offsetWidth/2 - 4).outerRadius(waterEl.offsetWidth/2).startAngle(0 + arcGutter).endAngle(0 + arcGutter);
+			var waterBaseArc = d3.arc().innerRadius(waterEl.offsetWidth/2 - 4).outerRadius(waterEl.offsetWidth/2).startAngle(2 * Math.PI).endAngle(0);
+
+			/**
+			 * Arc tween animation
+			 */
+			var arcTween = function(arc, target) {
+				
+				return function(d) {
+					var interpolate = d3.interpolate(0, target);
+					
+					return function(t) {
+						
+						arc.endAngle(interpolate(t));
+						
+						return arc();
+					}
+				}
+			}
+			
+			svg = d3.select('#' + component.id + ' .circle').append('svg')
+					.attr('width', waterEl.offsetWidth)
+					.attr('height', waterEl.offsetHeight)
+					.style('position', 'absolute')
+		
+			g = svg.append('g');
+			
+			g.append('path')
+					.attr('id', 'waterBasePath')
+					.attr('fill', function(d) {return '#B2EBF2';})
+					.attr('transform', 'translate(' + waterEl.offsetWidth/2 + ', ' + waterEl.offsetHeight/2 + ')')
+					.attr('d', waterBaseArc)
+			
+			g.append('path')
+					.attr('id', 'waterPath')
+					.attr('fill', function(d) {return '#64DD17';})
+					.attr('transform', 'translate(' + waterEl.offsetWidth/2 + ', ' + waterEl.offsetHeight/2 + ')')
+					.attr('d', waterArch)
+					
+			
+			/**
+			 * Retrieve the water consumption goal
+			 */
 			DietService.getWaterConsumptionGoal().success(function(data) {
 				
 				scope.goal = data;
 				
+				/**
+				 * Retrieve the water consumption 
+				 */
 				DietService.getWaterConsumption().success(function(data) {
 					
-					scope.total = [data.total];
 					scope.totalAmount = data.total / 1000;
-					scope.goalReached = data.total >= scope.goal.amount;
 					
-					var width = barContainer.offsetWidth;
-					var height = barContainer.offsetHeight;
+					var endAngle = data.total * 2 * Math.PI / scope.goal.amount;
+					if (endAngle > 2 * Math.PI) endAngle = 2 * Math.PI;
 					
-					svg = d3.select('#' + component.id + ' .bar-container').append('svg')
-						.attr('width', width)
-						.attr('height', height)
-						.on('click', function() {
-							
-							DietService.showAddWaterConsumptionDialog(function(amount) {
-								
-								DietService.postWaterConsumption(amount).success(function() {
-									scope.total[0] += amount;
-									scope.totalAmount += amount / 1000;
-									scope.goalReached = total[0] >= scope.goal.amount;
-									
-									g.selectAll('.water').data(scope.total)
-										.transition()
-										.duration(500)
-										.attr('fill', function(d) {if (d >= scope.goal.amount) return '#9CCC65'; return '#B2EBF2';})
-										.attr('width', function(d) {if (d >= scope.goal.amount) return width - 6; return (d / scope.goal.amount) * width})
-										
-									
-								});
-							})
-							
-						})
-					
-					g = svg.append('g');
-					
-					g.selectAll('.water').data(scope.total).enter().append('rect')
-						.attr('class', 'water')
-						.attr('height', 26)
-						.attr('rx', 2)
-						.attr('ry', 2)
-						.attr('x', 1)
-						.attr('y', 1)
-						.attr('fill', function(d) {if (d >= scope.goal.amount) return '#9CCC65'; return '#B2EBF2';})
-						.attr('width', 0)
+					d3.select('#' + component.id + ' #waterPath')
 						.transition()
 						.duration(500)
-						.attr('width', function(d) {if (d >= scope.goal.amount) return width - 6; return (d / scope.goal.amount) * width})
-						
+						.attrTween('d', arcTween(waterArch, endAngle - arcGutter));
+					
+					d3.select('#' + component.id + ' #waterBasePath')
+						.transition()
+						.duration(500)
+						.attrTween('d', arcTween(waterBaseArc, endAngle));
+					
 				});
 			});
+			
+			/**
+			 * Allow the user to add water to the daily consumption
+			 */
+			scope.addWater = function() {
+				
+				DietService.showAddWaterConsumptionDialog(function(amount) {
+					
+					DietService.postWaterConsumption(amount).success(function() {
+						
+						scope.totalAmount += amount / 1000;
+						
+						var endAngle = scope.totalAmount * 1000 * 2 * Math.PI / scope.goal.amount;
+						if (endAngle > 2 * Math.PI) endAngle = 2 * Math.PI;
+						
+						d3.select('#' + component.id + ' #waterPath')
+							.transition()
+							.duration(500)
+							.attrTween('d', arcTween(waterArch, endAngle - arcGutter));
+						
+						d3.select('#' + component.id + ' #waterBasePath')
+							.transition()
+							.duration(500)
+							.attrTween('d', arcTween(waterBaseArc, endAngle));
+						
+					});
+				})
+			}
 
 		}
 	}

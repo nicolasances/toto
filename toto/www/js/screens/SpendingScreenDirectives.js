@@ -114,7 +114,7 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 			
 			$timeout(function() {
 				
-				mySwiper = new Swiper ('.swiper-container', {
+				mySwiper = new Swiper ('spending-screen .swiper-container', {
 					loop: false,
 					on: {
 						init: function() {

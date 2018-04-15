@@ -251,9 +251,11 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		/**
 		 * Retrieves the water consumption of the day
 		 */
-		getWaterConsumption : function() {
+		getWaterConsumption : function(date) {
 			
-			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/water?date=" + moment().format('YYYYMMDD'));
+			var d = date == null ? moment().format('YYYYMMDD') : date;
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/water?date=" + d);
 		},
 		
 		/**

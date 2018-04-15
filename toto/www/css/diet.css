@@ -21,17 +21,14 @@ diet-foods {padding-top: 12px; overflow: scroll; margin: 12px; margin-top: 32px;
 
 diet-week-macronutrients {}
 diet-week-macronutrients .line {margin: 12px 0; outline: none;}
-diet-week-macronutrients .line .nutrient-container .circle {height: 66px; width: 66px; border: 4px solid #B2EBF2; border-radius: 50%; margin: 0 12px;}
+diet-week-macronutrients .line .nutrient-container .circle {height: 66px; width: 66px; border: 4px solid #B2EBF2; border-radius: 50%; margin: 0 12px; box-sizing: border-box; position: relative;}
 diet-week-macronutrients .line .nutrient-container .circle .text {text-align: center; font-size: 16px; color: white; font-weight: 500;}
 diet-week-macronutrients .line .nutrient-container .circle .unit {text-align: center; font-size: 10px; color: white;}
 diet-week-macronutrients .line .nutrient-container .circle.big {height: 98px; width: 98px; border-width: 6px;}
 diet-week-macronutrients .line .nutrient-container .circle.big .text {font-size: 20px;}
 diet-week-macronutrients .line .nutrient-container .circle.big .unit {font-size: 12px;}
 diet-week-macronutrients .line .nutrient-container md-icon {fill: white; width: 18px; height: 18px; margin-top: 12px;}
-diet-week-macronutrients .menu-container {min-height: 66px; margin-top: -115px;}
-diet-week-macronutrients .menu-container .menu {margin: 12px 0; }
-diet-week-macronutrients .menu-container .menu .item {padding: 12px; border-radius: 50%; margin: 0 12px; outline: none;}
-diet-week-macronutrients .menu-container .menu .item md-icon {width: 18px; height: 18px; fill: white;}
+diet-week-macronutrients .line .nutrient-container img {filter: invert(1); width: 18px; height: 18px; margin-top: 12px;}
 
 .meals-container {margin: 12px; margin-top: 32px; overflow: scroll;}
 .meals-container .meal-container {margin: 6px 0;}
@@ -46,10 +43,13 @@ diet-week-macronutrients .menu-container .menu .item md-icon {width: 18px; heigh
 .meals-container .meal-container .aliments-container .aliments .aliment .name {font-size: 16px;}
 .meals-container .meal-container .aliments-container .aliments .aliment .amount {font-size: 12px; opacity: 0.8;}
 
-diet-water {margin: 24px;}
-diet-water md-icon {fill: white;}
-diet-water .bar-container {border-radius: 4px; border: 2px solid #B2EBF2; height: 32px; margin-left: 12px;}
-diet-water .amount {margin-left: 12px; color: white;}
+diet-water {}
+diet-water .line {margin: 12px 0; outline: none;}
+diet-water .line .nutrient-container .circle {height: 66px; width: 66px; border-radius: 50%; margin: 0 12px; box-sizing: border-box; position: relative;}
+diet-water .line .nutrient-container .circle .text {text-align: center; font-size: 16px; color: white; font-weight: 500;}
+diet-water .line .nutrient-container .circle .unit {text-align: center; font-size: 10px; color: white;}
+diet-water .line .nutrient-container md-icon {fill: white; width: 18px; height: 18px; margin-top: 12px;}
+diet-water .line .nutrient-container img {filter: invert(1); width: 18px; height: 18px; margin-top: 12px;}
 
 /******************************************************************************************************************
  * RESPONSIVE

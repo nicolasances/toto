@@ -1,16 +1,20 @@
 
-<div layout="column">
-	<div flex></div>
-	<md-icon ng-class="[goalReached ? 'completed' : '']" md-svg-src="images/svg/water-drop.svg"></md-icon>
-	<div flex></div>
+<div layout="column" style="outline: none;" ng-click="addWater()" flex>  
+	<div layout="row" class="line" ng-click="showMenu = !showMenu">
+		<div flex></div>
+		<div class="nutrient-container" layout="column">
+			<div class="circle" layout="column">
+				<div flex></div>
+				<div class="text">{{totalAmount | number : 2}}</div>
+				<div class="unit" flex>&#8467;</div>
+			</div>
+			<div layout="row">
+				<div flex></div>
+				<md-icon md-svg-src="images/svg/water-drop.svg"></md-icon>
+				<div flex></div>
+			</div>
+		</div>
+		<div flex></div>
+	</div>
 </div>
 
-<div layout="column" class="bar-container" flex>
-	
-</div>
-
-<div class="amount" layout="column">
-	<div flex></div>
-	<div>{{totalAmount | number : 2}} &#8467;</div>
-	<div flex></div>
-</div>
