@@ -1,7 +1,5 @@
-/* body {background: #e5e6e6;} */
-/* section {background: #e5e6e6 !important;} */
-/* md-content {background: #e5e6e6 !important; padding-top: 56px;} */
 md-sidenav md-content {padding-top: 0 !important;}
+md-dialog.md-default-theme, md-dialog {background-color: rgb(0, 151, 167) !important;}
 
 .toto-central-area {position: relative;}
 
@@ -15,6 +13,29 @@ home-link md-icon {fill: white;}
 .main-apps-toolbar .app-link {outline: none;}
 .main-apps-toolbar .app-link .icon-container {padding: 12px; border-radius: 50%;}
 .main-apps-toolbar .app-link .icon-container md-icon {width: 28px; height: 28px; fill: white;}
+
+/************************************************************************
+ * IN APP MENU
+ ***********************************************************************/
+in-app-menu {z-index: 2;}
+in-app-menu md-icon {fill: white;}
+in-app-menu .menus-container {margin-bottom: 24px;}
+in-app-menu .menus-container .menu {border-radius: 50%; padding: 12px; margin: 6px 0;}
+in-app-menu .menus-container .menu md-icon {fill: white; width: 20px; height: 20px;}
+
+/************************************************************************
+ * TOTO CLOCK 
+ ***********************************************************************/
+.toto-clock #selectedTimeDisplay {font-size: 32px; color: white; margin-top: 12px;}
+
+/************************************************************************
+ * TOTO NUMPAD 
+ ***********************************************************************/
+toto-numpad {}
+toto-numpad .result {text-align: center; color: white; font-size: 22px; margin: 24px 0;}
+toto-numpad .button {color: rgba(0,0,0,0.8); font-size: 22px; width: 80%; height: 80%; border-radius: 50%; outline: none;}
+toto-numpad .button .md-ripple-container {border-radius: 50%;}
+toto-numpad .button .text {text-align: center;}
 
 /************************************************************************
  * FONTS 

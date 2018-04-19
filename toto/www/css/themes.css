@@ -14,13 +14,13 @@ md-toolbar .image {
 
 md-toolbar md-icon {margin: 0;}
 md-toolbar .md-toolbar-tools {z-index: 2;}
-md-toolbar .md-toolbar-tools .md-icon-button {margin: 0; padding: 0;}
+md-toolbar .md-toolbar-tools .md-icon-button {margin: 0; padding: 0; position: absolute;}
 md-toolbar .md-toolbar-tools .md-icon-button.bottom-right {position: absolute; bottom: 24px; right: 24px;}
 md-toolbar .md-toolbar-tools .md-icon-button.semi-transparent {opacity: 0.4;}
 
 md-toolbar img.background {position: absolute; top: 0; width: 100%;}
 md-toolbar h1.title {position: absolute;bottom: 24px;left: 24px;}
-md-toolbar span.title {margin-left: 16px;}
+md-toolbar span.title {text-align: center;}
 
 md-card {font-size: 0.9em; color: rgba(0, 0, 0, 0.7) !important;}
 md-card-footer {margin-top: 0 !important;padding-top: 0 !important;margin-bottom: 0 !important;padding-bottom: 0 !important;}

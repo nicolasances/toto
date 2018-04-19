@@ -1,0 +1,22 @@
+
+<div layout="row" ng-if="showMenus">
+	<div flex></div>
+	<div layout="column" class="menus-container">
+		<div class="menu accent-color md-whiteframe-3dp" layout="column" ng-repeat="menu in menus" ng-click="menu.action()">
+			<div flex></div>
+			<md-icon md-svg-src="{{menu.icon}}"></md-icon>
+			<div flex></div>
+		</div>
+	</div>
+	<div flex></div>
+</div>
+
+<div layout="row" class="app-menu" ng-click="showMenus = !showMenus">
+	<div flex></div>
+	<div layout="column">
+		<div flex></div>
+		<md-icon md-svg-src="images/svg/dots.svg"></md-icon>
+		<div flex></div>
+	</div>
+	<div flex></div>
+</div>

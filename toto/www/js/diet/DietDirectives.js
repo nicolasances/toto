@@ -135,18 +135,21 @@ dietDirectivesModule.directive('dietWater', ['DietService', '$timeout', function
  * 
  *  - onSelect	:	optional, default null, a callback function to be called when selecting an aliment
  *  - hideAdd	:	optional, default false, hides the add button
+ *  - background:	optional, default 'light', accepted values: 'dark', 'light'
  */
 dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function(DietService, $timeout) {
 	
 	return {
 		scope: {
 			onSelect: '=', 
-			hideAdd: '@'
+			hideAdd: '@', 
+			background: '@'
 		},
 		templateUrl: 'modules/diet/directives/diet-foods.html',
 		link: function(scope, el) {
 			
 			scope.foods = [];
+			if (scope.background == null) scope.background = 'light';
 			
 			DietService.getFoods().success(function(data) {
 				
@@ -289,9 +292,15 @@ dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeo
 	
 	return {
 		scope: {
+			onRefresh: '='
 		},
 		templateUrl: 'modules/diet/directives/diet-week-macronutrients.html',
 		link: function(scope, el) {
+
+			scope.onRefresh = function() {
+				console.log('asd');
+				scope.getMeals();
+			}
 			
 			scope.go = $rootScope.go;
 			

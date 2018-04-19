@@ -24,6 +24,69 @@ totoDirectivesModule.directive('homeLink', function($rootScope, $window) {
 });
 
 /**
+ * Directive to show a numeric pad
+ * 
+ * Accepts the following parameters:
+ *  - answer		:	mandatory, callback function that will receive the answer 
+ */
+totoDirectivesModule.directive('totoNumpad', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			answer: '='
+		},
+		templateUrl : 'directives/toto-numpad.html',
+		link : function(scope, el) {
+			
+			scope.num = '0';
+			
+			var init = true;
+			
+			/**
+			 * Select a digit and add it to the overall number
+			 */
+			scope.digit = function(d) {
+				
+				if (init) scope.num = '';
+				
+				scope.num += '' + d;
+				
+				init = false;
+				
+			}
+		}
+	};
+});
+
+/**
+ * Directive to show the "app-specific menu"
+ * 
+ * Accepts the following parameters: 
+ * 
+ *  - menus			:	an [] of menus 
+ *  					each menu is a {icon: string svg url, action: a function()}
+ */
+totoDirectivesModule.directive('inAppMenu', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			menus: '='
+		},
+		templateUrl : 'directives/in-app-menu.html',
+		link : function(scope, el) {
+			
+			var widget = el[0];
+
+			widget.style.width = document.querySelector('.app-link').offsetWidth + 'px';
+			widget.style.position = 'absolute';
+			widget.style.bottom = '30px';
+			widget.style.right = '0';
+			
+		}
+	};
+});
+
+/**
  * Directive to draw an info circle.
  * 
  * Accepts the following parameters: 

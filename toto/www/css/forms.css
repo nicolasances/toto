@@ -1,4 +1,5 @@
 
+.toto-form {overflow: scroll; -webkit-overflow-scrolling: touch; }
 .toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.7;}
 
 .toto-form .toto-input-container {margin: 12px;}
@@ -12,7 +13,7 @@
 /****************************
  * SELECTORS
  ***************************/
-.toto-form .toto-alternatives-picker {border-radius: 5px;}
+.toto-form .toto-alternatives-picker {margin-top: 24px; border-radius: 5px;}
 .toto-form .toto-alternatives-picker .alternative {background: #efefef; padding: 18px 24px; color: rgba(0,0,0,0.5); border-right: 1px solid #d0d0d0; outline: none;}
 .toto-form .toto-alternatives-picker .alternative.first {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
 .toto-form .toto-alternatives-picker .alternative.last {border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-right: none;}
@@ -61,5 +62,5 @@
 .theme-cyan .toto-form .step-tracker .step {background-color: #B2EBF2;}
 .theme-cyan .toto-form .step-tracker .step.current {background-color: #00BCD4;}
 
-.toto-form button {margin: 24px 0; background-color: #43A047; border: none; padding: 12px; color: white; text-transform: uppercase; font-size: 1.2em; width: 100%; border-radius: 5px; font-weight: 500;}
+.toto-form button {margin: 24px 0; background-color: #9CCC65; border: none; padding: 12px; color: white; text-transform: uppercase; font-size: 1.2em; width: 100%; border-radius: 5px; font-weight: 500;}
 

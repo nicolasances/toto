@@ -38,7 +38,7 @@
 
 #diet #water-consumption-dialog .change-consumption {padding: 24px 0;}
 #diet #water-consumption-dialog .change-consumption .consumption {margin: 12px 16px;}
-#diet #water-consumption-dialog .change-consumption .consumption md-icon {width: 32px; height: 32px;}
+#diet #water-consumption-dialog .change-consumption .consumption md-icon {width: 32px; height: 32px; color: white;}
 
 @media only screen and (min-width: 960px) {
 	#dashboard #body toto-measurement-widget {margin: 0 24px;}

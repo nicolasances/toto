@@ -4,8 +4,8 @@
 
 .connection-line {border: 1px solid #00BCD4;}
 
-diet-foods {padding-top: 12px; overflow: scroll; -webkit-overflow-scrolling: touch; margin: 12px; margin-top: 32px;}
-.diet-food {margin-bottom: 18px; position: relative; outline: none; color: white;}
+diet-foods {padding-top: 12px; margin: 12px; margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
+.diet-food {margin-bottom: 18px; position: relative; outline: none; color: white; }
 .diet-food .avatar {padding: 12px; border-radius: 50%; border: 3px solid #B2EBF2; margin-right: 12px;}
 .diet-food .avatar md-icon {fill: white;}
 .diet-food .name {font-size: 1.2em; }
@@ -13,11 +13,11 @@ diet-foods {padding-top: 12px; overflow: scroll; -webkit-overflow-scrolling: tou
 .diet-food .options {position: absolute; right: 12px; height: 100%;}
 .diet-food .options .option {padding: 12px; border-radius: 50%;}
 .diet-food .options .option md-icon {fill: white;}
-.toto-form .diet-food {color: rgba(0,0,0,0.8);}
-.toto-form .diet-food .avatar md-icon {fill: currentColor;}
 
-.toto-form .add-aliment {padding: 12px;border-radius: 50%;}
+.toto-form .aliments-container {margin-top: 24px;}
+.toto-form .add-aliment {margin-top: 24px; padding: 12px; background: rgba(178, 235, 242, 0.3); border-radius: 3px; border: 1px solid rgba(178, 235, 242, 0.6);}
 .toto-form .add-aliment md-icon {fill: white; }
+.toto-form .add-aliment .text {color: white; margin-left: 12px;}
 
 diet-week-macronutrients {}
 diet-week-macronutrients .line {margin: 12px 0; outline: none;}

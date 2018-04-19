@@ -5,7 +5,7 @@ var NutritionScreenDirectivesModule = angular.module('NutritionScreenDirectivesM
  * Directive that shows the Nutrition Screen
  * 
  */
-NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdMedia', 'DietService', function($timeout, $mdMedia, DietService) {
+NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdMedia', 'DietService', '$rootScope', function($timeout, $mdMedia, DietService, $rootScope) {
 	
 	return {
 		progress : {},
@@ -19,8 +19,10 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 			
 			var currentDay = moment();
 			
-			var swiperContainer = document.querySelector('nutrition-screen .swiper-container');
-			swiperContainer.style.width = el[0].offsetWidth + 'px';
+			var swiperContainerH = document.querySelector('nutrition-screen .swiper-container-h');
+			var swiperContainerV = document.querySelector('nutrition-screen .swiper-container-v');
+			swiperContainerH.style.width = el[0].offsetWidth + 'px';
+			swiperContainerV.style.width = el[0].offsetWidth + 'px';
 			
 			document.querySelector('nutrition-screen #day').innerHTML = currentDay.format('dddd') + ' ' + currentDay.format('DD') + ' ' + currentDay.format('MMM');
 			
@@ -28,7 +30,20 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 			var waterGoal = 0;
 			var slidesData = [];
 			var currentSlideIndex = -1;
+
+			/**
+			 * Adds a meal
+			 */
+			var addMeal = function() {
+				
+				DietService.showAddMealDialog(function(meal) {DietService.postMeal(meal).success(function(data) {
+					scope.onRefresh();
+				})});
+			}
 			
+			/**
+			 * Retrieve the water consumption goal
+			 */
 			DietService.getWaterConsumptionGoal().success(function(data) {
 				waterGoal = data.amount;
 			});
@@ -165,6 +180,9 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 				
 			}
 
+			/**
+			 * Function to animate the arc being drawn
+			 */
 			var arcTween = function(waterArch, target) {
 				
 			    return function(d) {
@@ -211,9 +229,18 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('d', waterBaseArc)
 			}
 			
+			/**
+			 * Create the swiper
+			 */
 			$timeout(function() {
 				
-				nutrSwiper = new Swiper ('nutrition-screen .swiper-container', {
+				nutrSwiper = new Swiper ('nutrition-screen .swiper-container-v', {
+					loop: false,
+					direction: 'vertical',
+					initialSlide: 1
+				});
+				
+				nutrSwiper = new Swiper ('nutrition-screen .swiper-container-h', {
 					loop: false,
 					on: {
 						init: function() {
@@ -248,6 +275,15 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 				});
 			}, 300);
 			
+			var goToMeals = function() {
+				$rootScope.go('/diet/meals');
+			}
+			
+			/**
+			 * Build the menus
+			 */
+			scope.menus = [{icon: 'images/svg/served-food.svg', action: addMeal},
+			               {icon: 'images/svg/eat.svg', action: goToMeals}];
 		}
 	};
 } ]);
