@@ -317,7 +317,7 @@ toto-bar-graph .toto-bar-graph-container .bar-container .label {text-align: cent
 .divider-color         { border-color: #BDBDBD; }
 
 
-md-toolbar {background: #00BCD4 !important;}
+md-toolbar {background: transparent !important;}
 
 .md-button.md-default-theme.md-raised:not([disabled]) md-icon, .md-button.md-raised:not([disabled]) md-icon {color: white;}
 .md-button.md-default-theme.md-fab, .md-button.md-fab {background: #9CCC65;}
