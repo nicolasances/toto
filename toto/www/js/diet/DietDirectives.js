@@ -1,5 +1,14 @@
 var dietDirectivesModule = angular.module('dietDirectivesModule', ['DietServiceModule']);
 
+var dietFoodCategories = [{id: 'meat', name: 'Meat'},
+                          {id: 'fish', name: 'Fish'},
+                          {id: 'vegetables', name: 'Veggies'},
+                          {id: 'fruits', name: 'Fruits'},
+                          {id: 'smoothie', name: 'Smoothie'},
+                          {id: 'dairy', name: 'Dairy'},
+                          {id: 'fastfood', name: 'Fast food'},
+                          {id: 'drinks', name: 'Drinks'}];
+
 /**
  * This directive draws the week summary
  * 
@@ -143,23 +152,47 @@ dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function
 		scope: {
 			onSelect: '=', 
 			hideAdd: '@', 
-			background: '@'
+			background: '@',
+			addFood: '='
 		},
 		templateUrl: 'modules/diet/directives/diet-foods.html',
 		link: function(scope, el) {
 			
-			scope.foods = [];
-			if (scope.background == null) scope.background = 'light';
+			var dietFoodsSwiper;
 			
-			DietService.getFoods().success(function(data) {
+			scope.categories = dietFoodCategories;
+			scope.foods = [];
+			scope.categoryFilter = null;
+			if (scope.background == null) scope.background = 'light';
+
+			/**
+			 * Retrieves the list of foods
+			 */
+			scope.getFoods = function() {
 				
-				scope.foods = data.foods;
+				DietService.getFoods(scope.categoryFilter).success(function(data) {
+					
+					scope.foods = data.foods;
+					
+					for (var i = 0; i < scope.foods.length; i++) {
+						scope.foods.showOptions = false;
+					}
+					
+				});
+			}
+			
+			/**
+			 * Switch to the foods list slide and filters by category
+			 */
+			scope.filterByCategory = function(categoryId) {
 				
-				for (var i = 0; i < scope.foods.length; i++) {
-					scope.foods.showOptions = false;
-				}
+				scope.categoryFilter = categoryId;
 				
-			});
+				scope.getFoods();
+			
+				dietFoodsSwiper.slideNext();
+				
+			}
 			
 			scope.deleteFood = function(id) {
 				
@@ -187,6 +220,14 @@ dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function
 					DietService.postFood(food).success(function(data) {scope.food.id = data.id;});
 				});
 			}
+			
+			$timeout(function() {
+				
+				dietFoodsSwiper = new Swiper ('diet-foods .swiper-container-h', {
+					loop: false,
+					direction: 'horizontal'
+				});
+			}, 200);
 		}
 	}
 }]);

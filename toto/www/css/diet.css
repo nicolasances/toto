@@ -4,8 +4,12 @@
 
 .connection-line {border: 1px solid #00BCD4;}
 
-diet-foods {padding-top: 12px; margin: 12px; margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
-.diet-food {margin-bottom: 18px; position: relative; outline: none; color: white; }
+diet-foods {margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
+diet-foods .category-container {outline: none;}
+diet-foods .category-container .avatar {}
+diet-foods .category-container .avatar md-icon {fill: white; width: 32px; height: 32px;}
+diet-foods .category-container .text {margin-top: 12px; color: white !important;}
+.diet-food {margin-bottom: 18px; padding: 0 12px; position: relative; outline: none; color: white; }
 .diet-food .avatar {padding: 12px; border-radius: 50%; border: 3px solid #B2EBF2; margin-right: 12px;}
 .diet-food .avatar md-icon {fill: white;}
 .diet-food .name {font-size: 1.2em; }

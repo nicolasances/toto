@@ -499,9 +499,11 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		/**
 		 * Retrieves the list of foods
 		 */
-		getFoods : function() {
+		getFoods : function(category) {
 			
-			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/foods");
+			var filter = category != null ? '?category=' + category : '';
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/foods" + filter);
 		}, 
 		
 		/**

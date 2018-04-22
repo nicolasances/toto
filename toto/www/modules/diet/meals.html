@@ -6,14 +6,14 @@
 	<div class="h3">{{currentDay | date : 'EEEE d MMM'}}</div>
 </div>
 
-<div class="meals-container" >
+<div class="meals-container" layout="column">
 	<div class="meal-container" ng-repeat="meal in meals" layout="row">
 		
 		<div layout="column">
 			<div flex></div>
 			<div class="calories-container" layout="column">
 				<div flex></div>
-				<div class="amount">{{meal.calories}}</div>
+				<div class="amount">{{meal.calories | number : 0}}</div>
 				<div flex class="unit">cal</div>
 			</div>
 			<div flex></div>
@@ -63,16 +63,4 @@
 	</div>
 </div>
 
-<div flex></div>
 
-<div class="main-apps-toolbar" layout="row">
-	<div flex></div>
-	<div class="app-link" layout="row" flex ng-click="go('/diet/foods')">
-		<div flex></div>
-		<div ng-class="['icon-container']">
-			<md-icon md-svg-src="images/svg/groceries-bag.svg"></md-icon>
-		</div>
-		<div flex></div>
-	</div>
-	<div flex></div>
-</div>

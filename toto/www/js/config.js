@@ -1,7 +1,9 @@
 
+var msHost = "35.192.177.37";
+
 var microservicesProtocol = "http";
-var microservicesHost = "35.192.144.30";
+var microservicesHost = msHost;
 var microservicesPort = "80";
-var microservicesUrl = "35.192.144.30";
-var microservicesUrl2 = "35.192.144.30";
+var microservicesUrl = msHost;
+var microservicesUrl2 = msHost;
 var imagesServerPort = "80";

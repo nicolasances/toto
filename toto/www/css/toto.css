@@ -1,10 +1,12 @@
+body {background: linear-gradient(to bottom, #00BCD4, #007888);}
+
 md-sidenav md-content {padding-top: 0 !important;}
-md-dialog.md-default-theme, md-dialog {background-color: rgb(0, 151, 167) !important;}
+md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #00BCD4, #007888) !important;}
 
 .toto-central-area {position: relative;}
 
-home-link {position: absolute; width: 100%; margin-top: 12px;}
-home-link md-icon {fill: white;}
+home-link {position: absolute; width: 100%; margin-top: 43px;}
+home-link md-icon {fill: white; margin-left: 24px;}
 
 /************************************************************************
  * MAIN APPS BAR
@@ -313,7 +315,7 @@ toto-bar-graph .toto-bar-graph-container .bar-container .label {text-align: cent
 .divider-color         { border-color: #BDBDBD; }
 
 
-md-toolbar {background: #0097A7 !important; }
+md-toolbar {background: transparent !important;}
 
 .md-button.md-default-theme.md-raised:not([disabled]) md-icon, .md-button.md-raised:not([disabled]) md-icon {color: white;}
 .md-button.md-default-theme.md-fab, .md-button.md-fab {background: #9CCC65;}

@@ -279,11 +279,16 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 				$rootScope.go('/diet/meals');
 			}
 			
+			var goToFoods = function() {
+				$rootScope.go('/diet/foods');
+			}
+			
 			/**
 			 * Build the menus
 			 */
 			scope.menus = [{icon: 'images/svg/served-food.svg', action: addMeal},
-			               {icon: 'images/svg/eat.svg', action: goToMeals}];
+			               {icon: 'images/svg/eat.svg', action: goToMeals},
+			               {icon: 'images/svg/groceries-bag.svg', action: goToFoods}];
 		}
 	};
 } ]);
