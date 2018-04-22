@@ -1,4 +1,6 @@
-body {background: linear-gradient(to bottom, #00BCD4, #007888);}
+body {background: #00BCD4;}
+
+#ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);}
 
 md-sidenav md-content {padding-top: 0 !important;}
 md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #00BCD4, #007888) !important;}
@@ -315,7 +317,7 @@ toto-bar-graph .toto-bar-graph-container .bar-container .label {text-align: cent
 .divider-color         { border-color: #BDBDBD; }
 
 
-md-toolbar {background: transparent !important;}
+md-toolbar {background: #00BCD4 !important;}
 
 .md-button.md-default-theme.md-raised:not([disabled]) md-icon, .md-button.md-raised:not([disabled]) md-icon {color: white;}
 .md-button.md-default-theme.md-fab, .md-button.md-fab {background: #9CCC65;}
