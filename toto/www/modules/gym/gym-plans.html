@@ -1,8 +1,10 @@
-<toto-app-menu menus="gymMenus"></toto-app-menu>
+<home-link back="true"></home-link>
 
-<div class="toto-left-area" ng-show="gtMd"></div>
+<div class="h1">
+	Plans
+</div>
 
-<div id="gym" class="plans toto-central-area" flex>
+<div id="gym" class="plans" flex>
 	<div class="toto-card plans-container">
 		<div class="plan-container" layout="row" ng-repeat="plan in plans">
 			<div class="dates-container" layout="row" ng-click="go('/gym/plans/' + plan.id)">
@@ -27,8 +29,6 @@
 		</div>
 	</div>
 </div>
-
-<div class="toto-right-area" ng-show="gtMd"></div>
 
 <md-button class="md-fab floating" aria-label="Add a plan" ng-click="addPlan($event)">
 	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>

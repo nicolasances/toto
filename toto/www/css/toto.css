@@ -75,12 +75,12 @@ toto-widget .title {font-size: 0.9em; color: rgba(0,0,0,0.6); text-align: center
 /************************************************************************
  * CARDS 
  ***********************************************************************/
-.toto-card {margin: 0; padding: 12px; color: rgba(0,0,0,0.8); background: white; }
-.toto-card .subtitle {font-size: 0.8em; color: rgba(0,0,0,0.5);}
+.toto-card {margin: 0; padding: 12px; color: rgba(255,255,255,0.8);}
+.toto-card .subtitle {font-size: 0.8em; color: rgba(255,255,255,0.5);}
 .toto-card .content {padding: 24px 0;}
 .toto-card .content.full {margin: 0 -12px -12px -12px; padding: 24px 0;}
 
-.toto-card .title {font-size: 1em; color: rgba(0,0,0,0.5);}
+.toto-card .title {font-size: 1em; color: rgba(255,255,255,0.5);}
 .toto-card .title.center {text-align: center;}
 
 .toto-card .header-icon {outline: none;}

@@ -1,14 +1,14 @@
-<toto-app-menu menus="gymMenus"></toto-app-menu>
 
-<div class="toto-left-area" ng-show="gtMd"></div>
+<home-link back="true"></home-link>
 
-<div id="gym" class="plan toto-central-area" flex>
-	<div class="toto-card dark-primary-color">
+<div class="h1">
+	{{plan.name}}
+</div>
+
+<div id="gym" class="plan" layout="column" flex>
+	<div class="toto-card">
 		<div id="info" layout="row">
-			<div layout="column" flex>
-				<div class="name">{{plan.name}}</div>
-				<div class="duration">{{plan.weeks}} weeks</div>
-			</div>
+			<div flex></div>
 			<div layout="column">
 				<div flex></div>
 				<div layout="row">
@@ -28,22 +28,12 @@
 				</div>
 				<div flex></div>
 			</div>
+			<div flex></div>
 		</div>
 		
-		<div id="score-container" layout="row">
-			<div flex></div>
-			<div class="score" layout="column">
-				<div flex>
-					<md-icon md-svg-src="images/svg/man-muscle.svg"></md-icon>
-				</div>
-				<div class="number">{{plan.score | number : 1}}</div>
-				<div class="pt" flex>pt</div>
-			</div>
-			<div flex></div>
-		</div>
 	</div>
 	
-	<div class="toto-card" id="days-container" layout="column">
+	<div class="toto-card" id="days-container" layout="column" style="overflow: scroll; -webkit-overflow-scrolling: touch; " flex>
 		<div class="day-container" ng-repeat="workout in workouts">
 			<div layout="row">
 				<div class="avatar" layout="column">
@@ -65,7 +55,6 @@
 				</div>
 			</div>
 			<div class="exercices-container" layout="column" ng-if="workout.selected">
-				<div class="timeline"></div>
 				<div class="exercice-container" layout="row" ng-repeat="ex in workout.exercises">
 					<div class="icon" layout="column">
 						<div flex></div>
