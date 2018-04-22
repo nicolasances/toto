@@ -1,9 +1,12 @@
-<div class="toto-form" style="padding: 24px;">
-	<div class="step-tracker" layout="row">
-		<div flex></div>
-		<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
-		<div flex></div>
+<md-toolbar md-scroll-shrink="true"  >
+	<div class="md-toolbar-tools">
+		<md-button class="md-icon-button" aria-label="Go Back">
+			<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
+		</md-button>
+		<span class="title" flex>New food</span>
 	</div>
+</md-toolbar>
+<div class="toto-form" style="padding: 24px; margin-top: 38px;" >
 	<div ng-if="currentStep == 1">
 		<div class="toto-input-container">
 			<label>Name</label>

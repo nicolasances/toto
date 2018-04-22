@@ -3,7 +3,7 @@
 .toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.7;}
 
 .toto-form .toto-input-container {margin: 12px;}
-.toto-form .toto-input-container label {font-size: 1em; color: rgba(0, 0, 0, 0.5); display: block;}
+.toto-form .toto-input-container label {font-size: 1em; color: white; display: block;}
 .toto-form .toto-input-container span.label {font-size: 1em; color: rgba(0, 0, 0, 0.5);}
 .toto-form .toto-input-container input {font-size: 1.2em; opacity: 0.8; padding: 6px; border-radius: 4px; border: 1px solid #D8D8D8; margin-top: 3px;}
 .toto-form .toto-input-container input.small {max-width: 60px;}

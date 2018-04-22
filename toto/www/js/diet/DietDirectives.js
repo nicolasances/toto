@@ -225,7 +225,15 @@ dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function
 				
 				dietFoodsSwiper = new Swiper ('diet-foods .swiper-container-h', {
 					loop: false,
-					direction: 'horizontal'
+					direction: 'horizontal', 
+					on: {
+						slideNextTransitionEnd: function() {
+							document.querySelector('diet-foods #addFoodButton').style.display = 'inline-block';
+						},
+						slidePrevTransitionEnd: function() {
+							document.querySelector('diet-foods #addFoodButton').style.display = 'none';
+						}
+					}
 				});
 			}, 200);
 		}
