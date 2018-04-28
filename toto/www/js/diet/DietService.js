@@ -528,11 +528,15 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		}, 
 		
 		/**
-		 * Retrieves the meals for a specified date (yyyyMMdd string)
+		 * Retrieves the meals for a specified date (yyyyMMdd string) or from a specified date
 		 */
-		getMeals : function(date) {
+		getMeals : function(date, dateFrom) {
+
+			var filter = '';
+			if (date != null) filter = '?date=' + date;
+			else if (dateFrom != null) filter = '?dateFrom=' + dateFrom;
 			
-			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/meals?date=" + date);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/meals" + filter);
 		}, 
 		
 		/**

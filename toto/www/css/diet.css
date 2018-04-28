@@ -4,6 +4,12 @@
 
 .connection-line {border: 1px solid #00BCD4;}
 
+nutrition-screen .filters-container {margin-top: 18px;}
+nutrition-screen .filters-container .filter-container {margin: 0 12px; padding: 6px; outline: none; width: 42px; height: 42px; text-align: center;}
+nutrition-screen .filters-container .filter-container md-icon {fill: white; opacity: 0.5; width: 18px; height: 18px; outline: none;}
+nutrition-screen .filters-container .filter-container.selected {background: #0097A7; border-radius: 50%;}
+nutrition-screen .filters-container .filter-container.selected md-icon {opacity: 1;}
+
 diet-foods {margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
 diet-foods .category-container {outline: none;}
 diet-foods .category-container .avatar {}
