@@ -10,6 +10,9 @@ nutrition-screen .filters-container .filter-container md-icon {fill: white; opac
 nutrition-screen .filters-container .filter-container.selected {background: #0097A7; border-radius: 50%;}
 nutrition-screen .filters-container .filter-container.selected md-icon {opacity: 1;}
 
+nutrition-screen .nutrition-graph-container text.dateText {font-size: 12px; fill: white;}
+nutrition-screen .nutrition-graph-container text.yScaleText {font-size: 10px;}
+
 diet-foods {margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
 diet-foods .category-container {outline: none;}
 diet-foods .category-container .avatar {}

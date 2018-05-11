@@ -8,6 +8,7 @@ var NutritionScreenDirectivesModule = angular.module('NutritionScreenDirectivesM
  * 
  *  - theme 		: can be 'light' or 'dark' - default is light
  *  - showPoints	: shows the line points. Can be 'true' or 'false' - default 'false' 
+ *  - showDates		: shows the dates on the x axis - default 'true'
  * 
  */
 NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdMedia', 'DietService', '$rootScope', '$compile', function($timeout, $mdMedia, DietService, $rootScope, $compile) {
@@ -16,7 +17,8 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 		progress : {},
 		scope : {
 			theme: '@',
-			showPoints: '@'
+			showPoints: '@', 
+			showDates: '@'
 		},
 		templateUrl : 'modules/screens/nutrition-screen.html',
 		link : function(scope, el) {
@@ -27,6 +29,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 			// Set defaults
 			if (scope.theme == null) scope.theme = 'light';
 			if (scope.showPoints == null) scope.showPoints = 'false';
+			if (scope.showDates == null) scope.showDates = 'true';
 			
 			scope.carbsFilter = true;
 			scope.proteinsFilter = true;
@@ -34,18 +37,17 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 
 			// Main variables
 			var currentDay = moment();
-			
+			var waterGoal = 0;
+			document.querySelector('nutrition-screen #day').innerHTML = currentDay.format('dddd') + ' ' + currentDay.format('DD') + ' ' + currentDay.format('MMM');
+
+			// Swiper
+			var nutrSwiper;
+			var slidesData = [];
+			var currentSlideIndex = -1;
 			var swiperContainerH = document.querySelector('nutrition-screen .swiper-container-h');
 			var swiperContainerV = document.querySelector('nutrition-screen .swiper-container-v');
 			swiperContainerH.style.width = el[0].offsetWidth + 'px';
 			swiperContainerV.style.width = el[0].offsetWidth + 'px';
-			
-			document.querySelector('nutrition-screen #day').innerHTML = currentDay.format('dddd') + ' ' + currentDay.format('DD') + ' ' + currentDay.format('MMM');
-			
-			var nutrSwiper;
-			var waterGoal = 0;
-			var slidesData = [];
-			var currentSlideIndex = -1;
 			
 			// Colors and sizes of graph
 			var proteinColor = scope.theme == 'dark' ? '#64DD17' : '#00796B';
@@ -54,8 +56,6 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 			var caloriesColorRange = scope.theme == 'dark' ? ['#00737d', '#006064'] : ['#B2EBF2', '#18d5ec'];
 			var macroLineStrokeWidth = 2;
 			
-			scope.ngraphFilter = null;
-
 			/**
 			 * Adds a meal
 			 */
@@ -73,15 +73,27 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 				waterGoal = data.amount;
 			});
 			
+			/**
+			 * Filters the nutrition graph showing the macronutrients. 
+			 * 
+			 * The filter can be 'carbs', 'proteins', 'fats'
+			 */
 			scope.filterNutritionGraph = function(filter) {
 				
-				if (filter == 'carbs') scope.carbsFilter = !scope.carbsFilter;
-				if (filter == 'proteins') scope.proteinsFilter = !scope.proteinsFilter;
-				if (filter == 'fats') scope.fatsFilter = !scope.fatsFilter;
+				if (filter == 'carbs') {
+					scope.carbsFilter = !scope.carbsFilter;
+				}
+				if (filter == 'proteins') {
+					scope.proteinsFilter = !scope.proteinsFilter;
+				}
+				if (filter == 'fats') {
+					scope.fatsFilter = !scope.fatsFilter;
+				}
 				
 				var proteinPoints = document.querySelectorAll('.proteinPoint');
 				var carbPoints = document.querySelectorAll('.carbPoint');
 				var fatPoints = document.querySelectorAll('.fatPoint');
+				var proteinScaleLines = document.querySelectorAll('line#yScaleLine');
 				
 				if (!scope.proteinsFilter) {
 					document.querySelector('path#proteinLine').style.stroke = 'none';
@@ -212,18 +224,22 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 				
 				var macroCircleR = 2;
 				
-				x = d3.scaleBand().range([24, width - 24]).padding(0.1);
-				y = d3.scaleLinear().range([0, height]);
-				proteinY = d3.scaleLinear().range([0 + macroCircleR, height - macroCircleR]);
-				carbsY = d3.scaleLinear().range([0 + macroCircleR, height - macroCircleR]);
-				fatsY = d3.scaleLinear().range([0 + macroCircleR, height - macroCircleR]);
+				x = d3.scaleBand().range([42, width - 42]).padding(0.1);
+				y = d3.scaleLinear().range([0, height - 24]);
+				proteinY = d3.scaleLinear().range([16 + macroCircleR, height - 16 - macroCircleR]);
 				colorScale = d3.scaleLinear().domain([0, data.length]).range(caloriesColorRange);
 				
 				x.domain(data.map(function(d) { return d.date; }));
 				y.domain([0, d3.max(data, function(d) { return d.calories; })]);
 				proteinY.domain([0, d3.max(data, function(d) { return d.proteins; })]);
-				carbsY.domain([0, d3.max(data, function(d) { return d.carbs; })]);
-				fatsY.domain([0, d3.max(data, function(d) { return d.carbs; })]);
+				
+				// Create Y scale
+				var yScaleData = [];
+				var yScaleInc = 50;
+				for (var i = 0; i < d3.max(data, function(d) { return d.proteins; }); i += yScaleInc) {
+					yScaleData.push(i);
+				}
+//				yScaleData.push(d3.max(data, function(d) { return d.proteins; }));
 				
 				proteinLine = d3.line()
 						.x(function(d, i) { return x(d.date) + x.bandwidth() / 2; })
@@ -243,18 +259,52 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 
 				svg = d3.select('nutrition-screen .swiper-slide .nutrition-graph-container').append('svg')
 						.attr('width', container.offsetWidth)
-						.attr('height', container.offsetHeight);
+						.attr('height', container.offsetHeight + 16);
 		
 				g = svg.append('g');
-				
+
+				// Calories bar
 				g.selectAll('.bar').data(data).enter().append('rect')
 						.style('fill', function(d, i) {return colorScale(i);})
 						.attr('class', 'bar')
 						.attr('x', function(d) {return x(d.date);})
 						.attr('width', x.bandwidth())
-						.attr('y', function(d) {return height - y(d.calories);})
+						.attr('y', function(d) {return height - 16 - y(d.calories);})
 						.attr('height', function(d) {return y(d.calories); });
 				
+				// Date on the x axis
+				g.selectAll('.dateText').data(data).enter().append('text')
+						.style('display', function(d, i) {
+							if (i == 0) return 'block';
+							if (i == data.length / 2) return 'block';
+							if (i == data.length - 1) return 'block';
+							return 'none';
+						})
+						.attr('class', 'dateText')
+						.attr('text-anchor', 'middle')
+						.attr('x', function(d, i) {return x(d.date) + x.bandwidth() / 2;})
+						.attr('y', height)
+						.text(function(d, i) {return moment(d.date, 'YYYYMMDD').format('DD MMM');});
+				
+				// Y scale
+				g.append('line').datum(data)
+						.style('fill', 'none')
+						.style('stroke', proteinColor)
+						.style('stroke-width', 1)
+						.attr('class', 'yScaleLine')
+						.attr('x1', 12)
+						.attr('y1', height - 16)
+						.attr('x2', 12)
+						.attr('y2', height - proteinY(d3.max(data, function(d, i) { return (i != data.length - 1) ? d.proteins : null; })));
+				
+				g.selectAll('.yScaleText').data(yScaleData).enter().append('text')
+						.attr('fill', proteinColor)
+						.attr('class', 'yScaleText')
+						.attr('x', 16)
+						.attr('y', function(d, i) {return height - proteinY(d);})
+						.text(function(d, i) {return d.toFixed(0);});
+				
+				// Protein points
 				g.selectAll('.proteinPoint').data(data).enter().append('circle')
 						.style('fill', scope.showPoints == 'true' ? proteinColor : 'transparent')
 						.attr('class', 'proteinPoint')
@@ -262,6 +312,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('cy', function(d) {return height - proteinY(d.proteins);})
 						.attr('r', macroCircleR);
 				
+				// Carb points
 				g.selectAll('.carbPoint').data(data).enter().append('circle')
 						.style('fill', scope.showPoints == 'true' ? carbColor : 'transparent')
 						.attr('class', 'carbPoint')
@@ -269,6 +320,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('cy', function(d) {return height - proteinY(d.carbs);})
 						.attr('r', macroCircleR);
 				
+				// Fat points
 				g.selectAll('.fatPoint').data(data).enter().append('circle')
 						.style('fill', scope.showPoints == 'true' ? fatColor : 'transparent')
 						.attr('class', 'fatPoint')
@@ -276,6 +328,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('cy', function(d) {return height - proteinY(d.fats);})
 						.attr('r', macroCircleR);
 				
+				// Protein curve
 				g.append('path').datum(data)
 						.style('fill', 'none')
 						.style('stroke', proteinColor)
@@ -283,6 +336,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('id', 'proteinLine')
 						.attr('d', proteinLine);
 				
+				// Carb curve
 				g.append('path').datum(data)
 						.style('fill', 'none')
 						.style('stroke', carbColor)
@@ -290,6 +344,7 @@ NutritionScreenDirectivesModule.directive('nutritionScreen', [ '$timeout', '$mdM
 						.attr('id', 'carbsLine')
 						.attr('d', carbsLine);
 				
+				// Fat curve
 				g.append('path').datum(data)
 						.style('fill', 'none')
 						.style('stroke', fatColor)
