@@ -2,7 +2,7 @@
 /* #expenses-container md-list-item .description {line-height: 1em; font-weight: normal;} */
 /* #expenses-container md-list-item .md-avatar {margin-top: 16px;} */
 
-expenses-list {overflow: scroll;}
+expenses-list {overflow: scroll; -webkit-overflow-scrolling: touch;}
 expenses-list .header {margin: -9px -9px 0 -9px; padding: 15px; text-align: center; font-size: 1.1em; color: rgba(0,0,0,0.7);}
 
 expenses-list #expenses-container {padding: 0 12px;}
