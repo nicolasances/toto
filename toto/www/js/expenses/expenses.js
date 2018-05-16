@@ -175,7 +175,15 @@ expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDia
 			 */
 			scope.addExpense = function(ev) {
 				
-				expensesService.addPayment(function(expense) {}, function(expenseId) {}, scope.selectedPeriod.yearMonth);
+				expensesService.addPayment(function(expense) {
+					
+					scope.expenses.unshift(expense);
+					
+				}, function(expenseId) {
+					
+					scope.expenses[0].id = expenseId;
+					
+				}, scope.selectedPeriod.yearMonth);
 				
 			}
 

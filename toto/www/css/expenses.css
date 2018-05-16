@@ -6,8 +6,8 @@ expenses-list {overflow: scroll;}
 expenses-list .header {margin: -9px -9px 0 -9px; padding: 15px; text-align: center; font-size: 1.1em; color: rgba(0,0,0,0.7);}
 
 expenses-list #expenses-container {padding: 0 12px;}
-expenses-list #expenses-container .list {margin-top: 12px;}
-expenses-list #expenses-container .list .list-item {color: rgba(0,0,0,0.8); margin: 6px 0;}
+expenses-list #expenses-container .list {margin-top: 48px;}
+expenses-list #expenses-container .list .list-item {color: white; margin: 6px 0; font-weight: 400;}
 expenses-list #expenses-container .list .list-item .prospect {color: rgba(0,0,0,0.3);}
 expenses-list #expenses-container .list .list-item .avatar {border-radius: 50%;border: 3px solid #E0E0E0; width: 40px; height: 40px; outline: none; min-width: 40px; min-height: 40px; z-index: 2;}
 expenses-list #expenses-container .list .list-item .avatar md-icon {width: 20px; height: 20px; fill: white;}
@@ -52,18 +52,18 @@ toto-chimp #expenses #expenses-container .list .list-item {color: rgba(255, 255,
 toto-chimp #expenses #expenses-container .list .list-item .avatar {background: transparent; width: 48px; height: 48px;}
 toto-chimp #expenses #expenses-container .list .list-item .avatar md-icon {fill: rgba(255, 255, 255, 0.6);} 
 
-#expenses-add-expense .type-container {margin-top: 24px; color: rgba(0,0,0,0.8);}
+#expenses-add-expense .type-container {margin-top: 24px; color: rgba(255,255,255,0.87);}
 #expenses-add-expense .type-container .type {margin: 0 24px;}
-#expenses-add-expense .type-container .type md-icon {width: 48px; height: 48px;}
+#expenses-add-expense .type-container .type md-icon {width: 48px; height: 48px; fill: white;}
 #expenses-add-expense .type-container .type .name {margin-top: 24px; font-size: 1.2em;}
 #expenses-add-expense .category-picker {margin: 0 -24px; }
 #expenses-add-expense .category-picker-title {height: 40px; box-sizing: border-box; text-align: center; font-size: 16px; padding-top: 16px; color: #6F6E6E; background-color: #FFCDD2; margin: 0 -24px;}
 #expenses-add-expense .category-picker md-grid-list {margin: 12px 32px 0 32px;}
-#expenses-add-expense .category-container {opacity: 0.4;}
+#expenses-add-expense .category-container {opacity: 0.87;}
 #expenses-add-expense .category-container.selected {opacity: 1;}
-#expenses-add-expense .category-container .title {font-size: 12px; text-align: center; margin-top: 4px; color: #656464; padding-top: 0;}
+#expenses-add-expense .category-container .title {font-size: 12px; text-align: center; margin-top: 4px; padding-top: 9px;}
 #expenses-add-expense .category-container .image {text-align: center;}
-#expenses-add-expense .category-container .image img {width: 56px;}
+#expenses-add-expense .category-container .image md-icon {width: 56px; height: 56px; fill: white;}
 #expenses-add-expense md-switch.expense-form {margin-bottom: 16px !important;}
 
 #expenses md-dialog-content {margin-top: 56px !important; padding: 0;}

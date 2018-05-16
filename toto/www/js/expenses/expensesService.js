@@ -38,7 +38,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 */
 		getExpenses : function(filter) {
 			
-			if (filter == null) return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?yearMonth=" + this.getCurrentMonth());
+			if (filter == null) return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?sortDate=true&sortDesc=true&yearMonth=" + this.getCurrentMonth());
 			
 			var params = '';
 
@@ -49,7 +49,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			if (filter.cardId != null) {if (params != '') params += '&'; params += 'cardId=' + filter.cardId}
 			if (filter.cardMonth != null) {if (params != '') params += '&'; params += 'cardMonth=' + filter.cardMonth}
 			
-			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?" + params);
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?sortDate=true&sortDesc=true&" + params);
 
 		},
 		

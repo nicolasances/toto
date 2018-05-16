@@ -1,6 +1,6 @@
 
 .toto-form {overflow: scroll; -webkit-overflow-scrolling: touch; }
-.toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.7;}
+.toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.87; color: white;}
 
 .toto-form .toto-input-container {margin: 12px;}
 .toto-form .toto-input-container label {font-size: 1em; color: white; display: block;}
@@ -52,6 +52,7 @@
  ***************************/
 .toto-form .toto-input-container md-datepicker {}
 .toto-form .toto-input-container md-datepicker button {background-color: transparent;}
+.toto-form .toto-input-container md-datepicker button md-icon {fill: white;}
 .toto-form .toto-input-container .md-datepicker-input-container {border-bottom: none;}
 .toto-form .toto-input-container .md-datepicker-input-container .md-datepicker-triangle-button {display: none;}
 

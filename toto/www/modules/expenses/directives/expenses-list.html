@@ -10,7 +10,7 @@
 	<div layout="column" class="list">
 		<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-click="onSelect(expense)">
 			<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
-				<div class="avatar" style="background: {{expense.category.color}}; border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)" layout="column">
+				<div class="avatar" style="border-color: {{expense.category.color}};" ng-click="changeCategory(expense, $event)" layout="column">
 					<div flex></div>
 					<md-icon md-svg-src="images/expenses/avatars-nofill/{{expense.category.filename}}"></md-icon>
 					<div flex></div>
