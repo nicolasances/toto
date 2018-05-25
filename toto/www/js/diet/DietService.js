@@ -158,7 +158,7 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 					$mdDialog.hide(meal);
 				};
 				
-				$scope.steps = [1,2,3];
+				$scope.steps = [1,2];
 				$scope.currentStep = 1;
 				$scope.nextStep = function () {$scope.currentStep++;}
 				
