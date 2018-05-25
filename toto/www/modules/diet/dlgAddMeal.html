@@ -7,11 +7,18 @@
 	</div>
 </md-toolbar>
 <div class="toto-form" style="padding: 24px; margin-top: 38px;" flex layout="column">
-	<div ng-if="currentStep == 1" class="toto-clock">
+	<div ng-if="currentStep == 1">
+		<div class="toto-input-container">
+			<label>Payment date</label>
+			<md-datepicker ng-model="meal.date" ></md-datepicker>
+		</div>
+		<button ng-click="nextStep()">Next</button>
+	</div>
+	<div ng-if="currentStep == 2" class="toto-clock">
 		<div id="clock"></div>
 		<div id="selectedTimeDisplay"></div>
 	</div>
-	<div ng-if="currentStep == 2 && !hideAll" layout="column" flex class="aliments-container">
+	<div ng-if="currentStep == 3 && !hideAll" layout="column" flex class="aliments-container">
 		<div class="aliment-container" ng-repeat="food in meal.aliments">
 			<div class="diet-food" layout="row">
 				<div layout="column">

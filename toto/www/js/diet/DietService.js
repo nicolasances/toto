@@ -155,11 +155,10 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 					if (meal.date == null) meal.date = moment().format('YYYYMMDD');
 					else meal.date = moment(meal.date).format('YYYYMMDD');
 					
-					console.log(meal);
 					$mdDialog.hide(meal);
 				};
 				
-				$scope.steps = [1,2];
+				$scope.steps = [1,2,3];
 				$scope.currentStep = 1;
 				$scope.nextStep = function () {$scope.currentStep++;}
 				
