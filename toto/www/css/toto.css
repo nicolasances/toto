@@ -13,9 +13,9 @@ home-link md-icon {fill: white; margin-left: 24px;}
 /************************************************************************
  * MAIN APPS BAR
  ***********************************************************************/
-.main-apps-toolbar {padding: 10px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
+.main-apps-toolbar {padding: 8px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
 .main-apps-toolbar .app-link {outline: none;}
-.main-apps-toolbar .app-link .icon-container {padding: 8px; border-radius: 50%;}
+.main-apps-toolbar .app-link .icon-container {padding: 10px; border-radius: 50%;}
 .main-apps-toolbar .app-link .icon-container.selected {background: #096069;}
 .main-apps-toolbar .app-link .icon-container md-icon {width: 28px; height: 28px; fill: white;}
 
@@ -45,7 +45,7 @@ toto-numpad .button .text {text-align: center;}
 /************************************************************************
  * FONTS 
  ***********************************************************************/
-div.h1 {text-align: center; margin-top: 12px; color: white; font-weight: 400; font-size: 14px; text-transform: uppercase;}
+div.h1 {text-align: center; margin-top: 12px; color: rgba(255,255,255,0.7); font-weight: 400; font-size: 14px; text-transform: uppercase;}
 div.h3 {text-align: center; color: white; font-size: 24px; margin-top: 3px;}
 
 /************************************************************************
