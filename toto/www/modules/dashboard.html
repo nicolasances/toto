@@ -10,21 +10,21 @@
 	<div class="main-apps-toolbar" layout="row">
 		<div class="app-link" layout="row" flex ng-click="selectScreen('spending')">
 			<div flex></div>
-			<div ng-class="['icon-container', selectedScreen == 'spending' ? 'dark-primary-color' : '']">
+			<div ng-class="['icon-container', selectedScreen == 'spending' ? 'selected' : '']">
 				<md-icon md-svg-src="images/svg/budget.svg"></md-icon>
 			</div>
 			<div flex></div>
 		</div>
 		<div class="app-link" layout="row" flex ng-click="selectScreen('training')">
 			<div flex></div>
-			<div ng-class="['icon-container', selectedScreen == 'training' ? 'dark-primary-color' : '']">
+			<div ng-class="['icon-container', selectedScreen == 'training' ? 'selected' : '']">
 				<md-icon md-svg-src="images/svg/gym.svg"></md-icon>
 			</div>
 			<div flex></div>
 		</div>
 		<div class="app-link" layout="row" flex ng-click="selectScreen('nutrition')">
 			<div flex></div>
-			<div ng-class="['icon-container', selectedScreen == 'nutrition' ? 'dark-primary-color' : '']">
+			<div ng-class="['icon-container', selectedScreen == 'nutrition' ? 'selected' : '']">
 				<md-icon md-svg-src="images/svg/fast-food.svg"></md-icon>
 			</div>
 			<div flex></div>
