@@ -15,7 +15,7 @@ home-link md-icon {fill: white; margin-left: 24px;}
  ***********************************************************************/
 .main-apps-toolbar {padding: 10px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
 .main-apps-toolbar .app-link {outline: none;}
-.main-apps-toolbar .app-link .icon-container {padding: 12px; border-radius: 50%;}
+.main-apps-toolbar .app-link .icon-container {padding: 8px; border-radius: 50%;}
 .main-apps-toolbar .app-link .icon-container.selected {background: #096069;}
 .main-apps-toolbar .app-link .icon-container md-icon {width: 28px; height: 28px; fill: white;}
 
