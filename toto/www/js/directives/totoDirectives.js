@@ -24,6 +24,39 @@ totoDirectivesModule.directive('homeLink', function($rootScope, $window) {
 });
 
 /**
+ * Directive to show the Toto Toolbar
+ * 
+ * Accepts the following parameters:
+ *  
+ *  - title: the title of the page
+ *  
+ *  - subtitle: the subtitle
+ *    
+ *  - actions: an [] of actions. An action being a {svg: '', action: callbackFunction()}  
+ */
+totoDirectivesModule.directive('totoToolbar', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			title: '@', 
+			subtitle: '@',
+			back: '@',
+			actions: '='
+		},
+		templateUrl : 'directives/toto-toolbar.html',
+		link : function(scope, el) {
+			
+			scope.go = function(url) {
+				
+				if (scope.back != null && scope.back == 'true') $window.history.back();
+				else $rootScope.go(url);
+			}
+			
+		}
+	};
+});
+
+/**
  * Directive to show a numeric pad
  * 
  * Accepts the following parameters:
@@ -79,7 +112,7 @@ totoDirectivesModule.directive('inAppMenu', function($rootScope, $window) {
 
 			widget.style.width = document.querySelector('.app-link').offsetWidth + 'px';
 			widget.style.position = 'absolute';
-			widget.style.bottom = '22px';
+			widget.style.bottom = '18px';
 			widget.style.right = '0';
 			
 		}

@@ -6,7 +6,6 @@
 <!-- </div> -->
 
 <div id="expenses-container" layout="column" flex>
-	<div class="timeline"></div>
 	<div layout="column" class="list">
 		<div layout="column" class="list-item" ng-repeat="expense in expenses" ng-click="onSelect(expense)">
 			<div layout="row"  class="{{expense.consolidated ? '' : 'prospect'}}" flex>
@@ -51,6 +50,3 @@
 </div>
 
 
-<md-button class="md-fab floating" aria-label="Add an expense" ng-click="addExpense($event)">
-	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
-</md-button>

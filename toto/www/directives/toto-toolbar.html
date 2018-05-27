@@ -1,0 +1,21 @@
+
+<div layout="row">
+	<div layout="row">
+		<div class="action" layout="column" ng-click="go('/')" ng-if="back == 'true'">
+			<div flex></div>
+			<md-icon md-svg-src="images/svg/back.svg"></md-icon>
+			<div flex></div>
+		</div>
+	</div>
+	<div flex class="h1">
+		{{title}}
+		<div class="h3">{{subtitle}}</div>
+	</div>
+	<div layout="row">
+		<div class="action" ng-repeat="action in actions" layout="column">
+			<div flex></div>
+			<md-icon md-svg-src="{{action.svg}}" ng-click="action.action()"></md-icon>
+			<div flex></div>
+		</div>
+	</div>
+</div>

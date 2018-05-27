@@ -7,7 +7,7 @@ md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #0
 
 .toto-central-area {position: relative;}
 
-home-link {position: absolute; width: 100%; margin-top: 43px;}
+home-link {position: absolute; width: 100%; margin-top: 34px;}
 home-link md-icon {fill: white; margin-left: 24px;}
 
 /************************************************************************
@@ -16,8 +16,15 @@ home-link md-icon {fill: white; margin-left: 24px;}
 .main-apps-toolbar {padding: 8px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
 .main-apps-toolbar .app-link {outline: none;}
 .main-apps-toolbar .app-link .icon-container {padding: 10px; border-radius: 50%;}
-.main-apps-toolbar .app-link .icon-container.selected {background: #096069;}
-.main-apps-toolbar .app-link .icon-container md-icon {width: 28px; height: 28px; fill: white;}
+.main-apps-toolbar .app-link .icon-container.selected {background: #0b575f;}
+.main-apps-toolbar .app-link .icon-container md-icon {width: 24px; height: 24px; fill: white;}
+
+/************************************************************************
+ * TOTO TOOLBAR 
+ ***********************************************************************/
+toto-toolbar {margin: 0 12px;}
+toto-toolbar .action {margin: 0 12px; outline: none;}
+toto-toolbar .action md-icon {fill: white;}
 
 /************************************************************************
  * IN APP MENU
@@ -45,7 +52,7 @@ toto-numpad .button .text {text-align: center;}
 /************************************************************************
  * FONTS 
  ***********************************************************************/
-div.h1 {text-align: center; margin-top: 12px; color: rgba(255,255,255,0.7); font-weight: 400; font-size: 14px; text-transform: uppercase;}
+div.h1 {text-align: center; margin-top: 12px; margin-bottom: 24px; color: rgba(255,255,255,0.7); font-weight: 400; font-size: 14px; text-transform: uppercase;}
 div.h3 {text-align: center; color: white; font-size: 24px; margin-top: 3px;}
 
 /************************************************************************

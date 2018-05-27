@@ -7,20 +7,17 @@ var expensesMenus = [
 var expensesModule = angular.module("expensesModule", []);
 
 expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope', '$http', '$timeout', '$mdDialog', '$mdSidenav', '$mdMedia', '$interval', 'expensesService', function($rootScope, $scope, $http, $timeout, $mdDialog, $mdSidenav, $mdMedia, $interval, expensesService) {
-	
-	var categoryWidgetOriginalTop;
-	var categoryReportItemOriginalTop;
-	
+
 	$scope.initContext = function() {
 		
 		$scope.gtsm = $mdMedia('gt-sm');
 		$scope.expensesMenus = expensesMenus;
 		$rootScope.currentMenu = 'Payments dashboard';
 		
-		var currentYearMonth = expensesService.getCurrentMonth();
+		$scope.currentYearMonth = expensesService.getCurrentMonth();
 		
-		$scope.currentMonth = moment(currentYearMonth + '01', 'YYYYMMDD').format('MMMM');
-		$scope.currentYear = moment(currentYearMonth + '01', 'YYYYMMDD').format('YY');
+		$scope.currentMonth = moment($scope.currentYearMonth + '01', 'YYYYMMDD').format('MMMM');
+		$scope.currentYear = moment($scope.currentYearMonth + '01', 'YYYYMMDD').format('YY');
 		
 	}
 	
@@ -30,6 +27,11 @@ expensesModule.controller("expensesDashboardController", [ '$rootScope', '$scope
 	$scope.addQuickExpense = function(ev) {
 		
 		expensesService.addQuickPayment(ev, function(expense) {}, function(promise) {}, expensesService.getCurrentMonth()); 
+	}
+	
+	$scope.addExpense = function() {
+		
+		expensesService.addPayment(function(expense) {}, function(expenseId) {}, $scope.currentYearMonth);
 	}
 	
 	$scope.initContext();
