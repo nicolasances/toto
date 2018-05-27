@@ -34,6 +34,16 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 			var mySwiper;
 			
 			/**
+			 * Adds a quick payment on today
+			 */
+			scope.addQuickPayment = function(ev) {
+				
+				expensesService.addQuickPayment(ev, function(expense) {
+					
+				}, function(promise) {}, expensesService.getCurrentMonth());
+			}
+			
+			/**
 			 * Creates a new slide with the specified amount
 			 */
 			var createSlide = function(amount, cardAmount) {
@@ -57,25 +67,6 @@ SpendingScreenDirectivesModule.directive('spendingScreen', [ '$timeout', '$mdMed
 				'			</div>' +
 				'			<div class="flex"></div>' +
 				'		</expenses-total>' + 
-				'		<div class="flex"></div>' + 
-				'	</div>' + 
-				'	<div class="flex"></div>' + 
-				'	<div class="layout-row">' + 
-				'		<div class="flex"></div>' + 
-				'		<card-total class="layout-column">' +
-				'			<div class="flex"></div>' +
-				'			<div class="text layout-row">' +
-				'				<div class="flex"></div>' +
-				'				<div class="currency layout-column">' +
-				'					<div class="flex"></div>' +
-				'					<span>&euro;</span>' +
-				'					<div class="flex"></div>' +
-				'				</div>' +
-				'				<div class="amount">' + cardAmount + '</div>' +
-				'				<div class="flex"></div>' +
-				'			</div>' +
-				'			<div class="flex"></div>' +
-				'		</card-total>' + 
 				'		<div class="flex"></div>' + 
 				'	</div>' + 
 				'	<div class="flex"></div>' + 

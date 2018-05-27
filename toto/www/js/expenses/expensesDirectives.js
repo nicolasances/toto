@@ -1,5 +1,5 @@
 
-var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'expensesServiceModule' ]);
+var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'expensesServiceModule', 'CardServiceModule' ]);
 
 /**
  * Directive that shows the total expenses for the current month
@@ -10,7 +10,7 @@ var expensesDirectivesModule = angular.module('expensesDirectivesModule', [ 'exp
  *  - yearMonth :	(optional) the year month to load (default to current year month)
  *  
  */
-expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', '$rootScope', function($timeout, $mdMedia, expensesService, $rootScope) {
+expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'expensesService', '$rootScope', 'CardService', function($timeout, $mdMedia, expensesService, $rootScope, CardService) {
 	
 	return {
 		progress : {},
@@ -32,6 +32,19 @@ expensesDirectivesModule.directive('expensesTotal', [ '$timeout', '$mdMedia', 'e
 				
 				scope.amount = data.total;
 			});
+			
+			CardService.getCards().success(function(data) {
+				
+				if (data.cards == null) return;
+				
+				scope.card = data.cards[0];
+				
+				CardService.getCurrentMonthExpensesTotal(data.cards[0].id).then(function(total) {
+					
+					scope.creditCardAmount = total;
+					
+				});
+			})
 			
 		}
 	};

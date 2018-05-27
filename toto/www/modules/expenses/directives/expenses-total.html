@@ -11,4 +11,8 @@
 	<div class="amount">{{amount | number : 1}}</div>
 	<div flex></div>
 </div>
-<div flex></div>
+<div flex layout="row">
+	<div flex></div>
+	<div class="small-amount">&euro; {{creditCardAmount | number : 0}}</div>
+	<div flex></div>
+</div>

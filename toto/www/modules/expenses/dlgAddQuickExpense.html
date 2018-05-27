@@ -9,11 +9,6 @@
 			</div>
 		</md-toolbar>
 		<md-dialog-content class="md-dialog-content toto-form">
-			<div class="step-tracker" layout="row">
-				<div flex></div>
-				<div ng-repeat="step in steps" class="step {{currentStep == step ? 'current' : ''}}">{{step}}</div>
-				<div flex></div>
-			</div>
 			<div ng-if="currentStep == 1">
 				<div class="toto-input-container">
 					<label>Payment amount</label>
@@ -38,7 +33,7 @@
 					<md-grid-list md-cols="3" md-cols-gt-sm="8" md-row-height="1:1" md-gutter="3px">
 						<md-grid-tile ng-repeat="category in categories" md-colspan="1" ng-click="selectCategory(category)">
 							<div class="category-container {{category.selected ? 'selected' : ''}}" layout="column">
-								<div class="image"><img src="images/expenses/avatars/{{category.filename}}" /></div>
+								<div class="image"><md-icon md-svg-src="images/expenses/avatars-nofill/{{category.filename}}"></md-icon></div>
 								<div class="title">{{category.description}}</div>
 							</div>
 						</md-grid-tile>
