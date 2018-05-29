@@ -13,11 +13,12 @@ home-link md-icon {fill: white; margin-left: 24px;}
 /************************************************************************
  * MAIN APPS BAR
  ***********************************************************************/
-.main-apps-toolbar {padding: 8px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
+.main-apps-toolbar {padding: 3px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
 .main-apps-toolbar .app-link {outline: none;}
 .main-apps-toolbar .app-link .icon-container {padding: 10px; border-radius: 50%;}
-.main-apps-toolbar .app-link .icon-container.selected {background: #0b575f;}
-.main-apps-toolbar .app-link .icon-container md-icon {width: 24px; height: 24px; fill: white;}
+.main-apps-toolbar .app-link .icon-container.selected {}
+.main-apps-toolbar .app-link .icon-container md-icon {width: 24px; height: 24px; fill: #005965;}
+.main-apps-toolbar .app-link .icon-container.selected md-icon {width: 24px; height: 24px; fill: #9CCC65;}
 
 /************************************************************************
  * TOTO TOOLBAR 
@@ -30,7 +31,7 @@ toto-toolbar .action md-icon {fill: white;}
  * IN APP MENU
  ***********************************************************************/
 in-app-menu {z-index: 2;}
-in-app-menu md-icon {fill: white;}
+in-app-menu md-icon {fill: #c7c7c7;}
 in-app-menu .menus-container {margin-bottom: 24px;}
 in-app-menu .menus-container .menu {border-radius: 50%; padding: 12px; margin: 9px 0;}
 in-app-menu .menus-container .menu md-icon {fill: white; width: 20px; height: 20px;}

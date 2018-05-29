@@ -112,7 +112,7 @@ totoDirectivesModule.directive('inAppMenu', function($rootScope, $window) {
 
 			widget.style.width = document.querySelector('.app-link').offsetWidth + 'px';
 			widget.style.position = 'absolute';
-			widget.style.bottom = '18px';
+			widget.style.bottom = '12px';
 			widget.style.right = '0';
 			
 		}
