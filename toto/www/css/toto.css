@@ -3,7 +3,7 @@ body {background: #00BCD4;}
 #ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);}
 
 md-sidenav md-content {padding-top: 0 !important;}
-md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #00BCD4, #007888) !important;}
+/* md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #00BCD4, #007888) !important;} */
 
 .toto-central-area {position: relative;}
 
@@ -13,7 +13,7 @@ home-link md-icon {fill: white; margin-left: 24px;}
 /************************************************************************
  * MAIN APPS BAR
  ***********************************************************************/
-.main-apps-toolbar {padding: 3px 0;background-color: rgba(0,0,0,0.1);margin: 8px 0 0 0;}
+.main-apps-toolbar {padding: 3px 0; background-color: rgba(0,0,0,0.1); margin: 8px 0 0 0;}
 .main-apps-toolbar .app-link {outline: none;}
 .main-apps-toolbar .app-link .icon-container {padding: 10px; border-radius: 50%;}
 .main-apps-toolbar .app-link .icon-container.selected {}
