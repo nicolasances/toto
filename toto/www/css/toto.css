@@ -1,6 +1,6 @@
 body {background: #00BCD4;}
 
-#ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);}
+/* #ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);} */
 
 md-sidenav md-content {padding-top: 0 !important;}
 /* md-dialog.md-default-theme, md-dialog {background: linear-gradient(to bottom, #00BCD4, #007888) !important;} */
