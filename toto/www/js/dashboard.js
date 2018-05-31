@@ -9,6 +9,26 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 
 		$scope.selectedScreen = dashboardLastSelectedScreen == null ? 'spending' : dashboardLastSelectedScreen;
 		
+		$timeout(function() {
+			
+			mySwiper = new Swiper ('.dashboard .swiper-container', {
+				loop: false,
+				on: {
+					init: function() {
+						
+					},
+					slidePrevTransitionEnd: function() {
+						
+					},
+					slideNextTransitionEnd: function() {
+						
+					},
+					reachBeginning: function() {
+					}
+				}
+			});
+		}, 500);
+		
 	}
 	
 	$scope.selectScreen = function(screen) {

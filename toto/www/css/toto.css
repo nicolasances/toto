@@ -1,4 +1,56 @@
-body {background: #00BCD4;}
+
+/****************************************************
+ * FONT 
+ ***************************************************/
+@font-face {
+	font-family: 'toto';
+	src: url('fonts/BebasNeue Book.otf');
+}
+
+/****************************************************
+ * STANDARD DOM ELEMENTS 
+ ***************************************************/
+body {font-family: 'toto'; color: rgba(0,0,0,0.7);}
+
+/****************************************************
+ * COLORS  
+ ***************************************************/
+.theme-color {background: #00BCD4;} 
+.theme-color-alt {background: #00838F;}
+
+.text-accent {color: #FFEB3B;}
+
+area {fill: rgba(0,0,0,0.3);}
+
+/****************************************************
+ * MAIN ELEMENTS  
+ ***************************************************/
+.toto-head {margin: 32px; text-align: center; text-transform: uppercase;}
+
+/****************************************************
+ * FONTS  
+ ***************************************************/
+.toto-xxl {font-size: 52px;}
+.toto-xl {font-size: 46px;}
+.toto-l {font-size: 38px;}
+.toto-m {font-size: 30px;}
+.toto-s {font-size: 22px;}
+.toto-xs {font-size: 14px;}
+
+/****************************************************
+ * TEXT UTILITY CLASSES  
+ ***************************************************/
+.center {text-align: center;}
+.bold {font-weight: 400;}
+
+
+
+.toto-label {margin-bottom: 3px;}
+
+
+.block {background: #00838F;}
+
+
 
 /* #ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);} */
 
