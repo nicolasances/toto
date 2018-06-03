@@ -1,0 +1,20 @@
+
+<div layout="column">
+	<div class="toto-xs center toto-label">Calories</div>
+	<div class="toto-l bold center text-accent">{{calories | number : 0}}</div>
+</div>
+
+<div layout="row" style="margin-top: 24px;" flex>
+	<div layout="column" flex>
+		<div class="toto-xs center toto-label">Carbs</div>
+		<div class="toto-m center text-accent">{{carbs | number : 0}}</div>
+	</div>
+	<div layout="column" flex>
+		<div class="toto-xs center toto-label">Proteins</div>
+		<div class="toto-m center text-accent">{{proteins | number : 0}}</div>
+	</div>
+	<div layout="column" flex>
+		<div class="toto-xs center toto-label">Fats</div>
+		<div class="toto-m center text-accent">{{fats | number : 0}}</div>
+	</div>
+</div>

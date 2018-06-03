@@ -14,12 +14,12 @@
 				
 				<div layout="column" style="margin-top: 24px;">
 					<div class="toto-xs center toto-label">Total this week</div>
-					<div class="toto-m bold center text-accent">&euro; 190,00</div>
+					<div class="toto-m center text-accent">&euro; 190,00</div>
 				</div>
 				
 				<div layout="column" style="margin-top: 24px;">
 					<div class="toto-xs center toto-label">Total today</div>
-					<div class="toto-s bold center">&euro; 54,19</div>
+					<div class="toto-s center">&euro; 54,19</div>
 				</div>
 				
 				<div flex></div>
@@ -31,6 +31,23 @@
 		
 			<div class="swiper-slide" layout="column">
 				<div class="toto-head toto-xl">Training</div>
+				<div layout="column">
+					<gym-week-wheel style="min-height: 180px;"></gym-week-wheel>
+				</div>
+				<div flex></div>
+				<gym-week-muscles></gym-week-muscles>				
+				<div flex></div>
+				
+			</div>
+		
+			<div class="swiper-slide" layout="column">
+				<div class="toto-head toto-xl">Nutrition</div>
+
+				<diet-daily-macros></diet-daily-macros>	
+				
+				<div class="" style="margin-top: 24px;" flex layout="row" flex>
+					<diet-macros-stats></diet-macros-stats>
+				</div>
 				
 			</div>
 			

@@ -122,7 +122,7 @@ expensesDirectivesModule.directive('expensesGraphLiquid', [ '$timeout', '$mdMedi
 				// Expenses Line definition
 				expensesLine = d3.line()
 								.x(function(d, i) { return x(i);})
-								.y(function(d) { console.log(d.amount); return height - y(d.amount); })
+								.y(function(d) { return height - y(d.amount); })
 								.curve(d3.curveCardinal);
 				
 				// Expenses filled area definition

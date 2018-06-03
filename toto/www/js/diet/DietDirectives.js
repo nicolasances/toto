@@ -345,7 +345,7 @@ dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeo
 		},
 		templateUrl: 'modules/diet/directives/diet-week-macronutrients.html',
 		link: function(scope, el) {
-
+			
 			scope.onRefresh = function() {
 				console.log('asd');
 				scope.getMeals();
@@ -401,6 +401,352 @@ dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeo
 			}
 			
 			scope.getMeals();
+		}
+	}
+}]);
+
+/**
+ *
+ * Shows the stats for the week macro nutrients
+ * 
+ * diet-week-macronutrients
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: {
+			onRefresh: '='
+		},
+		templateUrl: 'modules/diet/directives/diet-week-macronutrients.html',
+		link: function(scope, el) {
+			
+			scope.onRefresh = function() {
+				console.log('asd');
+				scope.getMeals();
+			}
+			
+			scope.go = $rootScope.go;
+			
+			var widget = el[0].parentNode;
+			var component = el[0];
+			
+			component.classList.add('layout-column');
+			component.classList.add('flex');
+			component.id = 'dietWeekMacronutrients-' + Math.floor(Math.random() * 1000000);
+			
+			scope.showMenu = false;
+			
+			scope.cal = 0;
+			scope.carbs = 0;
+			scope.proteins = 0;
+			scope.fats = 0;
+			
+			/**
+			 * Retrieves the meals 
+			 */
+			scope.getMeals = function() {
+				
+				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
+					
+					scope.cal = 0;
+					scope.carbs = 0;
+					scope.proteins = 0;
+					scope.fats = 0;
+					
+					if (data == null) return;
+					
+					for (var i = 0; i < data.meals.length; i++) {
+						
+						scope.cal += data.meals[i].calories;
+						scope.carbs += data.meals[i].carbs;
+						scope.fats += data.meals[i].fat;
+						scope.proteins += data.meals[i].proteins;
+					}
+					
+				});
+			}
+			
+			/**
+			 * Add a new meal
+			 */
+			scope.addMeal = function() {
+				
+				DietService.showAddMealDialog(function(meal) {DietService.postMeal(meal).success(scope.getMeals)});
+			}
+			
+			scope.getMeals();
+		}
+	}
+}]);
+
+/**
+ * Daily Macros
+ * Shows the macros consumed so far during the day
+ * 
+ * diet-daily-macros
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: {
+		},
+		templateUrl: 'modules/diet/directives/diet-daily-macros.html',
+		link: function(scope, el) {
+
+			/**
+			 * Retrieves the meals 
+			 */
+			scope.getMeals = function() {
+				
+				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
+					
+					scope.calories = 0;
+					scope.carbs = 0;
+					scope.proteins = 0;
+					scope.fats = 0;
+					
+					if (data == null) return;
+					
+					for (var i = 0; i < data.meals.length; i++) {
+						
+						scope.calories += data.meals[i].calories;
+						scope.carbs += data.meals[i].carbs;
+						scope.fats += data.meals[i].fat;
+						scope.proteins += data.meals[i].proteins;
+					}
+					
+				});
+			}
+			
+			scope.getMeals();
+		}
+	}
+}]);
+
+/**
+ * Macros Stats
+ * Shows the statistics of the macros: a graph showing calories, carbs, proteins and fats over a period of time 
+ * 
+ * diet-macros-stats
+ * 
+ * Params: 
+ * 
+ *  - weeks : 	shows the specified amount of weeks
+ *  			default is 4 weeks
+ * 
+ */
+dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: {
+			
+			weeks: '@'
+		},
+		link: function(scope, el) {
+			
+			el[0].classList.add('flex');
+			el[0].classList.add('layout-column');
+			
+			// Get the data
+			var weeks = scope.weeks == null ? 4 : scope.weeks;
+			var dateFrom = moment().subtract(weeks, 'weeks').format('YYYYMMDD');
+			var mealsStats = new Map();
+			
+			// The drawing base variables
+			var containerWidth = el[0].offsetWidth;
+			var containerHeight = el[0].offsetHeight;
+			
+			var svg;
+			var g;
+			
+			$timeout(function() {
+				
+				containerWidth = el[0].offsetWidth;
+				containerHeight = el[0].offsetHeight;
+				
+				svg = d3.select(el[0]).append('svg')
+						.attr('width', containerWidth)
+						.attr('height', containerHeight);
+				
+				g = svg.append('g');
+				
+			}, 500);
+			
+			/**
+			 * Retrieves the meals for the specified period of time
+			 */
+			DietService.getMeals(null, dateFrom).success(function(data) {
+				
+				// Get the data in the right format
+				for (var i = 0; i < data.meals.length; i++) {
+
+					var stat = mealsStats.get(data.meals[i].date);
+					
+					if (stat == null) mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
+					else {
+						stat.calories += data.meals[i].calories;
+						stat.proteins += data.meals[i].proteins;
+						stat.carbs += data.meals[i].carbs;
+						stat.fats += data.meals[i].fat;
+					}
+				}
+				
+				// Draw the graph
+				createNutritionGraph(mealsStats);
+				
+			});
+			
+			/**
+			 * Creates the graph
+			 */
+			var createNutritionGraph = function(stats) {
+				
+				var data = [];
+				for (let item of stats.values()) {
+					data.push(item);
+				}
+				
+				// 1. Create the calories graph
+				createCaloriesGraph(data);
+				
+				// 2. Create the proteins graph
+				createProteinsGraph(data);
+				
+				// 3. Create the carbs graph
+				createCarbsGraph(data);
+				
+				// 4. Create the fats graph
+				createFatsGraph(data);
+			}
+			
+			/**
+			 * Creates the bar chart showing the calories
+			 */
+			var createCaloriesGraph = function(data) {
+				
+				var x = d3.scaleBand().range([0, containerWidth]).padding(0.1);
+				var y = d3.scaleLinear().range([containerHeight / 2, containerHeight]);
+				
+				x.domain(data.map(function(d) {return d.date;}));
+				y.domain([0, d3.max(data, function(d) {return d.calories;})]);
+				
+				g.selectAll('.calBars').data(data).enter().append('rect')
+						.style('fill', graphicAreaFill)
+						.attr('class', 'calBars')
+						.attr('x', function(d) {return x(d.date);})
+						.attr('width', x.bandwidth())
+						.attr('y', function(d) {return containerHeight - y(d.calories);})
+						.attr('height', function(d) {return y(d.calories); });
+			}
+			
+			/**
+			 * Creates the area graph showing the proteins
+			 */
+			var createProteinsGraph = function(data) {
+				
+				var maxGraphHeight = 3 * containerHeight / 4;
+				
+				var x = d3.scaleLinear().range([0, containerWidth]);
+				var y = d3.scaleLinear().range([0, maxGraphHeight]);
+				
+				x.domain([0, data.length - 1]);
+				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
+
+				var area = d3.area()
+							.x(function(d, i) {return x(i);})
+							.y0(containerHeight)
+							.y1(function(d) {return containerHeight - y(d.proteins);})
+							.curve(d3.curveCardinal);
+				
+				var line = d3.line()
+							.x(function(d, i) { return x(i);})
+							.y(function(d) { return containerHeight - y(d.proteins); })
+							.curve(d3.curveCardinal);
+				
+				g.append('path').datum(data)
+							.style('fill', graphicAreaFill)
+							.attr('d', area);
+				
+				g.append('path').datum(data)
+							.style('fill', 'none')
+							.attr('stroke', '#00BCD4')
+							.attr('d', line);
+			}
+			
+			/**
+			 * Creates the area graph showing the carbs
+			 */
+			var createCarbsGraph = function(data) {
+
+				var maxGraphHeight = 3 * containerHeight / 4;
+				
+				var x = d3.scaleLinear().range([0, containerWidth]);
+				var y = d3.scaleLinear().range([0, maxGraphHeight]);
+				
+				x.domain([0, data.length - 1]);
+				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
+				
+				var area = d3.area()
+							.x(function(d, i) {return x(i);})
+							.y0(containerHeight)
+							.y1(function(d) {return containerHeight - y(d.carbs);})
+							.curve(d3.curveCardinal);
+				
+				var line = d3.line()
+							.x(function(d, i) { return x(i);})
+							.y(function(d) { return containerHeight - y(d.carbs); })
+							.curve(d3.curveCardinal);
+				
+				g.append('path').datum(data)
+							.style('fill', graphicAreaFill)
+							.attr('d', area);
+				
+				g.append('path').datum(data)
+							.style('fill', 'none')
+							.attr('stroke', '#F44336')
+							.attr('d', line);
+			}
+			
+			/**
+			 * Creates the area graph showing the fats
+			 */
+			var createFatsGraph = function(data) {
+
+				var maxGraphHeight = 3 * containerHeight / 4;
+				
+				var x = d3.scaleLinear().range([0, containerWidth]);
+				var y = d3.scaleLinear().range([0, maxGraphHeight]);
+				
+				x.domain([0, data.length - 1]);
+				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
+				
+				var area = d3.area()
+							.x(function(d, i) {return x(i);})
+							.y0(containerHeight)
+							.y1(function(d) {return containerHeight - y(d.fats);})
+							.curve(d3.curveCardinal);
+				
+				var line = d3.line()
+							.x(function(d, i) { return x(i);})
+							.y(function(d) { return containerHeight - y(d.fats); })
+							.curve(d3.curveCardinal);
+				
+				g.append('path').datum(data)
+							.style('fill', graphicAreaFill)
+							.attr('d', area);
+				
+				g.append('path').datum(data)
+							.style('fill', 'none')
+							.attr('stroke', accentColor)
+							.attr('d', line);
+			}
+			
 		}
 	}
 }]);

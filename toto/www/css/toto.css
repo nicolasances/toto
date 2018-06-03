@@ -41,11 +41,11 @@ area {fill: rgba(0,0,0,0.3);}
  * TEXT UTILITY CLASSES  
  ***************************************************/
 .center {text-align: center;}
-.bold {font-weight: 400;}
-
+.bold {font-weight: bold;}
 
 
 .toto-label {margin-bottom: 3px;}
+.toto-label-heading {margin-bottom: 6px;}
 
 
 .block {background: #00838F;}

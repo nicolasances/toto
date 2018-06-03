@@ -725,6 +725,18 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		getWeekSummary : function(week, year, efficacyGoal) {
 			
 			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/weeks?week=" + week + "&year=" + year + "&efficacyGoal=" + efficacyGoal);
+		},
+		
+		/**
+		 * Returns the details of the specified plan
+		 * 
+		 * Requires:
+		 * 
+		 *   - id: the plan ID
+		 */
+		getPlan : function(id) {
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + id);
 		}
 	}
 
