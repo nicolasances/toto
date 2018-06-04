@@ -565,6 +565,12 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			var svg;
 			var g;
 			
+			// Some global variables
+			var maxProtein, minProtein;
+			var maxCarb, minCarb;
+			var maxFat, minFat;
+			var maxCalorie, minCalorie;
+			
 			$timeout(function() {
 				
 				containerWidth = el[0].offsetWidth;
@@ -631,10 +637,13 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			var createCaloriesGraph = function(data) {
 				
 				var x = d3.scaleBand().range([0, containerWidth]).padding(0.1);
-				var y = d3.scaleLinear().range([containerHeight / 2, containerHeight]);
+				var y = d3.scaleLinear().range([containerHeight / 2, containerHeight - 24]);
 				
 				x.domain(data.map(function(d) {return d.date;}));
 				y.domain([0, d3.max(data, function(d) {return d.calories;})]);
+				
+				maxCalorie = d3.max(data, function(d, i) {if (i != data.length - 1) return d.calories});
+				minCalorie = d3.min(data, function(d, i) {if (i != data.length - 1) return d.calories});
 				
 				g.selectAll('.calBars').data(data).enter().append('rect')
 						.style('fill', graphicAreaFill)
@@ -642,7 +651,17 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 						.attr('x', function(d) {return x(d.date);})
 						.attr('width', x.bandwidth())
 						.attr('y', function(d) {return containerHeight - y(d.calories);})
-						.attr('height', function(d) {return y(d.calories); });
+						.attr('height', function(d) {return y(d.calories); })
+						.on('click', showCaloriesValues);
+							
+				g.selectAll('.caloriesValue').data(data).enter().append('text')
+							.style('font-size', fontTotoS)
+							.attr('class', 'caloriesValue')
+							.attr('fill', 'none')
+							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'middle';})
+							.attr('x', function(d, i) {return x(d.date) + (i == 0 ? 12 : 0)})
+							.attr('y', function(d, i) {return containerHeight - y(d.calories) + (i > 0 ? fontTotoS + 8: 0);})
+							.text(function(d) {if (d.calories == maxCalorie|| d.calories == minCalorie) return d3.format(',')(d.calories.toFixed(0));})
 			}
 			
 			/**
@@ -657,6 +676,9 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				x.domain([0, data.length - 1]);
 				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
+				
+				maxProtein = d3.max(data, function(d, i) {if (i != data.length - 1) return d.proteins});
+				minProtein = d3.min(data, function(d, i) {if (i != data.length - 1) return d.proteins});
 
 				var area = d3.area()
 							.x(function(d, i) {return x(i);})
@@ -671,12 +693,29 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				g.append('path').datum(data)
 							.style('fill', graphicAreaFill)
-							.attr('d', area);
+							.attr('d', area)
+							.on('click', showProteinValues);
 				
 				g.append('path').datum(data)
 							.style('fill', 'none')
 							.attr('stroke', '#00BCD4')
 							.attr('d', line);
+				
+				g.selectAll('.proteinsKeyPoint').data(data).enter().append('circle')
+							.attr('class', 'proteinsKeyPoint')
+							.attr('cx', function(d, i) {return x(i)})
+							.attr('cy', function(d) {return containerHeight - y(d.proteins);})
+							.attr('r', 4)
+							.attr('fill', 'none');
+							
+				g.selectAll('.proteinsValue').data(data).enter().append('text')
+							.style('font-size', fontTotoS)
+							.attr('class', 'proteinsValue')
+							.attr('fill', 'none')
+							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'middle';})
+							.attr('x', function(d, i) {return x(i) + (i == 0 ? 12 : 0)})
+							.attr('y', function(d, i) {return containerHeight - y(d.proteins) + (i > 0 ? fontTotoS + 8: 0);})
+							.text(function(d) {if (d.proteins == maxProtein || d.proteins == minProtein) return d3.format(',')(d.proteins.toFixed(0));})
 			}
 			
 			/**
@@ -692,6 +731,9 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				x.domain([0, data.length - 1]);
 				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
 				
+				maxCarb = d3.max(data, function(d, i) {if (i != data.length - 1) return d.carbs});
+				minCarb = d3.min(data, function(d, i) {if (i != data.length - 1) return d.carbs});
+				
 				var area = d3.area()
 							.x(function(d, i) {return x(i);})
 							.y0(containerHeight)
@@ -705,12 +747,29 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				g.append('path').datum(data)
 							.style('fill', graphicAreaFill)
-							.attr('d', area);
+							.attr('d', area)
+							.on('click', showCarbsValues);
 				
 				g.append('path').datum(data)
 							.style('fill', 'none')
 							.attr('stroke', '#F44336')
 							.attr('d', line);
+				
+				g.selectAll('.carbsKeyPoint').data(data).enter().append('circle')
+							.attr('class', 'carbsKeyPoint')
+							.attr('cx', function(d, i) {return x(i)})
+							.attr('cy', function(d) {return containerHeight - y(d.carbs);})
+							.attr('r', 4)
+							.attr('fill', 'none');
+							
+				g.selectAll('.carbsValue').data(data).enter().append('text')
+							.style('font-size', fontTotoS)
+							.attr('class', 'carbsValue')
+							.attr('fill', 'none')
+							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'middle';})
+							.attr('x', function(d, i) {return x(i) + (i == 0 ? 12 : 0)})
+							.attr('y', function(d, i) {return containerHeight - y(d.carbs) + (i > 0 ? fontTotoS + 8: 0);})
+							.text(function(d) {if (d.carbs == maxCarb || d.carbs == minCarb) return d3.format(',')(d.carbs.toFixed(0));})
 			}
 			
 			/**
@@ -726,6 +785,9 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				x.domain([0, data.length - 1]);
 				y.domain([0, d3.max(data, function(d) {return d3.max([d.proteins, d.carbs, d.fats]);})]);
 				
+				maxFat = d3.max(data, function(d, i) {if (i != data.length - 1) return d.fats});
+				minFat = d3.min(data, function(d, i) {if (i != data.length - 1) return d.fats});
+				
 				var area = d3.area()
 							.x(function(d, i) {return x(i);})
 							.y0(containerHeight)
@@ -739,12 +801,93 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				g.append('path').datum(data)
 							.style('fill', graphicAreaFill)
-							.attr('d', area);
+							.attr('d', area)
+							.on('click', showFatsValues);
 				
 				g.append('path').datum(data)
 							.style('fill', 'none')
 							.attr('stroke', accentColor)
 							.attr('d', line);
+				
+				g.selectAll('.fatsKeyPoint').data(data).enter().append('circle')
+							.attr('class', 'fatsKeyPoint')
+							.attr('cx', function(d, i) {return x(i)})
+							.attr('cy', function(d) {return containerHeight - y(d.fats);})
+							.attr('r', 4)
+							.attr('fill', 'none');
+							
+				g.selectAll('.fatsValue').data(data).enter().append('text')
+							.style('font-size', fontTotoS)
+							.attr('class', 'fatsValue')
+							.attr('fill', 'none')
+							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'middle';})
+							.attr('x', function(d, i) {return x(i) + (i == 0 ? 12 : 0)})
+							.attr('y', function(d, i) {return containerHeight - y(d.fats) + (i > 0 ? fontTotoS + 8: 0);})
+							.text(function(d) {if (d.fats == maxFat || d.fats == minFat) return d3.format(',')(d.fats.toFixed(0));})
+			}
+			
+			/**
+			 * Hide all macros values
+			 */
+			var hideAllValues = function() {
+				
+				g.selectAll('.proteinsKeyPoint').attr('fill', 'none');
+				g.selectAll('.proteinsValue').attr('fill', 'none');
+				
+				g.selectAll('.carbsKeyPoint').attr('fill', 'none');
+				g.selectAll('.carbsValue').attr('fill', 'none');
+				
+				g.selectAll('.fatsKeyPoint').attr('fill', 'none');
+				g.selectAll('.fatsValue').attr('fill', 'none');
+				
+				g.selectAll('.caloriesValue').attr('fill', 'none');
+			}
+			
+			/**
+			 * Show the values for the protein intake
+			 */
+			var showProteinValues = function() {
+				
+				hideAllValues();
+				
+				g.selectAll('.proteinsKeyPoint').attr('fill', function(d) {if (d.proteins == maxProtein || d.proteins == minProtein) return accentColor; return 'none'});
+				g.selectAll('.proteinsValue').attr('fill', function(d) {if (d.proteins == maxProtein || d.proteins == minProtein) return accentColor; return 'none'});
+				
+			}
+			
+			/**
+			 * Show the values for the Carbs intake
+			 */
+			var showCarbsValues = function() {
+
+				hideAllValues();
+				
+				g.selectAll('.carbsKeyPoint').attr('fill', function(d) {if (d.carbs == maxCarb || d.carbs == minCarb) return accentColor; return 'none'});
+				g.selectAll('.carbsValue').attr('fill', function(d) {if (d.carbs == maxCarb || d.carbs == minCarb) return accentColor; return 'none'});
+				
+			}
+			
+			/**
+			 * Show the values for the Carbs intake
+			 */
+			var showFatsValues = function() {
+				
+				hideAllValues();
+				
+				g.selectAll('.fatsKeyPoint').attr('fill', function(d) {if (d.fats == maxFat || d.fats == minFat) return accentColor; return 'none'});
+				g.selectAll('.fatsValue').attr('fill', function(d) {if (d.fats == maxFat || d.fats == minFat) return accentColor; return 'none'});
+				
+			}
+			
+			/**
+			 * Show the values for the Carbs intake
+			 */
+			var showCaloriesValues = function() {
+				
+				hideAllValues();
+				
+				g.selectAll('.caloriesValue').attr('fill', function(d) {if (d.calories == maxCalorie || d.calories == minCalorie) return accentColor; return 'none'});
+				
 			}
 			
 		}
