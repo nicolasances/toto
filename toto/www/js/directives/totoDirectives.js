@@ -1,6 +1,239 @@
 var totoDirectivesModule = angular.module('totoDirectivesModule', [ ]);
 
 /**
+ * Directive to show a simple label & value
+ * 
+ * Accepts the following parameters:
+ *  
+ *  - label : 	the label to display
+ *  
+ *  - unit  : 	(optional) the unit to display
+ *  
+ *  - value : 	the value to display
+ *  
+ *  - type	: 	the type of value 
+ *  			accepted values are : number, date
+ *  
+ *  - scale :	the scale, in case of numeric value
+ *  
+ *  - size  : 	(optional, default toto-s) the size of the value
+ *  			Can be toto-xl, toto-l, toto-m, toto-s, toto-xs 
+ *  
+ *  - accent:   (optional, default false) true if the text has to be accented
+ *  
+ *  - bold	:	(optional, default false) true to have the text in bold
+ */
+totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			label: '@', 
+			unit: '@',
+			value: '=', 
+			type: '@',
+			scale: '@',
+			size: '@',
+			accent: '@',
+			bold: '@'
+		},
+		templateUrl : 'directives/toto-value.html',
+		link : function(scope, el) {
+
+			el[0].classList.add('layout-column');
+			
+			scope.accent = (scope.accent == 'true' ? true : false);
+			
+			if (scope.size == null) scope.size = 'toto-s';
+			
+			if (scope.scale == null) scope.scale = 2;
+			
+			scope.bold = (scope.bold == 'true' ? true : false);
+		}
+	};
+});
+
+/**
+ * Directive to encapsulate a serie of slides and provide cross slides management (e.g. navigation)
+ * 
+ * Accepts the following parameters:
+ *  
+ */
+totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $window, $timeout) {
+	
+	return {
+		scope : {
+			
+		},
+		link : function(scope, el) {
+			
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			el[0].id = 'totoSlidesContainer-' + Math.floor(Math.random() * 1000000);
+			
+			var cumulativeOffset = function(element) {
+				
+				var style = element.currentStyle || window.getComputedStyle(element);
+				var marginTop = (style.marginTop != null && style.marginTop != '' || style.marginTop != '0') ? style.marginTop.substring(0, style.marginTop.indexOf('px')) : 0; 
+				
+				var top = 0, left = 0;
+				do {
+					top += element.offsetTop  || 0;
+					left += element.offsetLeft || 0;
+					element = element.offsetParent;
+				} while(element);
+				
+				return {
+					top: top,
+					left: left,
+					marginTop : parseInt(marginTop)
+				};
+			};
+			
+			/**
+			 * Initialization: only the primary slide is visible
+			 */
+			var slides = el[0].querySelectorAll('toto-slide');
+			var currentSlide = null;
+			
+			for (var i = 0; i < slides.length; i++) {
+				
+				if (slides[i].getAttribute('primary') != 'true') {
+					slides[i].style.position = 'absolute';
+					slides[i].style.top = document.body.offsetHeight + 'px';
+				}
+				else {
+					currentSlide = slides[i];
+				}
+			}
+			
+			/**
+			 * Registering a listener to "slide navigation events"
+			 */
+			TotoEventBus.subscribeToEvent('slideNavigationRequested', function(event) {
+				
+				if (event == null) {
+					console.log('Toto Slides Container has received a slideNavigationRequested with a null event.')
+					return;
+				}
+				
+				if (event.context == null) {
+					console.log('Toto Slides Container has received a slideNavigationRequested with an event with context null. Event: ' + event);
+					return;
+				}
+				
+				var eventSource = event.context.source; 
+				
+				if (eventSource == null) {
+					console.log('Toto Slides Container has received a slideNavigationRequested event with no source DOM element in the context. Event: ' + event);
+					return;
+				}
+				
+				// Check if the event belongs to this slider context
+				var es = eventSource;
+				do {
+					es = es.parentNode;
+				} while (es == null || es.id == null || es.id != el[0].id);
+				
+				if (es == null) return;
+
+				// At this point we are sure that the event was originated within this slide-container
+				// (by a DOM element contained in this slide-container)
+				
+				// Do the magic navigation
+				slideTo(event.context.destination);
+			});
+			
+			/**
+			 * Goes to the specified slide
+			 * 
+			 * Requires: 
+			 * 
+			 * - slideName	:	the name of the slide to go to
+			 */
+			var slideTo = function(slideName) {
+				
+				TotoSlideOut.slideOut([currentSlide], function() {
+					
+					for (var i = 0; i < slides.length; i++) {
+						
+						if (slides[i].getAttribute('name') == slideName) {
+							
+							TotoSlideOut.slideIn(slides[i], el[0]);
+							
+						}
+					}
+					
+				});
+				
+			}
+			
+		}
+	};
+});
+
+/**
+ * Directive to encapsulate a slide
+ * 
+ * Accepts the following parameters:
+ * 
+ * - name		:	(MAND) the name of the slide. Must be unique in the whole application
+ * 
+ * - primary	:	(optional, default = false) true if the slide is the first (default) one to be shown
+ *  
+ */
+totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeout) {
+	
+	return {
+		scope : true,
+		link : function(scope, el) {
+			
+			/**
+			 * Basic styles initialization
+			 */
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			el[0].style.width = document.body.offsetWidth + 'px';
+			
+			$timeout(function() {
+				el[0].style.height = el[0].parentNode.offsetHeight + 'px';
+			}, 200);
+
+		}
+	};
+});
+
+/**
+ * Directive to show a header on any page
+ * 
+ * Parameters:
+ * 
+ *  - title			:	the title of the header
+ * 
+ *  - menus			:	(optional) an array of menu items
+ *  					Each item is a 
+ *  					{	icon: url of the svg, 
+ *  						action: callback function action()
+ * 						}
+ */
+totoDirectivesModule.directive('totoHeader', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			
+			title	: '@',
+			menus	: '='
+			
+		}, 
+		templateUrl : 'directives/toto-header.html',
+		link : function(scope, el) {
+			
+			el[0].classList.add('layout-row');
+			
+		}
+	}
+});
+
+/**
  * Directive to show the "home link"
  * 
  * Accepts the following parameters: 
@@ -87,34 +320,6 @@ totoDirectivesModule.directive('totoNumpad', function($rootScope, $window) {
 				init = false;
 				
 			}
-		}
-	};
-});
-
-/**
- * Directive to show the "app-specific menu"
- * 
- * Accepts the following parameters: 
- * 
- *  - menus			:	an [] of menus 
- *  					each menu is a {icon: string svg url, action: a function()}
- */
-totoDirectivesModule.directive('inAppMenu', function($rootScope, $window) {
-	
-	return {
-		scope : {
-			menus: '='
-		},
-		templateUrl : 'directives/in-app-menu.html',
-		link : function(scope, el) {
-			
-			var widget = el[0];
-
-			widget.style.width = document.querySelector('.app-link').offsetWidth + 'px';
-			widget.style.position = 'absolute';
-			widget.style.bottom = '12px';
-			widget.style.right = '0';
-			
 		}
 	};
 });

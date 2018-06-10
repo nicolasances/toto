@@ -18,6 +18,9 @@ body {font-family: 'toto'; color: rgba(0,0,0,0.7);}
 .theme-color {background: #00BCD4;} 
 .theme-color-alt {background: #00838F;}
 
+.theme-accent-color {background: #FFEB3B;}
+.theme-accent-color md-icon {fill: rgba(0,0,0,0.5);}
+
 .text-accent {color: #FFEB3B;}
 
 area {fill: rgba(0,0,0,0.3);}
@@ -43,13 +46,15 @@ area {fill: rgba(0,0,0,0.3);}
 .center {text-align: center;}
 .bold {font-weight: bold;}
 
-
 .toto-label {margin-bottom: 3px;}
 .toto-label-heading {margin-bottom: 6px;}
 
-
 .block {background: #00838F;}
 
+/****************************************************
+ * DIRECTIVE - TOTO VALUE  
+ ***************************************************/
+toto-value {margin: 12px 0;}
 
 
 /* #ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);} */
@@ -82,11 +87,14 @@ toto-toolbar .action md-icon {fill: white;}
 /************************************************************************
  * IN APP MENU
  ***********************************************************************/
-in-app-menu {z-index: 2;}
-in-app-menu md-icon {fill: #c7c7c7;}
-in-app-menu .menus-container {margin-bottom: 24px;}
+in-app-menu {}
+in-app-menu .overlay {padding: 24px;}
+in-app-menu .overlay.visible {background: rgba(0,0,0,0.3); padding: 24px 12px; z-index: 2;}
+in-app-menu .app-menu {margin-bottom: 12px;}
+in-app-menu .overlay.visible .app-menu md-icon {fill: white;}
+in-app-menu .menus-container {}
 in-app-menu .menus-container .menu {border-radius: 50%; padding: 12px; margin: 9px 0;}
-in-app-menu .menus-container .menu md-icon {fill: white; width: 20px; height: 20px;}
+in-app-menu .menus-container .menu md-icon {width: 20px; height: 20px;}
 
 /************************************************************************
  * TOTO CLOCK 

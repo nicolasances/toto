@@ -5,22 +5,14 @@
 		<div class="swiper-wrapper">
 		
 			<div class="swiper-slide" layout="column">
-				<div class="toto-head toto-xl">Payments</div>
-			
-				<div layout="column">
-					<div class="toto-xs center toto-label">Total this month</div>
-					<div class="toto-l bold center text-accent">&euro; 2.300,10</div>
-				</div>
+	
+				<toto-header title="Payments"></toto-header>		
 				
-				<div layout="column" style="margin-top: 24px;">
-					<div class="toto-xs center toto-label">Total this week</div>
-					<div class="toto-m center text-accent">&euro; 190,00</div>
-				</div>
+				<expenses-total type="month"></expenses-total>
+
+				<toto-value type="number" value="190" unit="&euro;" accent="true" size="toto-m" scale="2" label="Total this week"></toto-value>				
 				
-				<div layout="column" style="margin-top: 24px;">
-					<div class="toto-xs center toto-label">Total today</div>
-					<div class="toto-s center">&euro; 54,19</div>
-				</div>
+				<toto-value type="number" value="54.19" unit="&euro;" label="Total today" scale="2" size="toto-s"></toto-value>
 				
 				<div flex></div>
 				
@@ -41,13 +33,21 @@
 			</div>
 		
 			<div class="swiper-slide" layout="column">
-				<div class="toto-head toto-xl">Nutrition</div>
-
-				<diet-daily-macros></diet-daily-macros>	
 				
-				<div class="" style="margin-top: 24px;" flex layout="row" flex>
-					<diet-macros-stats></diet-macros-stats>
-				</div>
+				<toto-header title="Nutrition" menus="nutritionMenus"></toto-header>
+				
+				<toto-slides-container>
+					<toto-slide name="dietDashboardSlide" primary="true">
+						<diet-daily-macros></diet-daily-macros>	
+						<div class="" style="margin-top: 24px;" flex layout="row" flex>
+							<diet-macros-stats></diet-macros-stats>
+						</div>
+					</toto-slide>
+					<toto-slide name="dietMealsSlide">
+						<div flex>asdasda sd</div>
+						<diet-daily-meals></diet-daily-meals>
+					</toto-slide>
+				</toto-slides-container>
 				
 			</div>
 			

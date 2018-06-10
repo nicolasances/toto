@@ -241,248 +241,6 @@ dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function
 }]);
 
 /**
- * Shows the stats of the day in terms of meals and nutrients
- * 
- * diet-daily-meal-graph
- * 
- * Params: 
- * 
- */
-dietDirectivesModule.directive('dietDailyMealGraph', ['DietService', '$timeout', function(DietService, $timeout) {
-	
-	return {
-		scope: {
-		},
-		link: function(scope, el) {
-
-			var widget = el[0].parentNode;
-			var component = el[0];
-			var scale = 0.8;
-			var circleScale = 0.8;
-			
-			component.id = 'dietDailyMealGraph-' + Math.floor(Math.random() * 1000000);
-			
-			DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
-				
-				scope.goal = data;
-				
-				var width = widget.offsetWidth * scale;
-				var height = widget.offsetHeight * scale;
-				var circleR = (width > height ? height / 2 : width / 2) * circleScale - 6;
-				var mealsCircleR = (width > height ? height / 2 : width / 2) * circleScale / 2.5 - 6;
-				component.style.width = width + 'px';
-				component.style.height = height + 'px';
-				component.style.marginLeft = (widget.offsetWidth - 18 - width) / 2 + 'px';
-				component.style.marginTop = (widget.offsetHeight - 18 - height) / 2 + 'px';
-				
-				svg = d3.select('#' + component.id).append('svg')
-					.attr('width', width)
-					.attr('height', height)
-				
-				g = svg.append('g');
-				
-				// Outer circle
-//				g.append('circle')
-//					.attr('cx', width / 2)
-//					.attr('cy', height / 2)
-//					.attr('r', circleR)
-//					.attr('fill', 'white')
-//					.attr('stroke', '#efefef')
-//					.attr('stroke-width', 2);
-					
-				// Put the different times in a 0-360 scale where 0:00 is 0 and 24:00 is 360
-//				var spotsData = [];
-//				for (var i = 0; i < data.meals.length; i++) {
-//					spotsData.push({angle: parseInt(data.meals[i].time.substring(0, data.meals[i].time.indexOf(':'))) * 360 / 24, calories: data.meals[i].calories}); 
-//				}
-				
-				var alimentCircleR = width / 6;
-				var alimentCircleStroke = 12;
-				
-				g.append('circle')
-					.attr('cx', alimentCircleR + alimentCircleStroke)
-					.attr('cy', height / 2)
-					.attr('r', alimentCircleR)
-					.attr('fill', 'white')
-					.attr('stroke', '#26C6DA')
-					.attr('stroke-width', alimentCircleStroke);
-				
-				g.append('circle')
-					.attr('cx', alimentCircleR + alimentCircleStroke + width / 6)
-					.attr('cy', height / 2)
-					.attr('r', alimentCircleR)
-					.attr('fill', 'white')
-					.attr('stroke', '#009688')
-					.attr('stroke-width', alimentCircleStroke);
-				
-				g.append('circle')
-					.attr('cx', alimentCircleR + alimentCircleStroke + width / 3)
-					.attr('cy', height / 2)
-					.attr('r', alimentCircleR)
-					.attr('fill', 'white')
-					.attr('stroke', '#EF5350')
-					.attr('stroke-width', alimentCircleStroke);
-				
-			});
-
-		}
-	}
-}]);
-
-/**
- * Shows the stats for the week macro nutrients
- * 
- * diet-week-macronutrients
- * 
- * Params: 
- * 
- */
-dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
-	
-	return {
-		scope: {
-			onRefresh: '='
-		},
-		templateUrl: 'modules/diet/directives/diet-week-macronutrients.html',
-		link: function(scope, el) {
-			
-			scope.onRefresh = function() {
-				console.log('asd');
-				scope.getMeals();
-			}
-			
-			scope.go = $rootScope.go;
-			
-			var widget = el[0].parentNode;
-			var component = el[0];
-			
-			component.classList.add('layout-column');
-			component.classList.add('flex');
-			component.id = 'dietWeekMacronutrients-' + Math.floor(Math.random() * 1000000);
-			
-			scope.showMenu = false;
-			
-			scope.cal = 0;
-			scope.carbs = 0;
-			scope.proteins = 0;
-			scope.fats = 0;
-			
-			/**
-			 * Retrieves the meals 
-			 */
-			scope.getMeals = function() {
-				
-				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
-					
-					scope.cal = 0;
-					scope.carbs = 0;
-					scope.proteins = 0;
-					scope.fats = 0;
-					
-					if (data == null) return;
-					
-					for (var i = 0; i < data.meals.length; i++) {
-						
-						scope.cal += data.meals[i].calories;
-						scope.carbs += data.meals[i].carbs;
-						scope.fats += data.meals[i].fat;
-						scope.proteins += data.meals[i].proteins;
-					}
-					
-				});
-			}
-			
-			/**
-			 * Add a new meal
-			 */
-			scope.addMeal = function() {
-				
-				DietService.showAddMealDialog(function(meal) {DietService.postMeal(meal).success(scope.getMeals)});
-			}
-			
-			scope.getMeals();
-		}
-	}
-}]);
-
-/**
- *
- * Shows the stats for the week macro nutrients
- * 
- * diet-week-macronutrients
- * 
- * Params: 
- * 
- */
-dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
-	
-	return {
-		scope: {
-			onRefresh: '='
-		},
-		templateUrl: 'modules/diet/directives/diet-week-macronutrients.html',
-		link: function(scope, el) {
-			
-			scope.onRefresh = function() {
-				console.log('asd');
-				scope.getMeals();
-			}
-			
-			scope.go = $rootScope.go;
-			
-			var widget = el[0].parentNode;
-			var component = el[0];
-			
-			component.classList.add('layout-column');
-			component.classList.add('flex');
-			component.id = 'dietWeekMacronutrients-' + Math.floor(Math.random() * 1000000);
-			
-			scope.showMenu = false;
-			
-			scope.cal = 0;
-			scope.carbs = 0;
-			scope.proteins = 0;
-			scope.fats = 0;
-			
-			/**
-			 * Retrieves the meals 
-			 */
-			scope.getMeals = function() {
-				
-				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
-					
-					scope.cal = 0;
-					scope.carbs = 0;
-					scope.proteins = 0;
-					scope.fats = 0;
-					
-					if (data == null) return;
-					
-					for (var i = 0; i < data.meals.length; i++) {
-						
-						scope.cal += data.meals[i].calories;
-						scope.carbs += data.meals[i].carbs;
-						scope.fats += data.meals[i].fat;
-						scope.proteins += data.meals[i].proteins;
-					}
-					
-				});
-			}
-			
-			/**
-			 * Add a new meal
-			 */
-			scope.addMeal = function() {
-				
-				DietService.showAddMealDialog(function(meal) {DietService.postMeal(meal).success(scope.getMeals)});
-			}
-			
-			scope.getMeals();
-		}
-	}
-}]);
-
-/**
  * Daily Macros
  * Shows the macros consumed so far during the day
  * 
@@ -494,11 +252,10 @@ dietDirectivesModule.directive('dietWeekMacronutrients', ['DietService', '$timeo
 dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
 	
 	return {
-		scope: {
-		},
+		scope: true,
 		templateUrl: 'modules/diet/directives/diet-daily-macros.html',
 		link: function(scope, el) {
-
+			
 			/**
 			 * Retrieves the meals 
 			 */
@@ -510,8 +267,10 @@ dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$
 					scope.carbs = 0;
 					scope.proteins = 0;
 					scope.fats = 0;
-					
+
 					if (data == null) return;
+					
+					scope.mealsNumber = data.meals.length;
 					
 					for (var i = 0; i < data.meals.length; i++) {
 						
@@ -524,7 +283,19 @@ dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$
 				});
 			}
 			
+			/**
+			 * Retrieve the water consumption for the day
+			 */
+			scope.getWaterConsumption = function() {
+				
+				DietService.getWaterConsumption().success(function(data) {
+					
+					scope.waterConsumption = data.total / 1000;
+				});
+			}
+			
 			scope.getMeals();
+			scope.getWaterConsumption();
 		}
 	}
 }]);
@@ -571,23 +342,19 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			var maxFat, minFat;
 			var maxCalorie, minCalorie;
 			
-			$timeout(function() {
+			/**
+			 * Retrieves the meals for the specified period of time
+			 */
+			DietService.getMeals(null, dateFrom).success(function(data) {
 				
 				containerWidth = el[0].offsetWidth;
 				containerHeight = el[0].offsetHeight;
 				
 				svg = d3.select(el[0]).append('svg')
-						.attr('width', containerWidth)
-						.attr('height', containerHeight);
+				.attr('width', containerWidth)
+				.attr('height', containerHeight);
 				
 				g = svg.append('g');
-				
-			}, 500);
-			
-			/**
-			 * Retrieves the meals for the specified period of time
-			 */
-			DietService.getMeals(null, dateFrom).success(function(data) {
 				
 				// Get the data in the right format
 				for (var i = 0; i < data.meals.length; i++) {
@@ -661,7 +428,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'middle';})
 							.attr('x', function(d, i) {return x(d.date) + (i == 0 ? 12 : 0)})
 							.attr('y', function(d, i) {return containerHeight - y(d.calories) + (i > 0 ? fontTotoS + 8: 0);})
-							.text(function(d) {if (d.calories == maxCalorie|| d.calories == minCalorie) return d3.format(',')(d.calories.toFixed(0));})
+							.text(function(d) {if (d.calories == maxCalorie|| d.calories == minCalorie) return d3.format(',')(d.calories.toFixed(0));});
 			}
 			
 			/**
@@ -698,7 +465,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				g.append('path').datum(data)
 							.style('fill', 'none')
-							.attr('stroke', '#00BCD4')
+							.attr('stroke', themeColor)
 							.attr('d', line);
 				
 				g.selectAll('.proteinsKeyPoint').data(data).enter().append('circle')
@@ -752,7 +519,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				g.append('path').datum(data)
 							.style('fill', 'none')
-							.attr('stroke', '#F44336')
+							.attr('stroke', accentColor2)
 							.attr('d', line);
 				
 				g.selectAll('.carbsKeyPoint').data(data).enter().append('circle')
@@ -890,6 +657,160 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 			}
 			
+		}
+	}
+}]);
+
+/**
+ * Daily Meals
+ * Shows the meals of the day
+ * 
+ * diet-daily-meals
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: {
+			
+		},
+		link: function(scope, el) {
+			
+			el[0].style.position = 'relative';
+			
+			var hoursOfDay = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+			
+			/**
+			 * Retrieves the meals 
+			 */
+			scope.getMeals = function() {
+				
+				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
+					
+					scope.meals = data.meals;
+					
+					updateGraph();
+					
+				});
+			}
+			
+			/**
+			 * Build the basic graph
+			 */
+			var width = document.body.offsetWidth;
+			var height = document.body.offsetHeight / 2;
+			
+			var svg = d3.select(el[0]).append('svg')
+						.attr('width', width)
+						.attr('height', height)
+						.style('position', 'absolute')
+						.style('bottom', '0');
+			
+			var g = svg.append('g');
+			
+			var x = d3.scaleLinear().range([16, width - 16]);
+			var y = d3.scaleLinear().range([0, height - 6 - fontTotoS]);
+			
+			x.domain([0, 24]);
+			
+			g.selectAll('.hour').data(hoursOfDay).enter().append('text')
+				.attr('class', 'hour')
+				.attr('text-anchor', 'middle')
+				.attr('x', function(d) {return x(d);})
+				.attr('y', height - 9)
+				.attr('font-size', fontTotoXS)
+				.text(function(d) {if (d % 3 == 0) return d + ' h'; return ''});
+			
+			/**
+			 * Updates the graph with the meals of the day
+			 */
+			var updateGraph = function() {
+				
+				/**
+				 * Setting the right Y domain values
+				 */
+				y.domain([0, d3.max(scope.meals, function(d) {return d.calories;})]);
+				
+				/**
+				 * Calories bar
+				 * and Calories text
+				 */
+				g.selectAll('.mealCal').data(scope.meals).enter().append('rect')
+					.attr('class', 'mealCal')
+					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
+					.attr('y', function(d) {return height - y(d.calories);})
+					.attr('width', width / 24)
+					.attr('height', function(d) {return y(d.calories);})
+					.attr('fill', graphicAreaFill);
+				
+				g.selectAll('.mealText').data(scope.meals).enter().append('text')
+					.attr('class', 'mealText')
+					.attr('text-anchor', 'middle')
+					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue); })
+					.attr('y', function(d) {return height - y(d.calories) - 6;})
+					.attr('fill', accentColor)
+					.text(function(d) {console.log(d); return d3.format(',')(d.calories.toFixed(0));})
+				
+				/**
+				 * Proteins bar
+				 */
+				g.selectAll('.mealProt').data(scope.meals).enter().append('line')
+					.attr('class', 'mealProt')
+					.attr('x1', function(d) {timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2);})
+					.attr('x2', function(d) {timeValue = getTime(d.time); return x(timeValue) + width / (24 * 2);})
+					.attr('y1', function(d) {return height - y(d.proteins * 4);})
+					.attr('y2', function(d) {return height - y(d.proteins * 4);})
+					.attr('stroke', themeColor);
+				
+				/**
+				 * Fats bar
+				 */
+				g.selectAll('.mealFat').data(scope.meals).enter().append('rect')
+					.attr('class', 'mealFat')
+					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
+					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
+					.attr('width', width / 24)
+					.attr('height', function(d) {return y(d.fat * 9);})
+					.attr('fill', accentColorOpacity30);
+				
+				g.selectAll('.mealFatLine').data(scope.meals).enter().append('line')
+					.attr('class', 'mealFatLine')
+					.attr('x1', function(d) {timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2);})
+					.attr('x2', function(d) {timeValue = getTime(d.time); return x(timeValue) + width / (24 * 2);})
+					.attr('y1', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
+					.attr('y2', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
+					.attr('stroke', accentColor);
+				
+				/**
+				 * Fats bar
+				 */
+				g.selectAll('.mealCarb').data(scope.meals).enter().append('rect')
+					.attr('class', 'mealCarb')
+					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
+					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);})
+					.attr('width', width / 24)
+					.attr('height', function(d) {return y(d.carbs * 4);})
+					.attr('fill', accentColor2Opacity30);
+			}
+			
+			/**
+			 * Returns the time as a float (e.g. 13:30 => 13,5) on the scale from 0 to 24
+			 * 
+			 * - time : the time as a string (e.g. "13:30")
+			 */
+			var getTime = function(time) {
+				
+				var hour = time.substring(0, time.indexOf(':'));
+				var minutes = time.substring(time.indexOf(':') + 1);
+				
+				var fractionMinutes = parseInt(minutes) / 60;
+				
+				return parseInt(hour) + fractionMinutes;
+			}
+			
+			scope.getMeals();
 		}
 	}
 }]);

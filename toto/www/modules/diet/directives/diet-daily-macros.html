@@ -1,20 +1,11 @@
 
-<div layout="column">
-	<div class="toto-xs center toto-label">Calories</div>
-	<div class="toto-l bold center text-accent">{{calories | number : 0}}</div>
+<toto-value id="dailyCalories" label="Calories" value="calories" type="number" scale="0" accent="true" bold="true" size="toto-l"></toto-value>
+
+<div layout="row" flex id="dailyMacroDetails">
+	<toto-value flex label="Water" value="waterConsumption" type="number" scale="0" accent="false" size="toto-m"></toto-value>
+	<toto-value flex label="Carbs" value="carbs" type="number" scale="0" accent="true" size="toto-m"></toto-value>
+	<toto-value flex label="Proteins" value="proteins" type="number" scale="0" accent="true" size="toto-m"></toto-value>
+	<toto-value flex label="Fats" value="fats" type="number" scale="0" accent="true" size="toto-m"></toto-value>
+	<toto-value flex label="Meals" value="mealsNumber" type="number" scale="0" accent="false" size="toto-m" onclick="TotoNavigation.slideTo(this, 'dietMealsSlide')"></toto-value>
 </div>
 
-<div layout="row" style="margin-top: 24px;" flex>
-	<div layout="column" flex>
-		<div class="toto-xs center toto-label">Carbs</div>
-		<div class="toto-m center text-accent">{{carbs | number : 0}}</div>
-	</div>
-	<div layout="column" flex>
-		<div class="toto-xs center toto-label">Proteins</div>
-		<div class="toto-m center text-accent">{{proteins | number : 0}}</div>
-	</div>
-	<div layout="column" flex>
-		<div class="toto-xs center toto-label">Fats</div>
-		<div class="toto-m center text-accent">{{fats | number : 0}}</div>
-	</div>
-</div>

@@ -1,18 +1,2 @@
 
-<div flex></div>
-<div class="text" layout="row" ng-click="go('/expenses')">
-	<div flex></div>
-	<div class="currency" layout="column">
-		<div flex></div>
-		<span ng-if="currency == null || currency == 'EUR'">&euro;</span>
-		<span ng-if="currency == 'DKK'">kr.</span>
-		<div flex></div>
-	</div>
-	<div class="amount">{{amount | number : 1}}</div>
-	<div flex></div>
-</div>
-<div flex layout="row">
-	<div flex></div>
-	<div class="small-amount">&euro; {{creditCardAmount | number : 0}}</div>
-	<div flex></div>
-</div>
+<toto-value value="amount" label="Total this month" type="number" scale="2" unit="&euro;" accent="true" size="toto-l" bold="true"></toto-value>

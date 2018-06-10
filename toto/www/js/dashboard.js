@@ -9,6 +9,10 @@ dashboardModule.controller("dashboardController", [ '$rootScope', '$scope', '$ht
 
 		$scope.selectedScreen = dashboardLastSelectedScreen == null ? 'spending' : dashboardLastSelectedScreen;
 		
+		$scope.nutritionMenus = [{icon: 'images/svg/served-food.svg', action: $scope.addMeal},
+		                         {icon: 'images/svg/eat.svg', action: $scope.goToMeals},
+		                         {icon: 'images/svg/groceries-bag.svg', action: $scope.goToFoods}];
+		
 		$timeout(function() {
 			
 			mySwiper = new Swiper ('.dashboard .swiper-container', {
