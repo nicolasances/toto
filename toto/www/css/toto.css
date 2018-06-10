@@ -55,7 +55,12 @@ area {fill: rgba(0,0,0,0.3);}
  * DIRECTIVE - TOTO VALUE  
  ***************************************************/
 toto-value {margin: 12px 0;}
-
+/****************************************************
+ * DIRECTIVE - TOTO BUTTON  
+ ***************************************************/
+toto-button .icon-container {border: 2px solid #FFEB3B; border-radius: 50%; padding: 12px;}
+toto-button .icon-container md-icon {fill: #FFEB3B;}
+toto-button .toto-label {margin: 6px 0 0 0;}
 
 /* #ng-view {background: linear-gradient(to bottom, #00BCD4, #007888);} */
 

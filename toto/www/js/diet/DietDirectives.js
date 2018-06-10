@@ -751,7 +751,7 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue); })
 					.attr('y', function(d) {return height - y(d.calories) - 6;})
 					.attr('fill', accentColor)
-					.text(function(d) {console.log(d); return d3.format(',')(d.calories.toFixed(0));})
+					.text(function(d) {return d3.format(',')(d.calories.toFixed(0));})
 				
 				/**
 				 * Proteins bar
@@ -773,7 +773,7 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
 					.attr('width', width / 24)
 					.attr('height', function(d) {return y(d.fat * 9);})
-					.attr('fill', accentColorOpacity30);
+					.attr('fill', accentColorOpacity50);
 				
 				g.selectAll('.mealFatLine').data(scope.meals).enter().append('line')
 					.attr('class', 'mealFatLine')
@@ -792,7 +792,89 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);})
 					.attr('width', width / 24)
 					.attr('height', function(d) {return y(d.carbs * 4);})
-					.attr('fill', accentColor2Opacity30);
+					.attr('fill', accentColor2Opacity50);
+			}
+			
+			/**
+			 * Returns the time as a float (e.g. 13:30 => 13,5) on the scale from 0 to 24
+			 * 
+			 * - time : the time as a string (e.g. "13:30")
+			 */
+			var getTime = function(time) {
+				
+				var hour = time.substring(0, time.indexOf(':'));
+				var minutes = time.substring(time.indexOf(':') + 1);
+				
+				var fractionMinutes = parseInt(minutes) / 60;
+				
+				return parseInt(hour) + fractionMinutes;
+			}
+			
+			scope.getMeals();
+		}
+	}
+}]);
+
+/**
+ * Daily Meals Info
+ * Shows the info about the meals of the day
+ * 
+ * diet-daily-meals-info
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietDailyMealsInfo', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: {
+			
+		},
+		templateUrl: 'modules/diet/directives/diet-daily-meals-info.html',
+		link: function(scope, el) {
+			
+			/**
+			 * Retrieves the meals 
+			 */
+			scope.getMeals = function() {
+				
+				DietService.getMeals(moment().format('YYYYMMDD')).success(function(data) {
+					
+					scope.meals = data.meals;
+					scope.lastMeal = null;
+					
+					/**
+					 * Get the last meal info
+					 */
+					for (var i = 0; i < data.meals.length; i++) {
+
+						if (scope.lastMeal == null) scope.lastMeal = data.meals[i];
+						else if (getTime(scope.meals[i].time) >= getTime(scope.lastMeal.time)) scope.lastMeal = data.meals[i];
+					}
+					
+					if (scope.lastMeal.time.substring(scope.lastMeal.time.indexOf(':') + 1).length == 1) scope.lastMeal.time += '0';
+					
+					/**
+					 * Get the total calories 
+					 */
+					scope.calories = 0;
+
+					for (var i = 0; i < data.meals.length; i++) {
+						scope.calories += data.meals[i].calories;
+					}
+					
+				});
+			}
+			
+			/**
+			 * Function to add a new meal
+			 */
+			scope.addMeal = function() {
+				
+				DietService.showAddMealDialog(function(meal) {
+					console.log(meal);
+				});
+				
 			}
 			
 			/**

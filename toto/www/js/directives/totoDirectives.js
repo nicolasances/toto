@@ -53,6 +53,30 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 });
 
 /**
+ * Draws a button
+ * 
+ * - label	:	(optional) the label of the button (to be displayed on the bottom of the button
+ * 
+ * - svg	:	the svg path of the image to put in the button
+ * 				e.g. images/svg/add.svg
+ */
+totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
+	
+	return {
+		scope : {
+			label: '@', 
+			svg: '@',
+		},
+		templateUrl : 'directives/toto-button.html',
+		link : function(scope, el) {
+
+			el[0].classList.add('layout-column');
+			
+		}
+	};
+});
+
+/**
  * Directive to encapsulate a serie of slides and provide cross slides management (e.g. navigation)
  * 
  * Accepts the following parameters:
@@ -70,6 +94,16 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 			el[0].classList.add('flex');
 			el[0].id = 'totoSlidesContainer-' + Math.floor(Math.random() * 1000000);
 			
+			/**
+			 * This variable stores the slide stack. 
+			 * It stores the stack of all slides that have been visited.
+			 * It is used to go back to the previous navigation point in case of "slide back" command.
+			 */
+			var visitedSlidesStack = [];
+			
+			/**
+			 * Utility function to calculate the correct offsets
+			 */
 			var cumulativeOffset = function(element) {
 				
 				var style = element.currentStyle || window.getComputedStyle(element);
@@ -93,6 +127,8 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 			 * Initialization: only the primary slide is visible
 			 */
 			var slides = el[0].querySelectorAll('toto-slide');
+			
+			// The current slide is a DOM element 
 			var currentSlide = null;
 			
 			for (var i = 0; i < slides.length; i++) {
@@ -140,8 +176,33 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 				// (by a DOM element contained in this slide-container)
 				
 				// Do the magic navigation
-				slideTo(event.context.destination);
+				// If the event has a destination slide, go there
+				if (event.context.destination != null) slideTo(event.context.destination);
+				
+				// If the event doesn't have a destination, it means it's a "slide back" event
+				// So go back to the previous slide
+				if (event.context.destination == null) slideBack();
 			});
+			
+			/**
+			 * Goes back one slide in the stack of visited slides
+			 */
+			var slideBack = function() {
+				
+				// Get the previous slide to pop back up
+				var previousSlide = visitedSlidesStack.pop();
+				
+				// Slide out the current slide
+				TotoSlideOut.slideOut([currentSlide], function() {
+					
+					// Slide in the previous slide
+					TotoSlideOut.slideIn(previousSlide, el[0]);
+					
+					// Update the "current slide"
+					currentSlide = previousSlide;
+					
+				});
+			}
 			
 			/**
 			 * Goes to the specified slide
@@ -151,14 +212,25 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 			 * - slideName	:	the name of the slide to go to
 			 */
 			var slideTo = function(slideName) {
+
+				// Save the previous slide in the slide stack
+				visitedSlidesStack.push(currentSlide)
 				
+				// Slide out the content of the current slide
 				TotoSlideOut.slideOut([currentSlide], function() {
 					
+					// Find the new slide to present 
 					for (var i = 0; i < slides.length; i++) {
 						
 						if (slides[i].getAttribute('name') == slideName) {
 							
+							// Slide in the new slide to present 
 							TotoSlideOut.slideIn(slides[i], el[0]);
+							
+							// Update the "current slide"
+							currentSlide = slides[i];
+							
+							break;
 							
 						}
 					}
@@ -184,7 +256,9 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeout) {
 	
 	return {
-		scope : true,
+		scope : {
+			primary: '@'
+		},
 		link : function(scope, el) {
 			
 			/**
@@ -197,7 +271,7 @@ totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeo
 			$timeout(function() {
 				el[0].style.height = el[0].parentNode.offsetHeight + 'px';
 			}, 200);
-
+			
 		}
 	};
 });

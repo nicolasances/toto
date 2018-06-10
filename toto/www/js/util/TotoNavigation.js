@@ -13,5 +13,13 @@ var TotoNavigation = {
 		slideTo : function(source, destination) {
 
 			TotoEventBus.publishEvent({name: 'slideNavigationRequested', context: {source: source, destination: destination}});
+		},
+		
+		/**
+		 * Slides back to the previous slide issued in the context of the source element
+		 */
+		slideBack : function(source) {
+			
+			TotoEventBus.publishEvent({name: 'slideNavigationRequested', context: {source: source}});
 		}
 };
