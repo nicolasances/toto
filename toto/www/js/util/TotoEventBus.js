@@ -1,5 +1,5 @@
 
-var TotoEvents = ['slideNavigationRequested'];  
+var TotoEvents = ['slideNavigationRequested', 'formStepCompleted'];  
 
 var TotoEventBus = {
 		
