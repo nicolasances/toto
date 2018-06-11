@@ -56,18 +56,18 @@ var totoModule = angular.module("toto", [
 	return {
 		initGoogleSignIn : function() {
 			
-			if (googleIdToken != null) return;
-			
-			var deferred = $q.defer();
-			
-			// Check if sign in has occurred
-			initGoogleSignIn(function() {
-
-				deferred.resolve();
-				
-			}, $rootScope.go, $http);
-			
-			return deferred.promise;
+//			if (googleIdToken != null) return;
+//			
+//			var deferred = $q.defer();
+//			
+//			// Check if sign in has occurred
+//			initGoogleSignIn(function() {
+//
+//				deferred.resolve();
+//				
+//			}, $rootScope.go, $http);
+//			
+//			return deferred.promise;
 		}
 	}
 }])
