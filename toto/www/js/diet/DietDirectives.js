@@ -470,6 +470,15 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 							.attr('x', function(d, i) {return x(d.date) + (i == 0 ? 12 : 0)})
 							.attr('y', function(d, i) {return containerHeight - y(d.calories) + (i > 0 ? fontTotoS + 8: 0);})
 							.text(function(d) {if (d.calories == maxCalorie|| d.calories == minCalorie) return d3.format(',')(d.calories.toFixed(0));});
+				
+				g.selectAll('.calDates').data(data).enter().append('text')
+							.style('font-size', fontTotoXS)
+							.attr('class', 'calDates')
+							.attr('fill', 'none')
+							.attr('text-anchor', function(d, i) {if (i == 0) return 'left'; return 'right';})
+							.attr('x', function(d, i) {return x(d.date) + (i == 0 ? 6 : -18)})
+							.attr('y', containerHeight - 6)
+							.text(function(d, i) {if (i == 0 || i == data.length - 1) return moment(d.date, 'YYYYMMDD').format('DD.MM');})
 			}
 			
 			/**
@@ -649,6 +658,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				g.selectAll('.fatsValue').attr('fill', 'none');
 				
 				g.selectAll('.caloriesValue').attr('fill', 'none');
+				g.selectAll('.calDates').attr('fill', 'none');
 			}
 			
 			/**
@@ -695,6 +705,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				hideAllValues();
 				
 				g.selectAll('.caloriesValue').attr('fill', function(d) {if (d.calories == maxCalorie || d.calories == minCalorie) return accentColor; return 'none'});
+				g.selectAll('.calDates').attr('fill', accentColor);
 				
 			}
 			
