@@ -53,12 +53,85 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 });
 
 /**
+ * Directive to display a LIST OF ITEMS
+ * 
+ * - on-add			:	(optional) function to be called when a 'add' button is pressed
+ * 						if this is passed, the directive will automatically add an add button
+ * 
+ * - on-click		:	(optional) function to be called when a row is clicked on
+ * 						the function will receive the model element that is bound to the row: 
+ * 						function(data)
+ * 							where data is an item of the provided list (dataset) 
+ *						Note that if other click handlers are passed, with a smaller granularity (e.g. on-click on the avatar), this one will be always ignored 
+ * 
+ * - dataset		:	the dataset to display in the list
+ * 
+ * - extractor		:	the data extractor that will retrieve the info to put in the row. 
+ * 						the data extractor is a function(item) that returns, for every item of the dataset, an object describing the row. 
+ * 						the object has to be: 
+ * 						{ 	avatar: 'path of an svg image' (optional) (string),
+ * 							title: 'the title, which is the long textual part of the list item' (string),
+ * 							subtitle: (optional) 'the subtitle, that will be put under the title' (string)
+ * 						}
+ * 
+ */
+totoDirectivesModule.directive('totoList', function($rootScope, $window, $compile) {
+	
+	return {
+		scope : {
+			onAdd		: '=',
+			onClick		: '=',
+			dataset 	: '=',
+			extractor 	: '='
+		},
+		templateUrl: 'directives/toto-list.html',
+		link : function(scope, el) {
+
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			
+			/**
+			 * This function reacts to the click on the whole row. 
+			 * If a onClick function has been passed it will call that one.
+			 * Note that if other click handlers are passed, with a smaller granularity (e.g. on-click on the avatar), this one will be always ignored 
+			 */
+			scope.reactToRowClick = function(item) {
+				
+				// Note that it's the original json object that is being passed back to the on-click callback
+				if (scope.onClick) scope.onClick(item.original);
+			}
+			
+			// Whenever the dataset changes, update
+			scope.$watch("dataset", function(newValue, oldValue) {
+				
+				if (newValue == null) return;
+
+				scope.items = [];
+				for (var i = 0; i < newValue.length; i++) {
+
+					// The data extractor is called to get the structured info to display
+					// however, the original json object is kept, so that it can be passed to the different on-click functions if needed
+					var item = scope.extractor(newValue[i]);
+					item.original = newValue[i];
+					
+					scope.items.push(item);
+				}
+				
+			});
+		}
+	};
+});
+
+/**
  * Draws a button
  * 
  * - label	:	(optional) the label of the button (to be displayed on the bottom of the button
  * 
  * - svg	:	the svg path of the image to put in the button
  * 				e.g. images/svg/add.svg
+ * 
+ * - size	:	(optional, default = 'm') the size of the button
+ * 				can be 's' (small), 'm' (medium), 'l' (large)
  */
 totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 	
@@ -66,12 +139,14 @@ totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 		scope : {
 			label: '@', 
 			svg: '@',
+			size: '@'
 		},
 		templateUrl : 'directives/toto-button.html',
 		link : function(scope, el) {
 
 			el[0].classList.add('layout-column');
 			
+			if (scope.size == 's') el[0].classList.add('sm');
 		}
 	};
 });
@@ -219,11 +294,15 @@ totoDirectivesModule.directive('totoStep', function($rootScope, $window) {
 
 /**
  * Directive to show the next step button
+ * 
+ * - last		:	(optional, default false) if true the button will be rendered as the last step button (checkmark)
+ * 					if true this button will no trigger the "formStepCompleted" event
  */
 totoDirectivesModule.directive('totoNextStep', function($rootScope, $window) {
 	
 	return {
 		scope : {
+			last: '@'
 		},
 		templateUrl: 'directives/toto-next-step.html',
 		link : function(scope, el) {
@@ -235,7 +314,7 @@ totoDirectivesModule.directive('totoNextStep', function($rootScope, $window) {
 			 */
 			scope.confirm = function() {
 				
-				TotoEventBus.publishEvent({name: 'formStepCompleted', context: {source: el[0]}});
+				if (scope.last != 'true') TotoEventBus.publishEvent({name: 'formStepCompleted', context: {source: el[0]}});
 			}
 			
 		}
@@ -600,6 +679,15 @@ totoDirectivesModule.directive('totoNumpad', function($rootScope, $window) {
 			scope.num = '0';
 			
 			var init = true;
+			
+			/**
+			 * Resets the number
+			 */
+			scope.reset = function() {
+				
+				scope.num = '0';
+				init = true;
+			}
 			
 			/**
 			 * Select a digit and add it to the overall number

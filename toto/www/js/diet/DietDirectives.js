@@ -182,6 +182,18 @@ dietDirectivesModule.directive('dietFoods', ['DietService', '$timeout', function
 			}
 			
 			/**
+			 * Returns the data that has to be displayed with the structure required by the toto-list Directive.
+			 */
+			scope.foodDataExtractor = function(food) {
+				
+				return {
+					avatar: 'images/diet/cat/' + food.category + '.svg',
+					title: food.name,
+					subtitle: 'Calories: ' + food.calories + ' cal, Carbs: ' + food.carbs + ' gr, Proteins: ' + food.proteins + ' gr, Fats: ' + food.fat + ' gr.' 
+				};
+			}
+			
+			/**
 			 * Switch to the foods list slide and filters by category
 			 */
 			scope.filterByCategory = function(categoryId) {
@@ -255,6 +267,14 @@ dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$
 		scope: true,
 		templateUrl: 'modules/diet/directives/diet-daily-macros.html',
 		link: function(scope, el) {
+
+			/**
+			 * Subscribe to 'dietMealAdded' event and update the data when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				scope.getMeals();
+			});
 			
 			/**
 			 * Retrieves the meals 
@@ -341,39 +361,54 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			var maxCarb, minCarb;
 			var maxFat, minFat;
 			var maxCalorie, minCalorie;
+
+			/**
+			 * Subscribe to 'dietMealAdded' event and update the data when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				scope.getMeals();
+			});
 			
 			/**
 			 * Retrieves the meals for the specified period of time
 			 */
-			DietService.getMeals(null, dateFrom).success(function(data) {
+			scope.getMeals = function() {
 				
-				containerWidth = el[0].offsetWidth;
-				containerHeight = el[0].offsetHeight;
-				
-				svg = d3.select(el[0]).append('svg')
-				.attr('width', containerWidth)
-				.attr('height', containerHeight);
-				
-				g = svg.append('g');
-				
-				// Get the data in the right format
-				for (var i = 0; i < data.meals.length; i++) {
-
-					var stat = mealsStats.get(data.meals[i].date);
+				DietService.getMeals(null, dateFrom).success(function(data) {
 					
-					if (stat == null) mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
-					else {
-						stat.calories += data.meals[i].calories;
-						stat.proteins += data.meals[i].proteins;
-						stat.carbs += data.meals[i].carbs;
-						stat.fats += data.meals[i].fat;
+					if (svg != null) svg.remove();
+					
+					containerWidth = el[0].offsetWidth;
+					containerHeight = el[0].offsetHeight;
+					
+					svg = d3.select(el[0]).append('svg')
+							.attr('width', containerWidth)
+							.attr('height', containerHeight);
+					
+					g = svg.append('g');
+					
+					// Get the data in the right format
+					mealsStats = new Map();
+					
+					for (var i = 0; i < data.meals.length; i++) {
+						
+						var stat = mealsStats.get(data.meals[i].date);
+						
+						if (stat == null) mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
+						else {
+							stat.calories += data.meals[i].calories;
+							stat.proteins += data.meals[i].proteins;
+							stat.carbs += data.meals[i].carbs;
+							stat.fats += data.meals[i].fat;
+						}
 					}
-				}
-				
-				// Draw the graph
-				createNutritionGraph(mealsStats);
-				
-			});
+					
+					// Draw the graph
+					createNutritionGraph(mealsStats);
+					
+				});
+			}
 			
 			/**
 			 * Creates the graph
@@ -420,7 +455,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 						.attr('y', function(d) {return containerHeight - y(d.calories);})
 						.attr('height', function(d) {return y(d.calories); })
 						.on('click', showCaloriesValues);
-							
+				
 				g.selectAll('.caloriesValue').data(data).enter().append('text')
 							.style('font-size', fontTotoS)
 							.attr('class', 'caloriesValue')
@@ -657,13 +692,18 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 			}
 			
+			scope.getMeals();
+			
 		}
 	}
 }]);
 
 /**
- * Daily Meals
- * Shows the meals of the day
+ * Daily Meals graphic 
+ * 
+ * Shows the meals of the day as a GRAPH with the timeline on the x axis and bars. 
+ * Each bar represent a meal on a specific time of the day. 
+ * Each bar divides the different macronutrients of the meal.
  * 
  * diet-daily-meals
  * 
@@ -724,6 +764,14 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				.text(function(d) {if (d % 3 == 0) return d + ' h'; return ''});
 			
 			/**
+			 * Subscribe to 'dietMealAdded' event and update the graph when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				scope.getMeals();
+			});
+			
+			/**
 			 * Updates the graph with the meals of the day
 			 */
 			var updateGraph = function() {
@@ -740,29 +788,31 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				g.selectAll('.mealCal').data(scope.meals).enter().append('rect')
 					.attr('class', 'mealCal')
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
-					.attr('y', function(d) {return height - y(d.calories);})
 					.attr('width', width / 24)
 					.attr('height', function(d) {return y(d.calories);})
-					.attr('fill', graphicAreaFill);
+					.attr('fill', graphicAreaFill)
+					.attr('y', height)
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.calories);});
+				
+				g.selectAll('.mealCal').data(scope.meals)
+					.transition(300)
+					.attr('height', function(d) {return y(d.calories);})
+					.attr('y', function(d) {return height - y(d.calories);});
 				
 				g.selectAll('.mealText').data(scope.meals).enter().append('text')
 					.attr('class', 'mealText')
 					.attr('text-anchor', 'middle')
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue); })
-					.attr('y', function(d) {return height - y(d.calories) - 6;})
 					.attr('fill', accentColor)
 					.text(function(d) {return d3.format(',')(d.calories.toFixed(0));})
+					.attr('y', height)
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.calories) - 6;});
 				
-				/**
-				 * Proteins bar
-				 */
-				g.selectAll('.mealProt').data(scope.meals).enter().append('line')
-					.attr('class', 'mealProt')
-					.attr('x1', function(d) {timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2);})
-					.attr('x2', function(d) {timeValue = getTime(d.time); return x(timeValue) + width / (24 * 2);})
-					.attr('y1', function(d) {return height - y(d.proteins * 4);})
-					.attr('y2', function(d) {return height - y(d.proteins * 4);})
-					.attr('stroke', themeColor);
+				g.selectAll('.mealText').data(scope.meals)
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.calories) - 6;});
 				
 				/**
 				 * Fats bar
@@ -770,18 +820,18 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				g.selectAll('.mealFat').data(scope.meals).enter().append('rect')
 					.attr('class', 'mealFat')
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
-					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
 					.attr('width', width / 24)
 					.attr('height', function(d) {return y(d.fat * 9);})
-					.attr('fill', accentColorOpacity50);
+					.attr('fill', accentColorOpacity70)
+					.attr('y', height)
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);});
 				
-				g.selectAll('.mealFatLine').data(scope.meals).enter().append('line')
-					.attr('class', 'mealFatLine')
-					.attr('x1', function(d) {timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2);})
-					.attr('x2', function(d) {timeValue = getTime(d.time); return x(timeValue) + width / (24 * 2);})
-					.attr('y1', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
-					.attr('y2', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);})
-					.attr('stroke', accentColor);
+				g.selectAll('.mealFat').data(scope.meals)
+					.transition(300)
+					.attr('height', function(d) {return y(d.fat * 9);})
+					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);});
+				
 				
 				/**
 				 * Fats bar
@@ -789,10 +839,18 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				g.selectAll('.mealCarb').data(scope.meals).enter().append('rect')
 					.attr('class', 'mealCarb')
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - width / (24 * 2); })
-					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);})
 					.attr('width', width / 24)
 					.attr('height', function(d) {return y(d.carbs * 4);})
-					.attr('fill', accentColor2Opacity50);
+					.attr('fill', accentColor2Opacity70)
+					.attr('y', height)
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);});
+				
+				g.selectAll('.mealCarb').data(scope.meals)
+					.attr('height', function(d) {return y(d.carbs * 4);})
+					.transition(300)
+					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);});
+					
 			}
 			
 			/**
@@ -834,6 +892,14 @@ dietDirectivesModule.directive('dietDailyMealsInfo', ['DietService', '$timeout',
 		link: function(scope, el) {
 			
 			/**
+			 * Subscribe to 'dietMealAdded' event and update the data when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				scope.getMeals();
+			});
+			
+			/**
 			 * Retrieves the meals 
 			 */
 			scope.getMeals = function() {
@@ -842,6 +908,9 @@ dietDirectivesModule.directive('dietDailyMealsInfo', ['DietService', '$timeout',
 					
 					scope.meals = data.meals;
 					scope.lastMeal = null;
+					scope.calories = 0;
+					
+					if (data.meals.length == 0) return;
 					
 					/**
 					 * Get the last meal info
@@ -857,8 +926,6 @@ dietDirectivesModule.directive('dietDailyMealsInfo', ['DietService', '$timeout',
 					/**
 					 * Get the total calories 
 					 */
-					scope.calories = 0;
-
 					for (var i = 0; i < data.meals.length; i++) {
 						scope.calories += data.meals[i].calories;
 					}
@@ -872,7 +939,10 @@ dietDirectivesModule.directive('dietDailyMealsInfo', ['DietService', '$timeout',
 			scope.addMeal = function() {
 				
 				DietService.showAddMealDialog(function(meal) {
-					console.log(meal);
+					DietService.postMeal(meal).success(function(data) {
+						
+						TotoEventBus.publishEvent({name: 'dietMealAdded'});
+					});
 				});
 				
 			}

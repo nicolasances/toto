@@ -1,24 +1,37 @@
 
-<div class="result">{{num}}</div>
+<div layout="row">
+	<div flex></div>
+	<div flex layout="column">
+		<div flex></div>
+		<div class="result toto-l">{{num}}</div>
+		<div flex></div>
+	</div> 
+	<div flex layout="column">
+		<div flex></div>
+		<md-icon class="reset" md-svg-src="images/svg/close.svg" ng-click="reset()"></md-icon>
+		<div flex></div>
+	</div>
+</div>
+
 <md-grid-list md-cols="3" md-row-height="1:1">
 	<md-grid-tile ng-repeat="number in ['1', '2', '3', '4', '5', '6', '7', '8', '9']" >
 		<div class="button light-primary-color" layout="column" md-ink-ripple="true" ng-click="digit(number)">
 			<div flex></div>
-			<div class="text">{{number}}</div>
-			<div flex></div>
-		</div>
-	</md-grid-tile>
-	<md-grid-tile >
-		<div class="button light-primary-color" layout="column" md-ink-ripple="true" ng-click="digit('.')">
-			<div flex></div>
-			<div class="text">.</div>
+			<div class="text toto-l">{{number}}</div>
 			<div flex></div>
 		</div>
 	</md-grid-tile>
 	<md-grid-tile >
 		<div class="button light-primary-color" layout="column" md-ink-ripple="true" ng-click="digit('0')">
 			<div flex></div>
-			<div class="text">0</div>
+			<div class="text toto-l">0</div>
+			<div flex></div>
+		</div>
+	</md-grid-tile>
+	<md-grid-tile >
+		<div class="button light-primary-color" layout="column" md-ink-ripple="true" ng-click="digit('.')">
+			<div flex></div>
+			<div class="text toto-l">.</div>
 			<div flex></div>
 		</div>
 	</md-grid-tile>

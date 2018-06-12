@@ -16,8 +16,8 @@ nutrition-screen .nutrition-graph-container text.yScaleText {font-size: 10px;}
 diet-foods {margin-top: 32px; overflow: scroll; -webkit-overflow-scrolling: touch; }
 diet-foods .category-container {outline: none;}
 diet-foods .category-container .avatar {}
-diet-foods .category-container .avatar md-icon {fill: white; width: 32px; height: 32px;}
-diet-foods .category-container .text {margin-top: 12px; color: white !important;}
+diet-foods .category-container .avatar md-icon {width: 32px; height: 32px;}
+diet-foods .category-container .text {margin-top: 12px;}
 .diet-food {margin-bottom: 18px; padding: 0 12px; position: relative; outline: none; color: white; }
 .diet-food .avatar {padding: 12px; border-radius: 50%; border: 3px solid #B2EBF2; margin-right: 12px;}
 .diet-food .avatar md-icon {fill: white;}

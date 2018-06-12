@@ -13,11 +13,11 @@
 /****************************
  * SELECTORS
  ***************************/
-.toto-form .toto-alternatives-picker {margin-top: 24px; border-radius: 5px;}
-.toto-form .toto-alternatives-picker .alternative {background: #efefef; padding: 18px 24px; color: rgba(0,0,0,0.5); border-right: 1px solid #d0d0d0; outline: none;}
-.toto-form .toto-alternatives-picker .alternative.first {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
-.toto-form .toto-alternatives-picker .alternative.last {border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-right: none;}
-.toto-form .toto-alternatives-picker .alternative.selected {color: rgba(0,0,0,0.8);}
+toto-form .toto-alternatives-picker {margin-top: 24px; border-radius: 5px;}
+toto-form .toto-alternatives-picker .alternative {background: #efefef; padding: 18px 24px; color: rgba(0,0,0,0.5); border-right: 1px solid #d0d0d0; outline: none;}
+toto-form .toto-alternatives-picker .alternative.first {border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+toto-form .toto-alternatives-picker .alternative.last {border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-right: none;}
+toto-form .toto-alternatives-picker .alternative.selected {color: rgba(0,0,0,0.8);}
  
  
 /****************************

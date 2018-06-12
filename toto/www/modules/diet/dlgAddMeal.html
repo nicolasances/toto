@@ -5,66 +5,35 @@
 	<toto-input-steps>
 	
 		<toto-step step="1">
-			<toto-datepicker label="Select a date" model="meal.date"></toto-datepicker>
+			<toto-datepicker label="Select a date" model="mealDate"></toto-datepicker>
 			<toto-timepicker label="Select a time" model="meal.time"></toto-timepicker>
 			<div flex></div>
 			<toto-next-step></toto-next-step>
 		</toto-step>
 		
 		<toto-step step="2">
-			asd
+			<toto-list on-add="addAliment" ng-if="!hideAll" dataset="meal.aliments" extractor="alimentDataExtractor"></toto-list>
+			<div ng-if="showAliments">
+				<diet-foods on-select="selectFood" background="dark" hide-add="true"></diet-foods>
+			</div>
+			<div ng-if="showAmountUnit">
+				<div class="toto-alternatives-picker" layout="row">
+					<div flex></div>
+					<div ng-class="['alternative', 'first', newFoodUnit == 'gr' ? 'accent-color' : '']" ng-click="selectUnit('gr')">gr</div>
+					<div ng-class="['alternative', newFoodUnit == 'ml' ? 'accent-color' : '']" ng-click="selectUnit('ml')">ml</div>
+					<div ng-class="['alternative', 'last', newFoodUnit == 'perc' ? 'accent-color' : '']" ng-click="selectUnit(perc)">%</div>
+					<div flex></div>
+				</div>
+			</div>
+			<div ng-if="showAmount" flex layout="column">
+				<div flex></div>
+				<toto-numpad answer="selectAmount"></toto-numpad>
+				<div flex></div>
+			</div>
+			<toto-next-step last="true" ng-click="answer(meal)" ng-if="!showAliments && !showAmountUnit && !showAmount"></toto-next-step>
 		</toto-step>
 		
 	</toto-input-steps>
 	
 </toto-form>
 
-<!-- <div class="toto-form" style="padding: 24px; margin-top: 38px;" flex layout="column"> -->
-<!-- 	<div ng-if="currentStep == 2 && !hideAll" layout="column" flex class="aliments-container"> -->
-<!-- 		<div class="aliment-container" ng-repeat="food in meal.aliments"> -->
-<!-- 			<div class="diet-food" layout="row"> -->
-<!-- 				<div layout="column"> -->
-<!-- 					<div class="avatar" layout="column"><div flex></div><md-icon md-svg-src="images/diet/cat/{{food.category}}.svg"></md-icon><div flex></div></div> -->
-<!-- 					<div flex></div> -->
-<!-- 				</div> -->
-<!-- 				<div layout="column" flex> -->
-<!-- 					<div class="name">{{food.name}}</div> -->
-<!-- 					<div class="details"> -->
-<!-- 						<span ng-if="food.amountGr != null">Amount: {{food.amountGr}} gr.</span> -->
-<!-- 						<span ng-if="food.amountMl != null">Amount: {{food.amountMl}} ml.</span> -->
-<!-- 						<span ng-if="food.amount != null">Amount: {{food.amount}}</span> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div layout="row"> -->
-<!-- 			<div class="add-aliment" ng-click="addAliment()" layout="row" flex> -->
-<!-- 				<md-icon md-svg-src="images/svg/served-food.svg"></md-icon> -->
-<!-- 				<div layout="column" flex> -->
-<!-- 					<div flex></div> -->
-<!-- 					<div class="text">Add an aliment</div> -->
-<!-- 					<div flex></div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div flex></div> -->
-<!-- 		<button ng-click="answer(meal)">Done</button> -->
-<!-- 	</div> -->
-<!-- 	<div ng-if="showAliments"> -->
-<!-- 		<diet-foods on-select="selectFood" background="dark" hide-add="true"></diet-foods> -->
-<!-- 	</div> -->
-<!-- 	<div ng-if="showAmountUnit"> -->
-<!-- 		<div class="toto-alternatives-picker" layout="row"> -->
-<!-- 			<div flex></div> -->
-<!-- 			<div ng-class="['alternative', 'first', newFoodUnit == 'gr' ? 'accent-color' : '']" ng-click="selectUnit('gr')">gr</div> -->
-<!-- 			<div ng-class="['alternative', newFoodUnit == 'ml' ? 'accent-color' : '']" ng-click="selectUnit('ml')">ml</div> -->
-<!-- 			<div ng-class="['alternative', 'last', newFoodUnit == 'perc' ? 'accent-color' : '']" ng-click="selectUnit(perc)">%</div> -->
-<!-- 			<div flex></div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<div ng-if="showAmount" flex layout="column"> -->
-<!-- 		<div flex></div> -->
-<!-- 		<toto-numpad answer="selectAmount"></toto-numpad> -->
-<!-- 		<div flex></div> -->
-<!-- 	</div> -->
-<!-- </div> -->

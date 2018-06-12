@@ -145,15 +145,13 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 				$scope.hideAll = false;
 				$scope.showAliments = false;
 				$scope.showAmount = false;
+				$scope.mealDate = null;
 				
 				$scope.hide = function() {$mdDialog.hide;};
 				$scope.cancel = function() {$mdDialog.cancel();};
 				$scope.answer = function(meal) {
 					
-					meal.time = $scope.selectedHour + ':' + $scope.selectedMinute;
-					
-					if (meal.date == null) meal.date = moment().format('YYYYMMDD');
-					else meal.date = moment(meal.date).format('YYYYMMDD');
+					meal.date = moment($scope.mealDate).format('YYYYMMDD');
 					
 					$mdDialog.hide(meal);
 				};
@@ -234,6 +232,22 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 					$scope.meal.carbs += carbs;
 					$scope.meal.sugars += sugars;
 					
+				}
+				
+				/**
+				 * Follows the specifications of the data-extractor of toto-list
+				 */
+				$scope.alimentDataExtractor = function(item) {
+					
+					var amount = '';
+					if (item.amountGr != null) amount = item.amountGr + ' gr';
+					else if (item.amountMl != null) amount = item.amountMl + ' ml';
+					else amount = item.amount;
+					
+					return {
+						avatar: 'images/diet/cat/' + item.category + '.svg',
+						title: item.name + ' (' + amount + ')'
+					}
 				}
 				
 				$scope.clearCategoriesSelection = function() {for (i=0;i<$scope.categories.length; i++) $scope.categories[i].selected = false;}

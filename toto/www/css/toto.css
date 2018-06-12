@@ -11,10 +11,12 @@
  * COLORS  
  ***************************************************/
 .theme-color {background: #00BCD4;} 
-.theme-color-alt {background: #00838F;}
-
+.theme-color-dark {background: #006064;}
 .theme-accent-color {background: #FFEB3B;}
 .theme-accent-color md-icon {fill: rgba(0,0,0,0.5);}
+
+.theme-color-border {border-color: #00BCD4;}
+.theme-color-dark-border {border-color: #006064;}
 
 .text-accent {color: #FFEB3B;}
 
@@ -56,6 +58,7 @@ toto-value .toto-label-heading {margin-bottom: 6px;}
  * DIRECTIVE - TOTO BUTTON  
  ***************************************************/
 toto-button .icon-container {border: 2px solid #FFEB3B; border-radius: 50%; padding: 12px;}
+toto-button.sm .icon-container {padding: 6px;}
 toto-button .icon-container md-icon {fill: #FFEB3B;}
 toto-button .toto-label {margin: 6px 0 0 0;}
 
@@ -83,9 +86,22 @@ toto-timepicker md-icon {margin: 0 12px; outline: none;}
 toto-timepicker .time {min-width: 24px;}
 
 /****************************************************
+ * DIRECTIVE - TOTO-LIST
+ ***************************************************/
+toto-list {overflow-y: scroll;}
+toto-list .item {margin: 9px 24px;}
+toto-list .item.no-item {opacity: 0.5;}
+toto-list .item .avatar {border-width: 2px; border-style: solid; border-radius: 50%; padding: 6px; margin-right: 12px;}
+toto-list .item .avatar md-icon {}
+toto-list .item .title {}
+ 
+/****************************************************
  * DIRECTIVE - FORM - TOTO NEXT STEP
  ***************************************************/
 toto-next-step {margin: 24px 0;}
+
+
+
 /************************************************************************
  * TOTO CLOCK 
  ***********************************************************************/
@@ -95,8 +111,9 @@ toto-next-step {margin: 24px 0;}
  * TOTO NUMPAD 
  ***********************************************************************/
 toto-numpad {}
-toto-numpad .result {text-align: center; color: white; font-size: 22px; margin: 24px 0;}
-toto-numpad .button {color: rgba(0,0,0,0.8); font-size: 22px; width: 80%; height: 80%; border-radius: 50%; outline: none;}
+toto-numpad md-icon.reset {width: 18px; height: 18px; outline: none; opacity: 0.7;}
+toto-numpad .result {text-align: center; opacity: 0.7;}
+toto-numpad .button {color: rgba(0,0,0,0.8); width: 80%; height: 80%; border-radius: 50%; outline: none;}
 toto-numpad .button .md-ripple-container {border-radius: 50%;}
 toto-numpad .button .text {text-align: center;}
 

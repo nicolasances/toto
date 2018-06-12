@@ -21,44 +21,12 @@
 		
 		<div class="swiper-slide" layout="column">
 		
-			<div ng-class="['diet-food', background]" ng-repeat="food in foods" layout="row" ng-click="onClick(food)">
-			
-				<div layout="column">
-					<div class="avatar" layout="column">
-						<div flex></div>
-						<md-icon md-svg-src="images/diet/cat/{{food.category}}.svg"></md-icon>
-						<div flex></div>
-					</div>
-					<div flex></div>
-				</div>
-				
-				<div layout="column" flex>
-					<div class="name">{{food.name}}</div>
-					<div class="details">
-						<span>Calories: {{food.calories}} kcal</span>
-						<span>Carbs: {{food.carbs}} gr.</span>
-						<span>Sugars: {{food.sugars}} gr.</span>
-					</div>
-					<div class="details">
-						<span>Proteins: {{food.proteins}} gr.</span>
-						<span>Fat: {{food.fat}} gr.</span>
-					</div>
-				</div>
-				
-				<div class="options" layout="column" ng-if="food.showOptions">
-					<div flex></div>
-					<div layout="row">
-						<div class="option accent-color" md-whiteframe="3" layout="column" ng-click="deleteFood(food.id)"><div flex></div> <md-icon md-svg-src="images/svg/trash.svg"></md-icon> <div flex></div> </div>
-					</div>
-					<div flex></div>
-				</div>
-				
-			</div>
-			
+			<toto-list on-click="onClick" dataset="foods" extractor="foodDataExtractor"></toto-list>
+		
 		</div>
 	</div>
 </div>
 
-<md-button class="md-fab floating" aria-label="Add a food" ng-click="addFood()" id="addFoodButton" style="display: none;">
+<md-button class="md-fab floating" aria-label="Add a food" ng-click="addFood()" id="addFoodButton" ng-if="!hideAdd">
 	<md-icon md-svg-src="images/svg/add.svg" ></md-icon>
 </md-button>

@@ -1,0 +1,33 @@
+
+<div class="item" layout="row" ng-repeat="item in items" ng-click="reactToRowClick(item)">
+	<div layout="column">
+		<div flex></div>
+		<div class="avatar theme-color-dark-border" layout="column"><div flex></div><md-icon md-svg-src="{{item.avatar}}"></md-icon><div flex></div></div>
+		<div flex></div>
+	</div>
+	<div layout="column" flex >
+		<div flex></div>
+		<div class="title toto-s">{{item.title}}</div>
+		<div class="subtitle toto-xs">{{item.subtitle}}</div>
+		<div flex></div>
+	</div>
+</div>
+
+<!-- NO ITEM -->
+<div class="item no-item" layout="row" ng-if="items == null || items.length == 0">
+	<div layout="column">
+		<div flex></div>
+		<div class="avatar theme-color-dark-border" layout="column"><div flex></div><md-icon md-svg-src="images/svg/question-sign.svg"></md-icon><div flex></div></div>
+		<div flex></div>
+	</div>
+	<div layout="column" flex>
+		<div flex></div>
+		<div class="title toto-s">No items in the lists</div>
+		<div flex></div>
+	</div>
+</div>
+
+<!-- ADD BUTTON -->
+<div class="item" layout="row" ng-if="onAdd != null">
+	<toto-button size="s" svg="images/svg/add.svg" ng-click="onAdd()"></toto-button>
+</div>
