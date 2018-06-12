@@ -39,7 +39,7 @@
 /****************************************************
  * STANDARD DOM ELEMENTS 
  ***************************************************/
-body {font-family: 'toto'; color: rgba(0,0,0,0.7) !important;}
+body {font-family: 'toto'; color: rgba(0,0,0,0.7) !important; -webkit-overflow-scrolling: touch;}
 
 md-dialog.md-default-theme, md-dialog {background: #00BCD4 !important;}
 md-toolbar {background: transparent !important; color: currentColor !important;}
