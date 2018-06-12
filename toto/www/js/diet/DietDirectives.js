@@ -370,6 +370,15 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				scope.getMeals();
 			});
 			
+			$timeout(function() {
+				
+				containerWidth = el[0].offsetWidth;
+				containerHeight = el[0].offsetHeight;
+				
+				scope.getMeals();
+				
+			}, 500);
+			
 			/**
 			 * Retrieves the meals for the specified period of time
 			 */
@@ -378,9 +387,6 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				DietService.getMeals(null, dateFrom).success(function(data) {
 					
 					if (svg != null) svg.remove();
-					
-					containerWidth = el[0].offsetWidth;
-					containerHeight = el[0].offsetHeight;
 					
 					svg = d3.select(el[0]).append('svg')
 							.attr('width', containerWidth)
@@ -691,8 +697,6 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				g.selectAll('.caloriesValue').attr('fill', function(d) {if (d.calories == maxCalorie || d.calories == minCalorie) return accentColor; return 'none'});
 				
 			}
-			
-			scope.getMeals();
 			
 		}
 	}
