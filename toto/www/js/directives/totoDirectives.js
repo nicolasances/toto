@@ -147,6 +147,7 @@ totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 			el[0].classList.add('layout-column');
 			
 			if (scope.size == 's') el[0].classList.add('sm');
+			if (scope.size == 'l') el[0].classList.add('l');
 		}
 	};
 });

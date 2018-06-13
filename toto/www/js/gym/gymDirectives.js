@@ -46,9 +46,37 @@ gymDirectivesModule.directive('gymWeekMuscles', ['GymService', '$timeout', funct
 	
 	return {
 		scope: {
+			asd: '@'
 		},
 		templateUrl: 'modules/gym/directives/gym-week-muscles.html',
-		link: function(scope) {
+		link: function(scope, el) {
+			
+			scope.showNewSession = false;
+			
+			TotoSlideOut.slideOut([document.querySelector('#asd2')]);
+			
+			/**
+			 * Register to the gymUIDaySelected
+			 * When receiving that event, only show the muscle that has been selected  
+			 */
+			TotoEventBus.subscribeToEvent('gymUIDaySelected', function(event) {
+				
+				if (event == null) {console.log('Received gymUIDaySelected but no event attached'); return;};
+				if (event.context == null || event.context.data == null) {console.log('Received gymUIDaySelected but no context or data attached.'); return;}
+
+				var data = event.context.data;
+				
+				// TODO TO BE CHECKED
+				if (data.muscle == null) {
+					
+					scope.$apply(function() {scope.showNewSession = true;});
+					
+					TotoSlideOut.slideOut([document.querySelector('#asd')], function() {
+						
+						TotoSlideOut.slideIn(document.querySelector('#asd2'), el[0]);
+					});
+				}
+			});
 			
 			/**
 			 * Updates the list of muscles that have been worked out 
@@ -211,12 +239,13 @@ gymDirectivesModule.directive('gymWeekWheel', ['GymService', '$timeout', '$rootS
 			
 			var arcGutter = 0.01 * 2 * Math.PI;
 			var arcRadialLength = 2 * Math.PI / 7;
-			var arc = d3.arc().innerRadius(70).outerRadius(80)
-						.startAngle(function(d, i) {return i * arcRadialLength;})
-						.endAngle(function(d, i) {return arcRadialLength * (i + 1) - arcGutter;});
+			
+			var arc = d3.arc().innerRadius(function(d, i) {if (i == scope.selectedDay) return 60; return 70;}).outerRadius(function(d, i) {if (i == scope.selectedDay) return 100; return 80;}).startAngle(function(d, i) {return i * arcRadialLength;}).endAngle(function(d, i) {return arcRadialLength * (i + 1) - arcGutter;});
+			
 			var goodPainArc = d3.arc().innerRadius(85).outerRadius(90)
 						.startAngle(function(d, i) {if (d.session != null && (d.session.postWorkoutPain == 'goodPain' || d.session.postWorkoutPain == 'extremePain')) return i * arcRadialLength; return 0;})
 						.endAngle(function(d, i) {if (d.session != null && (d.session.postWorkoutPain == 'goodPain' || d.session.postWorkoutPain == 'extremePain')) return arcRadialLength * (i + 1) - arcGutter; return 0;});
+			
 			var extremePainArc = d3.arc().innerRadius(95).outerRadius(100)
 						.startAngle(function(d, i) {if (d.session != null && d.session.postWorkoutPain == 'extremePain') return i * arcRadialLength; return 0;})
 						.endAngle(function(d, i) {if (d.session != null && d.session.postWorkoutPain == 'extremePain') return arcRadialLength * (i + 1) - arcGutter; return 0;});
@@ -237,6 +266,32 @@ gymDirectivesModule.directive('gymWeekWheel', ['GymService', '$timeout', '$rootS
 					}
 				}
 			}
+			
+			/**
+			 * React to a click on an arc. 
+			 * The reaction varies based on the scenario: 
+			 * 
+			 *  - if the arc corresponds to a day without training, it selects the arc and show a "play" button to start a new session on that day
+			 *  
+			 *  - if the arc corresponds to a day where some training has been performed it will show the details of that session
+			 *  
+			 * No matter what the arc will be expanded in depth to show the selection made
+			 */
+			var onArcClick = function(d, i) {
+				
+				// Set the selected day and selected data item 
+				scope.selectedDay = i;
+				scope.selectedItem = d;
+				
+				// Tween the arc
+				g.selectAll('.emptyArc').data(scope.days)
+					.transition(300)
+					.attr('d', arc);
+				
+				// Fire an event 
+				TotoEventBus.publishEvent({name: 'gymUIDaySelected', context: {data: d}});
+				
+			}
 
 			/** 
 			 * Empty arc, without any color of workout
@@ -246,7 +301,8 @@ gymDirectivesModule.directive('gymWeekWheel', ['GymService', '$timeout', '$rootS
 					.attr('class', 'emptyArc')
 					.attr('fill', graphicAreaFill)
 					.attr('transform', 'translate(' + container.offsetWidth/2 + ', ' + container.offsetHeight/2 + ')')
-					.attr('d', arc);
+					.attr('d', arc)
+					.on('click', onArcClick);
 			
 			/**
 			 * Updates the graph with the worked days: 
