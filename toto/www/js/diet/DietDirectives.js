@@ -332,7 +332,7 @@ dietDirectivesModule.directive('dietDailyMacros', ['DietService', '$timeout', '$
  *  			default is 4 weeks
  * 
  */
-dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+dietDirectivesModule.directive('dietMacrosStats', function(DietService, $timeout, $rootScope, $interval) {
 	
 	return {
 		scope: {
@@ -361,6 +361,27 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			var maxCarb, minCarb;
 			var maxFat, minFat;
 			var maxCalorie, minCalorie;
+			
+			/**
+			 * Watch for height change and re-render the graph when the height changes
+			 */
+			scope.$watch(function() {return el[0].offsetHeight;}, function(newValue, oldValue) {
+
+				containerWidth = el[0].offsetWidth;
+				containerHeight = newValue;
+				
+				if (svg != null) svg.remove();
+				
+				svg = d3.select(el[0]).append('svg')
+						.attr('width', containerWidth)
+						.attr('height', containerHeight);
+				
+				g = svg.append('g');
+				
+				// Draw the graph
+				createNutritionGraph();
+				
+			});
 
 			/**
 			 * Subscribe to 'dietMealAdded' event and update the data when received
@@ -369,15 +390,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				scope.getMeals();
 			});
-			
-			$timeout(function() {
-				
-				containerWidth = el[0].offsetWidth;
-				containerHeight = el[0].offsetHeight;
-				
-				scope.getMeals();
-				
-			}, 500);
+
 			
 			/**
 			 * Retrieves the meals for the specified period of time
@@ -386,22 +399,14 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 				DietService.getMeals(null, dateFrom).success(function(data) {
 					
-					if (svg != null) svg.remove();
-					
-					svg = d3.select(el[0]).append('svg')
-							.attr('width', containerWidth)
-							.attr('height', containerHeight);
-					
-					g = svg.append('g');
-					
 					// Get the data in the right format
-					mealsStats = new Map();
+					scope.mealsStats = new Map();
 					
 					for (var i = 0; i < data.meals.length; i++) {
 						
-						var stat = mealsStats.get(data.meals[i].date);
+						var stat = scope.mealsStats.get(data.meals[i].date);
 						
-						if (stat == null) mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
+						if (stat == null) scope.mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
 						else {
 							stat.calories += data.meals[i].calories;
 							stat.proteins += data.meals[i].proteins;
@@ -411,7 +416,7 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 					}
 					
 					// Draw the graph
-					createNutritionGraph(mealsStats);
+					createNutritionGraph();
 					
 				});
 			}
@@ -419,7 +424,11 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 			/**
 			 * Creates the graph
 			 */
-			var createNutritionGraph = function(stats) {
+			var createNutritionGraph = function() {
+				
+				if (scope.mealsStats == null) return;
+				
+				var stats = scope.mealsStats;
 				
 				var data = [];
 				for (let item of stats.values()) {
@@ -709,9 +718,11 @@ dietDirectivesModule.directive('dietMacrosStats', ['DietService', '$timeout', '$
 				
 			}
 			
+			scope.getMeals();
+			
 		}
 	}
-}]);
+});
 
 /**
  * Daily Meals graphic 
