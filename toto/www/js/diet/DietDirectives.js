@@ -370,14 +370,6 @@ dietDirectivesModule.directive('dietMacrosStats', function(DietService, $timeout
 				containerWidth = el[0].offsetWidth;
 				containerHeight = newValue;
 				
-				if (svg != null) svg.remove();
-				
-				svg = d3.select(el[0]).append('svg')
-						.attr('width', containerWidth)
-						.attr('height', containerHeight);
-				
-				g = svg.append('g');
-				
 				// Draw the graph
 				createNutritionGraph();
 				
@@ -427,6 +419,14 @@ dietDirectivesModule.directive('dietMacrosStats', function(DietService, $timeout
 			var createNutritionGraph = function() {
 				
 				if (scope.mealsStats == null) return;
+				
+				if (svg != null) svg.remove();
+				
+				svg = d3.select(el[0]).append('svg')
+						.attr('width', containerWidth)
+						.attr('height', containerHeight);
+				
+				g = svg.append('g');
 				
 				var stats = scope.mealsStats;
 				
