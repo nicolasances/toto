@@ -145,18 +145,18 @@
 #gym.plan .exercices-container .exercice-container .menu-container .action md-icon {height: 16px; width: 16px; fill: white;}
 
 #gym.session {padding: 12px;}
-#gym.session .exercices-container {color: white; overflow: scroll}
+#gym.session .exercices-container {overflow: scroll}
 #gym.session .exercices-container .timeline {background-image: url('../images/dot-grey.png'); background-repeat: repeat-y; background-size: 6px; height: 90%; width: 56px; position: absolute; background-position: 50%; margin-top: 12px;}
 #gym.session .exercices-container .exercice-container {margin: 6px 0;}
-#gym.session .exercices-container .exercice-container .icon {width: 56px; height: 56px; border: 3px solid #B2EBF2; border-radius: 50%; outline: none;}
-#gym.session .exercices-container .exercice-container .icon md-icon {width: 20px; height: 20px; fill: white;}
+#gym.session .exercices-container .exercice-container .icon {width: 56px; height: 56px; border-width: 2px; border-style: solid; border-radius: 50%; outline: none;}
+#gym.session .exercices-container .exercice-container .icon md-icon {width: 20px; height: 20px; }
 #gym.session .exercices-container .exercice-container .exercise {margin-left: 12px;}
 #gym.session .exercices-container .exercice-container .exercise .text-container {margin: 6px 0;}
 #gym.session .exercices-container .exercice-container .exercise .text-container .ex-name {font-weight: 400;}
 #gym.session .exercices-container .exercice-container .exercise .text-container .value {font-size: 0.8em; margin-right: 12px; opacity: 0.9;}
-#gym.session .exercices-container .mood md-icon {fill: white;}
-#gym.session .exercices-container .final-icon {width: 56px; height: 56px; border: 3px solid #B2EBF2; border-radius: 50%; margin-top: 12px; outline: none;}
-#gym.session .exercices-container .final-icon md-icon {width: 20px; height: 20px; fill: white;}
+#gym.session .exercices-container .mood md-icon {}
+#gym.session .exercices-container .final-icon {width: 56px; height: 56px; border-width: 3px; border-style: solid; border-radius: 50%; margin-top: 12px; outline: none;}
+#gym.session .exercices-container .final-icon md-icon {width: 20px; height: 20px;}
 #gym.session .exercices-container .final-icon.completed {background-color: #B2EBF2; border-color: #B2EBF2;}
 #gym.session .exercices-container .final-icon.completed md-icon {fill: #b9b9b9;}
 #gym.session .exercices-container .final-text {font-size: 1.3em; margin-top: 12px; margin-left: 12px; opacity: 0.7;}
@@ -169,16 +169,11 @@
 #gym.session .exercices-container .exercice-container.completed .exercise .text-container {opacity: 0.7;}
 #gym.session .exercices-container .exercice-container.completed .mood {opacity: 0.7;}
 #gym.session .exercices-container .exercice-container.completed .score {opacity: 0.7;}
-#gym.session .post-workout-icons-container {margin-top: 24px; margin-bottom: 24px;}
-#gym.session .post-workout-icons-container .connector {border: 1px solid #9CCC65; width: 12px; min-width: 12px; max-width: 12px; height: 0;}
-#gym.session .post-workout-icons-container .post-workout-icon {border: 4px solid #9CCC65; border-radius: 50%; padding: 10px; outline: none;}
-#gym.session .post-workout-icons-container .post-workout-icon md-icon {width: 20px; height: 20px; outline: none; fill: white;}
-#gym.session .goals-container {margin-top: 12px; margin-bottom: 0px;}
-#gym.session .goals-container .goal-container {color: white; position: relative; border: 2px solid #B2EBF2; padding: 6px; border-radius: 5px; overflow: hidden; box-sizing: border-box; margin-top: 12px;}
-#gym.session .goals-container .goal-container md-icon {z-index: 2; fill: white;}
-#gym.session .goals-container .goal-container .remaining-points {z-index: 2; text-align: right; opacity: 0.8;}
-#gym.session .goals-container .goal-container .remaining-points .pts {font-size: 0.7em; margin-top: 4px; margin-left: 2px;}
-#gym.session .goals-container .goal-container .level {content: ''; position: absolute; height: 100%; bottom: 0; left: 0;}
+
+gym-post-workout {margin-top: 24px; margin-bottom: 24px;}
+gym-post-workout .connector {border-width: 1px; border-style: solid; width: 12px; min-width: 12px; max-width: 12px; height: 0;}
+gym-post-workout .post-workout-icon {border-width: 4px; border-style: solid; border-radius: 50%; padding: 10px; outline: none;}
+gym-post-workout .post-workout-icon md-icon {width: 20px; height: 20px; outline: none;}
 
 #gym #gym-dialog .change-mood {}
 #gym #gym-dialog .change-mood .mood {margin: 12px 6px;}

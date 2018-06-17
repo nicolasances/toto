@@ -1,10 +1,32 @@
 
 <div class="item" layout="row" ng-repeat="item in items" ng-click="reactToRowClick(item)">
-	<div layout="column">
+	
+	<!-- Avatar -->
+	<div layout="column" ng-if="item.avatar != null">
 		<div flex></div>
 		<div class="avatar theme-color-dark-border" layout="column"><div flex></div><md-icon md-svg-src="{{item.avatar}}"></md-icon><div flex></div></div>
 		<div flex></div>
 	</div>
+	
+	<!-- Date range container -->
+	<!-- E.g. gym plans, where there's a range of date for the validity of the plan (13 JUL -> 13 AUG) -->
+	<div class="dates-container" layout="row" ng-if="item.dateRange != null">
+		<div class="date-container" layout="column">
+			<div class="day">{{item.dateRange.start | date : 'd'}}</div>
+			<div class="month">{{item.dateRange.start | date : 'MMM'}}</div>
+		</div>
+		<div class="icon" layout="column">
+			<div flex></div>
+			<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
+			<div flex></div>
+		</div>
+		<div class="date-container" layout="column">
+			<div class="day">{{item.dateRange.end | date : 'd'}}</div>
+			<div class="month">{{item.dateRange.end | date : 'MMM'}}</div>
+		</div>
+	</div>
+	
+	<!-- Main text of the item / row -->
 	<div layout="column" flex >
 		<div flex></div>
 		<div class="title toto-s">{{item.title}}</div>

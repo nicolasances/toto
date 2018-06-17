@@ -1,0 +1,30 @@
+
+<div layout="column" id="gymMuscles" flex>
+	<div class="toto-m center toto-label-heading">Muscle groups</div>
+	<div ng-class="['toto-s', 'center', 'toto-label', (muscle.worked ? 'text-accent' : '')]" ng-repeat="muscle in muscles">{{muscle.name}}</div>
+</div>
+
+<div layout="column" id="gymStartSession" flex>
+	<div ng-class="['toto-m', 'center', 'toto-label']">No session on that day!</div>
+	<div flex></div>
+	<toto-button svg="images/svg/play.svg" size='l' ng-click="startSession()"></toto-button>
+	<div ng-class="['toto-xs', 'center', 'toto-label']" >Start a new session</div>
+	<div flex></div>
+	<toto-button svg="images/svg/close.svg" accent="false" size='s' onclick="TotoEventBus.publishEvent({name: 'gymUIDayUnselected'});"></toto-button>
+	<div flex></div>
+</div>
+
+<div layout="column" id="gymSessionDetails" flex>
+	<div ng-class="['toto-m', 'center', 'toto-label']">{{workout.name}}</div>
+	<toto-value label="date" value="sessionDate" type="date"></toto-value>
+	<gym-post-workout session="session" ng-show="session.completed"></gym-post-workout>
+	
+	<div layout="row">
+		<div flex></div>
+		<toto-button svg="images/svg/play.svg" ng-click="resumeSession(session.id)"></toto-button>
+		<div style="margin: 0 12px;"></div>
+		<toto-button svg="images/svg/trash.svg" ng-click="deleteSession(session.id)"></toto-button>
+		<div flex></div>
+	</div>
+	
+</div>

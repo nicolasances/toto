@@ -1,5 +1,5 @@
 
-var msHost = "35.224.183.108";
+var msHost = "104.197.159.113";
 
 var microservicesProtocol = "http";
 var microservicesHost = msHost;

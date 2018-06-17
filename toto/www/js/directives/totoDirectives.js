@@ -5,23 +5,24 @@ var totoDirectivesModule = angular.module('totoDirectivesModule', []);
  * 
  * Accepts the following parameters:
  *  
- *  - label : 	the label to display
+ *  - label 		: 	the label to display
  *  
- *  - unit  : 	(optional) the unit to display
+ *  - unit 		 : 	(optional) the unit to display
  *  
- *  - value : 	the value to display
+ *  - value 		: 	the value to display
  *  
- *  - type	: 	the type of value 
+ *  - type			: 	the type of value 
  *  			accepted values are : number, date
  *  
- *  - scale :	the scale, in case of numeric value
+ *  - scale 		:	the scale, in case of numeric value
  *  
- *  - size  : 	(optional, default toto-s) the size of the value
+ *  - size  		: 	(optional, default toto-s) the size of the value
  *  			Can be toto-xl, toto-l, toto-m, toto-s, toto-xs 
  *  
- *  - accent:   (optional, default false) true if the text has to be accented
+ *  - accent		:   (optional, default false) true if the text has to be accented
  *  
- *  - bold	:	(optional, default false) true to have the text in bold
+ *  - bold			:	(optional, default false) true to have the text in bold
+ *  
  */
 totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 	
@@ -34,20 +35,26 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 			scale: '@',
 			size: '@',
 			accent: '@',
-			bold: '@'
+			bold: '@', 
 		},
 		templateUrl : 'directives/toto-value.html',
 		link : function(scope, el) {
 
+			// Update classes 
 			el[0].classList.add('layout-column');
 			
+			// Set the default accent (false)
 			scope.accent = (scope.accent == 'true' ? true : false);
 			
+			// Set the default size to small
 			if (scope.size == null) scope.size = 'toto-s';
 			
+			// Set the default scale for numbers to 2
 			if (scope.scale == null) scope.scale = 2;
 			
+			// Set the default bold to false
 			scope.bold = (scope.bold == 'true' ? true : false);
+			
 		}
 	};
 });
@@ -70,9 +77,14 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
  * 						the data extractor is a function(item) that returns, for every item of the dataset, an object describing the row. 
  * 						the object has to be: 
  * 						{ 	avatar: 'path of an svg image' (optional) (string),
+ * 							dateRange: an object containing a range of dates: {start: Date, end: Date}
  * 							title: 'the title, which is the long textual part of the list item' (string),
  * 							subtitle: (optional) 'the subtitle, that will be put under the title' (string)
  * 						}
+ * 
+ * - stepOnSelect	:	(optional, default = false) Use this to go to the next toto-form step
+ * 						Only works if this list is embedded in a <toto-step> item
+ * 						If passed "true", selecting an item on the list will also trigger an event to move to the next step of the form
  * 
  */
 totoDirectivesModule.directive('totoList', function($rootScope, $window, $compile) {
@@ -82,23 +94,28 @@ totoDirectivesModule.directive('totoList', function($rootScope, $window, $compil
 			onAdd		: '=',
 			onClick		: '=',
 			dataset 	: '=',
-			extractor 	: '='
+			extractor 	: '=',
+			stepOnSelect: '@'
 		},
 		templateUrl: 'directives/toto-list.html',
 		link : function(scope, el) {
-
-			el[0].classList.add('layout-column');
-			el[0].classList.add('flex');
+			
+			// Initialize default values
+			scope.stepOnSelect = scope.stepOnSelect == 'true';
 			
 			/**
 			 * This function reacts to the click on the whole row. 
 			 * If a onClick function has been passed it will call that one.
-			 * Note that if other click handlers are passed, with a smaller granularity (e.g. on-click on the avatar), this one will be always ignored 
+			 * Note that if other click handlers are passed, with a smaller granularity (e.g. on-click on the avatar), this one will be always ignored.
+			 * 
+			 * In case scope.stepOnSelect is 'true', then the click will trigger a "move to next step" event
 			 */
 			scope.reactToRowClick = function(item) {
 				
 				// Note that it's the original json object that is being passed back to the on-click callback
 				if (scope.onClick) scope.onClick(item.original);
+				
+				if (scope.stepOnSelect) TotoEventBus.publishEvent({name: 'formStepCompleted', context: {source: el[0]}});
 			}
 			
 			// Whenever the dataset changes, update
@@ -132,6 +149,8 @@ totoDirectivesModule.directive('totoList', function($rootScope, $window, $compil
  * 
  * - size	:	(optional, default = 'm') the size of the button
  * 				can be 's' (small), 'm' (medium), 'l' (large)
+ * 
+ * - accent	:	(optional, default = true) false if the button should be greyed out
  */
 totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 	
@@ -139,7 +158,8 @@ totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 		scope : {
 			label: '@', 
 			svg: '@',
-			size: '@'
+			size: '@',
+			accent: '@'
 		},
 		templateUrl : 'directives/toto-button.html',
 		link : function(scope, el) {
@@ -148,6 +168,8 @@ totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 			
 			if (scope.size == 's') el[0].classList.add('sm');
 			if (scope.size == 'l') el[0].classList.add('l');
+			
+			scope.accent = (scope.accent == 'false') ? false : true;   
 		}
 	};
 });
@@ -437,7 +459,7 @@ totoDirectivesModule.directive('totoTimepicker', function($rootScope, $window) {
  * Accepts the following parameters:
  *  
  */
-totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $window, $timeout) {
+totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $window, $timeout, $compile) {
 	
 	return {
 		scope : {
@@ -448,6 +470,11 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 			el[0].classList.add('layout-column');
 			el[0].classList.add('flex');
 			el[0].id = 'totoSlidesContainer-' + Math.floor(Math.random() * 1000000);
+			
+			/**
+			 * Initialize scope variables
+			 */
+			scope.isPrimarySlideShowing = true;
 			
 			/**
 			 * This variable stores the slide stack. 
@@ -497,6 +524,20 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 				}
 			}
 			
+			// Add a "back" button if the primary slide is not primary slide
+			var button = '<toto-button ng-click="back()" size="s" accent="false" ng-show="!isPrimarySlideShowing" svg="images/svg/arrow-left.svg" style="position: absolute; top: 32px; left: 32px;"></toto-button>'; 
+				
+			angular.element(el[0]).append($compile(button)(scope));
+			
+			/**
+			 * Exposing function used by the toto-button X to go back to 
+			 * the previous slide
+			 */
+			scope.back = function() {
+				
+				slideBack();
+			}
+			
 			/**
 			 * Registering a listener to "slide navigation events"
 			 */
@@ -537,6 +578,7 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 				// If the event doesn't have a destination, it means it's a "slide back" event
 				// So go back to the previous slide
 				if (event.context.destination == null) slideBack();
+				
 			});
 			
 			/**
@@ -555,6 +597,10 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 					
 					// Update the "current slide"
 					currentSlide = previousSlide;
+					
+					// Update scope variables
+					scope.isPrimarySlideShowing = visitedSlidesStack.length == 0;
+					scope.$apply();
 					
 				});
 			}
@@ -585,6 +631,10 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 							// Update the "current slide"
 							currentSlide = slides[i];
 							
+							// Update scope variables
+							scope.isPrimarySlideShowing = visitedSlidesStack.length == 0;
+							scope.$apply();
+							
 							break;
 							
 						}
@@ -606,13 +656,13 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
  * - name		:	(MAND) the name of the slide. Must be unique in the whole application
  * 
  * - primary	:	(optional, default = false) true if the slide is the first (default) one to be shown
- *  
+ * 
  */
-totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeout) {
+totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeout, $compile) {
 	
 	return {
 		scope : {
-			primary: '@'
+			primary: '@' 
 		},
 		link : function(scope, el) {
 			
@@ -623,9 +673,10 @@ totoDirectivesModule.directive('totoSlide', function($rootScope, $window, $timeo
 			el[0].classList.add('flex');
 			el[0].style.width = document.body.offsetWidth + 'px';
 			
-			$timeout(function() {
+			// Watch the height of the parent node and adapt to it
+			scope.$watch(function() {return el[0].parentNode.offsetHeight;}, function(newValue, oldValue) {
 				el[0].style.height = el[0].parentNode.offsetHeight + 'px';
-			}, 200);
+			});
 			
 		}
 	};

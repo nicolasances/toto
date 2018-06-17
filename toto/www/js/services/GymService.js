@@ -395,8 +395,9 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		/**
 		 * This function shows a UI to start a new gym Session.
 		 * 
-		 * This function shoes two interfaces: 1. Choice of the Workout Plan to
-		 * use 2. Choice of the Workout to use
+		 * This function shoes two interfaces: 
+		 * 	1. Choice of the Workout Plan to use 
+		 *  2. Choice of the Workout to use
 		 * 
 		 * This function requires the following parameters:
 		 *  - onWorkoutSelected : callback function() that will receive the
@@ -410,21 +411,53 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 
 			function DialogController($scope, $mdDialog) {
 
-				$scope.answer = function(answer) {
-					$mdDialog.hide(answer);
-				}
-				$scope.cancel = function() {
-					$mdDialog.cancel();
-				}
+				$scope.answer = function(answer) {$mdDialog.hide(answer);}
+				$scope.cancel = function() {$mdDialog.cancel();}
 
+				/**
+				 * Selects a specific plan
+				 */
 				$scope.selectPlan = function(plan) {
+					
 					$scope.selectedPlan = plan;
 
 					$http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + plan.id + "/workouts").success(function(data, status, header, config) {
 						$scope.workouts = data.workouts;
 					});
 				}
+				
+				/**
+				 * Extracts the data needed by the toto-list component and return the item 
+				 * formatted as of specs (see toto-list)
+				 */
+				$scope.plansListItemExtractor = function(item) {
+					
+					return {
+						avatar: null,
+						dateRange: {
+							start: item.start,
+							end: item.end
+						},
+						title: item.name,
+						subtitle: item.weeks + ' weeks'
+					};
+				}
+				
+				/**
+				 * Extractds the data needed by toto-list to represent a single workout
+				 */
+				$scope.workoutsListItemExtractor = function(item) {
+					
+					return {
+						avatar: null, 
+						title: item.name, 
+						subtitle: item.exerciseCount + ' exercises'
+					};
+				}
 
+				/**
+				 * Selects the workout and returns the selected plan Id and workout Id
+				 */
 				$scope.selectWorkout = function(workout) {
 
 					var answer = {
@@ -712,6 +745,22 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		}, 
 		
 		/**
+		 * Deletes the specified session
+		 */
+		deleteSession : function(sessionId) {
+			
+			return $http.delete(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId);
+		},
+		
+		/**
+		 * Returns the list of exercises of the specified session
+		 */
+		getSessionExercises : function(sessionId) {
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/sessions/" + sessionId + "/exercises");
+		},
+		
+		/**
 		 * Returns the summary of the specified week 
 		 * 
 		 * Requires: 
@@ -737,6 +786,22 @@ gymServiceModule.factory('GymService', [ '$http', '$rootScope', '$location', '$m
 		getPlan : function(id) {
 			
 			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + id);
+		}, 
+		
+		/**
+		 * Returns the list of plans
+		 */
+		getPlans : function() {
+
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans");
+		},
+		
+		/**
+		 * Loads the specified workout
+		 */
+		getWorkout : function(planId, workoutId) {
+			
+			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/gym/plans/" + planId + "/workouts/" + workoutId);
 		}
 	}
 

@@ -1,67 +1,19 @@
-<md-dialog aria-label="Add" ng-cloak class="theme-cyan">
-	<form>
-		<md-toolbar md-scroll-shrink="true"  >
-			<div class="md-toolbar-tools">
-				<md-button class="md-icon-button" aria-label="Go Back">
-					<md-icon md-svg-src="images/svg/back.svg" ng-click="cancel()"></md-icon>
-				</md-button>
-				<span class="title" flex>Start a session</span>
-			</div>
-		</md-toolbar>
-		<md-dialog-content class="md-dialog-content toto-form">
-		
-			<div ng-if="selectedPlan == null" id="gym" class="plans">
-				<div class="plans-container">
-					<div class="plan-container" layout="row" ng-repeat="plan in plans" ng-click="selectPlan(plan)">
-						<div class="dates-container" layout="row">
-							<div class="date-container" layout="column">
-								<div class="day">{{plan.start | date : 'd'}}</div>
-								<div class="month">{{plan.start | date : 'MMM'}}</div>
-							</div>
-							<div class="icon" layout="column">
-								<div flex></div>
-								<md-icon md-svg-src="images/svg/arrow-right.svg"></md-icon>
-								<div flex></div>
-							</div>
-							<div class="date-container" layout="column">
-								<div class="day">{{plan.end | date : 'd'}}</div>
-								<div class="month">{{plan.end | date : 'MMM'}}</div>
-							</div>
-						</div>
-						<div layout="column" flex>
-							<div class="name">{{plan.name}}</div>
-							<div class="weeks">{{plan.weeks}} weeks</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div ng-if="selectedPlan != null" id="gym" class="plan">
-				<div id="days-container" layout="column" style="margin-top: 0;">
-					<div class="day-container" ng-repeat="workout in workouts" ng-click="selectWorkout(workout)">
-						<div layout="row">
-							<div class="avatar" layout="column">
-								<div flex></div>
-								<md-icon md-svg-src="images/svg/gym.svg"></md-icon>
-								<div flex></div>
-							</div>
-							<div layout="column" flex>
-								<div flex></div>
-								<div class="name">{{workout.name}}</div>
-								<div class="amount">{{workout.exerciseCount}} exercises</div>
-								<div flex></div>
-							</div>
-							<div layout="column">
-								<div flex></div>
-								<div class="score">{{workout.score | number : 1}} pt</div>
-								<div flex></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<toto-form>
 
-		</md-dialog-content>
-	</form>
-	
-</md-dialog>
+	<toto-toolbar title="New training session" on-cancel="cancel"></toto-toolbar>
+
+	<toto-input-steps>
+		
+		<toto-step step="1">
+			<toto-list dataset="plans" extractor="plansListItemExtractor" on-click="selectPlan" step-on-select="true"></toto-list>
+		</toto-step>
+		
+		<toto-step step="2">
+			<toto-list dataset="workouts" extractor="workoutsListItemExtractor" on-click="selectWorkout" step-on-select="true"></toto-list>
+		</toto-step>
+
+	</toto-input-steps>
+
+</toto-form>
+
+

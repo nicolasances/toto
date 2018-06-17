@@ -15,10 +15,13 @@
 .theme-accent-color {background: #FFEB3B;}
 .theme-accent-color md-icon {fill: rgba(0,0,0,0.5);}
 
-.theme-color-border {border-color: #00BCD4;}
-.theme-color-dark-border {border-color: #006064;}
+.theme-color-border {border-color: #00BCD4 !important;}
+.theme-color-dark-border {border-color: #006064 !important;}
+.accent-color-border {border-color: #FFEB3B !important;}
 
 .text-accent {color: #FFEB3B;}
+
+md-icon.accent {fill: #FFEB3B;}
 
 /****************************************************
  * FONTS  
@@ -31,10 +34,11 @@
 .toto-xs {font-size: 14px;}
 
 /****************************************************
- * TEXT  
+ * TEXT & UTILS  
  ***************************************************/
 .center {text-align: center;}
 .bold {font-weight: bold;}
+.scroll {overflow: scroll; -webkit-overflow-scrolling: touch;}
 
 /****************************************************
  * STANDARD DOM ELEMENTS 
@@ -51,17 +55,21 @@ area {fill: rgba(0,0,0,0.3);}
  ***************************************************/
 toto-value {margin: 12px 0;}
 
-toto-value .toto-label {margin-bottom: 3px;}
-toto-value .toto-label-heading {margin-bottom: 6px;}
+.toto-label {margin-bottom: 3px;}
+.toto-label-heading {margin-bottom: 12px;}
 
 /****************************************************
  * DIRECTIVE - TOTO BUTTON  
  ***************************************************/
+toto-button {outline: none; }
 toto-button .icon-container {border: 2px solid #FFEB3B; border-radius: 50%; padding: 12px;}
 toto-button.sm .icon-container {padding: 6px;}
 toto-button.l .icon-container {padding: 24px;}
 toto-button .icon-container md-icon {fill: #FFEB3B;}
 toto-button .toto-label {margin: 12px 0 0 0;}
+toto-button[accent="false"] {opacity: 0.5;}
+toto-button[accent="false"] md-icon {fill: currentColor;}
+toto-button[accent="false"] .icon-container {border-color: currentColor;}
 
 /****************************************************
  * DIRECTIVE - TOTO HEADER  
@@ -95,6 +103,10 @@ toto-list .item.no-item {opacity: 0.5;}
 toto-list .item .avatar {border-width: 2px; border-style: solid; border-radius: 50%; padding: 6px; margin-right: 12px;}
 toto-list .item .avatar md-icon {}
 toto-list .item .title {}
+toto-list .dates-container {margin-right: 24px;}
+toto-list .dates-container .date-container {text-align: center;}
+toto-list .dates-container .date-container .day {font-size: 1.3em; font-weight: 400;}
+toto-list .dates-container .date-container .month {font-size: 0.7em; text-transform: uppercase;}
  
 /****************************************************
  * DIRECTIVE - FORM - TOTO NEXT STEP

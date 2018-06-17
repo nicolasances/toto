@@ -23,8 +23,16 @@
 		
 			<div class="swiper-slide" layout="column">
 				<toto-header title="Training"></toto-header>
-				<gym-week-wheel style="min-height: 200px; margin-bottom: 48px;"></gym-week-wheel>
-				<gym-week-muscles></gym-week-muscles>				
+				
+				<toto-slides-container>
+					<toto-slide name="gymDashboardMainSlide" primary="true">
+						<gym-week-wheel style="min-height: 200px; margin-bottom: 48px;"></gym-week-wheel>
+						<gym-week-details></gym-week-details>				
+					</toto-slide>
+					<toto-slide name="gymSessionExecutionSlide">
+						<gym-session-detail></gym-session-detail>
+					</toto-slide>
+				</toto-slides-container>
 				
 			</div>
 		
