@@ -321,7 +321,10 @@ gymDirectivesModule.directive('gymWeekDetails', ['GymService', '$timeout', funct
 			
 			document.querySelector('#gymMuscles').style.top = '0px';
 			document.querySelector('#gymStartSession').style.top = '0px';
-			document.querySelector('#gymStartSession').style.height = el[0].offsetHeight + 'px';
+			
+			scope.$watch(el[0].offsetHeight, function(nv, ov) {
+				document.querySelector('#gymStartSession').style.height = el[0].offsetHeight + 'px';
+			});
 			
 		}
 	}
