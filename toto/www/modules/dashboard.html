@@ -5,20 +5,18 @@
 		<div class="swiper-wrapper">
 		
 			<div class="swiper-slide" layout="column">
-	
-				<toto-header title="Payments"></toto-header>		
 				
-				<expenses-total type="month"></expenses-total>
-
-				<toto-value type="number" value="190" unit="&euro;" accent="true" size="toto-m" scale="2" label="Total this week"></toto-value>				
+				<toto-header title="Nutrition"></toto-header>
 				
-				<toto-value type="number" value="54.19" unit="&euro;" label="Total today" scale="2" size="toto-s"></toto-value>
+				<toto-slides-container>
+					<toto-slide name="dietDaySlide" primary="true">
+						<diet-daily-info></diet-daily-info>
+						<diet-daily-meals></diet-daily-meals>
+					</toto-slide>
+					<toto-slide name="dietMealsSlide">
+					</toto-slide>
+				</toto-slides-container>
 				
-				<div flex></div>
-				
-				<div style="min-height: 240px;" flex layout="row">
-					<expenses-graph-liquid></expenses-graph-liquid>
-				</div>
 			</div>
 		
 			<div class="swiper-slide" layout="column">
@@ -37,20 +35,20 @@
 			</div>
 		
 			<div class="swiper-slide" layout="column">
+	
+				<toto-header title="Payments"></toto-header>		
 				
-				<toto-header title="Nutrition"></toto-header>
+				<expenses-total type="month"></expenses-total>
+
+				<toto-value type="number" value="190" unit="&euro;" accent="true" size="toto-m" scale="2" label="Total this week"></toto-value>				
 				
-				<toto-slides-container>
-					<toto-slide name="dietDashboardSlide" primary="true">
-						<diet-daily-macros></diet-daily-macros>	
-						<diet-macros-stats></diet-macros-stats>
-					</toto-slide>
-					<toto-slide name="dietMealsSlide">
-						<diet-daily-meals-info flex></diet-daily-meals-info>
-						<diet-daily-meals></diet-daily-meals>
-					</toto-slide>
-				</toto-slides-container>
+				<toto-value type="number" value="54.19" unit="&euro;" label="Total today" scale="2" size="toto-s"></toto-value>
 				
+				<div flex></div>
+				
+				<div style="min-height: 240px;" flex layout="row">
+					<expenses-graph-liquid></expenses-graph-liquid>
+				</div>
 			</div>
 			
 		</div>

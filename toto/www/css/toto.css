@@ -61,7 +61,7 @@ toto-value {margin: 12px 0;}
 /****************************************************
  * DIRECTIVE - TOTO BUTTON  
  ***************************************************/
-toto-button {outline: none; }
+toto-button {outline: none; margin: 12px 0;}
 toto-button .icon-container {border: 2px solid #FFEB3B; border-radius: 50%; padding: 12px;}
 toto-button.sm .icon-container {padding: 6px;}
 toto-button.l .icon-container {padding: 24px;}
