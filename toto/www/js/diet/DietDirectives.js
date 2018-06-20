@@ -851,12 +851,13 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				var minTime = d3.min([minRangeLowestHour, Math.floor(d3.min(scope.meals, function(d) {return getTime(d.time);}))]);
 				var maxTime = d3.max([minRangeHighestHour, Math.ceil(d3.max(scope.meals, function(d) {return getTime(d.time);}))]);
 				
-				var barWidth = width / (maxTime - minTime);
+				var circleR = 8;
+				var circleStrokeWidth = 2;
 				
 				/**
 				 * Setting the right Y domain values
 				 */
-				y.domain([0, d3.max(scope.meals, function(d) {return d.calories;})]);
+				y.domain([0, d3.max([d3.max(scope.meals, function(d) {return d.calories;}), d3.max(scope.meals, function(d) {return d.fat*9 + d.proteins*4 + d.carbs*4;}) + 6 * (circleR + circleStrokeWidth)])]);
 				x.domain([minTime, maxTime]);
 				
 				/**
@@ -878,21 +879,23 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				 * Calories bar
 				 * and Calories text
 				 */
-				g.selectAll('.mealCal').data(scope.meals).enter().append('rect')
+				g.selectAll('.mealCal').data(scope.meals).enter().append('line')
 					.attr('class', 'mealCal')
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('width', barWidth)
-					.attr('height', function(d) {return y(d.calories);})
+					.attr('x1', function(d) { timeValue = getTime(d.time); return x(timeValue); })
+					.attr('x2', function(d) { timeValue = getTime(d.time); return x(timeValue); })
+					.attr('y1', height)
+					.attr('stroke-width', 3)
+					.attr('stroke', graphicAreaFill)
 					.attr('fill', graphicAreaFill)
-					.attr('y', height)
+					.attr('y2', height)
 					.transition(300)
-					.attr('y', function(d) {return height - y(d.calories);});
+					.attr('y2', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth);});
 				
 				g.selectAll('.mealCal').data(scope.meals)
 					.transition(300)
-					.attr('height', function(d) {return y(d.calories);})
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('y', function(d) {return height - y(d.calories);});
+					.attr('x1', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('x2', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('y2', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth);});
 				
 				g.selectAll('.mealText').data(scope.meals).enter().append('text')
 					.attr('class', 'mealText')
@@ -902,51 +905,74 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 					.text(function(d) {return d3.format(',')(d.calories.toFixed(0));})
 					.attr('y', height)
 					.transition(300)
-					.attr('y', function(d) {return height - d3.max([y(d.calories), y(d.fat*9) + y(d.proteins*4) + y(d.carbs*4)]) - 6;});
+					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth) - 16;});
 				
 				g.selectAll('.mealText').data(scope.meals)
 					.transition(300)
 					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue); })
-					.attr('y', function(d) {return height - d3.max([y(d.calories), y(d.fat*9) + y(d.proteins*4) + y(d.carbs*4)]) - 6;});
+					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth) - 16;});
 				
 				/**
-				 * Fats bar
+				 * Proteins circle
 				 */
-				g.selectAll('.mealFat').data(scope.meals).enter().append('rect')
-					.attr('class', 'mealFat')
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('width', barWidth)
-					.attr('height', function(d) {return y(d.fat * 9);})
-					.attr('fill', accentColorOpacity70)
-					.attr('y', height)
+				g.selectAll('.mealProt').data(scope.meals).enter().append('circle')
+					.attr('class', 'mealProt')
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('r', circleR)
+					.attr('stroke-width', circleStrokeWidth)
+					.attr('stroke', graphicAreaFill)
+					.attr('fill', themeColor)
+					.attr('cy', height)
 					.transition(300)
-					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);});
+					.attr('cy', function(d) {return height - y(d.proteins * 4);});
+				
+				g.selectAll('.mealProt').data(scope.meals)
+					.transition(300)
+					.attr('height', function(d) {return y(d.fat * 9);})
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue); })
+					.attr('cy', function(d) {return height - y(d.proteins * 4);});
+				
+				
+				/**
+				 * Fats circle
+				 */
+				g.selectAll('.mealFat').data(scope.meals).enter().append('circle')
+					.attr('class', 'mealFat')
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('r', circleR)
+					.attr('stroke-width', circleStrokeWidth)
+					.attr('stroke', accentColor)
+					.attr('fill', themeColor)
+					.attr('cy', height)
+					.transition(300)
+					.attr('cy', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4) - 2*(circleR+circleStrokeWidth);});
 				
 				g.selectAll('.mealFat').data(scope.meals)
 					.transition(300)
 					.attr('height', function(d) {return y(d.fat * 9);})
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('y', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4);});
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('cy', function(d) {return height - y(d.fat * 9) - y(d.proteins * 4) - 2*(circleR+circleStrokeWidth);});
 				
 				
 				/**
 				 * Fats bar
 				 */
-				g.selectAll('.mealCarb').data(scope.meals).enter().append('rect')
+				g.selectAll('.mealCarb').data(scope.meals).enter().append('circle')
 					.attr('class', 'mealCarb')
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('width', barWidth)
-					.attr('height', function(d) {return y(d.carbs * 4);})
-					.attr('fill', graphicAreaFill)
-					.attr('y', height)
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('r', circleR)
+					.attr('stroke-width', circleStrokeWidth)
+					.attr('stroke', accentColor2)
+					.attr('fill', themeColor)
+					.attr('cy', height)
 					.transition(300)
-					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);});
+					.attr('cy', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth);});
 				
 				g.selectAll('.mealCarb').data(scope.meals)
 					.attr('height', function(d) {return y(d.carbs * 4);})
 					.transition(300)
-					.attr('x', function(d) { timeValue = getTime(d.time); return x(timeValue) - barWidth / 2; })
-					.attr('y', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4);});
+					.attr('cx', function(d) { timeValue = getTime(d.time); return x(timeValue);})
+					.attr('cy', function(d) {return height - y(d.carbs * 4) - y(d.fat * 9) - y(d.proteins * 4) - 4*(circleR+circleStrokeWidth);});
 					
 			}
 			
