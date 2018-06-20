@@ -751,6 +751,10 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 			el[0].classList.add('layout-column');
 			el[0].classList.add('flex');
 			
+			// Some configuration
+			var minRangeLowestHour = 9;
+			var minRangeHighestHour = 21;
+			
 			/**
 			 * Retrieves the meals 
 			 */
@@ -768,18 +772,19 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 			/**
 			 * Generates the X Labels based on the data available in scope.meals
 			 * 
-			 * If no data is available it will return an array of hours going from 0 to 24, 
-			 * otherwise it will return an array of each hour going from the first meal to the last
+			 * If no data is available it will return an array of hours going from minRangeLowestHour to minRangeHighestHour, 
+			 * otherwise it will return an array of each hour going from the first meal to the last, 
+			 * but the minimum range always present will be (minRangeLowestHour - minRangeHighestHour)
 			 */
 			var generateXLabels = function() {
 				
-				if (scope.meals == null || scope.meals.length == 0) return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+				if (scope.meals == null || scope.meals.length == 0) return [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 				
 				var minTime = d3.min(scope.meals, function(d) {return getTime(d.time);});
 				var maxTime = d3.max(scope.meals, function(d) {return getTime(d.time);});
 
 				var result = [];
-				var x = Math.floor(minTime);
+				var x = d3.min([minRangeLowestHour, Math.floor(minTime)]);
 				
 				do {
 					
@@ -787,7 +792,7 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 					
 					x++;
 					
-				} while (x <= Math.ceil(maxTime));
+				} while (x <= d3.max([minRangeHighestHour, Math.ceil(maxTime)]));
 				
 				return result;
 			}
@@ -813,9 +818,9 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				g = svg.append('g');
 				
 				x = d3.scaleLinear().range([16, width - 16]);
-				y = d3.scaleLinear().range([0, height - 6 - fontTotoS]);
+				y = d3.scaleLinear().range([0, height - 24 - fontTotoS]);
 				
-				x.domain([0, 24]);
+				x.domain([9, 21]);
 				
 				g.selectAll('.hour').data(generateXLabels()).enter().append('text')
 						.attr('class', 'hour')
@@ -843,8 +848,8 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				
 				if (scope.meals == null || scope.meals.length == 0) return;
 				
-				var minTime = d3.min(scope.meals, function(d) {return getTime(d.time);});
-				var maxTime = d3.max(scope.meals, function(d) {return getTime(d.time);});
+				var minTime = d3.min([minRangeLowestHour, Math.floor(d3.min(scope.meals, function(d) {return getTime(d.time);}))]);
+				var maxTime = d3.max([minRangeHighestHour, Math.ceil(d3.max(scope.meals, function(d) {return getTime(d.time);}))]);
 				
 				var barWidth = width / (maxTime - minTime);
 				
@@ -852,7 +857,7 @@ dietDirectivesModule.directive('dietDailyMeals', ['DietService', '$timeout', '$r
 				 * Setting the right Y domain values
 				 */
 				y.domain([0, d3.max(scope.meals, function(d) {return d.calories;})]);
-				x.domain([Math.floor(minTime) - 1, Math.ceil(maxTime) + 1]);
+				x.domain([minTime, maxTime]);
 				
 				/**
 				 * X labels
