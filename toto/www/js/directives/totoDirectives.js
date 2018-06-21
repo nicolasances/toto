@@ -44,7 +44,7 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 			el[0].classList.add('layout-column');
 			
 			// Set the default accent (false)
-			scope.accent = (scope.accent == 'true' ? true : false);
+			scope.accent = (scope.accent == 'true' ? 'true' : 'false');
 			
 			// Set the default size to small
 			if (scope.size == null) scope.size = 'toto-s';
@@ -525,7 +525,7 @@ totoDirectivesModule.directive('totoSlidesContainer', function($rootScope, $wind
 			}
 			
 			// Add a "back" button if the primary slide is not primary slide
-			var button = '<toto-button ng-click="back()" size="s" accent="false" ng-show="!isPrimarySlideShowing" svg="images/svg/arrow-left.svg" style="position: absolute; top: 32px; left: 32px;"></toto-button>'; 
+			var button = '<toto-button ng-click="back()" size="s" accent="false" ng-show="!isPrimarySlideShowing" svg="images/svg/arrow-left.svg" style="position: absolute; top: 12px; left: 32px;"></toto-button>'; 
 				
 			angular.element(el[0]).append($compile(button)(scope));
 			

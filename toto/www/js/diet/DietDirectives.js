@@ -323,6 +323,108 @@ dietDirectivesModule.directive('dietDailyInfo', ['DietService', '$timeout', '$ro
 	}
 }]);
 
+/**
+ * Weekly Info
+ * Shows the averages of the calories and macronutrients consumed during the week
+ * 
+ * diet-weekly-info
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietWeeklyInfo', ['DietService', '$timeout', '$rootScope', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		scope: true,
+		templateUrl: 'modules/diet/directives/diet-weekly-info.html',
+		link: function(scope, el) {
+			
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+
+			/**
+			 * Subscribe to 'dietMealAdded' event and update the data when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				scope.getMeals();
+			});
+			
+			/**
+			 * Retrieves the meals 
+			 */
+			scope.getMeals = function() {
+				
+				var startOfWeek = moment().startOf('week');
+				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.add(1, 'days');
+				
+				DietService.getMeals(null, startOfWeek.format('YYYYMMDD')).success(function(data) {
+					
+					// Get the data in the right format
+					scope.mealsStats = new Map();
+					
+					for (var i = 0; i < data.meals.length; i++) {
+						
+						var stat = scope.mealsStats.get(data.meals[i].date);
+						
+						if (stat == null) scope.mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
+						else {
+							stat.calories += data.meals[i].calories;
+							stat.proteins += data.meals[i].proteins;
+							stat.carbs += data.meals[i].carbs;
+							stat.fats += data.meals[i].fat;
+						}
+					}
+					
+					calculateAverages();
+				});
+				
+			}
+			
+			/**
+			 * Calculates the average calories and macro of the week (so far)
+			 */
+			var calculateAverages = function() {
+
+				scope.avgCal = 0;
+				scope.avgProt = 0;
+				scope.avgCarb = 0;
+				scope.avgFat = 0;
+				
+				for (let entry of scope.mealsStats) {
+					
+					scope.avgCal += entry[1].calories;
+					scope.avgProt += entry[1].proteins;
+					scope.avgCarb += entry[1].carbs;
+					scope.avgFat += entry[1].fats;
+				}
+				
+				scope.avgCal /= scope.mealsStats.size;
+				scope.avgProt /= scope.mealsStats.size;
+				scope.avgCarb /= scope.mealsStats.size;
+				scope.avgFat /= scope.mealsStats.size;
+				
+			}
+			
+			/**
+			 * Function to add a new meal
+			 */
+			scope.addMeal = function() {
+				
+				DietService.showAddMealDialog(function(meal) {
+					DietService.postMeal(meal).success(function(data) {
+						
+						TotoEventBus.publishEvent({name: 'dietMealAdded'});
+					});
+				});
+				
+			}
+			
+			scope.getMeals();
+		}
+	}
+}]);
+
 
 /**
  * Macros Stats
