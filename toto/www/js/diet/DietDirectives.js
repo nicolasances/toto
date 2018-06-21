@@ -323,6 +323,129 @@ dietDirectivesModule.directive('dietDailyInfo', ['DietService', '$timeout', '$ro
 	}
 }]);
 
+
+/**
+ * Weekly Graph
+ * Shows the daily calories and macronutrients consumed during the week
+ * 
+ * diet-weekly-graph
+ * 
+ * Params: 
+ * 
+ */
+dietDirectivesModule.directive('dietWeeklyGraph', function(DietService, $timeout, $rootScope) {
+	
+	return {
+		
+		scope: {},
+		link: function(scope, el) {
+			
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			
+			/**
+			 * Basic elements of the graph
+			 */
+			var containerHeight, containerWidth;
+			var svg, g;
+			
+			/** 
+			 * Watch for changes of the element height and redraw the graph
+			 */
+			scope.$watch(function() {return el[0].offsetHeight}, function(nv, ov) {
+				
+				containerWidth = el[0].offsetWidth;
+				containerHeight = el[0].offsetHeight;
+				
+				if (svg != null) svg.remove();
+				
+				svg = d3.select(el[0]).append('svg')
+						.attr('width', containerWidth)
+						.attr('height', containerHeight);
+				
+				g = svg.append('g');
+				
+				draw();
+				
+			});
+			
+			/**
+			 * This function draws the graph of the week
+			 */
+			var draw = function() {
+				
+				// Exit if there's no data
+				if (scope.mealsStats == null || scope.mealsStats.size == 0) return;
+				
+				// Put the data as an array of {}
+				var data = [];
+				for (let item of scope.mealsStats.values()) {
+					data.push(item);
+				}
+				
+				// Create the x and y scales 
+				var x = d3.scaleBand().range([0, containerWidth]).padding(0.1);
+				var y = d3.scaleLinear().range([0, containerHeight - 12 - fontTotoS]);
+				
+				x.domain([0, 1, 2, 3, 4, 5, 6]);
+				y.domain([0, d3.max(data, function(d) {return d.calories})]);
+				
+				// Draw the bars
+				g.selectAll('.bar').data(data).enter().append('rect')
+					.attr('class', 'bar')
+					.attr('width', x.bandwidth())
+					.attr('height', function(d) {return y(d.calories)})
+					.attr('x', function(d, i) {return x(i)})
+					.attr('y', function(d) {return containerHeight - y(d.calories)})
+					.attr('fill', graphicAreaFill);
+				
+				g.selectAll('.bar').data(data)
+					.transition(300)
+					.attr('y', function(d) {return containerHeight - y(d.calories)});
+					
+				// Draw the text displaying the CALORIES
+				g.selectAll('.text').data(data).enter().append('text')
+					.style('font-size', fontTotoS)
+					.attr('class', 'text')
+					.attr('text-anchor', 'middle')
+					.attr('fill', accentColor)
+					.attr('x', function(d, i) {return x(i) + x.bandwidth() / 2})
+					.attr('y', function(d) {return containerHeight - y(d.calories) - 12})
+					.text(function(d) {return d3.format(',')(d.calories.toFixed(0))})
+			}
+			
+			/**
+			 * Retrieves the meals of the week 
+			 */
+			var getMeals = function() {
+				
+				var startOfWeek = moment();
+				
+				// If today is sunday, remove one day
+				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.subtract(1, 'days');
+				
+				startOfWeek = startOfWeek.startOf('week');
+				
+				// Add one day if the start of the week is a sunday
+				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.add(1, 'days');
+				
+				DietService.getMealsPerDay(startOfWeek.format('YYYYMMDD')).then(function(data) {
+					
+					scope.mealsStats = data;
+					
+					draw();
+					
+				});
+				
+			}
+			
+			getMeals();
+		}
+	};
+	
+});
+
+
 /**
  * Weekly Info
  * Shows the averages of the calories and macronutrients consumed during the week
@@ -354,27 +477,21 @@ dietDirectivesModule.directive('dietWeeklyInfo', ['DietService', '$timeout', '$r
 			 * Retrieves the meals 
 			 */
 			scope.getMeals = function() {
+
 				
-				var startOfWeek = moment().startOf('week');
+				var startOfWeek = moment();
+				
+				// If today is sunday, remove one day
+				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.subtract(1, 'days');
+				
+				startOfWeek = startOfWeek.startOf('week');
+				
+				// If start of week is sunday, add one day
 				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.add(1, 'days');
 				
-				DietService.getMeals(null, startOfWeek.format('YYYYMMDD')).success(function(data) {
+				DietService.getMealsPerDay(startOfWeek.format('YYYYMMDD')).then(function(data) {
 					
-					// Get the data in the right format
-					scope.mealsStats = new Map();
-					
-					for (var i = 0; i < data.meals.length; i++) {
-						
-						var stat = scope.mealsStats.get(data.meals[i].date);
-						
-						if (stat == null) scope.mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
-						else {
-							stat.calories += data.meals[i].calories;
-							stat.proteins += data.meals[i].proteins;
-							stat.carbs += data.meals[i].carbs;
-							stat.fats += data.meals[i].fat;
-						}
-					}
+					scope.mealsStats = data;
 					
 					calculateAverages();
 				});
@@ -495,23 +612,9 @@ dietDirectivesModule.directive('dietMacrosStats', function(DietService, $timeout
 			 */
 			scope.getMeals = function() {
 				
-				DietService.getMeals(null, dateFrom).success(function(data) {
+				DietService.getMealsPerDay(dateFrom).then(function(data) {
 					
-					// Get the data in the right format
-					scope.mealsStats = new Map();
-					
-					for (var i = 0; i < data.meals.length; i++) {
-						
-						var stat = scope.mealsStats.get(data.meals[i].date);
-						
-						if (stat == null) scope.mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
-						else {
-							stat.calories += data.meals[i].calories;
-							stat.proteins += data.meals[i].proteins;
-							stat.carbs += data.meals[i].carbs;
-							stat.fats += data.meals[i].fat;
-						}
-					}
+					scope.mealsStats = data;
 					
 					// Draw the graph
 					createNutritionGraph();

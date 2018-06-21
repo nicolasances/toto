@@ -356,6 +356,41 @@ dietServiceModule.factory('DietService', [ '$http', '$rootScope', '$location', '
 		}, 
 		
 		/**
+		 * Returns a Map object of <date: mealsStats> where mealsStats is a {calories, proteins, fats, carbs}
+		 * 
+		 */
+		getMealsPerDay : function(dateFrom) {
+			
+			return new Promise(function(success, failure) {
+				
+				var filter = '?dateFrom=' + dateFrom;
+				
+				$http.get(microservicesProtocol + "://" + microservicesUrl + "/diet/meals" + filter).success(function(data) {
+
+					// Get the data in the right format
+					var mealsStats = new Map();
+					
+					for (var i = 0; i < data.meals.length; i++) {
+						
+						var stat = mealsStats.get(data.meals[i].date);
+						
+						if (stat == null) mealsStats.set(data.meals[i].date, {date: data.meals[i].date, calories: data.meals[i].calories, proteins: data.meals[i].proteins, carbs: data.meals[i].carbs, fats: data.meals[i].fat});
+						else {
+							stat.calories += data.meals[i].calories;
+							stat.proteins += data.meals[i].proteins;
+							stat.carbs += data.meals[i].carbs;
+							stat.fats += data.meals[i].fat;
+						}
+					}
+					
+					success(mealsStats);
+
+				});
+				
+			});
+		},
+		
+		/**
 		 * Posts a meal. 
 		 * Requires an object: 
 		 * {time: HH:mm, date: yyyyMMdd string, calories: number, fat: number, carbs: number, sugars: number, proteins: number, 
