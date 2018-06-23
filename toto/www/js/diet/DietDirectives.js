@@ -334,7 +334,7 @@ dietDirectivesModule.directive('dietMonthlyInfo', function(DietService, BodyWeig
 		link: function(scope, el) {
 			
 			el[0].classList.add('layout-column');
-			el[0].classList.add('flex');
+//			el[0].classList.add('flex');
 			
 			/**
 			 * Get the meals of this week and the previous 
