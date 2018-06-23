@@ -53,7 +53,7 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
 			if (scope.scale == null) scope.scale = 2;
 			
 			// Set the default bold to false
-			scope.bold = (scope.bold == 'true' ? true : false);
+			scope.bold = (scope.bold == 'true' ? 'true' : 'false');
 			
 		}
 	};

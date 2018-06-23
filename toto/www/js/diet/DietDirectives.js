@@ -323,6 +323,455 @@ dietDirectivesModule.directive('dietDailyInfo', ['DietService', '$timeout', '$ro
 	}
 }]);
 
+/**
+ * Information shown in the monthly screen
+ */
+dietDirectivesModule.directive('dietMonthlyInfo', function(DietService, BodyWeightService) {
+	
+	return {
+		scope: {},
+		templateUrl: 'modules/diet/directives/diet-monthly-info.html',
+		link: function(scope, el) {
+			
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			
+			/**
+			 * Get the meals of this week and the previous 
+			 * 
+			 * Note that the diet week starts on FRIDAY, since that is when the weight measurements are taken 
+			 */
+			var getMeals = function() {
+				
+				// Calculate the date of the monday of 4 weeks ago
+				var start = moment();
+				
+				// If we're friday or saturday, move forward to get to sunday
+				// so that the new week counts
+				if (start.day() == 5) start = start.add(2, 'days');
+				else if (start.day() == 6) start = start.add(1, 'days');
+				
+				// Go to the beginning of the week (if today is sunday, it will stay at today)
+				start = start.startOf('week');
+				
+				// Go back 1 week
+				// Subtract 1 because I already moved to the beginning of this week
+				// which means that I can already count 1 week and have to go back n - 1
+				start.subtract(1, 'weeks');
+				
+				// At this point we're on the sunday of 1 week ago
+				// Go back to the friday prior that day
+				start = start.subtract(2, 'days');
+				
+				// Get the meals for every day starting from that date
+				DietService.getMealsPerDay(start.format('YYYYMMDD')).then(function(stats) {
+					
+					scope.meals = stats;
+					
+					// Get the weight
+					BodyWeightService.getWeights().success(function(data) {
+						
+						// Get only the selected weeks
+						storeWeights(data);
+						
+						// Reorganize the meals to calculate the average per week
+						calculateAverageCaloriesPerWeek();
+						
+					});
+				});
+			}
+			
+			/**
+			 * Stores the weights by selecting only the ones that are relevant. 
+			 * 
+			 * The ones that are relevant are the current weight (current week if any)
+			 * and the previous week one
+			 * 
+			 * Consider that the weight is taken on a friday, which means that the 
+			 * weeks are slightly shifted to start on fridays. 
+			 * So friday is actually one week ahead.
+			 */
+			var storeWeights = function(data) {
+				
+				if (data == null) return;
+				
+				// Get the current date
+				var date = moment();
+				
+				// If friday or sunday, then go forward to the sunday (next week)
+				if (date.day() == 5 || date.day() == 6) date = date.add(7 - date.day(), 'days');
+				
+				// Get the week and year
+				var year = date.year();
+				var week = date.week();
+				
+				// If the current week weight hasn't been measured yet, 
+				// then create an empty one
+				if (data.weights[0].weekOfYear != week) data.weights.unshift({weekOfYear: week, year: year, weight: null});
+				
+				// Add the first #scope.weeks elements
+				scope.weights = data.weights.splice(0, 2);
+				
+				// Remove the first value if the weight is null
+				// So that it's not drawn on the graph
+				if (scope.weights[0].weight == null) scope.weights.splice(0, 1);
+
+				// Reverse the array
+				scope.weights.reverse();
+				
+				// Set the scope variables
+				scope.weightLastWeek = scope.weights[0].weight;
+				scope.weightThisWeek = scope.weights.length == 1 ? null : scope.weights[1].weight; 
+				
+			}
+			
+			/**
+			 * Calculates the average number of calories per week. 
+			 * Takes the info from the meals per day saved in scope.meals
+			 * 
+			 * Note that the week goes from FRIDAY to FRIDAY, since the weight is always measured on a friday!
+			 * 
+			 * Also EXCLUDE the current day, since it would fake the statistics
+			 */
+			var calculateAverageCaloriesPerWeek = function() {
+				
+				// Create a Map of weeks
+				var weeks = new Map();
+				
+				// Create the map of <week, calories>
+				for (let meal of scope.meals.values()) {
+					
+					// Exclude the meal if it's today, since it would fake the statistics
+					if (moment().format('YYYYMMDD') == meal.date) continue;
+					
+					// Find the week of the meal
+					meal.week = findWeek(meal.date);
+					
+					// Add the calories to the map of weeks
+					var week = weeks.get(meal.week);
+					
+					if (week == null) weeks.set(meal.week, {calories: meal.calories, days: 1, week: meal.week});
+					else {week.calories += meal.calories; week.days++;}
+					
+				}
+				
+				// Create the scope variable that will contain the stats
+				scope.caloriesData = [];
+				
+				// Go over the map and calculate the averages
+				for (let week of weeks.values()) {
+					
+					// Calculate average
+					week.averageCalories = week.calories / week.days;
+					
+					// Add to graph data
+					scope.caloriesData.push(week);
+				}
+				
+				// Set the scope variables
+				scope.calLastWeek = scope.caloriesData[0].averageCalories;
+				scope.calThisWeek = scope.caloriesData.length == 1 ? null : scope.caloriesData[1].averageCalories
+				
+			}
+			
+			/**
+			 * Finds the week for the specific YYYYMMDD date. 
+			 * 
+			 * Note that the week goes from FRIDAY to FRIDAY, since the weight is always measured on a friday!
+			 */
+			var findWeek = function(date) {
+				
+				var d = moment(date);
+
+				// If d is a friday than move forward two days and if it's a friday move forward one day
+				// since the week starts on FRIDAY for what concerns the weight
+				if (d.day() == 5) d.add(2, 'days');
+				else if (d.day() == 6) d.add(1, 'days');
+				
+				// Return the week
+				return d.week();
+			}
+			
+			getMeals();
+			
+		}
+	}
+	
+});
+
+/**
+ * This directive shows a monthly graph of the calories per week and the weight per week. 
+ * 
+ * - weeks		:	(optional, default = 4) number of weeks that the graph will show
+ */
+dietDirectivesModule.directive('dietMonthlyGraph', function(DietService, BodyWeightService) {
+	
+	return {
+		scope: {
+			weeks : '@'
+		},
+		link: function(scope, el) {
+			
+			el[0].classList.add('layout-column');
+			el[0].classList.add('flex');
+			
+			/**
+			 * Default values
+			 */
+			if (scope.weeks == null) scope.weeks = 4;
+			
+			/**
+			 * Basic elements of the graph
+			 */
+			var containerHeight, containerWidth;
+			var svg, g;
+			
+			/**
+			 * Watch for height changes
+			 */
+			scope.$watch(function() {return el[0].offsetHeight;}, function(nv, ov) {
+				
+				if (svg != null) svg.remove();
+				
+				containerWidth = el[0].offsetWidth;
+				containerHeight = el[0].offsetHeight;
+				
+				svg = d3.select(el[0]).append('svg')
+						.attr('width', containerWidth)
+						.attr('height', containerHeight);
+				
+				g = svg.append('g');
+				
+				draw();
+				
+			});
+			
+			/**
+			 * Draw the graph
+			 */
+			var draw = function() {
+				
+				if (scope.caloriesData == null || scope.caloriesData.length == 0) return;
+				
+				var xDomain = [];
+				for (var i = 0; i < scope.caloriesData.length; i++) {xDomain.push(i)}
+				
+				// Create the x and y scales
+				var x = d3.scaleBand().range([0, containerWidth]).padding(0.1);
+				var yCal = d3.scaleLinear().range([0, containerHeight - fontTotoS - 12]);
+				var yW = d3.scaleLinear().range([24, containerHeight / 3]);
+
+				x.domain(xDomain);
+				yCal.domain([0, d3.max(scope.caloriesData, function(d) {return d.averageCalories})]);
+				yW.domain([d3.min(scope.weights, function(d) {return d.weight}), d3.max(scope.weights, function(d) {return d.weight})])
+				
+				// Create the calory bars
+				g.selectAll('.bar').data(scope.caloriesData).enter().append('rect')
+					.attr('class', 'bar')
+					.attr('fill', graphicAreaFill)
+					.attr('x', function(d, i) {return x(i)})
+					.attr('y', function(d) {return containerHeight - yCal(d.averageCalories)})
+					.attr('width', x.bandwidth())
+					.attr('height', function(d) {return yCal(d.averageCalories)});
+				
+				// Label the calories
+				g.selectAll('.calText').data(scope.caloriesData).enter().append('text')
+					.style('font-size', (scope.weeks <= 8 ? fontTotoS : fontTotoXS))
+					.attr('fill', accentColor)
+					.attr('class', 'calText')
+					.attr('text-anchor', 'middle')
+					.attr('x', function(d, i) {return x(i) + x.bandwidth() / 2})
+					.attr('y', function(d) {return containerHeight - yCal(d.averageCalories) - 12})
+					.text(function(d) {return d3.format(',')(d.averageCalories.toFixed(0))});
+				
+				// Weights line
+				var weightLine = d3.line()
+					.x(function(d, i) {return x(i) + x.bandwidth() / 2})
+					.y(function(d) {return containerHeight - yW(d.weight)});
+				
+				g.append('path').datum(scope.weights)
+					.style('fill', 'none')
+					.attr('stroke-width', 2)
+					.attr('stroke', accentColor)
+					.attr('d', weightLine);
+				
+				// Weights circles
+				g.selectAll('.wCircle').data(scope.weights).enter().append('circle')
+					.attr('class', 'wCircle')
+					.attr('fill', '#008495')
+					.attr('stroke-width', 2)
+					.attr('stroke', accentColor)
+					.attr('cx', function(d, i) {return x(i) + x.bandwidth() / 2})
+					.attr('cy', function(d) {return containerHeight - yW(d.weight)})
+					.attr('r', 8);
+				
+				// Weights text
+				g.selectAll('.wText').data(scope.weights).enter().append('text')
+					.attr('class', 'wText')
+					.attr('fill', accentColor)
+					.attr('text-anchor', 'middle')
+					.style('font-size', fontTotoXS)
+					.attr('x', function(d, i) {return x(i) + x.bandwidth() / 2})
+					.attr('y', function(d) {return containerHeight - yW(d.weight) - 18})
+					.text(function(d) {return d3.format(',')(d.weight)});
+					
+			}
+			
+			/**
+			 * Get the meals of the determined period. 
+			 * The period is determined in the scope.weeks variable
+			 * 
+			 * Note that the diet week starts on FRIDAY, since that is when the weight measurements are taken 
+			 */
+			var getMeals = function() {
+				
+				// Calculate the date of the monday of 4 weeks ago
+				var start = moment();
+				
+				// If we're friday or saturday, move forward to get to sunday
+				// so that the new week counts
+				if (start.day() == 5) start = start.add(2, 'days');
+				else if (start.day() == 6) start = start.add(1, 'days');
+				
+				// Go to the beginning of the week (if today is sunday, it will stay at today)
+				start = start.startOf('week');
+				
+				// Go back #scope.weeks weeks
+				// Subtract #scope.weeks - 1 because I already moved to the beginning of this week
+				// which means that I can already count 1 week and have to go back n - 1
+				start.subtract(scope.weeks - 1, 'weeks');
+				
+				// At this point we're on the sunday of #scope.weeks ago
+				// Go back to the friday prior that day
+				start = start.subtract(2, 'days');
+				
+				// Get the meals for every day starting from that date
+				DietService.getMealsPerDay(start.format('YYYYMMDD')).then(function(stats) {
+					
+					scope.meals = stats;
+					
+					// Get the weight
+					BodyWeightService.getWeights().success(function(data) {
+						
+						// Get only the selected weeks
+						storeWeights(data);
+						
+						// Reorganize the meals to calculate the average per week
+						calculateAverageCaloriesPerWeek();
+						
+						// Update the graph
+						draw();
+						
+					});
+				});
+			}
+			
+			/**
+			 * Stores the weights by selecting only the ones that are relevant. 
+			 * 
+			 * The ones that are relevant are the last #scope.weeks ones
+			 * 
+			 * Consider that the weight is taken on a friday, which means that the 
+			 * weeks are slightly shifted to start on fridays. 
+			 * So friday is actually one week ahead.
+			 */
+			var storeWeights = function(data) {
+				
+				if (data == null) return;
+				
+				// Get the current date
+				var date = moment();
+				
+				// If friday or sunday, then go forward to the sunday (next week)
+				if (date.day() == 5 || date.day() == 6) date = date.add(7 - date.day(), 'days');
+				
+				// Get the week and year
+				var year = date.year();
+				var week = date.week();
+				
+				// If the current week weight hasn't been measured yet, 
+				// then create an empty one
+				if (data.weights[0].weekOfYear != week) data.weights.unshift({weekOfYear: week, year: year, weight: null});
+				
+				// Add the first #scope.weeks elements
+				scope.weights = data.weights.splice(0, scope.weeks);
+				
+				// Remove the first value if the weight is null
+				// So that it's not drawn on the graph
+				if (scope.weights[0].weight == null) scope.weights.splice(0, 1);
+
+				// Reverse the array
+				scope.weights.reverse();
+				
+			}
+			
+			/**
+			 * Calculates the average number of calories per week. 
+			 * Takes the info from the meals per day saved in scope.meals
+			 * 
+			 * Note that the week goes from FRIDAY to FRIDAY, since the weight is always measured on a friday!
+			 * 
+			 * Also EXCLUDE the current day, since it would fake the statistics
+			 */
+			var calculateAverageCaloriesPerWeek = function() {
+				
+				// Create a Map of weeks
+				var weeks = new Map();
+				
+				// Create the map of <week, calories>
+				for (let meal of scope.meals.values()) {
+					
+					// Exclude the meal if it's today, since it would fake the statistics
+					if (moment().format('YYYYMMDD') == meal.date) continue;
+					
+					// Find the week of the meal
+					meal.week = findWeek(meal.date);
+					
+					// Add the calories to the map of weeks
+					var week = weeks.get(meal.week);
+					
+					if (week == null) weeks.set(meal.week, {calories: meal.calories, days: 1, week: meal.week});
+					else {week.calories += meal.calories; week.days++;}
+					
+				}
+				
+				// Create the scope variable that will contain the stats
+				scope.caloriesData = [];
+				
+				// Go over the map and calculate the averages
+				for (let week of weeks.values()) {
+					
+					// Calculate average
+					week.averageCalories = week.calories / week.days;
+					
+					// Add to graph data
+					scope.caloriesData.push(week);
+				}
+				
+			}
+			
+			/**
+			 * Finds the week for the specific YYYYMMDD date. 
+			 * 
+			 * Note that the week goes from FRIDAY to FRIDAY, since the weight is always measured on a friday!
+			 */
+			var findWeek = function(date) {
+				
+				var d = moment(date);
+
+				// If d is a friday than move forward two days and if it's a friday move forward one day
+				// since the week starts on FRIDAY for what concerns the weight
+				if (d.day() == 5) d.add(2, 'days');
+				else if (d.day() == 6) d.add(1, 'days');
+				
+				// Return the week
+				return d.week();
+			}
+			
+			getMeals();
+		}
+	}
+});
 
 /**
  * Weekly Graph
@@ -416,20 +865,25 @@ dietDirectivesModule.directive('dietWeeklyGraph', function(DietService, $timeout
 			
 			/**
 			 * Retrieves the meals of the week 
+			 * 
+			 * Consider that the week starts on FRIDAY since that's when the 
+			 * weight is taken
 			 */
 			var getMeals = function() {
 				
-				var startOfWeek = moment();
+				var date = moment();
 				
-				// If today is sunday, remove one day
-				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.subtract(1, 'days');
+				// If today is friday or saturday, move to the sunday cause we're already
+				// in the new week
+				if (date.day() == 5 || date.day() == 6) date = date.add(7 - date.day(), 'days');
+
+				// Go to the sunday start of the week
+				date = date.startOf('week');
 				
-				startOfWeek = startOfWeek.startOf('week');
+				// Go to the previous friday, since that's the start of the weight week
+				date = date.subtract(2, 'days');
 				
-				// Add one day if the start of the week is a sunday
-				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.add(1, 'days');
-				
-				DietService.getMealsPerDay(startOfWeek.format('YYYYMMDD')).then(function(data) {
+				DietService.getMealsPerDay(date.format('YYYYMMDD')).then(function(data) {
 					
 					scope.mealsStats = data;
 					
@@ -478,21 +932,26 @@ dietDirectivesModule.directive('dietWeeklyInfo', ['DietService', '$timeout', '$r
 			 */
 			scope.getMeals = function() {
 
+				var date = moment();
 				
-				var startOfWeek = moment();
+				// If today is friday or saturday, move to the sunday cause we're already
+				// in the new week
+				if (date.day() == 5 || date.day() == 6) date = date.add(7 - date.day(), 'days');
+
+				// Go to the sunday start of the week
+				date = date.startOf('week');
 				
-				// If today is sunday, remove one day
-				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.subtract(1, 'days');
+				// Go to the previous friday, since that's the start of the weight week
+				date = date.subtract(2, 'days');
 				
-				startOfWeek = startOfWeek.startOf('week');
-				
-				// If start of week is sunday, add one day
-				if (startOfWeek.day() == 0) startOfWeek = startOfWeek.add(1, 'days');
-				
-				DietService.getMealsPerDay(startOfWeek.format('YYYYMMDD')).then(function(data) {
+				DietService.getMealsPerDay(date.format('YYYYMMDD')).then(function(data) {
 					
 					scope.mealsStats = data;
 					
+					// Remove today since it would fake the average
+					scope.mealsStats.delete(moment().format('YYYYMMDD'));
+					
+					// Calculate the averages
 					calculateAverages();
 				});
 				
