@@ -63,9 +63,11 @@ toto-value {margin: 12px 0;}
  ***************************************************/
 toto-button {outline: none; margin: 12px 0;}
 toto-button .icon-container {border: 2px solid #FFEB3B; border-radius: 50%; padding: 12px;}
-toto-button.sm {padding-top: 6px;}
-toto-button.sm .icon-container {padding: 6px;}
 toto-button.l .icon-container {padding: 24px;}
+toto-button.sm .icon-container {padding: 6px;}
+toto-button.xs .icon-container {padding: 3px;}
+toto-button.xs .icon-container md-icon {width: 18px; height: 18px;}
+toto-button.sm {padding-top: 6px;}
 toto-button .icon-container md-icon {fill: #FFEB3B;}
 toto-button .toto-label {margin: 12px 0 0 0;}
 toto-button[accent="false"] {opacity: 0.5;}
@@ -99,7 +101,8 @@ toto-timepicker .time {min-width: 24px;}
  * DIRECTIVE - TOTO-LIST
  ***************************************************/
 toto-list {overflow-y: scroll;}
-toto-list .item {margin: 9px 24px;}
+toto-list .item {margin: 12px 24px; position: relative; outline: none;}
+toto-list .item.greyed {opacity: 0.5;}
 toto-list .item.no-item {opacity: 0.5;}
 toto-list .item .avatar {border-width: 2px; border-style: solid; border-radius: 50%; padding: 6px; margin-right: 12px;}
 toto-list .item .avatar md-icon {}
@@ -108,6 +111,12 @@ toto-list .dates-container {margin-right: 24px;}
 toto-list .dates-container .date-container {text-align: center;}
 toto-list .dates-container .date-container .day {font-size: 1.3em; font-weight: 400;}
 toto-list .dates-container .date-container .month {font-size: 0.7em; text-transform: uppercase;}
+toto-list .single-date-container {margin-right: 12px; text-align: center; outline: none;}
+toto-list .single-date-container .day {}
+toto-list .single-date-container .month {text-transform: uppercase;}
+toto-list .actions-container {position: absolute; right: 0; background: rgba(0,0,0,0.5); padding: 0 12px; border-radius: 12px;}
+toto-list .actions-container toto-button {margin: 6px;}
+
  
 /****************************************************
  * DIRECTIVE - FORM - TOTO NEXT STEP

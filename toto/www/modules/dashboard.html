@@ -42,19 +42,20 @@
 		
 			<div class="swiper-slide" layout="column">
 	
-				<toto-header title="Payments"></toto-header>		
+				<toto-header title="Payments"></toto-header>
 				
-				<expenses-total type="month"></expenses-total>
-
-				<toto-value type="number" value="190" unit="&euro;" accent="true" size="toto-m" scale="2" label="Total this week"></toto-value>				
+				<toto-slides-container>
+					<toto-slide name="payMonthSlide" primary="true">
+						<expenses-month-info></expenses-month-info>
+						<expenses-month-graph></expenses-month-graph>
+					</toto-slide>
+					<toto-slide name="payYearSlide">
+					</toto-slide>
+					<toto-slide name="payExpensesListSlide">
+						<expenses-list></expenses-list>
+					</toto-slide>
+				</toto-slides-container>		
 				
-				<toto-value type="number" value="54.19" unit="&euro;" label="Total today" scale="2" size="toto-s"></toto-value>
-				
-				<div flex></div>
-				
-				<div style="min-height: 240px;" flex layout="row">
-					<expenses-graph-liquid></expenses-graph-liquid>
-				</div>
 			</div>
 			
 		</div>

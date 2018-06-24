@@ -52,9 +52,9 @@ toto-chimp #expenses #expenses-container .list .list-item {color: rgba(255, 255,
 toto-chimp #expenses #expenses-container .list .list-item .avatar {background: transparent; width: 48px; height: 48px;}
 toto-chimp #expenses #expenses-container .list .list-item .avatar md-icon {fill: rgba(255, 255, 255, 0.6);} 
 
-#expenses-add-expense .type-container {margin-top: 24px; color: rgba(255,255,255,0.87);}
+#expenses-add-expense .type-container {margin-top: 24px;}
 #expenses-add-expense .type-container .type {margin: 0 24px;}
-#expenses-add-expense .type-container .type md-icon {width: 48px; height: 48px; fill: white;}
+#expenses-add-expense .type-container .type md-icon {width: 48px; height: 48px; }
 #expenses-add-expense .type-container .type .name {margin-top: 24px; font-size: 1.2em;}
 #expenses-add-expense .category-picker {margin: 0 -24px; }
 #expenses-add-expense .category-picker-title {height: 40px; box-sizing: border-box; text-align: center; font-size: 16px; padding-top: 16px; color: #6F6E6E; background-color: #FFCDD2; margin: 0 -24px;}

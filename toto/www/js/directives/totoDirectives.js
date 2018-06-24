@@ -76,10 +76,20 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
  * - extractor		:	the data extractor that will retrieve the info to put in the row. 
  * 						the data extractor is a function(item) that returns, for every item of the dataset, an object describing the row. 
  * 						the object has to be: 
- * 						{ 	avatar: 'path of an svg image' (optional) (string),
+ * 						{ 	id: (optional) a unique identifier of the item
+ * 							avatar: 'path of an svg image' (optional) (string),
+ * 							date: a date object
  * 							dateRange: an object containing a range of dates: {start: Date, end: Date}
  * 							title: 'the title, which is the long textual part of the list item' (string),
- * 							subtitle: (optional) 'the subtitle, that will be put under the title' (string)
+ * 							subtitle: (optional) 'the subtitle, that will be put under the title' (string),
+ * 							number: an object 
+ * 									{value: num, scale: num, unit: (optional string), accent: 'true' to show the number in accent color} 
+ * 									that represent a number to show
+ * 							actions: an [] of possible actions on the item
+ * 									each action is an object
+ * 									{svg: 'path of svg image of the action', action: a function that will receive the item, closeMenu: boolean (if true, this action is the standard one to close the items actions menu)}
+ * 									if this functionality is used the ID FIELD MUST BE PASSED 
+ * 							greyed: (optional, default false) true to grey out this row
  * 						}
  * 
  * - stepOnSelect	:	(optional, default = false) Use this to go to the next toto-form step
@@ -112,10 +122,24 @@ totoDirectivesModule.directive('totoList', function($rootScope, $window, $compil
 			 */
 			scope.reactToRowClick = function(item) {
 				
+				// If the items has actions associated to it, show them 
+				if (item.actions != null) {scope.showItemActions(item);}
+				
 				// Note that it's the original json object that is being passed back to the on-click callback
 				if (scope.onClick) scope.onClick(item.original);
 				
 				if (scope.stepOnSelect) TotoEventBus.publishEvent({name: 'formStepCompleted', context: {source: el[0]}});
+				
+			}
+			
+			/**
+			 * Show the item actions buttons
+			 */
+			scope.showItemActions = function(item) {
+				
+				if (item.actions == null || item.actions.length == 0) return;
+				
+				item.showActions = item.showActions == null ? true : !item.showActions;
 			}
 			
 			// Whenever the dataset changes, update
@@ -168,6 +192,7 @@ totoDirectivesModule.directive('totoButton', function($rootScope, $window) {
 			
 			if (scope.size == 's') el[0].classList.add('sm');
 			if (scope.size == 'l') el[0].classList.add('l');
+			if (scope.size == 'xs') el[0].classList.add('xs');
 			
 			scope.accent = (scope.accent == 'false') ? false : true;   
 		}

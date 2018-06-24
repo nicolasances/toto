@@ -139,7 +139,7 @@ expensesModule.directive('expensesTopSpendingCategories', ['expensesService', '$
  *  -	onSelect		:	a callback(expense) for the selection of an expense
  * 
  */
-expensesModule.directive('expensesList', ['expensesService', '$timeout', '$mdDialog', function(expensesService, $timeout, $mdDialog) {
+expensesModule.directive('expensesList2', ['expensesService', '$timeout', '$mdDialog', function(expensesService, $timeout, $mdDialog) {
 	
 	return {
 		scope: {

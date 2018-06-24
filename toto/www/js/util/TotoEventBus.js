@@ -1,7 +1,8 @@
 
 var TotoEvents = ['slideNavigationRequested', 'formStepCompleted',
                   'dietMealAdded',
-                  'gymUIDaySelected', 'gymUIDayUnselected', 'gymSessionStarted', 'gymSessionResumed', 'gymSessionDeleted', 'gymSessionCompleted'];  
+                  'gymUIDaySelected', 'gymUIDayUnselected', 'gymSessionStarted', 'gymSessionResumed', 'gymSessionDeleted', 'gymSessionCompleted',
+                  'expenseCreated', 'expenseDeleted', 'expenseConsolidated'];  
 
 var TotoEventBus = {
 		

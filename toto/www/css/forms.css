@@ -1,9 +1,9 @@
 
 .toto-form {overflow: scroll; -webkit-overflow-scrolling: touch; }
-.toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.87; color: white;}
+.toto-form .title {text-align: center; padding: 12px 0 24px 0; font-size: 1.4em; opacity: 0.87;}
 
 .toto-form .toto-input-container {margin: 12px;}
-.toto-form .toto-input-container label {font-size: 1em; color: white; display: block;}
+.toto-form .toto-input-container label {font-size: 1em; display: block;}
 .toto-form .toto-input-container span.label {font-size: 1em; color: rgba(0, 0, 0, 0.5);}
 .toto-form .toto-input-container input {font-size: 1.2em; opacity: 0.8; padding: 6px; border-radius: 4px; border: 1px solid #D8D8D8; margin-top: 3px;}
 .toto-form .toto-input-container input.small {max-width: 60px;}
@@ -52,7 +52,7 @@ toto-form .toto-alternatives-picker .alternative.selected {color: rgba(0,0,0,0.8
  ***************************/
 .toto-form .toto-input-container md-datepicker {}
 .toto-form .toto-input-container md-datepicker button {background-color: transparent;}
-.toto-form .toto-input-container md-datepicker button md-icon {fill: white;}
+.toto-form .toto-input-container md-datepicker button md-icon {}
 .toto-form .toto-input-container .md-datepicker-input-container {border-bottom: none;}
 .toto-form .toto-input-container .md-datepicker-input-container .md-datepicker-triangle-button {display: none;}
 
