@@ -850,6 +850,7 @@ dietDirectivesModule.directive('dietWeeklyGraph', function(DietService, $timeout
 				
 				g.selectAll('.bar').data(data)
 					.transition(300)
+					.attr('height', function(d) {return y(d.calories)})
 					.attr('y', function(d) {return containerHeight - y(d.calories)});
 					
 				// Draw the text displaying the CALORIES
@@ -860,7 +861,13 @@ dietDirectivesModule.directive('dietWeeklyGraph', function(DietService, $timeout
 					.attr('fill', accentColor)
 					.attr('x', function(d, i) {return x(i) + x.bandwidth() / 2})
 					.attr('y', function(d) {return containerHeight - y(d.calories) - 12})
+					.text(function(d) {return d3.format(',')(d.calories.toFixed(0))});
+				
+				g.selectAll('.text').data(data)
+					.transition(300)
+					.attr('y', function(d) {return containerHeight - y(d.calories) - 12})
 					.text(function(d) {return d3.format(',')(d.calories.toFixed(0))})
+
 			}
 			
 			/**
@@ -892,6 +899,14 @@ dietDirectivesModule.directive('dietWeeklyGraph', function(DietService, $timeout
 				});
 				
 			}
+
+			/**
+			 * Subscribe to 'dietMealAdded' event and update the data when received
+			 */
+			TotoEventBus.subscribeToEvent('dietMealAdded', function(event) {
+				
+				getMeals();
+			});
 			
 			getMeals();
 		}

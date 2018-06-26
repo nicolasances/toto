@@ -351,10 +351,12 @@ expensesDirectivesModule.directive('expensesList', function(expensesService) {
 			var consolidateExpense = function(item) {
 				
 				// Consolidate expense
-				expensesService.setExpenseConsolidated(item.id);
-				
-				// Send the expenseConsolidated event
-				TotoEventBus.publishEvent({name: 'expenseConsolidated', context: {expenseId: item.id}});
+				expensesService.setExpenseConsolidated(item.id).success(function(data) {
+					
+					// Send the expenseConsolidated event
+					TotoEventBus.publishEvent({name: 'expenseConsolidated', context: {expenseId: item.id}});
+					
+				});
 			}
 			
 			/**
