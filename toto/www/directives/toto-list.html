@@ -1,4 +1,8 @@
 
+<div ng-show="title != null" ng-class="['title', 'toto-xs']">
+	{{title}}
+</div>
+
 <div ng-class="['item', item.greyed ? 'greyed' : '']" layout="row" ng-repeat="item in items" ng-click="reactToRowClick(item)">
 	
 	<!-- Avatar -->
@@ -9,7 +13,7 @@
 	</div>
 	
 	<!-- Date container -->
-	<div class="single-date-container" layout="column">
+	<div class="single-date-container" ng-show="item.date != null" layout="column">
 		<div flex></div>
 		<div class="day toto-s">{{item.date | date : 'd'}}</div>
 		<div class="month toto-xs">{{item.date | date : 'MMM'}}</div>

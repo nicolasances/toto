@@ -96,6 +96,8 @@ totoDirectivesModule.directive('totoValue', function($rootScope, $window) {
  * 						Only works if this list is embedded in a <toto-step> item
  * 						If passed "true", selecting an item on the list will also trigger an event to move to the next step of the form
  * 
+ * - title			:	(optional) title of the list, to put on top of it
+ * 
  */
 totoDirectivesModule.directive('totoList', function($rootScope, $window, $compile) {
 	
@@ -105,7 +107,8 @@ totoDirectivesModule.directive('totoList', function($rootScope, $window, $compil
 			onClick		: '=',
 			dataset 	: '=',
 			extractor 	: '=',
-			stepOnSelect: '@'
+			stepOnSelect: '@',
+			title		: '@'
 		},
 		templateUrl: 'directives/toto-list.html',
 		link : function(scope, el) {

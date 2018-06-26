@@ -106,7 +106,7 @@ toto-list .item.greyed {opacity: 0.5;}
 toto-list .item.no-item {opacity: 0.5;}
 toto-list .item .avatar {border-width: 2px; border-style: solid; border-radius: 50%; padding: 6px; margin-right: 12px;}
 toto-list .item .avatar md-icon {}
-toto-list .item .title {}
+toto-list .item .title {margin: 0;}
 toto-list .dates-container {margin-right: 24px;}
 toto-list .dates-container .date-container {text-align: center;}
 toto-list .dates-container .date-container .day {font-size: 1.3em; font-weight: 400;}
@@ -116,6 +116,7 @@ toto-list .single-date-container .day {}
 toto-list .single-date-container .month {text-transform: uppercase;}
 toto-list .actions-container {position: absolute; right: 0; background: rgba(0,0,0,0.5); padding: 0 12px; border-radius: 12px;}
 toto-list .actions-container toto-button {margin: 6px;}
+toto-list .title {margin: 12px 24px;}
 
  
 /****************************************************
