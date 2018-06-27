@@ -1,4 +1,10 @@
 
-<toto-value label="month" value="currentMonth" type="string" accent="true" size="toto-l"></toto-value>
+<div layout="row">
+	<div flex></div>
+	<toto-button svg="images/svg/arrow-left.svg" size="s" style="margin-right: 24px; margin-top: 19px;" ng-click="previousMonth()"></toto-button>
+	<toto-value label="month" value="currentMonth" type="string" accent="true" size="toto-l"></toto-value>
+	<toto-button svg="images/svg/arrow-right.svg" size="s" style="margin-left: 24px; margin-top: 19px;" ng-click="nextMonth()"></toto-button>
+	<div flex></div>
+</div>
 
 <toto-list title="Your credit cards" dataset="cards" extractor="cardInfoExtractor"></toto-list>

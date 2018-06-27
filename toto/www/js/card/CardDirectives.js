@@ -50,11 +50,36 @@ CardDirectivesModule.directive('creditCardInfo', function(CardService, expensesS
 			el[0].classList.add('layout-column');
 			
 			// Define the current month
-			scope.currentDate = new Date();
 			scope.currentMonth = moment().format('MMMM YY');
 			
 			// Define the month to query
-			var yearMonth = moment(scope.currentDate).format('YYYYMM');
+			var yearMonth = moment().format('YYYYMM');
+			
+			/**
+			 * Move the scope to the previous month
+			 */
+			scope.previousMonth = function() {
+				
+				var newDate = moment(yearMonth + '01', 'YYYYMMDD').subtract(1, 'months');
+				
+				scope.currentMonth = moment(newDate).format('MMMM YY');
+				yearMonth = moment(newDate).format('YYYYMM');
+				
+				getCards();
+			}
+			
+			/**
+			 * Move the scope to the next month
+			 */
+			scope.nextMonth = function() {
+				
+				var newDate = moment(yearMonth + '01', 'YYYYMMDD').add(1, 'months');
+				
+				scope.currentMonth = moment(newDate).format('MMMM YY');
+				yearMonth = moment(newDate).format('YYYYMM');
+				
+				getCards();
+			}
 			
 			/**
 			 * Get the cards
