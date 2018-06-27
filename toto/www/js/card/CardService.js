@@ -76,6 +76,14 @@ cardServiceModule.factory('CardService', [ '$http', '$rootScope', '$location', '
 		},
 		
 		/**
+		 * Retrieves the expenses of the specified card in the specified year and month
+		 */
+		getExpenses : function(cardId, yearMonth) {
+			
+			return expensesService.getExpenses({cardId: cardId, cardMonth: yearMonth.substring(4), cardYear: yearMonth.substring(0, 4)});
+		},
+		
+		/**
 		 * Retrieves the current month's expenses total for the given card
 		 */
 		getExpensesTotal : function(cardId, yearMonth) {

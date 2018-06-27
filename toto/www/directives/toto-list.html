@@ -47,7 +47,7 @@
 	</div>
 	
 	<!-- Number -->
-	<div layout="column">
+	<div layout="column" ng-if="!item.showActions">
 		<div flex></div>
 		<div ng-class="['center', item.number.accent == 'true' ? 'text-accent' : '']">{{item.number.unit}} {{item.number.value | number : item.number.scale}}</div>
 		<div flex></div>

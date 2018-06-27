@@ -48,6 +48,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			if (filter.subscriptionId != null) {if (params != '') params += '&'; params += 'subscriptionId=' + filter.subscriptionId}
 			if (filter.cardId != null) {if (params != '') params += '&'; params += 'cardId=' + filter.cardId}
 			if (filter.cardMonth != null) {if (params != '') params += '&'; params += 'cardMonth=' + filter.cardMonth}
+			if (filter.cardYear != null) {if (params != '') params += '&'; params += 'cardYear=' + filter.cardYear}
 			
 			return $http.get(microservicesProtocol + "://" + microservicesUrl + "/expenses/expenses?sortDate=true&sortDesc=true&" + params);
 
@@ -332,7 +333,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 		 *  - creationCallback: a function(promise) that will receive the promise of the http call to create the expense (returning data.id)
 		 *  - creditCardId: the identifier of the credit card on which this payment is debted
 		 */
-		addCreditCardExpense : function(ev, creditCardId, insertionCallback, creationCallback) {
+		addCreditCardExpense : function(creditCardId, insertionCallback, creationCallback) {
 
 			var categories;
 			getCategories = function(callback) {
@@ -374,7 +375,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 			getCategories(function() {
 				
 				var useFullScreen = window.matchMedia( "(max-width: 960px)" ).matches;
-				var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgAddCreditCardExpense.html', parent: angular.element(document.body), targetEvent: ev, clickOutsideToClose: true, fullscreen: useFullScreen};
+				var dialog = {controller: DialogController, templateUrl: 'modules/expenses/dlgAddCreditCardExpense.html', parent: angular.element(document.body), clickOutsideToClose: true, fullscreen: useFullScreen};
 				
 				$mdDialog.show(dialog).then(function(answer) {
 					
@@ -387,6 +388,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 					expense.consolidated = false;
 					expense.cardId = creditCardId;
 					expense.cardMonth = moment(answer.date).format('MM');
+					expense.cardYear = moment(answer.date).format('YYYY');
 					expense.currency = answer.currency;
 					
 					var data = {
@@ -398,6 +400,7 @@ expensesServiceModule.factory('expensesService', [ '$http', '$mdDialog', functio
 							consolidated: false,
 							cardId: creditCardId,
 							cardMonth: moment(answer.date).format('MM'),
+							cardYear: moment(answer.date).format('YYYY'),
 							currency: answer.currency
 					};
 					
