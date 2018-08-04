@@ -42,6 +42,7 @@ var totoModule = angular.module("toto", [
 
 			// 2. Add Google Id Token
 			config.headers['GoogleIdToken'] = googleIdToken;
+			config.headers['Authorization'] = 'Basic ' + apiBasicAuthToken;
 			
 			return config;
 		},
