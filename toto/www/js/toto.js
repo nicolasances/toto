@@ -143,6 +143,8 @@ var totoModule = angular.module("toto", [
 		}
 
 		setTimeout(function() {
+			
+			console.log('scrolling....');
 
 			// Perform autoscroll
 			window.scrollTo(0, 1);
