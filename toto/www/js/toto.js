@@ -135,9 +135,14 @@ var totoModule = angular.module("toto", [
 	$rootScope.screenIsDesktop = $mdMedia('gt-sm');
 	
 	$scope.hideAddressBar = function() {
+			
+		if(document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
+			// Extend body height to overflow and cause scrolling
+			bodyTag = document.getElementsByTagName('body')[0];
+			bodyTag.style.height = document.documentElement.clientWidth / screen.width * screen.height + 'px'; // Viewport height at fullscreen
+		}
+
 		setTimeout(function() {
-			// Already scrolled?
-			if(window.pageYOffset !== 0) return;
 
 			// Perform autoscroll
 			window.scrollTo(0, 1);
