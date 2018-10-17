@@ -134,6 +134,23 @@ var totoModule = angular.module("toto", [
 	$rootScope.gtXs = $mdMedia('gt-xs');
 	$rootScope.screenIsDesktop = $mdMedia('gt-sm');
 	
+	$scope.hideAddressBar = function() {
+		setTimeout(function() {
+			// Already scrolled?
+			if(window.pageYOffset !== 0) return;
+
+			// Perform autoscroll
+			window.scrollTo(0, 1);
+
+			// Reset body height and scroll
+			if(bodyTag !== undefined) bodyTag.style.height = window.innerHeight + 'px';
+			
+			window.scrollTo(0, 0);
+		}, 1000);
+	}
+	
+	$scope.hideAddressBar();
+	
 })
 .config(function($httpProvider, $routeProvider, $locationProvider) {
 	
