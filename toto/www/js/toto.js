@@ -18,6 +18,16 @@ var totoAppList = [
 	{id: 'partner', title: 'Couple', svg: 'images/svg/couple.svg', authorized: false}
 ];
 
+var cid = function() {
+
+	let ts = moment().format('YYYYMMDDHHmmssSSS');
+
+	let random = (Math.random() * 100000).toFixed(0).padStart(5, '0');
+
+	return ts + '-' + random;
+
+}
+
 //navigator.geolocation.getCurrentPosition(function(position) {console.log(position);});
 
 var totoModule = angular.module("toto", [ 
@@ -43,6 +53,7 @@ var totoModule = angular.module("toto", [
 			// 2. Add Google Id Token
 			config.headers['GoogleIdToken'] = googleIdToken;
 			config.headers['Authorization'] = 'Basic ' + apiBasicAuthToken;
+			config.headers['x-correlation-id'] = cid();
 			
 			return config;
 		},
