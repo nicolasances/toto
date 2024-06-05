@@ -12,4 +12,4 @@ The following guides go through the basics workings of how infrastructure and se
 ### 1.2. Creating a new Microservice
 The following guides explain how to create a new Microservice in Toto.
 
-* [Creating a new Microservice on AWS]
+* [Creating a new Microservice on AWS ECS](./docs/microservices/new-ms-aws-ecs.md)
