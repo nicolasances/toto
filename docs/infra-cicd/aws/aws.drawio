@@ -1,0 +1,280 @@
+<mxfile host="65bd71144e">
+    <diagram id="fhjYu4R2ms9kzvXfRBuN" name="Overview">
+        <mxGraphModel dx="1465" dy="1006" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="AWS Account" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="40" width="330" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Github" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="40" width="320" height="650" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="toto-aws-terra&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Github Repo]&lt;br&gt;&lt;br&gt;Contains the Terraform modules for the Core Infrastructure of Toto on AWS.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="205" y="100" width="270" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="toto-ms-xxx&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Github Repo]&lt;br&gt;&lt;br&gt;Contains a Toto Microservice code and the Terraform definitions that are needed for the specific service.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=3;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="205" y="380" width="270" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Terraform Cloud Platform&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[SaaS Platform]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="40" width="310" height="530" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=13;" parent="1" source="11" target="19" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-33" value="manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="26" vertex="1" connectable="0">
+                    <mxGeometry x="0.1201" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-12" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-37" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#030101;strokeWidth=1;fontSize=13;endArrow=none;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="11" target="15" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="toto-aws-terra-dev&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for Toto AWS &lt;b&gt;dev &lt;/b&gt;environment.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="100" width="270" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;fontSize=13;" parent="1" source="12" target="25" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-34" value="manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="27" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1466" y="2" relative="1" as="geometry">
+                        <mxPoint y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-36" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#030101;strokeWidth=1;fontSize=13;endArrow=none;endFill=0;" parent="1" source="12" target="16" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="toto-aws-terra-prod&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for Toto AWS prod environment.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="210" width="270" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-41" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;strokeColor=#030101;strokeWidth=3;fontSize=13;endArrow=blockThin;endFill=1;" parent="1" source="13" target="19" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1170" y="375"/>
+                            <mxPoint x="1220" y="340"/>
+                            <mxPoint x="1220" y="175"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-43" value="updates microservice-specific &lt;br&gt;infrastructure on" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="zcaGxBxZIqHkfJp7pXnZ-41" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6292" y="2" relative="1" as="geometry">
+                        <mxPoint x="26" y="-8" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="toto-ms-xxx-dev&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for a Toto Microservice dev environment&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="320" width="270" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="toto-ms-xxx-prod&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for a Toto Microservice prod environment&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="440" width="270" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="main&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="220" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="prod&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="290" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Dev Environment&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="895" y="100" width="285" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="toto-dev-vpc&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=middle;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="141" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="...&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=middle;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="141" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Prod Environment&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="895" y="210" width="285" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="...&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=middle;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1040" y="251" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="toto-prod-vpc&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=middle;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="910" y="251" width="120" height="39" as="geometry"/>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-38" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#030101;strokeWidth=3;fontSize=13;endArrow=blockThin;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="28" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="510" y="550"/>
+                            <mxPoint x="510" y="375"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-40" value="triggers" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="zcaGxBxZIqHkfJp7pXnZ-38" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1592" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-39" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#030101;strokeWidth=3;fontSize=13;endArrow=blockThin;endFill=1;" parent="1" source="28" target="19" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="530" y="580"/>
+                            <mxPoint x="870" y="580"/>
+                            <mxPoint x="1230" y="350"/>
+                            <mxPoint x="1230" y="150"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zcaGxBxZIqHkfJp7pXnZ-42" value="builds and deploys microservice to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="zcaGxBxZIqHkfJp7pXnZ-39" vertex="1" connectable="0">
+                    <mxGeometry x="-0.8904" y="1" relative="1" as="geometry">
+                        <mxPoint x="91" y="13" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="feature/xx&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="520" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="release&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="590" width="240" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="teaYUjEHEWXtUzHriYjT" name="Core Infrastructure Flow">
+        <mxGraphModel dx="1465" dy="1006" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="hFucZXE6LGQ_h5fM6XlO-1" value="Github" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="270" y="40" width="310" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="julpRGD8EBtH_G2or8Mp-1" value="toto-aws-terra&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Github Repo]&lt;br&gt;&lt;br&gt;Contains the Terraform modules for the Core Infrastructure of Toto on AWS.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="80" width="270" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="julpRGD8EBtH_G2or8Mp-4" style="edgeStyle=none;html=1;fontSize=13;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="julpRGD8EBtH_G2or8Mp-3" target="FtsVief7czh0y0K6rRxD-1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="julpRGD8EBtH_G2or8Mp-5" value="push&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="julpRGD8EBtH_G2or8Mp-4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.6181" y="1" relative="1" as="geometry">
+                        <mxPoint x="19" y="-19" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <object placeholders="1" c4Name="Developer" c4Type="Person" c4Description="Toto Dev" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="julpRGD8EBtH_G2or8Mp-3">
+                    <mxCell style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" parent="1" vertex="1">
+                        <mxGeometry x="30" y="140" width="200" height="180" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="Zcfvju7OCOAKOFloyYXC-1" value="Terraform Cloud Platform&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[SaaS Platform]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="40" width="310" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="EHg1DdS8HGTIW3GACq6L-4" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=13;" parent="1" source="EHg1DdS8HGTIW3GACq6L-8" target="FtsVief7czh0y0K6rRxD-1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="EHg1DdS8HGTIW3GACq6L-7" value="gets triggered &lt;br&gt;by" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="EHg1DdS8HGTIW3GACq6L-4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0124" y="-4" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Zcfvju7OCOAKOFloyYXC-2" value="toto-aws-terra-dev&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for Toto AWS &lt;b&gt;dev &lt;/b&gt;environment.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="100" width="270" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="FtsVief7czh0y0K6rRxD-1" value="main&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="305" y="200" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="EHg1DdS8HGTIW3GACq6L-1" value="prod&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="305" y="270" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="EHg1DdS8HGTIW3GACq6L-8" value="Plan &amp;amp; Apply&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[run]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="675" y="200" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uNgULeC6JaH8RASiiKNX-1" value="AWS Account" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="990" y="40" width="330" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="uNgULeC6JaH8RASiiKNX-2" value="Dev Environment&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="1015" y="100" width="285" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="uNgULeC6JaH8RASiiKNX-3" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=13;" parent="1" source="EHg1DdS8HGTIW3GACq6L-8" target="uNgULeC6JaH8RASiiKNX-2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="960" y="230"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="uNgULeC6JaH8RASiiKNX-4" value="updates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" parent="uNgULeC6JaH8RASiiKNX-3" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1109" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="Microservice Flow" id="30JZS5BNsHOh1dbvoYXe">
+        <mxGraphModel dx="1465" dy="1006" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-0"/>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-1" parent="K0_KULJbYQNdVW8Gngvq-0"/>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-2" value="Github" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="270" y="40" width="310" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-3" value="toto-ms-xxx&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Github Repo]&lt;br&gt;&lt;br&gt;Contains the Terraform modules for the Core Infrastructure of Toto on AWS.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="290" y="80" width="270" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-4" style="edgeStyle=none;html=1;fontSize=13;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="K0_KULJbYQNdVW8Gngvq-1" source="K0_KULJbYQNdVW8Gngvq-6" target="K0_KULJbYQNdVW8Gngvq-11">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-5" value="push&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="K0_KULJbYQNdVW8Gngvq-4">
+                    <mxGeometry x="-0.6181" y="1" relative="1" as="geometry">
+                        <mxPoint x="19" y="-19" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <object placeholders="1" c4Name="Developer" c4Type="Person" c4Description="Toto Dev" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;%c4Name%&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[%c4Type%]&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;&lt;font color=&quot;#cccccc&quot;&gt;%c4Description%&lt;/font&gt;&lt;/div&gt;" id="K0_KULJbYQNdVW8Gngvq-6">
+                    <mxCell style="html=1;fontSize=11;dashed=0;whiteSpace=wrap;fillColor=#083F75;strokeColor=#06315C;fontColor=#ffffff;shape=mxgraph.c4.person2;align=center;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];resizable=0;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                        <mxGeometry x="30" y="140" width="200" height="180" as="geometry"/>
+                    </mxCell>
+                </object>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-7" value="Terraform Cloud Platform&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[SaaS Platform]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="640" y="40" width="310" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-10" value="toto-ms-xxx-dev&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Workspace]&lt;br&gt;&lt;br&gt;Workspace for Toto Microservice XXX&amp;nbsp;&lt;b&gt;dev&lt;/b&gt;.&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="660" y="100" width="270" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="-FnRcH2LslOIeU5sz2Ml-0" style="edgeStyle=none;html=1;endArrow=block;endFill=1;" edge="1" parent="K0_KULJbYQNdVW8Gngvq-1" source="K0_KULJbYQNdVW8Gngvq-11" target="K0_KULJbYQNdVW8Gngvq-13">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="-FnRcH2LslOIeU5sz2Ml-1" value="triggers" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="-FnRcH2LslOIeU5sz2Ml-0">
+                    <mxGeometry x="-0.4338" y="-1" relative="1" as="geometry">
+                        <mxPoint x="28" y="-11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-11" value="feature/xx&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="305" y="200" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-12" value="release/xx&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[Branch]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="305" y="270" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-13" value="Plan &amp;amp; Apply&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;[run]&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="675" y="200" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-14" value="AWS Account" style="rounded=1;whiteSpace=wrap;html=1;arcSize=2;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="990" y="40" width="330" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-15" value="Dev Environment&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fontSize=16;" vertex="1" parent="K0_KULJbYQNdVW8Gngvq-1">
+                    <mxGeometry x="1015" y="100" width="285" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-16" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=13;" edge="1" parent="K0_KULJbYQNdVW8Gngvq-1" source="K0_KULJbYQNdVW8Gngvq-13" target="K0_KULJbYQNdVW8Gngvq-15">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="960" y="230"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="K0_KULJbYQNdVW8Gngvq-17" value="updates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" vertex="1" connectable="0" parent="K0_KULJbYQNdVW8Gngvq-16">
+                    <mxGeometry x="-0.1109" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="-FnRcH2LslOIeU5sz2Ml-2" value="bulds and deploys microservice to" style="edgeStyle=none;html=1;fontSize=12;endArrow=block;endFill=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="K0_KULJbYQNdVW8Gngvq-1" source="K0_KULJbYQNdVW8Gngvq-11" target="K0_KULJbYQNdVW8Gngvq-15">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1070" y="400" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="660" y="330"/>
+                            <mxPoint x="1158" y="330"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
