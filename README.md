@@ -3,19 +3,13 @@ This repo mostly serves as a **documentation repo**, providing guides for Toto a
 
 This page is an **Index** for all documentation related to Toto. 
 
-## Toto Architecture on AWS
-
-All documentation related to how Toto runs on AWS is available in these repos: 
-
-* [Toto AWS Architecture](./docs/microservices/aws-arch-ecs.md). This page explains the overall Microservice Architecture on AWS. 
-* [Toto AWS CI/CD Flow](./docs/infra-cicd/aws/aws.md). This page explains the CI/CD flow that allows to deploy **both** the AWS infrastructure and Toto Microservices.
-* [Deploying a Toto Microservice on AWS](./docs/microservices/new-ms-aws-ecs.md). This page explains how to deploy a new microservice on AWS.
-
-## Toto Architecture on GCP
-
-No documentation is available yet.
-
 ## Toto Cross-cloud Architecture
+
+Toto Microservices can be **deployed both on GCP and AWS**. <br>
+Check out: 
+* [Toto Microservice Template for Node](https://github.com/nicolasances/toto-node-template) - Follow this guide to create a Microservice in NodeJS and deploy it to AWS and GCP.
+
+<br>
 
 Since Toto runs across multiple Cloud Providers, some considerations and choices were made. These considerations are all documented in the following pages: 
 
