@@ -13,6 +13,9 @@ So where do we start?
     * [Toto Node Microservice Template](https://github.com/nicolasances/toto-node-template) - Best way to quickly boostrap a Toto Microservice in **Node**
     * [Toto Python Microservice Template](https://github.com/nicolasances/toto-python-ms-template) - Best way to quickly boostrap a Toto Microservice in **Python**
  
+* **MCP Servers** - Creating MCP Servers and integrating them in the Toto Ecosystem:
+   * [Python MCP Server using FastMCP](https://github.com/nicolasances/py-playground-mcp) - A Repo that shows how to create an MCP Server that exposes a Toto Microservice
+
 ## Examples
 These are some examples that can be used to see how Toto Microservices work: 
 
