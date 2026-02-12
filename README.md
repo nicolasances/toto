@@ -15,6 +15,12 @@ So where do we start?
  
 * **MCP Servers** - Creating MCP Servers and integrating them in the Toto Ecosystem:
    * [Python MCP Server using FastMCP](https://github.com/nicolasances/py-playground-mcp) - A Repo that shows how to create an MCP Server that exposes a Toto Microservice
+   * Note that the [Toto Microservice SDK](https://github.com/nicolasances/toto-microservice-sdk) supports creating MCP Servers directly in a Toto Microservice. 
+ 
+## Playgrounds
+The following projects and repos contain playgrounds or working demos of some of the concepts and applications in the Toto ecosystem. 
+
+- [Agentic Playground (NodeJS)](https://github.com/nicolasances/node-playground-agentic) - Shows how to create an MCP Client to use tools exposed by a remote MCP Server in Node.  
 
 ## Examples
 These are some examples that can be used to see how Toto Microservices work: 
